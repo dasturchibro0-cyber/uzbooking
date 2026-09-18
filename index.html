@@ -3,182 +3,2923 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UzBooking — Booking & Hotel Reservation</title>
-<meta name="description" content="UzBooking — O'zbekistonda mehmonxona va turar joylarni qidirish, solishtirish va online booking qilish platformasi.">
-<meta name="keywords" content="UzBooking, Uz Booking, Booking, booking Uzbekistan, hotel booking, mehmonxona booking, xona bron qilish">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://uzbooking.online/">
-<meta property="og:title" content="UzBooking — Booking & Hotel Reservation">
-<meta property="og:description" content="O'zbekistondagi mehmonxonalarni toping va online booking qiling.">
-<meta property="og:url" content="https://uzbooking.online/">
-<meta property="og:site_name" content="UzBooking">
-<meta property="og:type" content="website">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"UzBooking","alternateName":["Uz Booking","Booking Uzbekistan","Uzbekistan Booking"],"url":"https://uzbooking.online/"}
-</script>
+
+<title>UzBooking — Mehmonxona Booking</title>
+
+<meta name="description"
+content="UzBooking — O'zbekistonda mehmonxonalarni qidirish, joylash va online booking qilish platformasi.">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:Inter,Arial,Helvetica,sans-serif;min-height:100vh;color:#fff;background:radial-gradient(circle at 10% 10%,#4f46e5 0,transparent 30%),radial-gradient(circle at 90% 20%,#06b6d4 0,transparent 30%),radial-gradient(circle at 50% 100%,#9333ea 0,transparent 35%),linear-gradient(135deg,#07111f,#111827 50%,#0f172a);background-attachment:fixed}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,.04),transparent 40%);z-index:-1}
-a{text-decoration:none;color:inherit}button,input,select{font:inherit}button{cursor:pointer}img{width:100%;display:block}
-.glass{background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.20);box-shadow:0 20px 60px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.15);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
-.header{position:sticky;top:15px;width:min(1200px,92%);margin:15px auto 0;border-radius:22px;z-index:1000}
-.header-inner{min-height:72px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;letter-spacing:-1px}
-.logo-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:linear-gradient(135deg,#60a5fa,#8b5cf6);box-shadow:0 8px 25px rgba(96,165,250,.35)}
-.nav{display:flex;gap:27px;color:rgba(255,255,255,.75);font-size:14px;font-weight:700}.nav a{transition:.2s}.nav a:hover{color:#fff}
-.header-right{display:flex;align-items:center;gap:9px}
-.lang{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15);padding:10px;border-radius:10px;outline:none}
-.login{border:none;padding:10px 17px;border-radius:10px;color:#fff;background:linear-gradient(135deg,#3b82f6,#8b5cf6);font-weight:800;box-shadow:0 8px 25px rgba(59,130,246,.25)}
-.hero{width:min(1200px,92%);margin:0 auto;min-height:600px;display:flex;align-items:center;position:relative}
-.hero-content{max-width:780px;padding:70px 0}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:50px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);color:#dbeafe;font-size:13px;font-weight:800;margin-bottom:22px}
-.hero h1{font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-3px;margin-bottom:25px}
-.gradient-text{background:linear-gradient(90deg,#60a5fa,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{max-width:650px;color:rgba(255,255,255,.72);font-size:18px;line-height:1.7;margin-bottom:28px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.primary-btn{border:none;color:#fff;padding:14px 21px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#7c3aed);font-weight:800;box-shadow:0 12px 30px rgba(59,130,246,.3);transition:.2s}.primary-btn:hover{transform:translateY(-2px)}
-.secondary-btn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;padding:14px 21px;border-radius:12px;font-weight:800;backdrop-filter:blur(15px)}
-.search-area{width:min(1100px,90%);margin:-60px auto 70px;position:relative;z-index:10;padding:22px;border-radius:24px}
-.search-title{font-size:18px;font-weight:900;margin-bottom:17px}
-.search-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr .9fr auto;gap:11px}
-.field label{display:block;color:rgba(255,255,255,.60);font-size:11px;text-transform:uppercase;font-weight:800;margin-bottom:7px}
-.field input,.field select{width:100%;height:48px;padding:0 12px;border-radius:11px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;outline:none}.field input::placeholder{color:rgba(255,255,255,.45)}.field select option{color:#111827}
-.search-btn{height:48px;align-self:end;border:none;border-radius:11px;padding:0 22px;color:#fff;background:linear-gradient(135deg,#06b6d4,#2563eb);font-weight:900;box-shadow:0 10px 25px rgba(37,99,235,.25)}
-.container{width:min(1200px,92%);margin:auto}.section{padding-bottom:85px}
-.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:25px}.section-title{font-size:32px;letter-spacing:-1px}.section-subtitle{color:rgba(255,255,255,.55);margin-top:5px}
-.filters{display:flex;gap:9px;overflow-x:auto;padding-bottom:20px}.filter{flex-shrink:0;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:rgba(255,255,255,.72);padding:9px 15px;border-radius:50px;font-size:13px;font-weight:800}.filter.active{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-color:transparent}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}.card{border-radius:20px;overflow:hidden;transition:.3s}.card:hover{transform:translateY(-7px);box-shadow:0 25px 65px rgba(0,0,0,.35)}
-.card-image{height:220px;position:relative}.card-image img{height:100%;object-fit:cover}.card-image::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(0,0,0,.55))}
-.hotel-badge{position:absolute;top:13px;left:13px;z-index:2;padding:6px 10px;border-radius:8px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);font-size:11px;font-weight:900}
-.heart{position:absolute;top:12px;right:12px;z-index:3;width:37px;height:37px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.35);color:#fff;font-size:18px}
-.card-body{padding:20px}.rating{color:#fbbf24;font-size:13px;margin-bottom:8px}.rating span{color:rgba(255,255,255,.55);margin-left:6px}.card h3{font-size:20px;margin-bottom:5px}.location{color:rgba(255,255,255,.53);font-size:13px;margin-bottom:15px}
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}.tag{padding:5px 8px;border-radius:6px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.60);font-size:11px}
-.card-footer{padding-top:15px;border-top:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;align-items:center}.price{font-size:23px;font-weight:900}.price small{color:rgba(255,255,255,.48);font-size:11px;font-weight:500}.book{border:none;color:#fff;background:rgba(37,99,235,.85);padding:10px 15px;border-radius:9px;font-weight:800}
-.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.benefit{padding:23px;border-radius:18px}.icon{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.20);font-size:21px;margin-bottom:14px}.benefit h3{font-size:16px;margin-bottom:6px}.benefit p{color:rgba(255,255,255,.53);font-size:13px}
-.cta{padding:50px;border-radius:25px;display:flex;align-items:center;justify-content:space-between;gap:30px;background:linear-gradient(120deg,rgba(37,99,235,.35),rgba(124,58,237,.30))}.cta h2{font-size:32px;margin-bottom:8px}.cta p{color:rgba(255,255,255,.62)}
-footer{margin-top:20px;padding:55px 0 25px;background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.08)}.footer-grid{width:min(1200px,92%);margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}.footer-logo{font-size:23px;font-weight:900;margin-bottom:12px}.footer-text{max-width:350px;color:rgba(255,255,255,.50);font-size:13px;line-height:1.8}footer h3{font-size:14px;margin-bottom:13px}footer a{display:block;color:rgba(255,255,255,.52);font-size:13px;margin:9px 0}footer a:hover{color:#fff}.copyright{width:min(1200px,92%);margin:40px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.40);font-size:12px}
-.modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.65);backdrop-filter:blur(10px)}.modal.active{display:flex}.modal-box{width:100%;max-width:540px;border-radius:22px;padding:28px;max-height:90vh;overflow-y:auto;position:relative}.close{position:absolute;right:17px;top:13px;width:35px;height:35px;border:none;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:23px}.modal h2{font-size:25px}.modal-subtitle{color:rgba(255,255,255,.53);font-size:13px;margin-top:4px}.selected{margin:20px 0;padding:15px;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10)}.selected-name{font-size:17px;font-weight:900}.selected-price{color:rgba(255,255,255,.55);font-size:13px;margin-top:4px}.form{margin-bottom:14px}.form label{display:block;color:rgba(255,255,255,.63);font-size:12px;font-weight:800;margin-bottom:6px}.form input,.form select{width:100%;height:46px;padding:0 12px;border-radius:9px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff;outline:none}.form select option{color:#111827}.two{display:grid;grid-template-columns:1fr 1fr;gap:11px}.total{display:flex;align-items:center;justify-content:space-between;padding:15px 0;margin-top:5px;border-top:1px solid rgba(255,255,255,.10);border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:15px}.total strong{font-size:22px}.confirm{width:100%;height:49px;border:none;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:900}
-.toast{position:fixed;right:20px;bottom:20px;z-index:8000;padding:14px 18px;border-radius:12px;background:rgba(15,23,42,.9);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(15px);color:#fff;font-size:13px;font-weight:700;opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translateY(0)}
-@media(max-width:1000px){.nav{display:none}.search-grid{grid-template-columns:1fr 1fr}.cards{grid-template-columns:1fr 1fr}.benefits{grid-template-columns:1fr 1fr}.footer-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:650px){.header{top:8px;margin-top:8px}.header-inner{min-height:62px;padding:10px 13px}.logo{font-size:20px}.logo-icon{width:34px;height:34px}.lang{display:none}.hero{min-height:560px}.hero-content{padding-top:50px}.hero h1{font-size:43px;letter-spacing:-2px}.hero p{font-size:15px}.search-area{margin-top:-55px}.search-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.benefits{grid-template-columns:1fr}.section-title{font-size:27px}.cta{padding:30px 23px;flex-direction:column;align-items:flex-start}.cta h2{font-size:26px}.footer-grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    min-height:100vh;
+    color:#fff;
+    background:
+        radial-gradient(circle at 10% 10%,#4f46e5 0,transparent 30%),
+        radial-gradient(circle at 90% 20%,#06b6d4 0,transparent 30%),
+        radial-gradient(circle at 50% 100%,#9333ea 0,transparent 35%),
+        linear-gradient(135deg,#07111f,#111827 50%,#0f172a);
+    background-attachment:fixed;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(
+        120deg,
+        rgba(255,255,255,.04),
+        transparent 40%
+    );
+    z-index:-1;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input,
+select,
+textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+img{
+    width:100%;
+    display:block;
+}
+
+/* ================= GLASS ================= */
+
+.glass{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.05)
+        );
+    border:1px solid rgba(255,255,255,.20);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25),
+        inset 0 1px 0 rgba(255,255,255,.15);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    position:sticky;
+    top:15px;
+    width:min(1250px,92%);
+    margin:15px auto 0;
+    border-radius:22px;
+    z-index:1000;
+}
+
+.header-inner{
+    min-height:72px;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:-1px;
+}
+
+.logo-icon{
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:linear-gradient(135deg,#60a5fa,#8b5cf6);
+    box-shadow:0 8px 25px rgba(96,165,250,.35);
+}
+
+.nav{
+    display:flex;
+    gap:20px;
+    color:rgba(255,255,255,.75);
+    font-size:14px;
+    font-weight:700;
+}
+
+.nav a{
+    transition:.2s;
+}
+
+.nav a:hover{
+    color:#fff;
+    transform:translateY(-1px);
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.lang{
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.15);
+    padding:10px;
+    border-radius:10px;
+    outline:none;
+}
+
+.login{
+    border:none;
+    padding:10px 17px;
+    border-radius:10px;
+    color:#fff;
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+    font-weight:800;
+    box-shadow:0 8px 25px rgba(59,130,246,.25);
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    width:min(1200px,92%);
+    margin:0 auto;
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    position:relative;
+}
+
+.hero-content{
+    max-width:800px;
+    padding:70px 0;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 14px;
+    border-radius:50px;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.16);
+    color:#dbeafe;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(44px,7vw,78px);
+    line-height:.98;
+    letter-spacing:-3px;
+    margin-bottom:25px;
+}
+
+.gradient-text{
+    background:linear-gradient(
+        90deg,
+        #60a5fa,
+        #a78bfa,
+        #22d3ee
+    );
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:650px;
+    color:rgba(255,255,255,.72);
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:28px;
+}
+
+.hero-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.primary-btn{
+    border:none;
+    color:#fff;
+    padding:14px 21px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    font-weight:800;
+    box-shadow:0 12px 30px rgba(59,130,246,.3);
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-2px);
+}
+
+.secondary-btn{
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    padding:14px 21px;
+    border-radius:12px;
+    font-weight:800;
+}
+
+/* ================= SEARCH ================= */
+
+.search-area{
+    width:min(1100px,90%);
+    margin:-60px auto 70px;
+    position:relative;
+    z-index:10;
+    padding:22px;
+    border-radius:24px;
+}
+
+.search-title{
+    font-size:18px;
+    font-weight:900;
+    margin-bottom:17px;
+}
+
+.search-grid{
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr .9fr auto;
+    gap:11px;
+}
+
+.field label{
+    display:block;
+    color:rgba(255,255,255,.60);
+    font-size:11px;
+    text-transform:uppercase;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+    padding:0 12px;
+    border-radius:11px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    outline:none;
+}
+
+.field input,
+.field select{
+    height:48px;
+}
+
+.field textarea{
+    min-height:100px;
+    padding-top:12px;
+    resize:vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+    color:rgba(255,255,255,.45);
+}
+
+.field select option{
+    color:#111827;
+}
+
+.search-btn{
+    height:48px;
+    align-self:end;
+    border:none;
+    border-radius:11px;
+    padding:0 22px;
+    color:#fff;
+    background:linear-gradient(135deg,#06b6d4,#2563eb);
+    font-weight:900;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    width:min(1200px,92%);
+    margin:auto;
+}
+
+.section{
+    padding-bottom:85px;
+}
+
+.section-head{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin-bottom:25px;
+}
+
+.section-title{
+    font-size:32px;
+    letter-spacing:-1px;
+}
+
+.section-subtitle{
+    color:rgba(255,255,255,.55);
+    margin-top:5px;
+}
+
+/* ================= FILTER ================= */
+
+.filters{
+    display:flex;
+    gap:9px;
+    overflow-x:auto;
+    padding-bottom:20px;
+}
+
+.filter{
+    flex-shrink:0;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.07);
+    color:rgba(255,255,255,.72);
+    padding:9px 15px;
+    border-radius:50px;
+    font-size:13px;
+    font-weight:800;
+}
+
+.filter.active{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:#fff;
+    border-color:transparent;
+}
+
+/* ================= CARDS ================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card{
+    border-radius:20px;
+    overflow:hidden;
+    transition:.3s;
+    position:relative;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    box-shadow:0 25px 65px rgba(0,0,0,.35);
+}
+
+.card-image{
+    height:220px;
+    position:relative;
+}
+
+.card-image img{
+    height:100%;
+    object-fit:cover;
+}
+
+.card-image::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(
+            transparent 45%,
+            rgba(0,0,0,.55)
+        );
+}
+
+.hotel-badge{
+    position:absolute;
+    top:13px;
+    left:13px;
+    z-index:2;
+    padding:6px 10px;
+    border-radius:8px;
+    background:rgba(0,0,0,.45);
+    border:1px solid rgba(255,255,255,.15);
+    font-size:11px;
+    font-weight:900;
+}
+
+.heart{
+    position:absolute;
+    top:12px;
+    right:12px;
+    z-index:3;
+    width:37px;
+    height:37px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    font-size:18px;
+}
+
+.delete-hotel{
+    position:absolute;
+    bottom:12px;
+    right:12px;
+    z-index:5;
+    border:none;
+    border-radius:8px;
+    padding:7px 10px;
+    color:#fff;
+    background:rgba(220,38,38,.85);
+    font-size:11px;
+    font-weight:800;
+}
+
+.card-body{
+    padding:20px;
+}
+
+.rating{
+    color:#fbbf24;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+.rating span{
+    color:rgba(255,255,255,.55);
+    margin-left:6px;
+}
+
+.card h3{
+    font-size:20px;
+    margin-bottom:5px;
+}
+
+.location{
+    color:rgba(255,255,255,.53);
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:18px;
+}
+
+.tag{
+    padding:5px 8px;
+    border-radius:6px;
+    background:rgba(255,255,255,.07);
+    color:rgba(255,255,255,.60);
+    font-size:11px;
+}
+
+.card-footer{
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.10);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.price{
+    font-size:23px;
+    font-weight:900;
+}
+
+.price small{
+    color:rgba(255,255,255,.48);
+    font-size:11px;
+    font-weight:500;
+}
+
+.book{
+    border:none;
+    color:#fff;
+    background:rgba(37,99,235,.85);
+    padding:10px 15px;
+    border-radius:9px;
+    font-weight:800;
+}
+
+/* ================= EMPTY ================= */
+
+.empty{
+    display:none;
+    text-align:center;
+    padding:60px 20px;
+    border-radius:20px;
+}
+
+.empty-icon{
+    font-size:50px;
+    margin-bottom:15px;
+}
+
+.empty h3{
+    font-size:23px;
+    margin-bottom:8px;
+}
+
+.empty p{
+    color:rgba(255,255,255,.55);
+}
+
+/* ================= BENEFITS ================= */
+
+.benefits{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.benefit{
+    padding:23px;
+    border-radius:18px;
+}
+
+.icon{
+    width:45px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:rgba(96,165,250,.15);
+    border:1px solid rgba(96,165,250,.20);
+    font-size:21px;
+    margin-bottom:14px;
+}
+
+.benefit h3{
+    font-size:16px;
+    margin-bottom:6px;
+}
+
+.benefit p{
+    color:rgba(255,255,255,.53);
+    font-size:13px;
+}
+
+/* ================= CTA ================= */
+
+.cta{
+    padding:50px;
+    border-radius:25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+    background:
+        linear-gradient(
+            120deg,
+            rgba(37,99,235,.35),
+            rgba(124,58,237,.30)
+        );
+}
+
+.cta h2{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.cta p{
+    color:rgba(255,255,255,.62);
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    margin-top:20px;
+    padding:55px 0 25px;
+    background:rgba(0,0,0,.25);
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.footer-grid{
+    width:min(1200px,92%);
+    margin:auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:40px;
+}
+
+.footer-logo{
+    font-size:23px;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.footer-text{
+    max-width:350px;
+    color:rgba(255,255,255,.50);
+    font-size:13px;
+    line-height:1.8;
+}
+
+footer h3{
+    font-size:14px;
+    margin-bottom:13px;
+}
+
+footer a{
+    display:block;
+    color:rgba(255,255,255,.52);
+    font-size:13px;
+    margin:9px 0;
+}
+
+footer a:hover{
+    color:#fff;
+}
+
+.copyright{
+    width:min(1200px,92%);
+    margin:40px auto 0;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.08);
+    color:rgba(255,255,255,.40);
+    font-size:12px;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(10px);
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:100%;
+    max-width:560px;
+    border-radius:22px;
+    padding:28px;
+    max-height:90vh;
+    overflow-y:auto;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:17px;
+    top:13px;
+    width:35px;
+    height:35px;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    font-size:23px;
+}
+
+.modal h2{
+    font-size:25px;
+}
+
+.modal-subtitle{
+    color:rgba(255,255,255,.53);
+    font-size:13px;
+    margin-top:4px;
+    margin-bottom:20px;
+}
+
+.selected{
+    margin:20px 0;
+    padding:15px;
+    border-radius:13px;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.10);
+}
+
+.selected-name{
+    font-size:17px;
+    font-weight:900;
+}
+
+.selected-price{
+    color:rgba(255,255,255,.55);
+    font-size:13px;
+    margin-top:4px;
+}
+
+.form{
+    margin-bottom:14px;
+}
+
+.form label{
+    display:block;
+    color:rgba(255,255,255,.63);
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.form input,
+.form select,
+.form textarea{
+    width:100%;
+    padding:0 12px;
+    border-radius:9px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.07);
+    color:#fff;
+    outline:none;
+}
+
+.form input,
+.form select{
+    height:46px;
+}
+
+.form textarea{
+    padding-top:12px;
+    min-height:90px;
+    resize:vertical;
+}
+
+.form select option{
+    color:#111827;
+}
+
+.two{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:11px;
+}
+
+.total{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 0;
+    margin-top:5px;
+    border-top:1px solid rgba(255,255,255,.10);
+    border-bottom:1px solid rgba(255,255,255,.10);
+    margin-bottom:15px;
+}
+
+.total strong{
+    font-size:22px;
+}
+
+.confirm{
+    width:100%;
+    height:49px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:#fff;
+    font-weight:900;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:8000;
+    padding:14px 18px;
+    border-radius:12px;
+    background:rgba(15,23,42,.9);
+    border:1px solid rgba(255,255,255,.14);
+    backdrop-filter:blur(15px);
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    opacity:0;
+    transform:translateY(15px);
+    pointer-events:none;
+    transition:.25s;
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1050px){
+
+    .nav{
+        gap:12px;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .benefits{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:700px){
+
+    .header{
+        top:8px;
+        margin-top:8px;
+    }
+
+    .header-inner{
+        min-height:62px;
+        padding:10px 13px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .logo-icon{
+        width:34px;
+        height:34px;
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .lang{
+        display:none;
+    }
+
+    .hero{
+        min-height:560px;
+    }
+
+    .hero-content{
+        padding-top:50px;
+    }
+
+    .hero h1{
+        font-size:43px;
+        letter-spacing:-2px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .search-area{
+        margin-top:-55px;
+    }
+
+    .search-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .benefits{
+        grid-template-columns:1fr;
+    }
+
+    .section-title{
+        font-size:27px;
+    }
+
+    .cta{
+        padding:30px 23px;
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .cta h2{
+        font-size:26px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .two{
+        grid-template-columns:1fr;
+    }
+}
 </style>
 </head>
+
 <body>
-<header class="header glass"><div class="header-inner">
-<a href="/" class="logo"><div class="logo-icon">U</div>UzBooking</a>
-<nav class="nav"><a href="#home">Bosh sahifa</a><a href="#hotels">Mehmonxonalar</a><a href="#services">Xizmatlar</a><a href="#about">Biz haqimizda</a><a href="#contact">Aloqa</a></nav>
-<div class="header-right"><select class="lang"><option>UZ</option><option>RU</option><option>EN</option></select><button class="login" onclick="toast('Kirish tizimi tez orada ishga tushadi')">Kirish</button></div>
-</div></header>
 
-<section class="hero" id="home"><div class="hero-content">
-<div class="badge">✦ O'zbekiston Booking Platformasi</div>
-<h1>Sayohatingizni <span class="gradient-text">UzBooking</span> bilan boshlang</h1>
-<p>Mehmonxonalar, xonalar va turar joylarni toping, narxlarni solishtiring va bookingni bir necha daqiqada amalga oshiring.</p>
-<div class="hero-actions"><button class="primary-btn" onclick="scrollToHotels()">🔎 Booking qidirish</button><button class="secondary-btn" onclick="toast('UzBooking haqida batafsil maʼlumot')">Batafsil →</button></div>
-</div></section>
+<!-- ================= HEADER ================= -->
 
-<div class="search-area glass"><div class="search-title">🔎 Booking qidirish</div><div class="search-grid">
-<div class="field"><label>Manzil</label><input id="location" type="text" placeholder="Toshkent, Samarqand..."></div>
-<div class="field"><label>Kelish</label><input id="checkin" type="date"></div>
-<div class="field"><label>Ketish</label><input id="checkout" type="date"></div>
-<div class="field"><label>Mehmonlar</label><select id="guests"><option value="1">1 mehmon</option><option value="2" selected>2 mehmon</option><option value="3">3 mehmon</option><option value="4">4 mehmon</option><option value="5">5 mehmon</option><option value="6">6 mehmon</option></select></div>
-<button class="search-btn" onclick="searchHotels()">Qidirish</button>
-</div></div>
+<header class="header glass">
 
-<section class="section" id="hotels"><div class="container"><div class="section-head"><div><h2 class="section-title">Mashhur mehmonxonalar</h2><p class="section-subtitle">Booking uchun mashhur variantlar</p></div></div>
-<div class="filters">
-<button class="filter active">Barchasi</button><button class="filter">Toshkent</button><button class="filter">Samarqand</button><button class="filter">Buxoro</button><button class="filter">Xiva</button><button class="filter">Farg'ona</button>
+    <div class="header-inner">
+
+        <a href="#home" class="logo">
+            <div class="logo-icon">U</div>
+            UzBooking
+        </a>
+
+        <nav class="nav">
+            <a href="#home">Bosh sahifa</a>
+            <a href="#hotels">Mehmonxonalar</a>
+            <a href="#services">Xizmatlar</a>
+
+            <!-- YANGI FUNKSIYA -->
+            <a href="#" onclick="openHotelModal();return false;">
+                🏨 Mehmonxona joylash
+            </a>
+
+            <a href="#about">Biz haqimizda</a>
+        </nav>
+
+        <div class="header-right">
+
+            <select class="lang">
+                <option>UZ</option>
+                <option>RU</option>
+                <option>EN</option>
+            </select>
+
+            <button
+                class="login"
+                onclick="toast('Kirish tizimi tez orada ishga tushadi')">
+                Kirish
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            ✦ O'zbekiston Booking Platformasi
+        </div>
+
+        <h1>
+            Sayohatingizni
+            <span class="gradient-text">
+                UzBooking
+            </span>
+            bilan boshlang
+        </h1>
+
+        <p>
+            Mehmonxonalar va turar joylarni toping,
+            narxlarni solishtiring va bookingni
+            bir necha daqiqada amalga oshiring.
+        </p>
+
+        <div class="hero-actions">
+
+            <button
+                class="primary-btn"
+                onclick="scrollToHotels()">
+                🔎 Booking qidirish
+            </button>
+
+            <button
+                class="secondary-btn"
+                onclick="openHotelModal()">
+                🏨 Mehmonxona joylash
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SEARCH ================= -->
+
+<div class="search-area glass">
+
+    <div class="search-title">
+        🔎 Booking qidirish
+    </div>
+
+    <div class="search-grid">
+
+        <div class="field">
+            <label>Manzil</label>
+            <input
+                id="location"
+                type="text"
+                placeholder="Toshkent, Samarqand...">
+        </div>
+
+        <div class="field">
+            <label>Kelish</label>
+            <input
+                id="checkin"
+                type="date">
+        </div>
+
+        <div class="field">
+            <label>Ketish</label>
+            <input
+                id="checkout"
+                type="date">
+        </div>
+
+        <div class="field">
+            <label>Mehmonlar</label>
+
+            <select id="guests">
+
+                <option value="1">
+                    1 mehmon
+                </option>
+
+                <option value="2" selected>
+                    2 mehmon
+                </option>
+
+                <option value="3">
+                    3 mehmon
+                </option>
+
+                <option value="4">
+                    4 mehmon
+                </option>
+
+                <option value="5">
+                    5 mehmon
+                </option>
+
+                <option value="6">
+                    6 mehmon
+                </option>
+
+            </select>
+
+        </div>
+
+        <button
+            class="search-btn"
+            onclick="searchHotels()">
+            Qidirish
+        </button>
+
+    </div>
+
 </div>
-<div class="cards">
-<article class="card glass"><div class="card-image"><img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=85" alt="Toshkent mehmonxonasi"><span class="hotel-badge">TOP</span><button class="heart" onclick="favorite(this)">♡</button></div><div class="card-body"><div class="rating">★★★★★ <span>4.9</span></div><h3>Tashkent Luxury Hotel</h3><div class="location">📍 Toshkent, O'zbekiston</div><div class="tags"><span class="tag">Wi-Fi</span><span class="tag">Nonushta</span><span class="tag">Parking</span></div><div class="card-footer"><div class="price">$85 <small>/ tun</small></div><button class="book" onclick="openBooking('Tashkent Luxury Hotel',85)">Booking</button></div></div></article>
-<article class="card glass"><div class="card-image"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=85" alt="Samarqand mehmonxonasi"><span class="hotel-badge">PREMIUM</span><button class="heart" onclick="favorite(this)">♡</button></div><div class="card-body"><div class="rating">★★★★★ <span>4.8</span></div><h3>Samarkand Premium Hotel</h3><div class="location">📍 Samarqand, O'zbekiston</div><div class="tags"><span class="tag">Wi-Fi</span><span class="tag">SPA</span><span class="tag">Restoran</span></div><div class="card-footer"><div class="price">$120 <small>/ tun</small></div><button class="book" onclick="openBooking('Samarkand Premium Hotel',120)">Booking</button></div></div></article>
-<article class="card glass"><div class="card-image"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=85" alt="Buxoro mehmonxonasi"><button class="heart" onclick="favorite(this)">♡</button></div><div class="card-body"><div class="rating">★★★★★ <span>4.7</span></div><h3>Bukhara Deluxe Hotel</h3><div class="location">📍 Buxoro, O'zbekiston</div><div class="tags"><span class="tag">Wi-Fi</span><span class="tag">Nonushta</span><span class="tag">Transfer</span></div><div class="card-footer"><div class="price">$70 <small>/ tun</small></div><button class="book" onclick="openBooking('Bukhara Deluxe Hotel',70)">Booking</button></div></div></article>
-<article class="card glass"><div class="card-image"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=85" alt="Xiva mehmonxonasi"><button class="heart" onclick="favorite(this)">♡</button></div><div class="card-body"><div class="rating">★★★★★ <span>4.8</span></div><h3>Khiva Heritage Hotel</h3><div class="location">📍 Xiva, O'zbekiston</div><div class="tags"><span class="tag">Wi-Fi</span><span class="tag">Restoran</span><span class="tag">Nonushta</span></div><div class="card-footer"><div class="price">$65 <small>/ tun</small></div><button class="book" onclick="openBooking('Khiva Heritage Hotel',65)">Booking</button></div></div></article>
-<article class="card glass"><div class="card-image"><img src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=1000&q=85" alt="Farg'ona mehmonxonasi"><button class="heart" onclick="favorite(this)">♡</button></div><div class="card-body"><div class="rating">★★★★★ <span>4.6</span></div><h3>Fergana Garden Hotel</h3><div class="location">📍 Farg'ona, O'zbekiston</div><div class="tags"><span class="tag">Wi-Fi</span><span class="tag">Pool</span><span class="tag">Parking</span></div><div class="card-footer"><div class="price">$58 <small>/ tun</small></div><button class="book" onclick="openBooking('Fergana Garden Hotel',58)">Booking</button></div></div></article>
-<article class="card glass"><div class="card-image"><img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1000&q=85" alt="Toshkent Grand Hotel"><span class="hotel-badge">NEW</span><button class="heart" onclick="favorite(this)">♡</button></div><div class="card-body"><div class="rating">★★★★★ <span>4.9</span></div><h3>Capital Grand Hotel</h3><div class="location">📍 Toshkent, O'zbekiston</div><div class="tags"><span class="tag">Wi-Fi</span><span class="tag">SPA</span><span class="tag">Gym</span></div><div class="card-footer"><div class="price">$110 <small>/ tun</small></div><button class="book" onclick="openBooking('Capital Grand Hotel',110)">Booking</button></div></div></article>
-</div></div></section>
 
-<section class="section" id="services"><div class="container"><div class="section-head"><div><h2 class="section-title">Nega UzBooking?</h2><p class="section-subtitle">Booking jarayonini osonlashtiring</p></div></div>
-<div class="benefits">
-<div class="benefit glass"><div class="icon">🔎</div><h3>Oson qidiruv</h3><p>Kerakli joyni shahar va sanalar bo'yicha tez toping.</p></div>
-<div class="benefit glass"><div class="icon">💎</div><h3>Shaffof narx</h3><p>Booking qilishdan oldin narxlarni aniq ko'ring.</p></div>
-<div class="benefit glass"><div class="icon">⚡</div><h3>Tez booking</h3><p>Bir necha bosqichda bron so'rovini yuboring.</p></div>
-<div class="benefit glass"><div class="icon">🔒</div><h3>Xavfsiz</h3><p>Booking ma'lumotlaringiz himoyalangan.</p></div>
-</div></div></section>
 
-<section class="section" id="about"><div class="container"><div class="cta glass"><div><h2>Keyingi bookingingizni bugun boshlang</h2><p>UzBooking bilan O'zbekistondagi mehmonxonalarni qulay toping.</p></div><button class="primary-btn" onclick="scrollToHotels()">Bookingni boshlash</button></div></div></section>
+<!-- ================= HOTELS ================= -->
 
-<footer id="contact"><div class="footer-grid">
-<div><div class="footer-logo">UzBooking</div><p class="footer-text">UzBooking — mehmonxonalar, xonalar va turar joylarni qidirish va booking qilish uchun zamonaviy platforma.</p></div>
-<div><h3>UzBooking</h3><a href="#home">Bosh sahifa</a><a href="#hotels">Mehmonxonalar</a><a href="#services">Xizmatlar</a></div>
-<div><h3>Yordam</h3><a href="#">FAQ</a><a href="#">Booking qoidalari</a><a href="#">Maxfiylik</a></div>
-<div><h3>Aloqa</h3><a href="mailto:info@uzbooking.online">info@uzbooking.online</a><a href="tel:+998901234567">+998 90 123 45 67</a></div>
-</div><div class="copyright">© 2026 UzBooking — Barcha huquqlar himoyalangan.</div></footer>
+<section class="section" id="hotels">
 
-<div class="modal" id="bookingModal"><div class="modal-box glass"><button class="close" onclick="closeBooking()">×</button><h2>Booking qilish</h2><p class="modal-subtitle">Bron ma'lumotlarini kiriting</p>
-<div class="selected"><div class="selected-name" id="selectedHotel">Hotel</div><div class="selected-price">Narx: <strong id="selectedHotelPrice">$0</strong> / tun</div></div>
-<div class="form"><label>Ism va familiya</label><input id="name" type="text" placeholder="Ismingiz va familiyangiz"></div>
-<div class="form"><label>Telefon</label><input id="phone" type="tel" placeholder="+998 90 123 45 67"></div>
-<div class="form"><label>Email</label><input id="email" type="email" placeholder="example@gmail.com"></div>
-<div class="two"><div class="form"><label>Kelish</label><input id="modalCheckin" type="date"></div><div class="form"><label>Ketish</label><input id="modalCheckout" type="date"></div></div>
-<div class="form"><label>Mehmonlar</label><select id="modalGuests"><option value="1">1 mehmon</option><option value="2" selected>2 mehmon</option><option value="3">3 mehmon</option><option value="4">4 mehmon</option><option value="5">5 mehmon</option><option value="6">6 mehmon</option></select></div>
-<div class="total"><span>Umumiy summa</span><strong id="total">$0</strong></div>
-<button class="confirm" onclick="confirmBooking()">✓ Bookingni tasdiqlash</button>
-</div></div>
-<div class="toast" id="toast"></div>
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <h2 class="section-title">
+                    Mehmonxonalar
+                </h2>
+
+                <p class="section-subtitle">
+                    UzBooking platformasiga joylashtirilgan mehmonxonalar
+                </p>
+
+            </div>
+
+            <button
+                class="primary-btn"
+                onclick="openHotelModal()">
+                + Mehmonxona joylash
+            </button>
+
+        </div>
+
+
+        <!-- FILTER -->
+
+        <div class="filters">
+
+            <button
+                class="filter active"
+                data-city="all"
+                onclick="filterHotels('all',this)">
+                Barchasi
+            </button>
+
+            <button
+                class="filter"
+                data-city="Toshkent"
+                onclick="filterHotels('Toshkent',this)">
+                Toshkent
+            </button>
+
+            <button
+                class="filter"
+                data-city="Samarqand"
+                onclick="filterHotels('Samarqand',this)">
+                Samarqand
+            </button>
+
+            <button
+                class="filter"
+                data-city="Buxoro"
+                onclick="filterHotels('Buxoro',this)">
+                Buxoro
+            </button>
+
+            <button
+                class="filter"
+                data-city="Xiva"
+                onclick="filterHotels('Xiva',this)">
+                Xiva
+            </button>
+
+            <button
+                class="filter"
+                data-city="Farg'ona"
+                onclick="filterHotels(`Farg'ona`,this)">
+                Farg'ona
+            </button>
+
+        </div>
+
+
+        <!-- HOTEL CARDS -->
+
+        <div
+            class="cards"
+            id="hotelCards">
+        </div>
+
+
+        <!-- EMPTY -->
+
+        <div
+            class="empty glass"
+            id="emptyHotels">
+
+            <div class="empty-icon">
+                🏨
+            </div>
+
+            <h3>
+                Hozircha mehmonxonalar yo'q
+            </h3>
+
+            <p>
+                Birinchi mehmonxonani joylashtiring.
+            </p>
+
+            <br>
+
+            <button
+                class="primary-btn"
+                onclick="openHotelModal()">
+                🏨 Mehmonxona joylash
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SERVICES ================= -->
+
+<section class="section" id="services">
+
+    <div class="container">
+
+        <div class="section-head">
+
+            <div>
+
+                <h2 class="section-title">
+                    Nega UzBooking?
+                </h2>
+
+                <p class="section-subtitle">
+                    Booking jarayonini osonlashtiring
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="benefits">
+
+            <div class="benefit glass">
+
+                <div class="icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Oson qidiruv
+                </h3>
+
+                <p>
+                    Kerakli mehmonxonani shahar va
+                    sanalar bo'yicha tez toping.
+                </p>
+
+            </div>
+
+
+            <div class="benefit glass">
+
+                <div class="icon">
+                    💎
+                </div>
+
+                <h3>
+                    Shaffof narx
+                </h3>
+
+                <p>
+                    Booking qilishdan oldin narxlarni
+                    aniq ko'ring.
+                </p>
+
+            </div>
+
+
+            <div class="benefit glass">
+
+                <div class="icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Tez booking
+                </h3>
+
+                <p>
+                    Bir necha bosqichda bron
+                    so'rovini yuboring.
+                </p>
+
+            </div>
+
+
+            <div class="benefit glass">
+
+                <div class="icon">
+                    🔒
+                </div>
+
+                <h3>
+                    Xavfsiz
+                </h3>
+
+                <p>
+                    Booking ma'lumotlaringiz
+                    himoyalangan.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="section" id="about">
+
+    <div class="container">
+
+        <div class="cta glass">
+
+            <div>
+
+                <h2>
+                    Mehmonxonangizni UzBooking'ga joylang
+                </h2>
+
+                <p>
+                    Mehmonxonangizni platformaga qo'shing
+                    va yangi mijozlarga chiqaring.
+                </p>
+
+            </div>
+
+            <button
+                class="primary-btn"
+                onclick="openHotelModal()">
+                🏨 Mehmonxona joylash
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer id="contact">
+
+    <div class="footer-grid">
+
+        <div>
+
+            <div class="footer-logo">
+                UzBooking
+            </div>
+
+            <p class="footer-text">
+                UzBooking — mehmonxonalar, xonalar
+                va turar joylarni qidirish, joylash
+                va booking qilish uchun zamonaviy platforma.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                UzBooking
+            </h3>
+
+            <a href="#home">
+                Bosh sahifa
+            </a>
+
+            <a href="#hotels">
+                Mehmonxonalar
+            </a>
+
+            <a href="#services">
+                Xizmatlar
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Mehmonxonalar
+            </h3>
+
+            <a
+                href="#"
+                onclick="openHotelModal();return false;">
+                Mehmonxona joylash
+            </a>
+
+            <a href="#">
+                FAQ
+            </a>
+
+            <a href="#">
+                Booking qoidalari
+            </a>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Aloqa
+            </h3>
+
+            <a href="mailto:info@uzbooking.online">
+                info@uzbooking.online
+            </a>
+
+            <a href="tel:+998901234567">
+                +998 90 123 45 67
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+        © 2026 UzBooking — Barcha huquqlar himoyalangan.
+    </div>
+
+</footer>
+
+
+<!-- ========================================================= -->
+<!-- MEHMONXONA JOYLASH MODALI -->
+<!-- ========================================================= -->
+
+<div
+    class="modal"
+    id="hotelModal">
+
+    <div class="modal-box glass">
+
+        <button
+            class="close"
+            onclick="closeHotelModal()">
+            ×
+        </button>
+
+        <h2>
+            🏨 Mehmonxona joylash
+        </h2>
+
+        <p class="modal-subtitle">
+            Mehmonxonangiz haqida ma'lumot kiriting.
+        </p>
+
+
+        <div class="form">
+
+            <label>
+                Mehmonxona nomi *
+            </label>
+
+            <input
+                id="hotelName"
+                type="text"
+                placeholder="Masalan: Chodak Mountain Hotel">
+
+        </div>
+
+
+        <div class="two">
+
+            <div class="form">
+
+                <label>
+                    Shahar *
+                </label>
+
+                <input
+                    id="hotelCity"
+                    type="text"
+                    placeholder="Toshkent">
+
+            </div>
+
+
+            <div class="form">
+
+                <label>
+                    Narx ($ / tun) *
+                </label>
+
+                <input
+                    id="hotelPrice"
+                    type="number"
+                    min="1"
+                    placeholder="80">
+
+            </div>
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                To'liq manzil *
+            </label>
+
+            <input
+                id="hotelLocation"
+                type="text"
+                placeholder="Toshkent shahri, Chilonzor tumani">
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                Rasm URL *
+            </label>
+
+            <input
+                id="hotelImage"
+                type="url"
+                placeholder="https://example.com/hotel.jpg">
+
+        </div>
+
+
+        <div class="two">
+
+            <div class="form">
+
+                <label>
+                    Reyting
+                </label>
+
+                <select id="hotelRating">
+
+                    <option value="5">
+                        5.0
+                    </option>
+
+                    <option value="4.9">
+                        4.9
+                    </option>
+
+                    <option value="4.8">
+                        4.8
+                    </option>
+
+                    <option value="4.7">
+                        4.7
+                    </option>
+
+                    <option value="4.6">
+                        4.6
+                    </option>
+
+                    <option value="4.5">
+                        4.5
+                    </option>
+
+                    <option value="4.0">
+                        4.0
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form">
+
+                <label>
+                    Belgisi
+                </label>
+
+                <select id="hotelBadge">
+
+                    <option value="">
+                        Belgisiz
+                    </option>
+
+                    <option value="NEW">
+                        NEW
+                    </option>
+
+                    <option value="TOP">
+                        TOP
+                    </option>
+
+                    <option value="PREMIUM">
+                        PREMIUM
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                Xizmatlar
+            </label>
+
+            <input
+                id="hotelTags"
+                type="text"
+                placeholder="Wi-Fi, Nonushta, Parking, SPA">
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                Mehmonxona haqida
+            </label>
+
+            <textarea
+                id="hotelDescription"
+                placeholder="Mehmonxona haqida qisqacha ma'lumot..."></textarea>
+
+        </div>
+
+
+        <button
+            class="confirm"
+            onclick="addHotel()">
+
+            ✓ Mehmonxonani joylash
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
+<!-- BOOKING MODAL -->
+<!-- ========================================================= -->
+
+<div
+    class="modal"
+    id="bookingModal">
+
+    <div class="modal-box glass">
+
+        <button
+            class="close"
+            onclick="closeBooking()">
+            ×
+        </button>
+
+        <h2>
+            Booking qilish
+        </h2>
+
+        <p class="modal-subtitle">
+            Bron ma'lumotlarini kiriting.
+        </p>
+
+
+        <div class="selected">
+
+            <div
+                class="selected-name"
+                id="selectedHotel">
+                Hotel
+            </div>
+
+            <div class="selected-price">
+
+                Narx:
+
+                <strong id="selectedHotelPrice">
+                    $0
+                </strong>
+
+                / tun
+
+            </div>
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                Ism va familiya
+            </label>
+
+            <input
+                id="name"
+                type="text"
+                placeholder="Ismingiz va familiyangiz">
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                Telefon
+            </label>
+
+            <input
+                id="phone"
+                type="tel"
+                placeholder="+998 90 123 45 67">
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                Email
+            </label>
+
+            <input
+                id="email"
+                type="email"
+                placeholder="example@gmail.com">
+
+        </div>
+
+
+        <div class="two">
+
+            <div class="form">
+
+                <label>
+                    Kelish
+                </label>
+
+                <input
+                    id="modalCheckin"
+                    type="date">
+
+            </div>
+
+
+            <div class="form">
+
+                <label>
+                    Ketish
+                </label>
+
+                <input
+                    id="modalCheckout"
+                    type="date">
+
+            </div>
+
+        </div>
+
+
+        <div class="form">
+
+            <label>
+                Mehmonlar
+            </label>
+
+            <select id="modalGuests">
+
+                <option value="1">
+                    1 mehmon
+                </option>
+
+                <option value="2" selected>
+                    2 mehmon
+                </option>
+
+                <option value="3">
+                    3 mehmon
+                </option>
+
+                <option value="4">
+                    4 mehmon
+                </option>
+
+                <option value="5">
+                    5 mehmon
+                </option>
+
+                <option value="6">
+                    6 mehmon
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="total">
+
+            <span>
+                Umumiy summa
+            </span>
+
+            <strong id="total">
+                $0
+            </strong>
+
+        </div>
+
+
+        <button
+            class="confirm"
+            onclick="confirmBooking()">
+
+            ✓ Bookingni tasdiqlash
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
 
 <script>
-let hotelName="",hotelPrice=0;
-const today=new Date().toISOString().split("T")[0];
-["checkin","checkout","modalCheckin","modalCheckout"].forEach(id=>document.getElementById(id).min=today);
 
-function openBooking(name,price){
- hotelName=name;hotelPrice=price;
- document.getElementById("selectedHotel").textContent=name;
- document.getElementById("selectedHotelPrice").textContent="$"+price;
- document.getElementById("modalCheckin").value=document.getElementById("checkin").value;
- document.getElementById("modalCheckout").value=document.getElementById("checkout").value;
- document.getElementById("modalGuests").value=document.getElementById("guests").value;
- calculateTotal();
- document.getElementById("bookingModal").classList.add("active");
- document.body.style.overflow="hidden";
+/* ============================================================
+   UZBOOKING JAVASCRIPT
+============================================================ */
+
+
+/* ================= VARIABLES ================= */
+
+let hotelName = "";
+let hotelPrice = 0;
+
+let currentFilter = "all";
+
+let hotels = JSON.parse(
+    localStorage.getItem("uzbooking_hotels") || "[]"
+);
+
+
+/* ================= DATE ================= */
+
+const today =
+    new Date().toISOString().split("T")[0];
+
+[
+    "checkin",
+    "checkout",
+    "modalCheckin",
+    "modalCheckout"
+].forEach(id => {
+
+    const element =
+        document.getElementById(id);
+
+    if(element){
+        element.min = today;
+    }
+
+});
+
+
+/* ============================================================
+   RENDER HOTELS
+============================================================ */
+
+function renderHotels(){
+
+    const container =
+        document.getElementById("hotelCards");
+
+    const empty =
+        document.getElementById("emptyHotels");
+
+    container.innerHTML = "";
+
+
+    let filteredHotels = hotels;
+
+
+    /* FILTER */
+
+    if(currentFilter !== "all"){
+
+        filteredHotels =
+            hotels.filter(hotel =>
+                hotel.city.toLowerCase()
+                === currentFilter.toLowerCase()
+            );
+
+    }
+
+
+    /* SEARCH FILTER */
+
+    const searchLocation =
+        document
+        .getElementById("location")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if(searchLocation){
+
+        filteredHotels =
+            filteredHotels.filter(hotel =>
+                (
+                    hotel.city +
+                    " " +
+                    hotel.location +
+                    " " +
+                    hotel.name
+                )
+                .toLowerCase()
+                .includes(searchLocation)
+            );
+
+    }
+
+
+    /* EMPTY */
+
+    if(filteredHotels.length === 0){
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+    empty.style.display = "none";
+
+
+    /* CARDS */
+
+    filteredHotels.forEach(hotel => {
+
+        const card =
+            document.createElement("article");
+
+        card.className =
+            "card glass";
+
+        const stars =
+            "★".repeat(
+                Math.round(Number(hotel.rating))
+            );
+
+
+        const tags =
+            hotel.tags
+            .map(tag =>
+                `<span class="tag">${escapeHTML(tag)}</span>`
+            )
+            .join("");
+
+
+        card.innerHTML = `
+
+            <div class="card-image">
+
+                <img
+                    src="${escapeAttribute(hotel.image)}"
+                    alt="${escapeAttribute(hotel.name)}"
+                    onerror="this.src='https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=85'"
+                >
+
+                ${
+                    hotel.badge
+                    ?
+                    `<span class="hotel-badge">
+                        ${escapeHTML(hotel.badge)}
+                    </span>`
+                    :
+                    ""
+                }
+
+                <button
+                    class="heart"
+                    onclick="favorite(this)">
+                    ♡
+                </button>
+
+                <button
+                    class="delete-hotel"
+                    onclick="deleteHotel('${hotel.id}')">
+                    🗑 O'chirish
+                </button>
+
+            </div>
+
+
+            <div class="card-body">
+
+                <div class="rating">
+
+                    ${stars}
+
+                    <span>
+                        ${Number(hotel.rating).toFixed(1)}
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    ${escapeHTML(hotel.name)}
+                </h3>
+
+
+                <div class="location">
+
+                    📍
+                    ${escapeHTML(hotel.location)}
+
+                </div>
+
+
+                <div class="tags">
+
+                    ${tags}
+
+                </div>
+
+
+                ${
+                    hotel.description
+                    ?
+                    `<p style="
+                        color:rgba(255,255,255,.48);
+                        font-size:12px;
+                        line-height:1.6;
+                        margin-bottom:16px;">
+                        ${escapeHTML(hotel.description)}
+                    </p>`
+                    :
+                    ""
+                }
+
+
+                <div class="card-footer">
+
+                    <div class="price">
+
+                        $${Number(hotel.price).toLocaleString()}
+
+                        <small>
+                            / tun
+                        </small>
+
+                    </div>
+
+
+                    <button
+                        class="book"
+                        onclick="openBooking(
+                            '${escapeJS(hotel.name)}',
+                            ${Number(hotel.price)}
+                        )">
+
+                        Booking
+
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+
+        container.appendChild(card);
+
+    });
+
 }
-function closeBooking(){document.getElementById("bookingModal").classList.remove("active");document.body.style.overflow=""}
-function calculateTotal(){
- const checkin=document.getElementById("modalCheckin").value,checkout=document.getElementById("modalCheckout").value;
- if(!checkin||!checkout){document.getElementById("total").textContent="$"+hotelPrice;return}
- const nights=Math.ceil((new Date(checkout)-new Date(checkin))/(1000*60*60*24));
- document.getElementById("total").textContent=nights>0?"$"+nights*hotelPrice:"$0";
+
+
+/* ============================================================
+   ADD HOTEL
+============================================================ */
+
+function addHotel(){
+
+    const name =
+        document.getElementById("hotelName")
+        .value.trim();
+
+    const city =
+        document.getElementById("hotelCity")
+        .value.trim();
+
+    const price =
+        Number(
+            document.getElementById("hotelPrice")
+            .value
+        );
+
+    const location =
+        document.getElementById("hotelLocation")
+        .value.trim();
+
+    const image =
+        document.getElementById("hotelImage")
+        .value.trim();
+
+    const rating =
+        document.getElementById("hotelRating")
+        .value;
+
+    const badge =
+        document.getElementById("hotelBadge")
+        .value;
+
+    const tagsInput =
+        document.getElementById("hotelTags")
+        .value.trim();
+
+    const description =
+        document.getElementById("hotelDescription")
+        .value.trim();
+
+
+    /* VALIDATION */
+
+    if(
+        !name ||
+        !city ||
+        !price ||
+        !location ||
+        !image
+    ){
+
+        toast(
+            "Iltimos, majburiy maydonlarni to'ldiring."
+        );
+
+        return;
+
+    }
+
+
+    /* TAGS */
+
+    const tags =
+        tagsInput
+        ?
+        tagsInput
+            .split(",")
+            .map(tag => tag.trim())
+            .filter(Boolean)
+        :
+        ["Wi-Fi"];
+
+
+    /* HOTEL OBJECT */
+
+    const hotel = {
+
+        id:
+            Date.now().toString(),
+
+        name,
+        city,
+        price,
+        location,
+        image,
+        rating,
+        badge,
+        tags,
+        description,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    /* SAVE */
+
+    hotels.unshift(hotel);
+
+    localStorage.setItem(
+        "uzbooking_hotels",
+        JSON.stringify(hotels)
+    );
+
+
+    /* CLOSE */
+
+    closeHotelModal();
+
+
+    /* RESET */
+
+    clearHotelForm();
+
+
+    /* SHOW */
+
+    currentFilter = "all";
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+    document
+        .querySelector('.filter[data-city="all"]')
+        .classList.add("active");
+
+
+    renderHotels();
+
+    scrollToHotels();
+
+
+    toast(
+        "✓ Mehmonxona muvaffaqiyatli joylandi!"
+    );
+
 }
-function confirmBooking(){
- const name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),email=document.getElementById("email").value.trim(),checkin=document.getElementById("modalCheckin").value,checkout=document.getElementById("modalCheckout").value,guests=document.getElementById("modalGuests").value;
- if(!name||!phone||!email||!checkin||!checkout){toast("Iltimos, barcha maydonlarni to'ldiring.");return}
- if(new Date(checkout)<=new Date(checkin)){toast("Ketish sanasi noto'g'ri.");return}
- const booking={hotel:hotelName,price:hotelPrice,name,phone,email,checkin,checkout,guests,createdAt:new Date().toISOString()};
- localStorage.setItem("uzbooking_booking",JSON.stringify(booking));
- closeBooking();toast("✓ Booking so'rovingiz qabul qilindi!");
- ["name","phone","email"].forEach(id=>document.getElementById(id).value="");
+
+
+/* ============================================================
+   DELETE HOTEL
+============================================================ */
+
+function deleteHotel(id){
+
+    const hotel =
+        hotels.find(h => h.id === id);
+
+    if(!hotel){
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            `"${hotel.name}" mehmonxonasini o'chirmoqchimisiz?`
+        );
+
+
+    if(!confirmed){
+        return;
+    }
+
+
+    hotels =
+        hotels.filter(
+            hotel => hotel.id !== id
+        );
+
+
+    localStorage.setItem(
+        "uzbooking_hotels",
+        JSON.stringify(hotels)
+    );
+
+
+    renderHotels();
+
+    toast(
+        "Mehmonxona o'chirildi."
+    );
+
 }
+
+
+/* ============================================================
+   FILTER
+============================================================ */
+
+function filterHotels(city, button){
+
+    currentFilter = city;
+
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(item =>
+            item.classList.remove("active")
+        );
+
+
+    button.classList.add("active");
+
+
+    renderHotels();
+
+}
+
+
+/* ============================================================
+   SEARCH
+============================================================ */
+
 function searchHotels(){
- const location=document.getElementById("location").value.trim(),checkin=document.getElementById("checkin").value,checkout=document.getElementById("checkout").value,guests=document.getElementById("guests").value;
- if(!location){toast("Manzilni kiriting.");return}
- if(!checkin||!checkout){toast("Kelish va ketish sanalarini tanlang.");return}
- if(new Date(checkout)<=new Date(checkin)){toast("Sanalarni to'g'ri tanlang.");return}
- toast(`${location} uchun ${guests} mehmon bo'yicha qidirilmoqda...`);scrollToHotels();
+
+    const location =
+        document
+        .getElementById("location")
+        .value.trim();
+
+    const checkin =
+        document
+        .getElementById("checkin")
+        .value;
+
+    const checkout =
+        document
+        .getElementById("checkout")
+        .value;
+
+
+    if(!location){
+
+        toast(
+            "Manzilni kiriting."
+        );
+
+        return;
+
+    }
+
+
+    if(!checkin || !checkout){
+
+        toast(
+            "Kelish va ketish sanalarini tanlang."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        new Date(checkout)
+        <=
+        new Date(checkin)
+    ){
+
+        toast(
+            "Sanalarni to'g'ri tanlang."
+        );
+
+        return;
+
+    }
+
+
+    renderHotels();
+
+    scrollToHotels();
+
+
+    toast(
+        `"${location}" bo'yicha qidiruv bajarildi.`
+    );
+
 }
-function favorite(button){button.textContent=button.textContent.trim()==="♡"?"♥":"♡";toast(button.textContent==="♥"?"Sevimlilarga qo'shildi.":"Sevimlilardan olib tashlandi.")}
-document.querySelectorAll(".filter").forEach(button=>button.addEventListener("click",function(){
- document.querySelectorAll(".filter").forEach(item=>item.classList.remove("active"));this.classList.add("active");toast(this.textContent+" tanlandi.");
-}));
-function scrollToHotels(){document.getElementById("hotels").scrollIntoView({behavior:"smooth"})}
+
+
+/* ============================================================
+   BOOKING
+============================================================ */
+
+function openBooking(name, price){
+
+    hotelName = name;
+    hotelPrice = price;
+
+
+    document
+        .getElementById("selectedHotel")
+        .textContent = name;
+
+
+    document
+        .getElementById("selectedHotelPrice")
+        .textContent = "$" + price;
+
+
+    document
+        .getElementById("modalCheckin")
+        .value =
+        document
+        .getElementById("checkin")
+        .value;
+
+
+    document
+        .getElementById("modalCheckout")
+        .value =
+        document
+        .getElementById("checkout")
+        .value;
+
+
+    document
+        .getElementById("modalGuests")
+        .value =
+        document
+        .getElementById("guests")
+        .value;
+
+
+    calculateTotal();
+
+
+    document
+        .getElementById("bookingModal")
+        .classList.add("active");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeBooking(){
+
+    document
+        .getElementById("bookingModal")
+        .classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* ============================================================
+   TOTAL
+============================================================ */
+
+function calculateTotal(){
+
+    const checkin =
+        document
+        .getElementById("modalCheckin")
+        .value;
+
+    const checkout =
+        document
+        .getElementById("modalCheckout")
+        .value;
+
+
+    if(!checkin || !checkout){
+
+        document
+            .getElementById("total")
+            .textContent =
+            "$" + hotelPrice;
+
+        return;
+
+    }
+
+
+    const nights =
+        Math.ceil(
+            (
+                new Date(checkout)
+                -
+                new Date(checkin)
+            )
+            /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    document
+        .getElementById("total")
+        .textContent =
+        nights > 0
+        ?
+        "$" + (nights * hotelPrice)
+        :
+        "$0";
+
+}
+
+
+/* ============================================================
+   CONFIRM BOOKING
+============================================================ */
+
+function confirmBooking(){
+
+    const name =
+        document
+        .getElementById("name")
+        .value.trim();
+
+    const phone =
+        document
+        .getElementById("phone")
+        .value.trim();
+
+    const email =
+        document
+        .getElementById("email")
+        .value.trim();
+
+    const checkin =
+        document
+        .getElementById("modalCheckin")
+        .value;
+
+    const checkout =
+        document
+        .getElementById("modalCheckout")
+        .value;
+
+    const guests =
+        document
+        .getElementById("modalGuests")
+        .value;
+
+
+    if(
+        !name ||
+        !phone ||
+        !email ||
+        !checkin ||
+        !checkout
+    ){
+
+        toast(
+            "Iltimos, barcha maydonlarni to'ldiring."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        new Date(checkout)
+        <=
+        new Date(checkin)
+    ){
+
+        toast(
+            "Ketish sanasi noto'g'ri."
+        );
+
+        return;
+
+    }
+
+
+    const booking = {
+
+        hotel:hotelName,
+        price:hotelPrice,
+        name,
+        phone,
+        email,
+        checkin,
+        checkout,
+        guests,
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        "uzbooking_booking",
+        JSON.stringify(booking)
+    );
+
+
+    closeBooking();
+
+
+    toast(
+        "✓ Booking so'rovingiz qabul qilindi!"
+    );
+
+
+    [
+        "name",
+        "phone",
+        "email"
+    ].forEach(id => {
+
+        document
+            .getElementById(id)
+            .value = "";
+
+    });
+
+}
+
+
+/* ============================================================
+   HOTEL MODAL
+============================================================ */
+
+function openHotelModal(){
+
+    document
+        .getElementById("hotelModal")
+        .classList.add("active");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeHotelModal(){
+
+    document
+        .getElementById("hotelModal")
+        .classList.remove("active");
+
+    document.body.style.overflow = "";
+
+}
+
+
+/* ============================================================
+   CLEAR HOTEL FORM
+============================================================ */
+
+function clearHotelForm(){
+
+    [
+        "hotelName",
+        "hotelCity",
+        "hotelPrice",
+        "hotelLocation",
+        "hotelImage",
+        "hotelTags",
+        "hotelDescription"
+    ].forEach(id => {
+
+        document
+            .getElementById(id)
+            .value = "";
+
+    });
+
+
+    document
+        .getElementById("hotelRating")
+        .value = "5";
+
+
+    document
+        .getElementById("hotelBadge")
+        .value = "";
+
+}
+
+
+/* ============================================================
+   FAVORITE
+============================================================ */
+
+function favorite(button){
+
+    button.textContent =
+        button.textContent.trim() === "♡"
+        ?
+        "♥"
+        :
+        "♡";
+
+
+    toast(
+        button.textContent === "♥"
+        ?
+        "Sevimlilarga qo'shildi."
+        :
+        "Sevimlilardan olib tashlandi."
+    );
+
+}
+
+
+/* ============================================================
+   SCROLL
+============================================================ */
+
+function scrollToHotels(){
+
+    document
+        .getElementById("hotels")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+}
+
+
+/* ============================================================
+   TOAST
+============================================================ */
+
 let toastTimer;
-function toast(message){const element=document.getElementById("toast");element.textContent=message;element.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>element.classList.remove("show"),2800)}
-document.getElementById("bookingModal").addEventListener("click",function(event){if(event.target===this)closeBooking()});
-document.addEventListener("keydown",event=>{if(event.key==="Escape")closeBooking()});
-document.getElementById("modalCheckin").addEventListener("change",calculateTotal);
-document.getElementById("modalCheckout").addEventListener("change",calculateTotal);
+
+function toast(message){
+
+    const element =
+        document.getElementById("toast");
+
+
+    element.textContent =
+        message;
+
+
+    element.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(
+            () =>
+                element.classList.remove("show"),
+            2800
+        );
+
+}
+
+
+/* ============================================================
+   ESCAPE HTML
+============================================================ */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+    return escapeHTML(value);
+
+}
+
+
+function escapeJS(value){
+
+    return String(value)
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/"/g,'\\"')
+        .replace(/\n/g," ");
+
+}
+
+
+/* ============================================================
+   MODAL CLICK
+============================================================ */
+
+document
+    .getElementById("bookingModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+                closeBooking();
+            }
+
+        }
+    );
+
+
+document
+    .getElementById("hotelModal")
+    .addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === this
+            ){
+                closeHotelModal();
+            }
+
+        }
+    );
+
+
+/* ============================================================
+   ESC KEY
+============================================================ */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(event.key === "Escape"){
+
+            closeBooking();
+            closeHotelModal();
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   DATE EVENTS
+============================================================ */
+
+document
+    .getElementById("modalCheckin")
+    .addEventListener(
+        "change",
+        calculateTotal
+    );
+
+
+document
+    .getElementById("modalCheckout")
+    .addEventListener(
+        "change",
+        calculateTotal
+    );
+
+
+/* ============================================================
+   SEARCH LIVE
+============================================================ */
+
+document
+    .getElementById("location")
+    .addEventListener(
+        "input",
+        function(){
+
+            renderHotels();
+
+        }
+    );
+
+
+/* ============================================================
+   INITIAL LOAD
+============================================================ */
+
+renderHotels();
+
 </script>
+
 </body>
 </html>
