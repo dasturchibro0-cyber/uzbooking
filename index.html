@@ -167,7 +167,6 @@ img{
     color:#111827
 }
 
-/* AUTH USER */
 .auth-user{
     display:none;
     align-items:center;
@@ -237,7 +236,6 @@ img{
     box-shadow:0 8px 25px rgba(59,130,246,.25)
 }
 
-/* HERO */
 .hero{
     width:min(1200px,92%);
     margin:0 auto;
@@ -319,7 +317,6 @@ img{
     backdrop-filter:blur(15px)
 }
 
-/* SEARCH */
 .search-area{
     width:min(1100px,90%);
     margin:-60px auto 70px;
@@ -382,7 +379,6 @@ img{
     box-shadow:0 10px 25px rgba(37,99,235,.25)
 }
 
-/* SECTIONS */
 .container{
     width:min(1200px,92%);
     margin:auto
@@ -451,8 +447,12 @@ img{
 }
 
 .card-image{
-    height:220px;
-    position:relative
+    height:200px;
+    position:relative;
+    background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03));
+    display:flex;
+    align-items:center;
+    justify-content:center
 }
 
 .card-image img{
@@ -460,11 +460,9 @@ img{
     object-fit:cover
 }
 
-.card-image::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(transparent 45%,rgba(0,0,0,.55))
+.hotel-placeholder-icon{
+    font-size:50px;
+    opacity:0.6
 }
 
 .hotel-badge{
@@ -563,7 +561,6 @@ img{
     font-weight:800
 }
 
-/* BENEFITS */
 .benefits{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -598,7 +595,6 @@ img{
     font-size:13px
 }
 
-/* CTA */
 .cta{
     padding:50px;
     border-radius:25px;
@@ -622,7 +618,6 @@ img{
     color:rgba(255,255,255,.62)
 }
 
-/* FOOTER */
 footer{
     margin-top:20px;
     padding:55px 0 25px;
@@ -676,7 +671,6 @@ footer a:hover{
     font-size:12px
 }
 
-/* MODALS */
 .modal{
     position:fixed;
     inset:0;
@@ -804,7 +798,6 @@ footer a:hover{
     font-weight:900
 }
 
-/* AUTH MODAL */
 .auth-modal-box{
     max-width:430px
 }
@@ -940,7 +933,6 @@ footer a:hover{
     margin-top:6px
 }
 
-/* TOAST */
 .toast{
     position:fixed;
     right:20px;
@@ -966,121 +958,36 @@ footer a:hover{
     transform:translateY(0)
 }
 
-/* MOBILE */
 @media(max-width:1000px){
-
-    .nav{
-        display:none
-    }
-
-    .search-grid{
-        grid-template-columns:1fr 1fr
-    }
-
-    .cards{
-        grid-template-columns:1fr 1fr
-    }
-
-    .benefits{
-        grid-template-columns:1fr 1fr
-    }
-
-    .footer-grid{
-        grid-template-columns:1fr 1fr
-    }
+    .nav{ display:none }
+    .search-grid{ grid-template-columns:1fr 1fr }
+    .cards{ grid-template-columns:1fr 1fr }
+    .benefits{ grid-template-columns:1fr 1fr }
+    .footer-grid{ grid-template-columns:1fr 1fr }
 }
 
 @media(max-width:650px){
-
-    .header{
-        top:8px;
-        margin-top:8px
-    }
-
-    .header-inner{
-        min-height:62px;
-        padding:10px 13px
-    }
-
-    .logo{
-        font-size:20px
-    }
-
-    .logo-icon{
-        width:34px;
-        height:34px
-    }
-
-    .lang{
-        display:none
-    }
-
-    .auth-info{
-        display:none
-    }
-
-    .auth-user{
-        padding:4px
-    }
-
-    .logout-btn{
-        padding:7px 8px
-    }
-
-    .hero{
-        min-height:560px
-    }
-
-    .hero-content{
-        padding-top:50px
-    }
-
-    .hero h1{
-        font-size:43px;
-        letter-spacing:-2px
-    }
-
-    .hero p{
-        font-size:15px
-    }
-
-    .search-area{
-        margin-top:-55px
-    }
-
-    .search-grid{
-        grid-template-columns:1fr
-    }
-
-    .cards{
-        grid-template-columns:1fr
-    }
-
-    .benefits{
-        grid-template-columns:1fr
-    }
-
-    .section-title{
-        font-size:27px
-    }
-
-    .cta{
-        padding:30px 23px;
-        flex-direction:column;
-        align-items:flex-start
-    }
-
-    .cta h2{
-        font-size:26px
-    }
-
-    .footer-grid{
-        grid-template-columns:1fr
-    }
-
-    .two{
-        grid-template-columns:1fr
-    }
+    .header{ top:8px; margin-top:8px }
+    .header-inner{ min-height:62px; padding:10px 13px }
+    .logo{ font-size:20px }
+    .logo-icon{ width:34px; height:34px }
+    .lang{ display:none }
+    .auth-info{ display:none }
+    .auth-user{ padding:4px }
+    .logout-btn{ padding:7px 8px }
+    .hero{ min-height:560px }
+    .hero-content{ padding-top:50px }
+    .hero h1{ font-size:43px; letter-spacing:-2px }
+    .hero p{ font-size:15px }
+    .search-area{ margin-top:-55px }
+    .search-grid{ grid-template-columns:1fr }
+    .cards{ grid-template-columns:1fr }
+    .benefits{ grid-template-columns:1fr }
+    .section-title{ font-size:27px }
+    .cta{ padding:30px 23px; flex-direction:column; align-items:flex-start }
+    .cta h2{ font-size:26px }
+    .footer-grid{ grid-template-columns:1fr }
+    .two{ grid-template-columns:1fr }
 }
 </style>
 </head>
@@ -1088,7 +995,6 @@ footer a:hover{
 <body>
 
 <header class="header glass">
-
 <div class="header-inner">
 
 <a href="/" class="logo">
@@ -1105,7 +1011,6 @@ footer a:hover{
 </nav>
 
 <div class="header-right">
-
 <select class="lang">
     <option>UZ</option>
     <option>RU</option>
@@ -1113,26 +1018,15 @@ footer a:hover{
 </select>
 
 <div class="auth-user" id="authUser">
-
-    <div class="auth-avatar" id="authAvatar">
-        U
-    </div>
-
+    <div class="auth-avatar" id="authAvatar">U</div>
     <div class="auth-info">
         <div class="auth-name" id="authName">Foydalanuvchi</div>
         <div class="auth-email" id="authEmail"></div>
     </div>
-
-    <button class="logout-btn" id="logoutBtn">
-        Chiqish
-    </button>
-
+    <button class="logout-btn" id="logoutBtn">Chiqish</button>
 </div>
 
-<button class="login" id="loginBtn">
-    Kirish
-</button>
-
+<button class="login" id="loginBtn">Kirish</button>
 </div>
 
 </div>
@@ -1140,46 +1034,21 @@ footer a:hover{
 
 
 <section class="hero" id="home">
-
 <div class="hero-content">
-
-<div class="badge">
-    ✦ O'zbekiston Booking Platformasi
-</div>
-
-<h1>
-    Sayohatingizni
-    <span class="gradient-text">UzBooking</span>
-    bilan boshlang
-</h1>
-
-<p>
-    Mehmonxonalar, xonalar va turar joylarni toping,
-    narxlarni solishtiring va bookingni bir necha daqiqada amalga oshiring.
-</p>
+<div class="badge">✦ O'zbekiston Booking Platformasi</div>
+<h1>Sayohatingizni <span class="gradient-text">UzBooking</span> bilan boshlang</h1>
+<p>Mehmonxonalar, xonalar va turar joylarni toping, narxlarni solishtiring va bookingni bir necha daqiqada amalga oshiring.</p>
 
 <div class="hero-actions">
-
-<button class="primary-btn" onclick="scrollToHotels()">
-    🔎 Booking qidirish
-</button>
-
-<button class="secondary-btn" onclick="showAbout()">
-    Batafsil →
-</button>
-
+<button class="primary-btn" onclick="scrollToHotels()">🔎 Booking qidirish</button>
+<button class="secondary-btn" onclick="showAbout()">Batafsil →</button>
 </div>
-
 </div>
 </section>
 
 
 <div class="search-area glass">
-
-<div class="search-title">
-    🔎 Booking qidirish
-</div>
-
+<div class="search-title">🔎 Booking qidirish</div>
 <div class="search-grid">
 
 <div class="field">
@@ -1199,7 +1068,6 @@ footer a:hover{
 
 <div class="field">
 <label>Mehmonlar</label>
-
 <select id="guests">
 <option value="1">1 mehmon</option>
 <option value="2" selected>2 mehmon</option>
@@ -1208,912 +1076,238 @@ footer a:hover{
 <option value="5">5 mehmon</option>
 <option value="6">6 mehmon</option>
 </select>
-
 </div>
 
-<button class="search-btn" onclick="searchHotels()">
-    Qidirish
-</button>
-
+<button class="search-btn" onclick="searchHotels()">Qidirish</button>
 </div>
 </div>
 
 
 <section class="section" id="hotels">
-
 <div class="container">
 
 <div class="section-head">
-
 <div>
-<h2 class="section-title">
-    Mashhur mehmonxonalar
-</h2>
-
-<p class="section-subtitle">
-    Booking uchun mashhur variantlar
-</p>
+<h2 class="section-title">Mashhur mehmonxonalar</h2>
+<p class="section-subtitle">Booking uchun mavjud variantlar</p>
+</div>
 </div>
 
+<div class="filters" id="cityFilters">
+<button class="filter active" onclick="filterHotels('all', this)">Barchasi</button>
+<button class="filter" onclick="filterHotels('Toshkent', this)">Toshkent</button>
+<button class="filter" onclick="filterHotels('Samarqand', this)">Samarqand</button>
+<button class="filter" onclick="filterHotels('Buxoro', this)">Buxoro</button>
+<button class="filter" onclick="filterHotels('Xiva', this)">Xiva</button>
+<button class="filter" onclick="filterHotels('Farg\'ona', this)">Farg'ona</button>
 </div>
 
-
-<div class="filters">
-
-<button class="filter active">
-    Barchasi
-</button>
-
-<button class="filter">
-    Toshkent
-</button>
-
-<button class="filter">
-    Samarqand
-</button>
-
-<button class="filter">
-    Buxoro
-</button>
-
-<button class="filter">
-    Xiva
-</button>
-
-<button class="filter">
-    Farg'ona
-</button>
-
+<!-- DINAMIK MEHMONXONALAR SHU YERGA YUKLANADI -->
+<div class="cards" id="hotelsContainer">
+    <div style="grid-column: 1/-1; text-align:center; padding: 40px; color: rgba(255,255,255,0.6);">
+        Mehmonxonalar yuklanmoqda...
+    </div>
 </div>
 
-
-<div class="cards">
-
-<article class="card glass">
-
-<div class="card-image">
-
-<img
-src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=85"
-alt="Toshkent mehmonxonasi"
->
-
-<span class="hotel-badge">
-TOP
-</span>
-
-<button class="heart" onclick="favorite(this)">
-♡
-</button>
-
-</div>
-
-<div class="card-body">
-
-<div class="rating">
-★★★★★ <span>4.9</span>
-</div>
-
-<h3>
-Tashkent Luxury Hotel
-</h3>
-
-<div class="location">
-📍 Toshkent, O'zbekiston
-</div>
-
-<div class="tags">
-<span class="tag">Wi-Fi</span>
-<span class="tag">Nonushta</span>
-<span class="tag">Parking</span>
-</div>
-
-<div class="card-footer">
-
-<div class="price">
-$85 <small>/ tun</small>
-</div>
-
-<button
-class="book"
-onclick="openBooking('Tashkent Luxury Hotel',85)"
->
-Booking
-</button>
-
-</div>
-
-</div>
-</article>
-
-
-<article class="card glass">
-
-<div class="card-image">
-
-<img
-src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=85"
-alt="Samarqand mehmonxonasi"
->
-
-<span class="hotel-badge">
-PREMIUM
-</span>
-
-<button class="heart" onclick="favorite(this)">
-♡
-</button>
-
-</div>
-
-<div class="card-body">
-
-<div class="rating">
-★★★★★ <span>4.8</span>
-</div>
-
-<h3>
-Samarkand Premium Hotel
-</h3>
-
-<div class="location">
-📍 Samarqand, O'zbekiston
-</div>
-
-<div class="tags">
-<span class="tag">Wi-Fi</span>
-<span class="tag">SPA</span>
-<span class="tag">Restoran</span>
-</div>
-
-<div class="card-footer">
-
-<div class="price">
-$120 <small>/ tun</small>
-</div>
-
-<button
-class="book"
-onclick="openBooking('Samarkand Premium Hotel',120)"
->
-Booking
-</button>
-
-</div>
-
-</div>
-</article>
-
-
-<article class="card glass">
-
-<div class="card-image">
-
-<img
-src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=85"
-alt="Buxoro mehmonxonasi"
->
-
-<button class="heart" onclick="favorite(this)">
-♡
-</button>
-
-</div>
-
-<div class="card-body">
-
-<div class="rating">
-★★★★★ <span>4.7</span>
-</div>
-
-<h3>
-Bukhara Deluxe Hotel
-</h3>
-
-<div class="location">
-📍 Buxoro, O'zbekiston
-</div>
-
-<div class="tags">
-<span class="tag">Wi-Fi</span>
-<span class="tag">Nonushta</span>
-<span class="tag">Transfer</span>
-</div>
-
-<div class="card-footer">
-
-<div class="price">
-$70 <small>/ tun</small>
-</div>
-
-<button
-class="book"
-onclick="openBooking('Bukhara Deluxe Hotel',70)"
->
-Booking
-</button>
-
-</div>
-
-</div>
-</article>
-
-
-<article class="card glass">
-
-<div class="card-image">
-
-<img
-src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=85"
-alt="Xiva mehmonxonasi"
->
-
-<button class="heart" onclick="favorite(this)">
-♡
-</button>
-
-</div>
-
-<div class="card-body">
-
-<div class="rating">
-★★★★★ <span>4.8</span>
-</div>
-
-<h3>
-Khiva Heritage Hotel
-</h3>
-
-<div class="location">
-📍 Xiva, O'zbekiston
-</div>
-
-<div class="tags">
-<span class="tag">Wi-Fi</span>
-<span class="tag">Restoran</span>
-<span class="tag">Nonushta</span>
-</div>
-
-<div class="card-footer">
-
-<div class="price">
-$65 <small>/ tun</small>
-</div>
-
-<button
-class="book"
-onclick="openBooking('Khiva Heritage Hotel',65)"
->
-Booking
-</button>
-
-</div>
-
-</div>
-</article>
-
-
-<article class="card glass">
-
-<div class="card-image">
-
-<img
-src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6?auto=format&fit=crop&w=1000&q=85"
-alt="Farg'ona mehmonxonasi"
->
-
-<button class="heart" onclick="favorite(this)">
-♡
-</button>
-
-</div>
-
-<div class="card-body">
-
-<div class="rating">
-★★★★★ <span>4.6</span>
-</div>
-
-<h3>
-Fergana Garden Hotel
-</h3>
-
-<div class="location">
-📍 Farg'ona, O'zbekiston
-</div>
-
-<div class="tags">
-<span class="tag">Wi-Fi</span>
-<span class="tag">Pool</span>
-<span class="tag">Parking</span>
-</div>
-
-<div class="card-footer">
-
-<div class="price">
-$58 <small>/ tun</small>
-</div>
-
-<button
-class="book"
-onclick="openBooking('Fergana Garden Hotel',58)"
->
-Booking
-</button>
-
-</div>
-
-</div>
-</article>
-
-
-<article class="card glass">
-
-<div class="card-image">
-
-<img
-src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=1000&q=85"
-alt="Toshkent Grand Hotel"
->
-
-<span class="hotel-badge">
-NEW
-</span>
-
-<button class="heart" onclick="favorite(this)">
-♡
-</button>
-
-</div>
-
-<div class="card-body">
-
-<div class="rating">
-★★★★★ <span>4.9</span>
-</div>
-
-<h3>
-Capital Grand Hotel
-</h3>
-
-<div class="location">
-📍 Toshkent, O'zbekiston
-</div>
-
-<div class="tags">
-<span class="tag">Wi-Fi</span>
-<span class="tag">SPA</span>
-<span class="tag">Gym</span>
-</div>
-
-<div class="card-footer">
-
-<div class="price">
-$110 <small>/ tun</small>
-</div>
-
-<button
-class="book"
-onclick="openBooking('Capital Grand Hotel',110)"
->
-Booking
-</button>
-
-</div>
-
-</div>
-</article>
-
-</div>
 </div>
 </section>
 
 
 <section class="section" id="services">
-
 <div class="container">
-
 <div class="section-head">
-
 <div>
-<h2 class="section-title">
-    Nega UzBooking?
-</h2>
-
-<p class="section-subtitle">
-    Booking jarayonini osonlashtiring
-</p>
+<h2 class="section-title">Nega UzBooking?</h2>
+<p class="section-subtitle">Booking jarayonini osonlashtiring</p>
 </div>
-
 </div>
 
 <div class="benefits">
-
 <div class="benefit glass">
 <div class="icon">🔎</div>
 <h3>Oson qidiruv</h3>
-<p>
-Kerakli joyni shahar va sanalar bo'yicha tez toping.
-</p>
+<p>Kerakli joyni shahar va sanalar bo'yicha tez toping.</p>
 </div>
 
 <div class="benefit glass">
 <div class="icon">💎</div>
 <h3>Shaffof narx</h3>
-<p>
-Booking qilishdan oldin narxlarni aniq ko'ring.
-</p>
+<p>Booking qilishdan oldin narxlarni aniq ko'ring.</p>
 </div>
 
 <div class="benefit glass">
 <div class="icon">⚡</div>
 <h3>Tez booking</h3>
-<p>
-Bir necha bosqichda bron so'rovini yuboring.
-</p>
+<p>Bir necha bosqichda bron so'rovini yuboring.</p>
 </div>
 
 <div class="benefit glass">
 <div class="icon">🔒</div>
 <h3>Xavfsiz</h3>
-<p>
-Booking ma'lumotlaringiz himoyalangan.
-</p>
+<p>Booking ma'lumotlaringiz himoyalangan.</p>
 </div>
-
 </div>
 </div>
 </section>
 
 
 <section class="section" id="about">
-
 <div class="container">
-
 <div class="cta glass">
-
 <div>
-
-<h2>
-Keyingi bookingingizni bugun boshlang
-</h2>
-
-<p>
-UzBooking bilan O'zbekistondagi mehmonxonalarni qulay toping.
-</p>
-
+<h2>Keyingi bookingingizni bugun boshlang</h2>
+<p>UzBooking bilan O'zbekistondagi mehmonxonalarni qulay toping.</p>
 </div>
-
-<button
-class="primary-btn"
-onclick="scrollToHotels()"
->
-Bookingni boshlash
-</button>
-
+<button class="primary-btn" onclick="scrollToHotels()">Bookingni boshlash</button>
 </div>
 </div>
 </section>
 
 
 <footer id="contact">
-
 <div class="footer-grid">
-
 <div>
-
-<div class="footer-logo">
-UzBooking
+<div class="footer-logo">UzBooking</div>
+<p class="footer-text">UzBooking — mehmonxonalar, xonalar va turar joylarni qidirish va booking qilish uchun zamonaviy platforma.</p>
 </div>
 
-<p class="footer-text">
-UzBooking — mehmonxonalar, xonalar va turar joylarni
-qidirish va booking qilish uchun zamonaviy platforma.
-</p>
-
-</div>
-
-
 <div>
-
 <h3>UzBooking</h3>
-
-<a href="#home">
-Bosh sahifa
-</a>
-
-<a href="#hotels">
-Mehmonxonalar
-</a>
-
-<a href="#services">
-Xizmatlar
-</a>
-
+<a href="#home">Bosh sahifa</a>
+<a href="#hotels">Mehmonxonalar</a>
+<a href="#services">Xizmatlar</a>
 </div>
 
-
 <div>
-
 <h3>Yordam</h3>
-
-<a href="#">
-FAQ
-</a>
-
-<a href="#">
-Booking qoidalari
-</a>
-
-<a href="#">
-Maxfiylik
-</a>
-
+<a href="#">FAQ</a>
+<a href="#">Booking qoidalari</a>
+<a href="#">Maxfiylik</a>
 </div>
-
 
 <div>
-
 <h3>Aloqa</h3>
-
-<a href="mailto:info@uzbooking.online">
-info@uzbooking.online
-</a>
-
-<a href="tel:+998901234567">
-+998 90 123 45 67
-</a>
-
+<a href="mailto:info@uzbooking.online">info@uzbooking.online</a>
+<a href="tel:+998901234567">+998 90 123 45 67</a>
+</div>
 </div>
 
-</div>
-
-<div class="copyright">
-© 2026 UzBooking — Barcha huquqlar himoyalangan.
-</div>
-
+<div class="copyright">© 2026 UzBooking — Barcha huquqlar himoyalangan.</div>
 </footer>
 
 
 <!-- BOOKING MODAL -->
-
 <div class="modal" id="bookingModal">
-
 <div class="modal-box glass">
-
-<button class="close" onclick="closeBooking()">
-×
-</button>
-
-<h2>
-Booking qilish
-</h2>
-
-<p class="modal-subtitle">
-Bron ma'lumotlarini kiriting
-</p>
+<button class="close" onclick="closeBooking()">×</button>
+<h2>Booking qilish</h2>
+<p class="modal-subtitle">Bron ma'lumotlarini kiriting</p>
 
 <div class="selected">
-
-<div class="selected-name" id="selectedHotel">
-Hotel
+<div class="selected-name" id="selectedHotel">Hotel</div>
+<div class="selected-price">Narx: <strong id="selectedHotelPrice">$0</strong> / tun</div>
 </div>
-
-<div class="selected-price">
-Narx:
-<strong id="selectedHotelPrice">
-$0
-</strong>
- / tun
-</div>
-
-</div>
-
 
 <div class="form">
-
-<label>
-Ism va familiya
-</label>
-
-<input
-id="name"
-type="text"
-placeholder="Ismingiz va familiyangiz"
->
-
+<label>Ism va familiya</label>
+<input id="name" type="text" placeholder="Ismingiz va familiyangiz">
 </div>
-
 
 <div class="form">
-
-<label>
-Telefon
-</label>
-
-<input
-id="phone"
-type="tel"
-placeholder="+998 90 123 45 67"
->
-
+<label>Telefon</label>
+<input id="phone" type="tel" placeholder="+998 90 123 45 67">
 </div>
-
 
 <div class="form">
-
-<label>
-Email
-</label>
-
-<input
-id="email"
-type="email"
-placeholder="example@gmail.com"
->
-
+<label>Email</label>
+<input id="email" type="email" placeholder="example@gmail.com">
 </div>
-
 
 <div class="two">
-
 <div class="form">
-
-<label>
-Kelish
-</label>
-
-<input
-id="modalCheckin"
-type="date"
->
-
+<label>Kelish</label>
+<input id="modalCheckin" type="date">
+</div>
+<div class="form">
+<label>Ketish</label>
+<input id="modalCheckout" type="date">
+</div>
 </div>
 
 <div class="form">
-
-<label>
-Ketish
-</label>
-
-<input
-id="modalCheckout"
-type="date"
->
-
-</div>
-
-</div>
-
-
-<div class="form">
-
-<label>
-Mehmonlar
-</label>
-
+<label>Mehmonlar</label>
 <select id="modalGuests">
-
-<option value="1">
-1 mehmon
-</option>
-
-<option value="2" selected>
-2 mehmon
-</option>
-
-<option value="3">
-3 mehmon
-</option>
-
-<option value="4">
-4 mehmon
-</option>
-
-<option value="5">
-5 mehmon
-</option>
-
-<option value="6">
-6 mehmon
-</option>
-
+<option value="1">1 mehmon</option>
+<option value="2" selected>2 mehmon</option>
+<option value="3">3 mehmon</option>
+<option value="4">4 mehmon</option>
+<option value="5">5 mehmon</option>
+<option value="6">6 mehmon</option>
 </select>
-
 </div>
-
 
 <div class="total">
-
-<span>
-Umumiy summa
-</span>
-
-<strong id="total">
-$0
-</strong>
-
+<span>Umumiy summa</span>
+<strong id="total">$0</strong>
 </div>
 
-
-<button
-class="confirm"
-onclick="confirmBooking()"
->
-✓ Bookingni tasdiqlash
-</button>
-
+<button class="confirm" id="confirmBtn" onclick="confirmBooking()">✓ Bookingni tasdiqlash</button>
 </div>
 </div>
 
 
 <!-- AUTH MODAL -->
-
 <div class="modal" id="authModal">
-
 <div class="modal-box glass auth-modal-box">
-
-<button class="close" onclick="closeAuthModal()">
-×
-</button>
-
-<div class="auth-logo">
-U
-</div>
-
-<h2 class="auth-title" id="authTitle">
-UzBooking
-</h2>
-
-<p class="auth-description" id="authDescription">
-Akkauntingizga kiring
-</p>
-
+<button class="close" onclick="closeAuthModal()">×</button>
+<div class="auth-logo">U</div>
+<h2 class="auth-title" id="authTitle">UzBooking</h2>
+<p class="auth-description" id="authDescription">Akkauntingizga kiring</p>
 
 <div class="auth-tabs">
-
-<button
-class="auth-tab active"
-id="loginTab"
-onclick="switchAuthMode('login')"
->
-Kirish
-</button>
-
-<button
-class="auth-tab"
-id="registerTab"
-onclick="switchAuthMode('register')"
->
-Ro'yxatdan o'tish
-</button>
-
+<button class="auth-tab active" id="loginTab" onclick="switchAuthMode('login')">Kirish</button>
+<button class="auth-tab" id="registerTab" onclick="switchAuthMode('register')">Ro'yxatdan o'tish</button>
 </div>
 
-
-<div
-class="auth-error"
-id="authError"
->
-</div>
-
-
-<div
-class="auth-success"
-id="authSuccess"
->
-</div>
-
+<div class="auth-error" id="authError"></div>
+<div class="auth-success" id="authSuccess"></div>
 
 <form id="authForm">
+<div class="form">
+<label>Email</label>
+<input id="authEmail" type="email" autocomplete="email" placeholder="example@gmail.com" required>
+</div>
 
 <div class="form">
-
-<label>
-Email
-</label>
-
-<input
-id="authEmail"
-type="email"
-autocomplete="email"
-placeholder="example@gmail.com"
-required
->
-
-</div>
-
-
-<div class="form">
-
-<label>
-Parol
-</label>
-
+<label>Parol</label>
 <div class="password-wrap">
-
-<input
-id="authPassword"
-type="password"
-autocomplete="current-password"
-placeholder="Kamida 6 ta belgi"
-required
-minlength="6"
->
-
-<button
-type="button"
-class="password-toggle"
-onclick="togglePassword('authPassword',this)"
->
-👁
-</button>
-
+<input id="authPassword" type="password" autocomplete="current-password" placeholder="Kamida 6 ta belgi" required minlength="6">
+<button type="button" class="password-toggle" onclick="togglePassword('authPassword',this)">👁</button>
+</div>
+<div class="password-rule">Parol kamida 6 ta belgidan iborat bo'lishi kerak.</div>
 </div>
 
-<div class="password-rule">
-Parol kamida 6 ta belgidan iborat bo'lishi kerak.
-</div>
-
-</div>
-
-
-<div
-class="form"
-id="confirmPasswordWrap"
-style="display:none"
->
-
-<label>
-Parolni tasdiqlang
-</label>
-
+<div class="form" id="confirmPasswordWrap" style="display:none">
+<label>Parolni tasdiqlang</label>
 <div class="password-wrap">
-
-<input
-id="confirmPassword"
-type="password"
-autocomplete="new-password"
-placeholder="Parolni qayta kiriting"
->
-
-<button
-type="button"
-class="password-toggle"
-onclick="togglePassword('confirmPassword',this)"
->
-👁
-</button>
-
+<input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Parolni qayta kiriting">
+<button type="button" class="password-toggle" onclick="togglePassword('confirmPassword',this)">👁</button>
+</div>
 </div>
 
-</div>
-
-
-<button
-type="submit"
-class="auth-submit"
-id="authSubmit"
->
-Kirish
-</button>
-
+<button type="submit" class="auth-submit" id="authSubmit">Kirish</button>
 </form>
 
 </div>
 </div>
 
-
 <div class="toast" id="toast"></div>
 
 
-<!-- FIREBASE MODULAR SDK -->
+<!-- FIREBASE SDK & APP LOGIC -->
 <script type="module">
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -2124,1504 +1318,462 @@ import {
     browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
-
-/*
-=========================================================
-FIREBASE CONFIG
-=========================================================
-Faqat Firebase Web App config ishlatilmoqda.
-Google Authentication kodi YO'Q.
-=========================================================
-*/
+import {
+    getDatabase,
+    ref,
+    push,
+    set,
+    onValue
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 const firebaseConfig = {
-
-    apiKey:
-        "AIzaSyD9x2UdBdlpswzkr-GNjt8m2wCSF74Qigg",
-
-    authDomain:
-        "uzbooking-e4b16.firebaseapp.com",
-
-    projectId:
-        "uzbooking-e4b16",
-
-    storageBucket:
-        "uzbooking-e4b16.firebasestorage.app",
-
-    messagingSenderId:
-        "909458482543",
-
-    appId:
-        "1:909458482543:web:e1477cb41a3dde1017b49a",
-
-    measurementId:
-        "G-QY80FPHH9K"
+    apiKey: "AIzaSyD9x2UdBdlpswzkr-GNjt8m2wCSF74Qigg",
+    authDomain: "uzbooking-e4b16.firebaseapp.com",
+    projectId: "uzbooking-e4b16",
+    storageBucket: "uzbooking-e4b16.firebasestorage.app",
+    messagingSenderId: "909458482543",
+    appId: "1:909458482543:web:e1477cb41a3dde1017b49a",
+    measurementId: "G-QY80FPHH9K",
+    databaseURL: "https://uzbooking-e4b16-default-rtdb.firebaseio.com"
 };
-
-
-/*
-=========================================================
-INITIALIZE FIREBASE
-=========================================================
-*/
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-
-
-/*
-=========================================================
-AUTH PERSISTENCE
-=========================================================
-*/
+const db = getDatabase(app);
 
 try {
-
-    await setPersistence(
-        auth,
-        browserLocalPersistence
-    );
-
+    await setPersistence(auth, browserLocalPersistence);
 } catch(error) {
-
-    console.error(
-        "Firebase persistence error:",
-        error
-    );
-
+    console.error("Firebase persistence error:", error);
 }
 
-
-/*
-=========================================================
-AUTH ELEMENTS
-=========================================================
-*/
-
-const loginBtn =
-    document.getElementById("loginBtn");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-const authUser =
-    document.getElementById("authUser");
-
-const authName =
-    document.getElementById("authName");
-
-const authEmail =
-    document.getElementById("authEmail");
-
-const authAvatar =
-    document.getElementById("authAvatar");
-
-const authModal =
-    document.getElementById("authModal");
-
-const authForm =
-    document.getElementById("authForm");
-
-const authTitle =
-    document.getElementById("authTitle");
-
-const authDescription =
-    document.getElementById("authDescription");
-
-const authSubmit =
-    document.getElementById("authSubmit");
-
-const loginTab =
-    document.getElementById("loginTab");
-
-const registerTab =
-    document.getElementById("registerTab");
-
-const confirmPasswordWrap =
-    document.getElementById("confirmPasswordWrap");
-
-const authError =
-    document.getElementById("authError");
-
-const authSuccess =
-    document.getElementById("authSuccess");
+// Elements
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+const authUser = document.getElementById("authUser");
+const authName = document.getElementById("authName");
+const authEmail = document.getElementById("authEmail");
+const authAvatar = document.getElementById("authAvatar");
+const authModal = document.getElementById("authModal");
+const authForm = document.getElementById("authForm");
+const authTitle = document.getElementById("authTitle");
+const authDescription = document.getElementById("authDescription");
+const authSubmit = document.getElementById("authSubmit");
+const loginTab = document.getElementById("loginTab");
+const registerTab = document.getElementById("registerTab");
+const confirmPasswordWrap = document.getElementById("confirmPasswordWrap");
+const authError = document.getElementById("authError");
+const authSuccess = document.getElementById("authSuccess");
+const hotelsContainer = document.getElementById("hotelsContainer");
 
 let authMode = "login";
+let allHotels = [];
 
-
-/*
-=========================================================
-OPEN AUTH MODAL
-=========================================================
-*/
-
-loginBtn.addEventListener(
-    "click",
-    () => {
-
-        switchAuthMode("login");
-
-        authModal.classList.add("active");
-
-        document.body.style.overflow = "hidden";
-
-    }
-);
-
-
-/*
-=========================================================
-CLOSE AUTH MODAL
-=========================================================
-*/
+// AUTH HANDLERS
+loginBtn.addEventListener("click", () => {
+    switchAuthMode("login");
+    authModal.classList.add("active");
+    document.body.style.overflow = "hidden";
+});
 
 window.closeAuthModal = function(){
-
     authModal.classList.remove("active");
-
     document.body.style.overflow = "";
-
     clearAuthMessages();
-
 };
-
-
-/*
-=========================================================
-SWITCH LOGIN / REGISTER
-=========================================================
-*/
 
 window.switchAuthMode = function(mode){
-
     authMode = mode;
+    clearAuthMessages();
+    authForm.reset();
+    if(mode === "login"){
+        loginTab.classList.add("active");
+        registerTab.classList.remove("active");
+        confirmPasswordWrap.style.display = "none";
+        authTitle.textContent = "Akkauntga kirish";
+        authDescription.textContent = "Email va parolingiz orqali kiring";
+        authSubmit.textContent = "Kirish";
+    }else{
+        loginTab.classList.remove("active");
+        registerTab.classList.add("active");
+        confirmPasswordWrap.style.display = "block";
+        authTitle.textContent = "Akkaunt yaratish";
+        authDescription.textContent = "UzBooking akkauntingizni yarating";
+        authSubmit.textContent = "Ro'yxatdan o'tish";
+    }
+};
 
+authForm.addEventListener("submit", async function(event){
+    event.preventDefault();
     clearAuthMessages();
 
-    authForm.reset();
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    if(mode === "login"){
-
-        loginTab.classList.add("active");
-
-        registerTab.classList.remove("active");
-
-        confirmPasswordWrap.style.display =
-            "none";
-
-        authTitle.textContent =
-            "Akkauntga kirish";
-
-        authDescription.textContent =
-            "Email va parolingiz orqali kiring";
-
-        authSubmit.textContent =
-            "Kirish";
-
-        document
-            .getElementById("authPassword")
-            .setAttribute(
-                "autocomplete",
-                "current-password"
-            );
-
-    }else{
-
-        loginTab.classList.remove("active");
-
-        registerTab.classList.add("active");
-
-        confirmPasswordWrap.style.display =
-            "block";
-
-        authTitle.textContent =
-            "Akkaunt yaratish";
-
-        authDescription.textContent =
-            "UzBooking akkauntingizni yarating";
-
-        authSubmit.textContent =
-            "Ro'yxatdan o'tish";
-
-        document
-            .getElementById("authPassword")
-            .setAttribute(
-                "autocomplete",
-                "new-password"
-            );
-
+    if(!email || !isValidEmail(email)){
+        showAuthError("Email manzilini to'g'ri kiriting.");
+        return;
+    }
+    if(!password || password.length < 6){
+        showAuthError("Parol kamida 6 ta belgidan iborat bo'lishi kerak.");
+        return;
+    }
+    if(authMode === "register" && password !== confirmPassword){
+        showAuthError("Parollar bir xil emas.");
+        return;
     }
 
-};
+    setAuthLoading(true);
 
-
-/*
-=========================================================
-AUTH FORM SUBMIT
-=========================================================
-*/
-
-authForm.addEventListener(
-    "submit",
-    async function(event){
-
-        event.preventDefault();
-
-        clearAuthMessages();
-
-        const email =
-            document
-            .getElementById("authEmail")
-            .value
-            .trim();
-
-        const password =
-            document
-            .getElementById("authPassword")
-            .value;
-
-        const confirmPassword =
-            document
-            .getElementById("confirmPassword")
-            .value;
-
-
-        if(!email){
-
-            showAuthError(
-                "Email manzilini kiriting."
-            );
-
-            return;
-        }
-
-
-        if(!isValidEmail(email)){
-
-            showAuthError(
-                "Email manzili noto'g'ri formatda."
-            );
-
-            return;
-        }
-
-
-        if(!password){
-
-            showAuthError(
-                "Parolni kiriting."
-            );
-
-            return;
-        }
-
-
-        if(password.length < 6){
-
-            showAuthError(
-                "Parol kamida 6 ta belgidan iborat bo'lishi kerak."
-            );
-
-            return;
-        }
-
-
+    try{
         if(authMode === "register"){
-
-            if(password !== confirmPassword){
-
-                showAuthError(
-                    "Parollar bir xil emas."
-                );
-
-                return;
-            }
-
-        }
-
-
-        setAuthLoading(true);
-
-
-        try{
-
-            if(authMode === "register"){
-
-                const credential =
-                    await createUserWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
-
-
-                /*
-                Firebase UID:
-                credential.user.uid
-                */
-
-                const uid =
-                    credential.user.uid;
-
-
-                /*
-                Foydalanuvchiga tegishli
-                lokal ma'lumotlar UID bilan
-                ajratiladi.
-                */
-
-                localStorage.setItem(
-                    "uzbooking_current_uid",
-                    uid
-                );
-
-
-                showAuthSuccess(
-                    "Akkaunt muvaffaqiyatli yaratildi."
-                );
-
-
-                toast(
-                    "✓ Akkaunt yaratildi!"
-                );
-
-
-                setTimeout(
-                    () => {
-
-                        closeAuthModal();
-
-                    },
-                    800
-                );
-
-
-            }else{
-
-                const credential =
-                    await signInWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
-
-
-                const uid =
-                    credential.user.uid;
-
-
-                localStorage.setItem(
-                    "uzbooking_current_uid",
-                    uid
-                );
-
-
-                showAuthSuccess(
-                    "Muvaffaqiyatli kirildi."
-                );
-
-
-                toast(
-                    "✓ Xush kelibsiz!"
-                );
-
-
-                setTimeout(
-                    () => {
-
-                        closeAuthModal();
-
-                    },
-                    700
-                );
-
-            }
-
-
-        }catch(error){
-
-            console.error(
-                "Firebase Authentication error:",
-                error
-            );
-
-
-            showAuthError(
-                getAuthErrorMessage(error)
-            );
-
-
-        }finally{
-
-            setAuthLoading(false);
-
-        }
-
-    }
-);
-
-
-/*
-=========================================================
-LOGOUT
-=========================================================
-*/
-
-logoutBtn.addEventListener(
-    "click",
-    async function(){
-
-        try{
-
-            await signOut(auth);
-
-            localStorage.removeItem(
-                "uzbooking_current_uid"
-            );
-
-            toast(
-                "✓ Akkauntdan chiqildi."
-            );
-
-        }catch(error){
-
-            console.error(
-                "Logout error:",
-                error
-            );
-
-            toast(
-                "Akkauntdan chiqishda xatolik yuz berdi."
-            );
-
-        }
-
-    }
-);
-
-
-/*
-=========================================================
-AUTH STATE
-=========================================================
-*/
-
-onAuthStateChanged(
-    auth,
-    function(user){
-
-        if(user){
-
-            /*
-            Login qilingan foydalanuvchi.
-            Firebase UID — asosiy identifikator.
-            */
-
-            localStorage.setItem(
-                "uzbooking_current_uid",
-                user.uid
-            );
-
-
-            authUser.classList.add("active");
-
-            loginBtn.style.display =
-                "none";
-
-
-            authName.textContent =
-                user.displayName ||
-                "Foydalanuvchi";
-
-
-            authEmail.textContent =
-                user.email || "";
-
-
-            if(user.photoURL){
-
-                authAvatar.innerHTML =
-                    `<img
-                        src="${escapeHtml(user.photoURL)}"
-                        alt="User"
-                        style="
-                            width:100%;
-                            height:100%;
-                            object-fit:cover;
-                            border-radius:50%;
-                        "
-                    >`;
-
-            }else{
-
-                authAvatar.textContent =
-                    getInitial(
-                        user.email ||
-                        user.displayName ||
-                        "U"
-                    );
-
-            }
-
-
+            const credential = await createUserWithEmailAndPassword(auth, email, password);
+            localStorage.setItem("uzbooking_current_uid", credential.user.uid);
+            showAuthSuccess("Akkaunt muvaffaqiyatli yaratildi.");
+            toast("✓ Akkaunt yaratildi!");
+            setTimeout(() => closeAuthModal(), 800);
         }else{
-
-            /*
-            Login qilinmagan.
-            */
-
-            authUser.classList.remove(
-                "active"
-            );
-
-            loginBtn.style.display =
-                "block";
-
-
-            authName.textContent =
-                "Foydalanuvchi";
-
-            authEmail.textContent =
-                "";
-
-            authAvatar.textContent =
-                "U";
-
-
-            localStorage.removeItem(
-                "uzbooking_current_uid"
-            );
-
+            const credential = await signInWithEmailAndPassword(auth, email, password);
+            localStorage.setItem("uzbooking_current_uid", credential.user.uid);
+            showAuthSuccess("Muvaffaqiyatli kirildi.");
+            toast("✓ Xush kelibsiz!");
+            setTimeout(() => closeAuthModal(), 700);
         }
-
+    }catch(error){
+        console.error("Auth error:", error);
+        showAuthError(getAuthErrorMessage(error));
+    }finally{
+        setAuthLoading(false);
     }
-);
+});
 
-
-/*
-=========================================================
-AUTH ERROR TRANSLATION
-=========================================================
-*/
-
-function getAuthErrorMessage(error){
-
-    const code =
-        error?.code || "";
-
-
-    switch(code){
-
-        case "auth/invalid-email":
-            return "Email manzili noto'g'ri.";
-
-        case "auth/missing-password":
-            return "Parol kiritilmagan.";
-
-        case "auth/weak-password":
-            return "Parol juda zaif. Kamida 6 ta belgi kiriting.";
-
-        case "auth/email-already-in-use":
-            return "Bu email allaqachon ro'yxatdan o'tgan. Kirish bo'limidan foydalaning.";
-
-        case "auth/user-not-found":
-            return "Bu email bilan ro'yxatdan o'tgan akkaunt topilmadi.";
-
-        case "auth/wrong-password":
-            return "Parol noto'g'ri.";
-
-        case "auth/invalid-credential":
-            return "Email yoki parol noto'g'ri.";
-
-        case "auth/invalid-login-credentials":
-            return "Email yoki parol noto'g'ri.";
-
-        case "auth/user-disabled":
-            return "Bu akkaunt vaqtincha bloklangan.";
-
-        case "auth/too-many-requests":
-            return "Juda ko'p urinish amalga oshirildi. Birozdan keyin qayta urinib ko'ring.";
-
-        case "auth/network-request-failed":
-            return "Internet aloqasida muammo. Internetni tekshirib qayta urinib ko'ring.";
-
-        case "auth/operation-not-allowed":
-            return "Firebase Console'da Email/Password Authentication yoqilmagan.";
-
-        case "auth/internal-error":
-            return "Firebase ichki xatosi yuz berdi. Keyinroq qayta urinib ko'ring.";
-
-        case "auth/app-deleted":
-            return "Firebase ilovasi mavjud emas.";
-
-        default:
-
-            if(
-                error?.message &&
-                error.message.length < 220
-            ){
-
-                return error.message;
-
-            }
-
-            return "Amalni bajarishda xatolik yuz berdi. Qayta urinib ko'ring.";
-
+logoutBtn.addEventListener("click", async function(){
+    try{
+        await signOut(auth);
+        localStorage.removeItem("uzbooking_current_uid");
+        toast("✓ Akkauntdan chiqildi.");
+    }catch(error){
+        console.error("Logout error:", error);
     }
+});
 
-}
-
-
-/*
-=========================================================
-EMAIL VALIDATION
-=========================================================
-*/
-
-function isValidEmail(email){
-
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        .test(email);
-
-}
-
-
-/*
-=========================================================
-AUTH UI
-=========================================================
-*/
-
-function showAuthError(message){
-
-    authSuccess.classList.remove(
-        "show"
-    );
-
-    authError.textContent =
-        message;
-
-    authError.classList.add(
-        "show"
-    );
-
-}
-
-
-function showAuthSuccess(message){
-
-    authError.classList.remove(
-        "show"
-    );
-
-    authSuccess.textContent =
-        message;
-
-    authSuccess.classList.add(
-        "show"
-    );
-
-}
-
-
-function clearAuthMessages(){
-
-    authError.textContent =
-        "";
-
-    authSuccess.textContent =
-        "";
-
-    authError.classList.remove(
-        "show"
-    );
-
-    authSuccess.classList.remove(
-        "show"
-    );
-
-}
-
-
-function setAuthLoading(loading){
-
-    authSubmit.disabled =
-        loading;
-
-    if(loading){
-
-        authSubmit.textContent =
-            "Kutilmoqda...";
-
+onAuthStateChanged(auth, function(user){
+    if(user){
+        localStorage.setItem("uzbooking_current_uid", user.uid);
+        authUser.classList.add("active");
+        loginBtn.style.display = "none";
+        authName.textContent = user.displayName || "Foydalanuvchi";
+        authEmail.textContent = user.email || "";
+        authAvatar.textContent = getInitial(user.email || user.displayName || "U");
     }else{
-
-        authSubmit.textContent =
-            authMode === "login"
-            ? "Kirish"
-            : "Ro'yxatdan o'tish";
-
+        authUser.classList.remove("active");
+        loginBtn.style.display = "block";
+        authName.textContent = "Foydalanuvchi";
+        authEmail.textContent = "";
+        authAvatar.textContent = "U";
+        localStorage.removeItem("uzbooking_current_uid");
     }
+});
 
+// FIREBASE REALTIME DATABASE HOTELS & BOOKING LOGIC
+function loadHotelsFromFirebase(){
+    const hotelsRef = ref(db, 'hotels');
+    onValue(hotelsRef, (snapshot) => {
+        const data = snapshot.val();
+        if(data){
+            allHotels = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+            renderHotels(allHotels);
+        }else{
+            // Baza bo'sh bo'lsa default mehmonxonalarni yuklab beramiz
+            const defaultHotels = [
+                { name: "Tashkent Luxury Hotel", city: "Toshkent", price: 85, rating: 4.9, badge: "TOP", tags: ["Wi-Fi", "Nonushta", "Parking"] },
+                { name: "Samarkand Premium Hotel", city: "Samarqand", price: 120, rating: 4.8, badge: "PREMIUM", tags: ["Wi-Fi", "SPA", "Restoran"] },
+                { name: "Bukhara Deluxe Hotel", city: "Buxoro", price: 70, rating: 4.7, badge: "", tags: ["Wi-Fi", "Nonushta", "Transfer"] },
+                { name: "Khiva Heritage Hotel", city: "Xiva", price: 65, rating: 4.8, badge: "", tags: ["Wi-Fi", "Restoran", "Nonushta"] },
+                { name: "Fergana Garden Hotel", city: "Farg'ona", price: 58, rating: 4.6, badge: "", tags: ["Wi-Fi", "Pool", "Parking"] },
+                { name: "Capital Grand Hotel", city: "Toshkent", price: 110, rating: 4.9, badge: "NEW", tags: ["Wi-Fi", "SPA", "Gym"] }
+            ];
+            
+            defaultHotels.forEach(hotel => {
+                const newHotelRef = push(ref(db, 'hotels'));
+                set(newHotelRef, hotel);
+            });
+        }
+    });
 }
 
-
-/*
-=========================================================
-PASSWORD SHOW/HIDE
-=========================================================
-*/
-
-window.togglePassword = function(
-    inputId,
-    button
-){
-
-    const input =
-        document.getElementById(
-            inputId
-        );
-
-
-    if(input.type === "password"){
-
-        input.type = "text";
-
-        button.textContent =
-            "🙈";
-
-    }else{
-
-        input.type = "password";
-
-        button.textContent =
-            "👁";
-
+function renderHotels(hotelsList){
+    hotelsContainer.innerHTML = "";
+    if(!hotelsList || hotelsList.length === 0){
+        hotelsContainer.innerHTML = `
+            <div style="grid-column: 1/-1; text-align:center; padding:40px; color:rgba(255,255,255,0.6)">
+                Hech qanday mehmonxona topilmadi.
+            </div>`;
+        return;
     }
 
+    hotelsList.forEach(hotel => {
+        const card = document.createElement("article");
+        card.className = "card glass";
+
+        const tagsHtml = (hotel.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("");
+        const badgeHtml = hotel.badge ? `<span class="hotel-badge">${escapeHtml(hotel.badge)}</span>` : "";
+
+        card.innerHTML = `
+            <div class="card-image">
+                ${hotel.image ? `<img src="${escapeHtml(hotel.image)}" alt="${escapeHtml(hotel.name)}">` : `<div class="hotel-placeholder-icon">🏢</div>`}
+                ${badgeHtml}
+                <button class="heart" onclick="favorite(this)">♡</button>
+            </div>
+            <div class="card-body">
+                <div class="rating">★★★★★ <span>${hotel.rating || 5.0}</span></div>
+                <h3>${escapeHtml(hotel.name)}</h3>
+                <div class="location">📍 ${escapeHtml(hotel.city)}, O'zbekiston</div>
+                <div class="tags">${tagsHtml}</div>
+                <div class="card-footer">
+                    <div class="price">$${hotel.price} <small>/ tun</small></div>
+                    <button class="book" onclick="openBooking('${escapeHtml(hotel.name)}', ${hotel.price})">Booking</button>
+                </div>
+            </div>
+        `;
+        hotelsContainer.appendChild(card);
+    });
+}
+
+window.filterHotels = function(city, btn){
+    document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
+    btn.classList.add("active");
+
+    if(city === 'all'){
+        renderHotels(allHotels);
+    }else{
+        const filtered = allHotels.filter(h => h.city.toLowerCase() === city.toLowerCase());
+        renderHotels(filtered);
+    }
 };
-
-
-/*
-=========================================================
-USER INITIAL
-=========================================================
-*/
-
-function getInitial(value){
-
-    return String(value)
-        .trim()
-        .charAt(0)
-        .toUpperCase() || "U";
-
-}
-
-
-/*
-=========================================================
-SAFE HTML
-=========================================================
-*/
-
-function escapeHtml(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-/*
-=========================================================
-CLICK OUTSIDE AUTH MODAL
-=========================================================
-*/
-
-authModal.addEventListener(
-    "click",
-    function(event){
-
-        if(event.target === authModal){
-
-            closeAuthModal();
-
-        }
-
-    }
-);
-
-
-/*
-=========================================================
-EXISTING BOOKING FUNCTIONS
-=========================================================
-*/
 
 let hotelName = "";
-
 let hotelPrice = 0;
+const today = new Date().toISOString().split("T")[0];
 
+["checkin", "checkout", "modalCheckin", "modalCheckout"].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.min = today;
+});
 
-const today =
-    new Date()
-    .toISOString()
-    .split("T")[0];
+window.openBooking = function(name, price){
+    hotelName = name;
+    hotelPrice = price;
 
-
-[
-    "checkin",
-    "checkout",
-    "modalCheckin",
-    "modalCheckout"
-]
-.forEach(
-    function(id){
-
-        const element =
-            document.getElementById(id);
-
-        if(element){
-
-            element.min =
-                today;
-
-        }
-
-    }
-);
-
-
-window.openBooking = function(
-    name,
-    price
-){
-
-    hotelName =
-        name;
-
-    hotelPrice =
-        price;
-
-
-    document.getElementById(
-        "selectedHotel"
-    ).textContent =
-        name;
-
-
-    document.getElementById(
-        "selectedHotelPrice"
-    ).textContent =
-        "$" + price;
-
-
-    document.getElementById(
-        "modalCheckin"
-    ).value =
-        document.getElementById(
-            "checkin"
-        ).value;
-
-
-    document.getElementById(
-        "modalCheckout"
-    ).value =
-        document.getElementById(
-            "checkout"
-        ).value;
-
-
-    document.getElementById(
-        "modalGuests"
-    ).value =
-        document.getElementById(
-            "guests"
-        ).value;
-
+    document.getElementById("selectedHotel").textContent = name;
+    document.getElementById("selectedHotelPrice").textContent = "$" + price;
+    document.getElementById("modalCheckin").value = document.getElementById("checkin").value;
+    document.getElementById("modalCheckout").value = document.getElementById("checkout").value;
+    document.getElementById("modalGuests").value = document.getElementById("guests").value;
 
     calculateTotal();
-
-
-    document
-        .getElementById(
-            "bookingModal"
-        )
-        .classList
-        .add("active");
-
-
-    document.body.style.overflow =
-        "hidden";
-
+    document.getElementById("bookingModal").classList.add("active");
+    document.body.style.overflow = "hidden";
 };
-
 
 window.closeBooking = function(){
-
-    document
-        .getElementById(
-            "bookingModal"
-        )
-        .classList
-        .remove("active");
-
-
-    document.body.style.overflow =
-        "";
-
+    document.getElementById("bookingModal").classList.remove("active");
+    document.body.style.overflow = "";
 };
-
 
 window.calculateTotal = function(){
-
-    const checkin =
-        document.getElementById(
-            "modalCheckin"
-        ).value;
-
-
-    const checkout =
-        document.getElementById(
-            "modalCheckout"
-        ).value;
-
+    const checkin = document.getElementById("modalCheckin").value;
+    const checkout = document.getElementById("modalCheckout").value;
 
     if(!checkin || !checkout){
-
-        document.getElementById(
-            "total"
-        ).textContent =
-            "$" + hotelPrice;
-
+        document.getElementById("total").textContent = "$" + hotelPrice;
         return;
-
     }
 
-
-    const nights =
-        Math.ceil(
-            (
-                new Date(checkout) -
-                new Date(checkin)
-            )
-            /
-            (1000 * 60 * 60 * 24)
-        );
-
-
-    document.getElementById(
-        "total"
-    ).textContent =
-        nights > 0
-        ? "$" + nights * hotelPrice
-        : "$0";
-
+    const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+    document.getElementById("total").textContent = nights > 0 ? "$" + (nights * hotelPrice) : "$0";
 };
 
+window.confirmBooking = async function(){
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const checkin = document.getElementById("modalCheckin").value;
+    const checkout = document.getElementById("modalCheckout").value;
+    const guests = document.getElementById("modalGuests").value;
 
-window.confirmBooking = function(){
-
-    const name =
-        document.getElementById(
-            "name"
-        ).value.trim();
-
-
-    const phone =
-        document.getElementById(
-            "phone"
-        ).value.trim();
-
-
-    const email =
-        document.getElementById(
-            "email"
-        ).value.trim();
-
-
-    const checkin =
-        document.getElementById(
-            "modalCheckin"
-        ).value;
-
-
-    const checkout =
-        document.getElementById(
-            "modalCheckout"
-        ).value;
-
-
-    const guests =
-        document.getElementById(
-            "modalGuests"
-        ).value;
-
-
-    if(
-        !name ||
-        !phone ||
-        !email ||
-        !checkin ||
-        !checkout
-    ){
-
-        toast(
-            "Iltimos, barcha maydonlarni to'ldiring."
-        );
-
+    if(!name || !phone || !email || !checkin || !checkout){
+        toast("Iltimos, barcha maydonlarni to'ldiring.");
         return;
-
     }
 
-
-    if(
-        !isValidEmail(email)
-    ){
-
-        toast(
-            "Email manzilini to'g'ri kiriting."
-        );
-
+    if(!isValidEmail(email)){
+        toast("Email manzilini to'g'ri kiriting.");
         return;
-
     }
 
-
-    if(
-        new Date(checkout) <=
-        new Date(checkin)
-    ){
-
-        toast(
-            "Ketish sanasi noto'g'ri."
-        );
-
+    if(new Date(checkout) <= new Date(checkin)){
+        toast("Ketish sanasi noto'g'ri.");
         return;
-
     }
 
-
-    /*
-    Login qilingan foydalanuvchini
-    Firebase UID orqali ajratamiz.
-    */
-
-    const currentUser =
-        auth.currentUser;
-
-
+    const currentUser = auth.currentUser;
     if(!currentUser){
-
-        toast(
-            "Booking qilish uchun avval akkauntga kiring."
-        );
-
+        toast("Booking qilish uchun avval akkauntga kiring.");
         closeBooking();
-
         switchAuthMode("login");
-
-        authModal.classList.add(
-            "active"
-        );
-
-        document.body.style.overflow =
-            "hidden";
-
+        authModal.classList.add("active");
+        document.body.style.overflow = "hidden";
         return;
-
     }
 
+    const confirmBtn = document.getElementById("confirmBtn");
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Saqlanmoqda...";
 
-    const booking = {
-
-        hotel:
-            hotelName,
-
-        price:
-            hotelPrice,
-
-        name:
-            name,
-
-        phone:
-            phone,
-
-        email:
-            email,
-
-        checkin:
-            checkin,
-
-        checkout:
-            checkout,
-
-        guests:
-            guests,
-
-        uid:
-            currentUser.uid,
-
-        createdAt:
-            new Date().toISOString()
-
+    const bookingData = {
+        hotel: hotelName,
+        price: hotelPrice,
+        name: name,
+        phone: phone,
+        email: email,
+        checkin: checkin,
+        checkout: checkout,
+        guests: guests,
+        uid: currentUser.uid,
+        createdAt: new Date().toISOString()
     };
 
+    try {
+        // Firebase Realtime Database'ga saqlash
+        const userBookingsRef = push(ref(db, 'bookings/' + currentUser.uid));
+        await set(userBookingsRef, bookingData);
 
-    /*
-    Har bir foydalanuvchining
-    lokal booking ma'lumoti UID bilan
-    alohida saqlanadi.
-    */
+        closeBooking();
+        toast("✓ Booking so'rovingiz Firebase'ga saqlandi!");
 
-    localStorage.setItem(
-        "uzbooking_booking_" +
-        currentUser.uid,
-        JSON.stringify(booking)
-    );
-
-
-    closeBooking();
-
-
-    toast(
-        "✓ Booking so'rovingiz qabul qilindi!"
-    );
-
-
-    [
-        "name",
-        "phone",
-        "email"
-    ]
-    .forEach(
-        function(id){
-
-            document.getElementById(
-                id
-            ).value = "";
-
-        }
-    );
-
+        ["name", "phone", "email"].forEach(id => {
+            document.getElementById(id).value = "";
+        });
+    } catch(err) {
+        console.error("Booking Error:", err);
+        toast("Xatolik yuz berdi. Qayta urinib ko'ring.");
+    } finally {
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = "✓ Bookingni tasdiqlash";
+    }
 };
-
 
 window.searchHotels = function(){
-
-    const location =
-        document.getElementById(
-            "location"
-        ).value.trim();
-
-
-    const checkin =
-        document.getElementById(
-            "checkin"
-        ).value;
-
-
-    const checkout =
-        document.getElementById(
-            "checkout"
-        ).value;
-
-
-    const guests =
-        document.getElementById(
-            "guests"
-        ).value;
-
+    const location = document.getElementById("location").value.trim();
+    const checkin = document.getElementById("checkin").value;
+    const checkout = document.getElementById("checkout").value;
+    const guests = document.getElementById("guests").value;
 
     if(!location){
-
-        toast(
-            "Manzilni kiriting."
-        );
-
+        toast("Manzilni kiriting.");
         return;
-
     }
-
-
     if(!checkin || !checkout){
-
-        toast(
-            "Kelish va ketish sanalarini tanlang."
-        );
-
+        toast("Kelish va ketish sanalarini tanlang.");
         return;
-
+    }
+    if(new Date(checkout) <= new Date(checkin)){
+        toast("Sanalarni to'g'ri tanlang.");
+        return;
     }
 
-
-    if(
-        new Date(checkout) <=
-        new Date(checkin)
-    ){
-
-        toast(
-            "Sanalarni to'g'ri tanlang."
-        );
-
-        return;
-
-    }
-
-
-    toast(
-        `${location} uchun ${guests} mehmon bo'yicha qidirilmoqda...`
-    );
-
-
+    const filtered = allHotels.filter(h => h.city.toLowerCase().includes(location.toLowerCase()));
+    renderHotels(filtered);
+    toast(`${location} bo'yicha ${filtered.length} ta natija topildi.`);
     scrollToHotels();
-
 };
-
 
 window.favorite = function(button){
-
-    button.textContent =
-        button.textContent.trim() === "♡"
-        ? "♥"
-        : "♡";
-
-
-    toast(
-        button.textContent === "♥"
-        ? "Sevimlilarga qo'shildi."
-        : "Sevimlilardan olib tashlandi."
-    );
-
+    button.textContent = button.textContent.trim() === "♡" ? "♥" : "♡";
+    toast(button.textContent === "♥" ? "Sevimlilarga qo'shildi." : "Sevimlilardan olib tashlandi.");
 };
-
 
 window.scrollToHotels = function(){
-
-    document
-        .getElementById(
-            "hotels"
-        )
-        .scrollIntoView({
-            behavior:"smooth"
-        });
-
+    document.getElementById("hotels").scrollIntoView({ behavior:"smooth" });
 };
-
 
 window.showAbout = function(){
-
-    toast(
-        "UzBooking — O'zbekistondagi turar joylarni topish va booking qilish platformasi."
-    );
-
+    toast("UzBooking — O'zbekistondagi turar joylarni topish va booking qilish platformasi.");
 };
 
+// HELPERS
+function getAuthErrorMessage(error){
+    const code = error?.code || "";
+    switch(code){
+        case "auth/invalid-email": return "Email manzili noto'g'ri.";
+        case "auth/weak-password": return "Parol kamida 6 ta belgi bo'lishi kerak.";
+        case "auth/email-already-in-use": return "Bu email allaqachon ro'yxatdan o'tgan.";
+        case "auth/invalid-credential": return "Email yoki parol noto'g'ri.";
+        default: return error?.message || "Xatolik yuz berdi.";
+    }
+}
 
-/*
-=========================================================
-FILTERS
-=========================================================
-*/
+function isValidEmail(email){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
-document
-    .querySelectorAll(".filter")
-    .forEach(
-        function(button){
+function showAuthError(msg){
+    authSuccess.classList.remove("show");
+    authError.textContent = msg;
+    authError.classList.add("show");
+}
 
-            button.addEventListener(
-                "click",
-                function(){
+function showAuthSuccess(msg){
+    authError.classList.remove("show");
+    authSuccess.textContent = msg;
+    authSuccess.classList.add("show");
+}
 
-                    document
-                        .querySelectorAll(
-                            ".filter"
-                        )
-                        .forEach(
-                            function(item){
+function clearAuthMessages(){
+    authError.textContent = "";
+    authSuccess.textContent = "";
+    authError.classList.remove("show");
+    authSuccess.classList.remove("show");
+}
 
-                                item.classList
-                                    .remove(
-                                        "active"
-                                    );
+function setAuthLoading(loading){
+    authSubmit.disabled = loading;
+    authSubmit.textContent = loading ? "Kutilmoqda..." : (authMode === "login" ? "Kirish" : "Ro'yxatdan o'tish");
+}
 
-                            }
-                        );
+window.togglePassword = function(inputId, button){
+    const input = document.getElementById(inputId);
+    if(input.type === "password"){
+        input.type = "text";
+        button.textContent = "🙈";
+    }else{
+        input.type = "password";
+        button.textContent = "👁";
+    }
+};
 
+function getInitial(val){
+    return String(val).trim().charAt(0).toUpperCase() || "U";
+}
 
-                    this.classList.add(
-                        "active"
-                    );
-
-
-                    toast(
-                        this.textContent.trim() +
-                        " tanlandi."
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-/*
-=========================================================
-TOAST
-=========================================================
-*/
+function escapeHtml(val){
+    return String(val).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
 
 let toastTimer;
-
-
-window.toast = function(message){
-
-    const element =
-        document.getElementById(
-            "toast"
-        );
-
-
-    element.textContent =
-        message;
-
-
-    element.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        toastTimer
-    );
-
-
-    toastTimer =
-        setTimeout(
-            function(){
-
-                element.classList.remove(
-                    "show"
-                );
-
-            },
-            3000
-        );
-
+window.toast = function(msg){
+    const el = document.getElementById("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
 };
 
-
-/*
-=========================================================
-BOOKING MODAL EVENTS
-=========================================================
-*/
-
-document
-    .getElementById(
-        "bookingModal"
-    )
-    .addEventListener(
-        "click",
-        function(event){
-
-            if(
-                event.target ===
-                this
-            ){
-
-                closeBooking();
-
-            }
-
-        }
-    );
-
-
-document.addEventListener(
-    "keydown",
-    function(event){
-
-        if(
-            event.key === "Escape"
-        ){
-
-            closeBooking();
-
-            closeAuthModal();
-
-        }
-
-    }
-);
-
-
-document
-    .getElementById(
-        "modalCheckin"
-    )
-    .addEventListener(
-        "change",
-        calculateTotal
-    );
-
-
-document
-    .getElementById(
-        "modalCheckout"
-    )
-    .addEventListener(
-        "change",
-        calculateTotal
-    );
-
-
-/*
-=========================================================
-AUTH PASSWORD RESET ON MODAL OPEN
-=========================================================
-*/
-
-document
-    .getElementById(
-        "authModal"
-    )
-    .addEventListener(
-        "click",
-        function(event){
-
-            if(
-                event.target === this
-            ){
-
-                closeAuthModal();
-
-            }
-
-        }
-    );
-
-
-/*
-=========================================================
-STARTUP
-=========================================================
-*/
-
-console.log(
-    "UzBooking Firebase Authentication initialized."
-);
-
-console.log(
-    "Authentication mode: Email/Password only."
-);
+// INITIALIZE APP
+loadHotelsFromFirebase();
 
 </script>
-
 </body>
 </html>
