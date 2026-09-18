@@ -9,10 +9,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--brand:#4f46e5;--brand-2:#6366f1;--accent:#06b6d4;--text:#0f172a;--muted:#475569;--line:rgba(226,232,240,.9);--line-2:rgba(238,240,247,.9);--radius:18px}
+:root{
+  --brand:#4f46e5;--brand-2:#6366f1;--accent:#06b6d4;--text:#0f172a;--muted:#475569;
+  --line:rgba(226,232,240,.9);--line-2:rgba(238,240,247,.9);--radius:18px;
+  --bg-image:url('https://user33569.na.imgto.link/public/20260918/photo-2026-09-18-21-17-50.avif');
+}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh;overflow-x:hidden;background:linear-gradient(180deg,rgba(15,23,42,.6) 0%,rgba(15,23,42,.4) 35%,rgba(15,23,42,.75) 100%),linear-gradient(135deg,rgba(79,70,229,.35),rgba(6,182,212,.25)),url('https://user33569.na.imgto.link/public/20260918/photo-2026-09-18-21-17-50.avif') center/cover no-repeat fixed;background-attachment:fixed,fixed,fixed}
+body{margin:0;color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh;overflow-x:hidden;background:linear-gradient(180deg,rgba(15,23,42,.6) 0%,rgba(15,23,42,.4) 35%,rgba(15,23,42,.75) 100%),linear-gradient(135deg,rgba(79,70,229,.35),rgba(6,182,212,.25)),var(--bg-image) center/cover no-repeat fixed;background-attachment:fixed,fixed,fixed}
 @media(max-width:768px){body{background-attachment:scroll,scroll,scroll}}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer;border:0;background:transparent;color:inherit}
@@ -67,7 +71,6 @@ html[dir="rtl"] .flag-dd-menu{right:auto;left:0}
 .btn-outline:hover{border-color:#c7d2fe;color:#4338ca}
 .btn-owner{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;box-shadow:0 10px 24px -12px rgba(249,115,22,.7)}
 .btn-owner:hover{transform:translateY(-1px)}
-.btn-sm{padding:7px 11px;font-size:12.5px;border-radius:10px}
 .btn .i{font-size:15px;line-height:1}
 .user-box{display:none;align-items:center;gap:8px;background:rgba(255,255,255,.95);border:1.5px solid rgba(255,255,255,.6);padding:4px 12px 4px 4px;border-radius:999px;box-shadow:0 8px 20px -10px rgba(0,0,0,.3)}
 html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
@@ -151,7 +154,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:#a5b4fc;background:#fff;box-shadow:0 0 0 4px rgba(99,102,241,.14)}
 .field textarea{min-height:100px;resize:vertical;font-family:inherit}
 
-/* OWNER IMAGE MANAGER */
 .owner-img-manager{border:1.5px dashed var(--line);border-radius:14px;padding:14px;background:#fafbff}
 .thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
 .thumb{position:relative;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);aspect-ratio:4/3;background:#f1f5f9}
@@ -220,18 +222,7 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .lb-counter{position:absolute;left:50%;transform:translateX(-50%);bottom:20px;color:#fff;font-size:13px;font-weight:700;background:rgba(255,255,255,.15);padding:7px 14px;border-radius:999px;backdrop-filter:blur(8px)}
 footer{padding:48px 0 80px;color:rgba(255,255,255,.85);font-size:12.5px;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.5)}
 
-/* ============ OWNER FAB (mobil uchun suzuvchi + tugma) ============ */
-.owner-fab{
-  position:fixed;right:20px;bottom:24px;
-  width:64px;height:64px;border-radius:50%;
-  background:linear-gradient(135deg,#fb923c,#f97316);
-  color:#fff;font-size:34px;font-weight:300;line-height:1;
-  display:none;place-items:center;
-  box-shadow:0 16px 40px -8px rgba(249,115,22,.95),0 8px 20px -8px rgba(0,0,0,.5);
-  z-index:60;transition:transform .15s,box-shadow .2s;
-  border:2px solid rgba(255,255,255,.4);
-  padding-bottom:5px;
-}
+.owner-fab{position:fixed;right:20px;bottom:24px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;font-size:34px;font-weight:300;line-height:1;display:none;place-items:center;box-shadow:0 16px 40px -8px rgba(249,115,22,.95),0 8px 20px -8px rgba(0,0,0,.5);z-index:60;transition:transform .15s,box-shadow .2s;border:2px solid rgba(255,255,255,.4);padding-bottom:5px}
 .owner-fab:hover{transform:scale(1.06)}
 .owner-fab:active{transform:scale(.94)}
 .owner-fab.show{display:grid}
@@ -275,11 +266,8 @@ footer{padding:48px 0 80px;color:rgba(255,255,255,.85);font-size:12.5px;text-ali
   .stats{grid-template-columns:1fr 1fr;gap:10px}
   .stat{padding:13px}
   .stat b{font-size:22px}
-
-  /* Owner tabs mobilda ixcham */
   #ownerPanel .tabs{width:100%;display:flex;justify-content:center;gap:4px;padding:5px}
   #ownerPanel .tab{flex:1;text-align:center;padding:10px 8px;font-size:12px;min-height:44px;display:grid;place-items:center}
-
   .form-grid{grid-template-columns:1fr}
   .field.full{grid-column:auto}
   .modal{padding:12px}
@@ -457,7 +445,6 @@ footer{padding:48px 0 80px;color:rgba(255,255,255,.85);font-size:12.5px;text-ali
 
 <footer><div class="container" data-t="footer">© 2026 UzBooking — dam olish maskanlari uchun bron platformasi.</div></footer>
 
-<!-- MOBIL UCHUN OWNER FAB -->
 <button id="ownerFab" class="owner-fab" onclick="ownerShowAdd()" aria-label="Maskan qo‘shish" type="button">+</button>
 
 <div id="authModal" class="modal"><div class="modal-box">
@@ -540,6 +527,7 @@ const auth = getAuth(app), db = getDatabase(app);
 setPersistence(auth, browserLocalPersistence).catch(() => {});
 
 const MAX_IMAGES = 10;
+const DEFAULT_BG = "https://user33569.na.imgto.link/public/20260918/photo-2026-09-18-21-17-50.avif";
 const LANG_FLAG = { uz:'uz', ru:'ru', en:'gb', ar:'sa', zh:'cn' };
 const CUR_FLAG = { UZS:'uz', USD:'us', EUR:'eu' };
 
@@ -567,6 +555,14 @@ function fmtMoney(uzs){
   const s = currentCurrency === 'USD' ? '$' : '€';
   return s + new Intl.NumberFormat('en-US',{maximumFractionDigits:0}).format(Math.round(a));
 }
+
+/* ============ BACKGROUND SYNC ============ */
+function applyBackground(url){
+  if(!url) url = DEFAULT_BG;
+  document.documentElement.style.setProperty('--bg-image', `url('${url}')`);
+  localStorage.setItem('uzb_bg', url);
+}
+window.applyBackground = applyBackground;
 
 window.toggleDD = (id) => {
   document.querySelectorAll('.flag-dd.open').forEach(el => { if(el.id !== id) el.classList.remove('open'); });
@@ -1040,9 +1036,26 @@ async function loadResorts(){
   renderResorts();
 }
 
-renderOwnerImages();
-syncDD(); applyLang(); loadResorts();
-["checkIn","checkOut","q","region"].forEach(id => { const e = $(id); if(e) e.addEventListener("change", renderResorts); });
+/* ============ INIT ============ */
+(function init(){
+  // Apply cached background immediately
+  const savedBg = localStorage.getItem('uzb_bg') || DEFAULT_BG;
+  applyBackground(savedBg);
+
+  // Sync with Firebase (admin changes)
+  onValue(ref(db, "settings/backgroundUrl"), snap => {
+    if(snap.exists()){
+      const url = snap.val();
+      if(url) applyBackground(url);
+    }
+  }, () => {});
+
+  renderOwnerImages();
+  syncDD();
+  applyLang();
+  loadResorts();
+  ["checkIn","checkOut","q","region"].forEach(id => { const e = $(id); if(e) e.addEventListener("change", renderResorts); });
+})();
 </script>
 </body>
 </html>
