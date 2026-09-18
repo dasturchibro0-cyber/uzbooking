@@ -543,23 +543,12 @@ footer a:hover{color:#fff}
 <div class="toast" id="toast"></div>
 
 
-<!-- ================= FIREBASE + APP LOGIC ================= -->
+<!-- ================= FIREBASE REALTIME DATABASE + APP LOGIC ================= -->
 <script type="module">
 
-/* ---------- Firebase SDK ---------- */
+/* ---------- Firebase SDK (faqat App + Realtime Database + Analytics) ---------- */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut,
-    setPersistence,
-    browserLocalPersistence,
-    updateProfile
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import {
     getDatabase,
@@ -567,6 +556,7 @@ import {
     push,
     set,
     get,
+    update,
     query,
     orderByChild,
     equalTo,
@@ -587,23 +577,15 @@ const firebaseConfig = {
 
 /* ---------- Initialize ---------- */
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getDatabase(app);
 
-/* Analytics (ixtiyoriy, xato bersa e'tibor bermaymiz) */
+/* Analytics (ixtiyoriy) */
 try {
     if (await isSupported()) {
         getAnalytics(app);
     }
 } catch (e) {
     console.warn("Analytics ishlamadi:", e);
-}
-
-/* Sessiyani saqlash (local persistence) */
-try {
-    await setPersistence(auth, browserLocalPersistence);
-} catch (error) {
-    console.error("Firebase persistence error:", error);
 }
 
 /* ---------- Elements ---------- */
@@ -636,6 +618,55 @@ const hotelsContainer = document.getElementById("hotelsContainer");
 
 let authMode = "login";     // "login" | "register"
 let allHotels = [];
+let currentUser = null;     // { uid, email, name } — Realtime DB dan
+
+const SESSION_KEY = "uzbooking_session";
+
+/* =========================================================
+   SESSIYANI TIKLASH (localStorage orqali)
+   ========================================================= */
+function restoreSession() {
+    try {
+        const raw = localStorage.getItem(SESSION_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data && data.uid && data.email) {
+            currentUser = data;
+            applyUserUI(currentUser);
+        }
+    } catch (e) {
+        console.warn("Session tiklanmadi:", e);
+        localStorage.removeItem(SESSION_KEY);
+    }
+}
+
+function saveSession(user) {
+    currentUser = user;
+    localStorage.setItem(SESSION_KEY, JSON.stringify(user));
+}
+
+function clearSession() {
+    currentUser = null;
+    localStorage.removeItem(SESSION_KEY);
+}
+
+/* UI ni yangilash */
+function applyUserUI(user) {
+    if (!user) {
+        authUser.classList.remove("active");
+        loginBtn.style.display = "block";
+        authName.textContent = "Foydalanuvchi";
+        authEmail.textContent = "";
+        authAvatar.textContent = "U";
+        return;
+    }
+    authUser.classList.add("active");
+    loginBtn.style.display = "none";
+    const shownName = user.name || (user.email ? user.email.split("@")[0] : "Foydalanuvchi");
+    authName.textContent = shownName;
+    authEmail.textContent = user.email || "";
+    authAvatar.textContent = getInitial(shownName);
+}
 
 /* =========================================================
    AUTH: MODAL OCHISH / YOPISH
@@ -658,7 +689,7 @@ window.closeAuthModal = function () {
 };
 
 /* =========================================================
-   AUTH: REJIM ALMASHTIRISH (Kirish / Ro'yxatdan o'tish)
+   AUTH: REJIM ALMASHTIRISH
    ========================================================= */
 window.switchAuthMode = function (mode) {
     authMode = mode;
@@ -672,7 +703,6 @@ window.switchAuthMode = function (mode) {
         authTitle.textContent = "Akkauntga kirish";
         authDescription.textContent = "Email va parolingiz orqali kiring";
         authSubmit.textContent = "Kirish";
-        authPasswordInput.setAttribute("autocomplete", "current-password");
     } else {
         loginTab.classList.remove("active");
         registerTab.classList.add("active");
@@ -681,7 +711,6 @@ window.switchAuthMode = function (mode) {
         authTitle.textContent = "Akkaunt yaratish";
         authDescription.textContent = "UzBooking akkauntingizni yarating";
         authSubmit.textContent = "Ro'yxatdan o'tish";
-        authPasswordInput.setAttribute("autocomplete", "new-password");
     }
 };
 
@@ -728,176 +757,106 @@ authForm.addEventListener("submit", async function (event) {
 });
 
 /* =========================================================
-   RO'YXATDAN O'TISH
+   RO'YXATDAN O'TISH (to'g'ridan-to'g'ri Realtime Database)
    ========================================================= */
 async function handleRegister(email, password, fullName) {
-    /* 1) Firebase Realtime DB da bu email bor-yo'qligini tekshiramiz */
-    let exists = null;
-    try {
-        exists = await userEmailExists(email);
-    } catch (e) {
-        console.warn("DB tekshiruvi ishlamadi:", e);
-        exists = null;
-    }
+    /* 1) Email band emasligini tekshiramiz */
+    const existing = await findUserByEmail(email);
 
-    if (exists === true) {
+    if (existing) {
         switchAuthMode("login");
         authEmailInput.value = email;
-        showAuthError("Bu email allaqachon ro'yxatdan o'tgan. Iltimos, 'Kirish' bo'limidan foydalaning.");
+        showAuthError("Bu email allaqachon ro'yxatdan o'tgan. 'Kirish' bo'limidan foydalaning.");
         return;
     }
 
-    try {
-        /* 2) Firebase Authentication'da akkaunt yaratamiz */
-        const credential = await createUserWithEmailAndPassword(auth, email, password);
+    /* 2) Realtime Database'ga yangi foydalanuvchini yozamiz */
+    const newUserRef = push(ref(db, "users"));
+    const uid = newUserRef.key;
 
-        /* 3) displayName saqlaymiz */
-        if (fullName) {
-            try {
-                await updateProfile(credential.user, { displayName: fullName });
-            } catch (e) {
-                console.warn("displayName saqlanmadi:", e);
-            }
-        }
+    const userData = {
+        uid: uid,
+        email: email,
+        password: password,          // ⚠️ oddiy matn — faqat demo uchun
+        name: fullName || "",
+        provider: "password",
+        createdAt: new Date().toISOString()
+    };
 
-        /* 4) Realtime Database'ga mijozni yozamiz */
-        try {
-            await set(ref(db, "users/" + credential.user.uid), {
-                uid: credential.user.uid,
-                email: email,
-                name: fullName || "",
-                provider: "password",
-                createdAt: new Date().toISOString()
-            });
-        } catch (e) {
-            console.warn("users tuguniga yozilmadi (DB rules?):", e);
-        }
+    await set(newUserRef, userData);
 
-        showAuthSuccess("Akkaunt muvaffaqiyatli yaratildi!");
-        toast("✓ Akkaunt yaratildi!");
-        setTimeout(() => closeAuthModal(), 900);
+    /* 3) Sessiyani saqlaymiz */
+    saveSession({
+        uid: uid,
+        email: email,
+        name: fullName || ""
+    });
 
-    } catch (error) {
-        if (error.code === "auth/email-already-in-use") {
-            switchAuthMode("login");
-            authEmailInput.value = email;
-            showAuthError("Bu email allaqachon ro'yxatdan o'tgan. 'Kirish' bo'limidan foydalaning.");
-            return;
-        }
-        throw error;
-    }
+    applyUserUI(currentUser);
+
+    showAuthSuccess("Akkaunt muvaffaqiyatli yaratildi!");
+    toast("✓ Akkaunt yaratildi!");
+    setTimeout(() => closeAuthModal(), 900);
 }
 
 /* =========================================================
-   KIRISH (avval DB dan tekshiradi, keyin Firebase Auth)
+   KIRISH (avval DB dan qidiramiz, keyin parolni tekshiramiz)
    ========================================================= */
 async function handleLogin(email, password) {
-    /* 1) Mijoz Firebase'da bormi? */
-    let exists = null;
-    try {
-        exists = await userEmailExists(email);
-    } catch (e) {
-        console.warn("DB tekshiruvi ishlamadi:", e);
-        exists = null;
-    }
+    const found = await findUserByEmail(email);
 
-    if (exists === false) {
+    if (!found) {
         switchAuthMode("register");
         authEmailInput.value = email;
         showAuthError("Bu email ro'yxatdan o'tmagan. Iltimos, avval ro'yxatdan o'ting.");
         return;
     }
 
-    /* 2) Firebase Auth orqali kirish */
-    try {
-        const credential = await signInWithEmailAndPassword(auth, email, password);
+    const userData = found.data;
 
-        /* Profil yozuvi bo'lmasa — yaratib qo'yamiz */
-        try {
-            const uref = ref(db, "users/" + credential.user.uid);
-            const snap = await get(uref);
-            if (!snap.exists()) {
-                await set(uref, {
-                    uid: credential.user.uid,
-                    email: email,
-                    name: credential.user.displayName || "",
-                    provider: "password",
-                    createdAt: new Date().toISOString()
-                });
-            }
-        } catch (e) {
-            console.warn("Profil tekshiruvi ishlamadi:", e);
-        }
-
-        showAuthSuccess("Muvaffaqiyatli kirdingiz!");
-        toast("✓ Xush kelibsiz!");
-        setTimeout(() => closeAuthModal(), 700);
-
-    } catch (error) {
-        if (error.code === "auth/user-not-found") {
-            switchAuthMode("register");
-            authEmailInput.value = email;
-            showAuthError("Siz ro'yxatdan o'tmagansiz. Iltimos, ro'yxatdan o'ting.");
-            return;
-        }
-        if (error.code === "auth/wrong-password") {
-            showAuthError("Parol noto'g'ri. Qayta urinib ko'ring.");
-            return;
-        }
-        if (error.code === "auth/invalid-credential") {
-            showAuthError("Email yoki parol noto'g'ri. Agar akkauntingiz bo'lmasa — ro'yxatdan o'ting.");
-            return;
-        }
-        throw error;
+    if (String(userData.password) !== String(password)) {
+        showAuthError("Parol noto'g'ri. Qayta urinib ko'ring.");
+        return;
     }
+
+    /* Sessiyani saqlaymiz */
+    saveSession({
+        uid: userData.uid || found.key,
+        email: userData.email,
+        name: userData.name || ""
+    });
+
+    applyUserUI(currentUser);
+
+    showAuthSuccess("Muvaffaqiyatli kirdingiz!");
+    toast("✓ Xush kelibsiz!");
+    setTimeout(() => closeAuthModal(), 700);
 }
 
-/* Email DB da mavjudmi? */
-async function userEmailExists(email) {
+/* Email bo'yicha foydalanuvchini topish */
+async function findUserByEmail(email) {
     const usersQuery = query(
         ref(db, "users"),
         orderByChild("email"),
         equalTo(email)
     );
     const snapshot = await get(usersQuery);
-    return snapshot.exists();
+    if (!snapshot.exists()) return null;
+
+    let result = null;
+    snapshot.forEach(child => {
+        result = { key: child.key, data: child.val() };
+    });
+    return result;
 }
 
 /* =========================================================
    CHIQISH
    ========================================================= */
-logoutBtn.addEventListener("click", async function () {
-    try {
-        await signOut(auth);
-        localStorage.removeItem("uzbooking_current_uid");
-        toast("✓ Akkauntdan chiqildi.");
-    } catch (error) {
-        console.error("Logout error:", error);
-        toast("Chiqishda xatolik yuz berdi.");
-    }
-});
-
-/* =========================================================
-   AUTH HOLATINI KUZATISH
-   ========================================================= */
-onAuthStateChanged(auth, function (user) {
-    if (user) {
-        localStorage.setItem("uzbooking_current_uid", user.uid);
-        authUser.classList.add("active");
-        loginBtn.style.display = "none";
-
-        const shownName = user.displayName || (user.email ? user.email.split("@")[0] : "Foydalanuvchi");
-        authName.textContent = shownName;
-        authEmail.textContent = user.email || "";
-        authAvatar.textContent = getInitial(shownName);
-    } else {
-        authUser.classList.remove("active");
-        loginBtn.style.display = "block";
-        authName.textContent = "Foydalanuvchi";
-        authEmail.textContent = "";
-        authAvatar.textContent = "U";
-        localStorage.removeItem("uzbooking_current_uid");
-    }
+logoutBtn.addEventListener("click", function () {
+    clearSession();
+    applyUserUI(null);
+    toast("✓ Akkauntdan chiqildi.");
 });
 
 /* =========================================================
@@ -925,7 +884,6 @@ function loadHotelsFromFirebase() {
         }
     }, (error) => {
         console.warn("Hotels o'qilmadi:", error);
-        /* DB o'qishga ruxsat bo'lmasa — lokal ro'yxatni ko'rsatamiz */
         allHotels = DEFAULT_HOTELS.map((h, i) => ({ id: "local-" + i, ...h }));
         renderHotels(allHotels);
     });
@@ -1033,9 +991,9 @@ window.openBooking = function (name, price) {
     document.getElementById("modalCheckout").value = document.getElementById("checkout").value;
     document.getElementById("modalGuests").value = document.getElementById("guests").value;
 
-    if (auth.currentUser) {
-        document.getElementById("email").value = auth.currentUser.email || "";
-        document.getElementById("name").value = auth.currentUser.displayName || "";
+    if (currentUser) {
+        document.getElementById("email").value = currentUser.email || "";
+        document.getElementById("name").value = currentUser.name || "";
     }
 
     calculateTotal();
@@ -1082,8 +1040,7 @@ window.confirmBooking = async function () {
         return;
     }
 
-    const currentUser = auth.currentUser;
-    if (!currentUser) {
+    if (!currentUser || !currentUser.uid) {
         toast("Booking qilish uchun avval akkauntga kiring.");
         closeBooking();
         switchAuthMode("login");
@@ -1115,9 +1072,9 @@ window.confirmBooking = async function () {
         closeBooking();
         toast("✓ Booking so'rovingiz saqlandi!");
 
-        document.getElementById("name").value = "";
+        document.getElementById("name").value = currentUser.name || "";
         document.getElementById("phone").value = "";
-        document.getElementById("email").value = "";
+        document.getElementById("email").value = currentUser.email || "";
     } catch (err) {
         console.error("Booking Error:", err);
         toast("Xatolik yuz berdi. Qayta urinib ko'ring.");
@@ -1175,19 +1132,11 @@ window.showAbout = function () {
 };
 
 function getAuthErrorMessage(error) {
-    const code = error?.code || "";
-    switch (code) {
-        case "auth/invalid-email":        return "Email manzili noto'g'ri.";
-        case "auth/weak-password":        return "Parol kamida 6 ta belgidan iborat bo'lishi kerak.";
-        case "auth/email-already-in-use": return "Bu email allaqachon ro'yxatdan o'tgan.";
-        case "auth/user-not-found":       return "Siz ro'yxatdan o'tmagansiz. Ro'yxatdan o'ting.";
-        case "auth/wrong-password":       return "Parol noto'g'ri.";
-        case "auth/invalid-credential":   return "Email yoki parol noto'g'ri.";
-        case "auth/too-many-requests":    return "Juda ko'p urinish. Keyinroq qayta urinib ko'ring.";
-        case "auth/network-request-failed": return "Internet aloqasi yo'q. Ulanishni tekshiring.";
-        case "auth/operation-not-allowed": return "Email/Parol usuli Firebase Console'da yoqilmagan.";
-        default:                          return error?.message || "Xatolik yuz berdi.";
+    const msg = error?.message || "";
+    if (msg.includes("permission")) {
+        return "Ruxsat yo'q. Firebase Realtime Database qoidalarini tekshiring (read/write).";
     }
+    return msg || "Xatolik yuz berdi.";
 }
 
 function isValidEmail(email) {
@@ -1258,6 +1207,7 @@ window.toast = function (msg) {
 /* =========================================================
    START
    ========================================================= */
+restoreSession();
 loadHotelsFromFirebase();
 
 </script>
