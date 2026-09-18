@@ -3,1144 +3,1032 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UzBooking — Booking & Hotel Reservation</title>
-<meta name="description" content="UzBooking — O'zbekistonda mehmonxona va turar joylarni qidirish, solishtirish va online booking qilish platformasi.">
-<meta name="keywords" content="UzBooking, Booking, Uzbekistan booking, hotel booking, mehmonxona booking">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://uzbooking.online/">
-<meta property="og:title" content="UzBooking — Booking & Hotel Reservation">
-<meta property="og:description" content="O'zbekistondagi mehmonxonalarni toping va online booking qiling.">
-<meta property="og:url" content="https://uzbooking.online/">
-<meta property="og:site_name" content="UzBooking">
-<meta property="og:type" content="website">
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebSite",
-  "name":"UzBooking",
-  "alternateName":["Uz Booking","Booking Uzbekistan"],
-  "url":"https://uzbooking.online/"
-}
-</script>
+
+<title>Online Kutubxona</title>
+
+<meta name="description" content="Online kutubxona — kitoblarni qidiring va internet orqali o‘qing.">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-    font-family:Inter,Arial,Helvetica,sans-serif;
-    min-height:100vh;color:#fff;
-    background:
-        radial-gradient(circle at 10% 10%,#4f46e5 0,transparent 30%),
-        radial-gradient(circle at 90% 20%,#06b6d4 0,transparent 30%),
-        radial-gradient(circle at 50% 100%,#9333ea 0,transparent 35%),
-        linear-gradient(135deg,#07111f,#111827 50%,#0f172a);
-    background-attachment:fixed
-}
-body::before{
-    content:"";position:fixed;inset:0;pointer-events:none;
-    background:linear-gradient(120deg,rgba(255,255,255,.04),transparent 40%);z-index:-1
-}
-a{text-decoration:none;color:inherit}
-button,input,select{font:inherit}
-button{cursor:pointer}
-img{width:100%;display:block}
-
-.glass{
-    background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
-    border:1px solid rgba(255,255,255,.20);
-    box-shadow:0 20px 60px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.15);
-    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.header{position:sticky;top:15px;width:min(1200px,92%);margin:15px auto 0;border-radius:22px;z-index:1000}
-.header-inner{min-height:72px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;letter-spacing:-1px}
-.logo-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:linear-gradient(135deg,#60a5fa,#8b5cf6);box-shadow:0 8px 25px rgba(96,165,250,.35)}
-.nav{display:flex;gap:27px;color:rgba(255,255,255,.75);font-size:14px;font-weight:700}
-.nav a{transition:.2s}
-.nav a:hover{color:#fff}
-.header-right{display:flex;align-items:center;gap:9px}
-.lang{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15);padding:10px;border-radius:10px;outline:none}
-.lang option{color:#111827}
-
-.auth-user{display:none;align-items:center;gap:8px;padding:5px 8px 5px 5px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
-.auth-user.active{display:flex}
-.auth-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px}
-.auth-info{max-width:140px;overflow:hidden}
-.auth-name{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.auth-email{font-size:10px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.logout-btn{border:none;color:#fff;background:rgba(239,68,68,.16);border:1px solid rgba(239,68,68,.25);padding:8px 10px;border-radius:9px;font-size:11px;font-weight:800}
-.login{border:none;padding:10px 17px;border-radius:10px;color:#fff;background:linear-gradient(135deg,#3b82f6,#8b5cf6);font-weight:800;box-shadow:0 8px 25px rgba(59,130,246,.25)}
-
-.hero{width:min(1200px,92%);margin:0 auto;min-height:600px;display:flex;align-items:center;position:relative}
-.hero-content{max-width:780px;padding:70px 0}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:50px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);color:#dbeafe;font-size:13px;font-weight:800;margin-bottom:22px}
-.hero h1{font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-3px;margin-bottom:25px}
-.gradient-text{background:linear-gradient(90deg,#60a5fa,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{max-width:650px;color:rgba(255,255,255,.72);font-size:18px;line-height:1.7;margin-bottom:28px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-.primary-btn{border:none;color:#fff;padding:14px 21px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#7c3aed);font-weight:800;box-shadow:0 12px 30px rgba(59,130,246,.3);transition:.2s}
-.primary-btn:hover{transform:translateY(-2px)}
-.secondary-btn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;padding:14px 21px;border-radius:12px;font-weight:800;backdrop-filter:blur(15px)}
-
-.search-area{width:min(1100px,90%);margin:-60px auto 70px;position:relative;z-index:10;padding:22px;border-radius:24px}
-.search-title{font-size:18px;font-weight:900;margin-bottom:17px}
-.search-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr .9fr auto;gap:11px}
-.field label{display:block;color:rgba(255,255,255,.60);font-size:11px;text-transform:uppercase;font-weight:800;margin-bottom:7px}
-.field input,.field select{width:100%;height:48px;padding:0 12px;border-radius:11px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;outline:none}
-.field input::placeholder{color:rgba(255,255,255,.45)}
-.field select option{color:#111827}
-.search-btn{height:48px;align-self:end;border:none;border-radius:11px;padding:0 22px;color:#fff;background:linear-gradient(135deg,#06b6d4,#2563eb);font-weight:900;box-shadow:0 10px 25px rgba(37,99,235,.25)}
-
-.container{width:min(1200px,92%);margin:auto}
-.section{padding-bottom:85px}
-.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:25px}
-.section-title{font-size:32px;letter-spacing:-1px}
-.section-subtitle{color:rgba(255,255,255,.55);margin-top:5px}
-
-.filters{display:flex;gap:9px;overflow-x:auto;padding-bottom:20px}
-.filter{flex-shrink:0;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:rgba(255,255,255,.72);padding:9px 15px;border-radius:50px;font-size:13px;font-weight:800}
-.filter.active{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-color:transparent}
-
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.card{border-radius:20px;overflow:hidden;transition:.3s}
-.card:hover{transform:translateY(-7px);box-shadow:0 25px 65px rgba(0,0,0,.35)}
-.card-image{height:200px;position:relative;background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03));display:flex;align-items:center;justify-content:center}
-.card-image img{height:100%;object-fit:cover}
-.hotel-placeholder-icon{font-size:50px;opacity:.6}
-.hotel-badge{position:absolute;top:13px;left:13px;z-index:2;padding:6px 10px;border-radius:8px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);font-size:11px;font-weight:900}
-.heart{position:absolute;top:12px;right:12px;z-index:3;width:37px;height:37px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.35);color:#fff;font-size:18px}
-.card-body{padding:20px}
-.rating{color:#fbbf24;font-size:13px;margin-bottom:8px}
-.rating span{color:rgba(255,255,255,.55);margin-left:6px}
-.card h3{font-size:20px;margin-bottom:5px}
-.location{color:rgba(255,255,255,.53);font-size:13px;margin-bottom:15px}
-.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
-.tag{padding:5px 8px;border-radius:6px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.60);font-size:11px}
-.card-footer{padding-top:15px;border-top:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;align-items:center}
-.price{font-size:23px;font-weight:900}
-.price small{color:rgba(255,255,255,.48);font-size:11px;font-weight:500}
-.book{border:none;color:#fff;background:rgba(37,99,235,.85);padding:10px 15px;border-radius:9px;font-weight:800}
-
-.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.benefit{padding:23px;border-radius:18px}
-.icon{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.20);font-size:21px;margin-bottom:14px}
-.benefit h3{font-size:16px;margin-bottom:6px}
-.benefit p{color:rgba(255,255,255,.53);font-size:13px}
-
-.cta{padding:50px;border-radius:25px;display:flex;align-items:center;justify-content:space-between;gap:30px;background:linear-gradient(120deg,rgba(37,99,235,.35),rgba(124,58,237,.30))}
-.cta h2{font-size:32px;margin-bottom:8px}
-.cta p{color:rgba(255,255,255,.62)}
-
-footer{margin-top:20px;padding:55px 0 25px;background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.08)}
-.footer-grid{width:min(1200px,92%);margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
-.footer-logo{font-size:23px;font-weight:900;margin-bottom:12px}
-.footer-text{max-width:350px;color:rgba(255,255,255,.50);font-size:13px;line-height:1.8}
-footer h3{font-size:14px;margin-bottom:13px}
-footer a{display:block;color:rgba(255,255,255,.52);font-size:13px;margin:9px 0}
-footer a:hover{color:#fff}
-.copyright{width:min(1200px,92%);margin:40px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.40);font-size:12px}
-
-.modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.65);backdrop-filter:blur(10px)}
-.modal.active{display:flex}
-.modal-box{width:100%;max-width:540px;border-radius:22px;padding:28px;max-height:90vh;overflow-y:auto;position:relative}
-.close{position:absolute;right:17px;top:13px;width:35px;height:35px;border:none;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:23px}
-.modal h2{font-size:25px}
-.modal-subtitle{color:rgba(255,255,255,.53);font-size:13px;margin-top:4px}
-
-.selected{margin:20px 0;padding:15px;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10)}
-.selected-name{font-size:17px;font-weight:900}
-.selected-price{color:rgba(255,255,255,.55);font-size:13px;margin-top:4px}
-
-.form{margin-bottom:14px}
-.form label{display:block;color:rgba(255,255,255,.63);font-size:12px;font-weight:800;margin-bottom:6px}
-.form input,.form select{width:100%;height:46px;padding:0 12px;border-radius:9px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff;outline:none}
-.form select option{color:#111827}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-
-.total{display:flex;align-items:center;justify-content:space-between;padding:15px 0;margin-top:5px;border-top:1px solid rgba(255,255,255,.10);border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:15px}
-.total strong{font-size:22px}
-.confirm{width:100%;height:49px;border:none;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:900}
-
-.auth-modal-box{max-width:430px}
-.auth-logo{width:58px;height:58px;margin:0 auto 16px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2563eb,#7c3aed);font-size:27px;font-weight:900;box-shadow:0 15px 40px rgba(37,99,235,.3)}
-.auth-title{text-align:center;font-size:28px;margin-bottom:5px}
-.auth-description{text-align:center;color:rgba(255,255,255,.55);font-size:13px;margin-bottom:24px}
-.auth-tabs{display:grid;grid-template-columns:1fr 1fr;padding:4px;background:rgba(255,255,255,.06);border-radius:11px;margin-bottom:20px}
-.auth-tab{border:none;color:rgba(255,255,255,.55);background:transparent;padding:10px;border-radius:8px;font-weight:800;font-size:13px}
-.auth-tab.active{color:#fff;background:rgba(255,255,255,.12)}
-
-.auth-error{display:none;padding:11px 13px;border-radius:9px;margin-bottom:15px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#fecaca;font-size:12px;line-height:1.5}
-.auth-error.show{display:block}
-.auth-success{display:none;padding:11px 13px;border-radius:9px;margin-bottom:15px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:#bbf7d0;font-size:12px;line-height:1.5}
-.auth-success.show{display:block}
-
-.auth-submit{width:100%;height:49px;border:none;border-radius:10px;color:#fff;background:linear-gradient(135deg,#2563eb,#7c3aed);font-weight:900;transition:.2s}
-.auth-submit:hover{transform:translateY(-1px)}
-.auth-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
-
-.password-wrap{position:relative}
-.password-wrap input{padding-right:50px}
-.password-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:none;border-radius:8px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.65)}
-.password-rule{color:rgba(255,255,255,.42);font-size:10px;margin-top:6px}
-
-.toast{position:fixed;right:20px;bottom:20px;z-index:8000;max-width:360px;padding:14px 18px;border-radius:12px;background:rgba(15,23,42,.94);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(15px);color:#fff;font-size:13px;font-weight:700;opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s}
-.toast.show{opacity:1;transform:translateY(0)}
-
-@media(max-width:1000px){
-    .nav{display:none}
-    .search-grid{grid-template-columns:1fr 1fr}
-    .cards{grid-template-columns:1fr 1fr}
-    .benefits{grid-template-columns:1fr 1fr}
-    .footer-grid{grid-template-columns:1fr 1fr}
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --shadow: 0 10px 30px rgba(0,0,0,.08);
 }
-@media(max-width:650px){
-    .header{top:8px;margin-top:8px}
-    .header-inner{min-height:62px;padding:10px 13px}
-    .logo{font-size:20px}
-    .logo-icon{width:34px;height:34px}
-    .lang{display:none}
-    .auth-info{display:none}
-    .auth-user{padding:4px}
-    .logout-btn{padding:7px 8px}
-    .hero{min-height:560px}
-    .hero-content{padding-top:50px}
-    .hero h1{font-size:43px;letter-spacing:-2px}
-    .hero p{font-size:15px}
-    .search-area{margin-top:-55px}
-    .search-grid{grid-template-columns:1fr}
-    .cards{grid-template-columns:1fr}
-    .benefits{grid-template-columns:1fr}
-    .section-title{font-size:27px}
-    .cta{padding:30px 23px;flex-direction:column;align-items:flex-start}
-    .cta h2{font-size:26px}
-    .footer-grid{grid-template-columns:1fr}
-    .two{grid-template-columns:1fr}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* HEADER */
+header {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    color: white;
+    padding: 70px 20px;
+}
+
+.hero-content {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 44px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: .9;
+    margin-bottom: 30px;
+}
+
+.search-box {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    border-radius: 14px;
+    padding: 7px;
+    display: flex;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.search-box button {
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 0 25px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background: var(--primary-dark);
+}
+
+/* MAIN */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 45px 20px;
+}
+
+.section-title {
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+/* CATEGORIES */
+.categories {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.category {
+    border: 1px solid var(--border);
+    background: white;
+    padding: 11px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.category:hover,
+.category.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* BOOK GRID */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.book-card {
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: .25s;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+}
+
+.book-cover {
+    height: 260px;
+    background: #e8edf7;
+    overflow: hidden;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-info {
+    padding: 18px;
+}
+
+.book-category {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.book-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.book-author {
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+.book-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.read-btn,
+.info-btn {
+    flex: 1;
+    padding: 11px 8px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.read-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.read-btn:hover {
+    background: var(--primary-dark);
+}
+
+.info-btn {
+    background: #eef2ff;
+    color: var(--primary);
+}
+
+/* EMPTY */
+.empty {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+}
+
+.empty-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 18px;
+    padding: 25px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    border: none;
+    background: #f1f1f1;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.detail {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 25px;
+}
+
+.detail img {
+    width: 180px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.detail h2 {
+    margin-bottom: 10px;
+}
+
+.detail p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.big-read {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 13px 25px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* FOOTER */
+footer {
+    background: #111827;
+    color: white;
+    margin-top: 50px;
+    padding: 40px 20px;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+footer p {
+    color: #9ca3af;
+    margin-top: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+    .books-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .book-cover {
+        height: 230px;
+    }
+
+    .detail {
+        grid-template-columns: 1fr;
+    }
+
+    .detail img {
+        width: 160px;
+        height: 220px;
+    }
+
+    .footer-inner {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 450px) {
+    .books-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .book-cover {
+        height: 300px;
+    }
+
+    .search-box {
+        flex-direction: column;
+        background: transparent;
+        box-shadow: none;
+        gap: 8px;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .search-box button {
+        height: 48px;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<header class="header glass">
-<div class="header-inner">
-<a href="/" class="logo">
-    <div class="logo-icon">U</div>
-    UzBooking
-</a>
-<nav class="nav">
-    <a href="#home">Bosh sahifa</a>
-    <a href="#hotels">Mehmonxonalar</a>
-    <a href="#services">Xizmatlar</a>
-    <a href="#about">Biz haqimizda</a>
-    <a href="#contact">Aloqa</a>
-</nav>
-<div class="header-right">
-<select class="lang">
-    <option>UZ</option>
-    <option>RU</option>
-    <option>EN</option>
-</select>
-<div class="auth-user" id="authUser">
-    <div class="auth-avatar" id="authAvatar">U</div>
-    <div class="auth-info">
-        <div class="auth-name" id="authName">Foydalanuvchi</div>
-        <div class="auth-email" id="authEmail"></div>
+<header>
+    <div class="navbar">
+
+        <div class="logo">
+            <div class="logo-icon">📚</div>
+            <span>Online Kutubxona</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="#home">Bosh sahifa</a>
+            <a href="#books">Kitoblar</a>
+            <a href="#categories">Kategoriyalar</a>
+        </nav>
+
     </div>
-    <button class="logout-btn" id="logoutBtn">Chiqish</button>
-</div>
-<button class="login" id="loginBtn">Kirish</button>
-</div>
-</div>
 </header>
 
+
 <section class="hero" id="home">
-<div class="hero-content">
-<div class="badge">✦ O'zbekiston Booking Platformasi</div>
-<h1>Sayohatingizni <span class="gradient-text">UzBooking</span> bilan boshlang</h1>
-<p>Mehmonxonalar, xonalar va turar joylarni toping, narxlarni solishtiring va bookingni bir necha daqiqada amalga oshiring.</p>
-<div class="hero-actions">
-<button class="primary-btn" onclick="scrollToHotels()">🔎 Booking qidirish</button>
-<button class="secondary-btn" onclick="showAbout()">Batafsil →</button>
-</div>
-</div>
-</section>
+    <div class="hero-content">
 
-<div class="search-area glass">
-<div class="search-title">🔎 Booking qidirish</div>
-<div class="search-grid">
-<div class="field">
-<label>Manzil</label>
-<input id="location" type="text" placeholder="Toshkent, Samarqand...">
-</div>
-<div class="field">
-<label>Kelish</label>
-<input id="checkin" type="date">
-</div>
-<div class="field">
-<label>Ketish</label>
-<input id="checkout" type="date">
-</div>
-<div class="field">
-<label>Mehmonlar</label>
-<select id="guests">
-<option value="1">1 mehmon</option>
-<option value="2" selected>2 mehmon</option>
-<option value="3">3 mehmon</option>
-<option value="4">4 mehmon</option>
-<option value="5">5 mehmon</option>
-<option value="6">6 mehmon</option>
-</select>
-</div>
-<button class="search-btn" onclick="searchHotels()">Qidirish</button>
-</div>
-</div>
+        <h1>Bilim olamiga xush kelibsiz 📚</h1>
 
-<section class="section" id="hotels">
-<div class="container">
-<div class="section-head">
-<div>
-<h2 class="section-title">Mashhur mehmonxonalar</h2>
-<p class="section-subtitle">Booking uchun mavjud variantlar</p>
-</div>
-</div>
-<div class="filters" id="cityFilters">
-<button class="filter active" onclick="filterHotels('all', this)">Barchasi</button>
-<button class="filter" onclick="filterHotels('Toshkent', this)">Toshkent</button>
-<button class="filter" onclick="filterHotels('Samarqand', this)">Samarqand</button>
-<button class="filter" onclick="filterHotels('Buxoro', this)">Buxoro</button>
-<button class="filter" onclick="filterHotels('Xiva', this)">Xiva</button>
-<button class="filter" onclick="filterHotels('Farg\'ona', this)">Farg'ona</button>
-</div>
-<div class="cards" id="hotelsContainer">
-    <div style="grid-column: 1/-1; text-align:center; padding: 40px; color: rgba(255,255,255,0.6);">
-        Mehmonxonalar yuklanmoqda...
+        <p>
+            Minglab kitoblarni qidiring va internet orqali o‘qing.
+        </p>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Kitob yoki muallifni qidiring..."
+            >
+
+            <button onclick="searchBooks()">
+                🔎 Qidirish
+            </button>
+        </div>
+
     </div>
-</div>
-</div>
 </section>
 
-<section class="section" id="services">
-<div class="container">
-<div class="section-head">
-<div>
-<h2 class="section-title">Nega UzBooking?</h2>
-<p class="section-subtitle">Booking jarayonini osonlashtiring</p>
-</div>
-</div>
-<div class="benefits">
-<div class="benefit glass">
-<div class="icon">🔎</div>
-<h3>Oson qidiruv</h3>
-<p>Kerakli joyni shahar va sanalar bo'yicha tez toping.</p>
-</div>
-<div class="benefit glass">
-<div class="icon">💎</div>
-<h3>Shaffof narx</h3>
-<p>Booking qilishdan oldin narxlarni aniq ko'ring.</p>
-</div>
-<div class="benefit glass">
-<div class="icon">⚡</div>
-<h3>Tez booking</h3>
-<p>Bir necha bosqichda bron so'rovini yuboring.</p>
-</div>
-<div class="benefit glass">
-<div class="icon">🔒</div>
-<h3>Xavfsiz</h3>
-<p>Booking ma'lumotlaringiz himoyalangan.</p>
-</div>
-</div>
-</div>
-</section>
 
-<section class="section" id="about">
-<div class="container">
-<div class="cta glass">
-<div>
-<h2>Keyingi bookingingizni bugun boshlang</h2>
-<p>UzBooking bilan O'zbekistondagi mehmonxonalarni qulay toping.</p>
-</div>
-<button class="primary-btn" onclick="scrollToHotels()">Bookingni boshlash</button>
-</div>
-</div>
-</section>
+<main class="container">
 
-<footer id="contact">
-<div class="footer-grid">
-<div>
-<div class="footer-logo">UzBooking</div>
-<p class="footer-text">UzBooking — mehmonxonalar, xonalar va turar joylarni qidirish va booking qilish uchun zamonaviy platforma.</p>
+    <section id="categories">
+
+        <h2 class="section-title">
+            Kategoriyalar
+        </h2>
+
+        <div class="categories">
+
+            <button class="category active"
+                    onclick="filterCategory('all', this)">
+                Barchasi
+            </button>
+
+            <button class="category"
+                    onclick="filterCategory('Roman', this)">
+                📖 Roman
+            </button>
+
+            <button class="category"
+                    onclick="filterCategory('Biznes', this)">
+                💼 Biznes
+            </button>
+
+            <button class="category"
+                    onclick="filterCategory('Tarix', this)">
+                🏛 Tarix
+            </button>
+
+            <button class="category"
+                    onclick="filterCategory('IT', this)">
+                💻 IT
+            </button>
+
+            <button class="category"
+                    onclick="filterCategory('Psixologiya', this)">
+                🧠 Psixologiya
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section id="books">
+
+        <h2 class="section-title">
+            📚 Kitoblar
+        </h2>
+
+        <div class="books-grid" id="booksGrid"></div>
+
+        <div class="empty" id="empty">
+            <div class="empty-icon">📚</div>
+            <h3>Kitob topilmadi</h3>
+            <p>Boshqa nom yoki muallif bilan qidirib ko‘ring.</p>
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- DETAIL MODAL -->
+
+<div class="modal" id="detailModal">
+
+    <div class="modal-content">
+
+        <button class="close" onclick="closeModal()">
+            ×
+        </button>
+
+        <div id="detailContent"></div>
+
+    </div>
+
 </div>
-<div>
-<h3>UzBooking</h3>
-<a href="#home">Bosh sahifa</a>
-<a href="#hotels">Mehmonxonalar</a>
-<a href="#services">Xizmatlar</a>
-</div>
-<div>
-<h3>Yordam</h3>
-<a href="#">FAQ</a>
-<a href="#">Booking qoidalari</a>
-<a href="#">Maxfiylik</a>
-</div>
-<div>
-<h3>Aloqa</h3>
-<a href="mailto:info@uzbooking.online">info@uzbooking.online</a>
-<a href="tel:+998901234567">+998 90 123 45 67</a>
-</div>
-</div>
-<div class="copyright">© 2026 UzBooking — Barcha huquqlar himoyalangan.</div>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+            <h2>📚 Online Kutubxona</h2>
+            <p>Bilim — eng katta boylik.</p>
+        </div>
+
+        <div>
+            <h3>Bo‘limlar</h3>
+            <p>Kitoblar</p>
+            <p>Kategoriyalar</p>
+            <p>Mualliflar</p>
+        </div>
+
+        <div>
+            <h3>Ma'lumot</h3>
+            <p>© 2026 Online Kutubxona</p>
+        </div>
+
+    </div>
+
 </footer>
 
-<!-- BOOKING MODAL -->
-<div class="modal" id="bookingModal">
-<div class="modal-box glass">
-<button class="close" onclick="closeBooking()">×</button>
-<h2>Booking qilish</h2>
-<p class="modal-subtitle">Bron ma'lumotlarini kiriting</p>
-<div class="selected">
-<div class="selected-name" id="selectedHotel">Hotel</div>
-<div class="selected-price">Narx: <strong id="selectedHotelPrice">$0</strong> / tun</div>
-</div>
-<div class="form">
-<label>Ism va familiya</label>
-<input id="name" type="text" placeholder="Ismingiz va familiyangiz">
-</div>
-<div class="form">
-<label>Telefon</label>
-<input id="phone" type="tel" placeholder="+998 90 123 45 67">
-</div>
-<div class="form">
-<label>Email</label>
-<input id="email" type="email" placeholder="example@gmail.com">
-</div>
-<div class="two">
-<div class="form">
-<label>Kelish</label>
-<input id="modalCheckin" type="date">
-</div>
-<div class="form">
-<label>Ketish</label>
-<input id="modalCheckout" type="date">
-</div>
-</div>
-<div class="form">
-<label>Mehmonlar</label>
-<select id="modalGuests">
-<option value="1">1 mehmon</option>
-<option value="2" selected>2 mehmon</option>
-<option value="3">3 mehmon</option>
-<option value="4">4 mehmon</option>
-<option value="5">5 mehmon</option>
-<option value="6">6 mehmon</option>
-</select>
-</div>
-<div class="total">
-<span>Umumiy summa</span>
-<strong id="total">$0</strong>
-</div>
-<button class="confirm" id="confirmBtn" onclick="confirmBooking()">✓ Bookingni tasdiqlash</button>
-</div>
-</div>
 
-<!-- AUTH MODAL -->
-<div class="modal" id="authModal">
-<div class="modal-box glass auth-modal-box">
-<button class="close" onclick="closeAuthModal()">×</button>
-<div class="auth-logo">U</div>
-<h2 class="auth-title" id="authTitle">UzBooking</h2>
-<p class="auth-description" id="authDescription">Akkauntingizga kiring</p>
-<div class="auth-tabs">
-<button type="button" class="auth-tab active" id="loginTab" onclick="switchAuthMode('login')">Kirish</button>
-<button type="button" class="auth-tab" id="registerTab" onclick="switchAuthMode('register')">Ro'yxatdan o'tish</button>
-</div>
-<div class="auth-error" id="authError"></div>
-<div class="auth-success" id="authSuccess"></div>
-<form id="authForm">
-<div class="form" id="fullNameWrap" style="display:none">
-<label>Ism va familiya</label>
-<input id="fullName" type="text" autocomplete="name" placeholder="Ismingiz va familiyangiz">
-</div>
-<div class="form">
-<label>Email</label>
-<input id="authEmailInput" type="email" autocomplete="email" placeholder="example@gmail.com" required>
-</div>
-<div class="form">
-<label>Parol</label>
-<div class="password-wrap">
-<input id="authPassword" type="password" autocomplete="current-password" placeholder="Kamida 6 ta belgi" required minlength="6">
-<button type="button" class="password-toggle" onclick="togglePassword('authPassword',this)">👁</button>
-</div>
-<div class="password-rule">Parol kamida 6 ta belgidan iborat bo'lishi kerak.</div>
-</div>
-<div class="form" id="confirmPasswordWrap" style="display:none">
-<label>Parolni tasdiqlang</label>
-<div class="password-wrap">
-<input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Parolni qayta kiriting">
-<button type="button" class="password-toggle" onclick="togglePassword('confirmPassword',this)">👁</button>
-</div>
-</div>
-<button type="submit" class="auth-submit" id="authSubmit">Kirish</button>
-</form>
-</div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<!-- ================= FIREBASE REALTIME DATABASE + APP LOGIC ================= -->
-<script type="module">
-
-/* ---------- Firebase SDK (faqat App + Realtime Database + Analytics) ---------- */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-import {
-    getDatabase,
-    ref,
-    push,
-    set,
-    get,
-    query,
-    orderByChild,
-    equalTo,
-    onValue
-} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
-
-/* ---------- Firebase config ---------- */
-const firebaseConfig = {
-    apiKey: "AIzaSyD9x2UdBdlpswzkr-GNjt8m2wCSF74Qigg",
-    authDomain: "uzbooking-e4b16.firebaseapp.com",
-    projectId: "uzbooking-e4b16",
-    storageBucket: "uzbooking-e4b16.firebasestorage.app",
-    messagingSenderId: "909458482543",
-    appId: "1:909458482543:web:e1477cb41a3dde1017b49a",
-    measurementId: "G-QY80FPHH9K",
-    databaseURL: "https://uzbooking-e4b16-default-rtdb.firebaseio.com"
-};
-
-/* ---------- Initialize ---------- */
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-/* Analytics (ixtiyoriy) */
-try {
-    if (await isSupported()) {
-        getAnalytics(app);
-    }
-} catch (e) {
-    console.warn("Analytics ishlamadi:", e);
-}
-
-/* ---------- Elements ---------- */
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-const authUser = document.getElementById("authUser");
-const authName = document.getElementById("authName");
-const authEmail = document.getElementById("authEmail");
-const authAvatar = document.getElementById("authAvatar");
-
-const authModal = document.getElementById("authModal");
-const authForm = document.getElementById("authForm");
-const authTitle = document.getElementById("authTitle");
-const authDescription = document.getElementById("authDescription");
-const authSubmit = document.getElementById("authSubmit");
-
-const loginTab = document.getElementById("loginTab");
-const registerTab = document.getElementById("registerTab");
-
-const fullNameWrap = document.getElementById("fullNameWrap");
-const fullNameInput = document.getElementById("fullName");
-const authEmailInput = document.getElementById("authEmailInput");
-const authPasswordInput = document.getElementById("authPassword");
-const confirmPasswordWrap = document.getElementById("confirmPasswordWrap");
-const confirmPasswordInput = document.getElementById("confirmPassword");
-
-const authError = document.getElementById("authError");
-const authSuccess = document.getElementById("authSuccess");
-const hotelsContainer = document.getElementById("hotelsContainer");
-
-let authMode = "login";
-let allHotels = [];
-let currentUser = null;
-
-const SESSION_KEY = "uzbooking_session";
+<script>
 
 /* =========================================================
-   SESSIYANI TIKLASH
+   KITOBLAR
    ========================================================= */
-function restoreSession() {
-    try {
-        const raw = localStorage.getItem(SESSION_KEY);
-        if (!raw) return;
-        const data = JSON.parse(raw);
-        if (data && data.uid && data.email) {
-            currentUser = data;
-            applyUserUI(currentUser);
-        }
-    } catch (e) {
-        console.warn("Session tiklanmadi:", e);
-        localStorage.removeItem(SESSION_KEY);
-    }
-}
 
-function saveSession(user) {
-    currentUser = user;
-    localStorage.setItem(SESSION_KEY, JSON.stringify(user));
-}
+const books = [
 
-function clearSession() {
-    currentUser = null;
-    localStorage.removeItem(SESSION_KEY);
-}
+    {
+        id: 1,
 
-function applyUserUI(user) {
-    if (!user) {
-        authUser.classList.remove("active");
-        loginBtn.style.display = "block";
-        authName.textContent = "Foydalanuvchi";
-        authEmail.textContent = "";
-        authAvatar.textContent = "U";
-        return;
-    }
-    authUser.classList.add("active");
-    loginBtn.style.display = "none";
-    const shownName = user.name || (user.email ? user.email.split("@")[0] : "Foydalanuvchi");
-    authName.textContent = shownName;
-    authEmail.textContent = user.email || "";
-    authAvatar.textContent = getInitial(shownName);
-}
+        title: "Creative Confidence",
 
-/* =========================================================
-   AUTH: MODAL
-   ========================================================= */
-loginBtn.addEventListener("click", () => {
-    switchAuthMode("login");
-    openAuthModal();
-});
+        author: "Tom Kelley",
 
-window.openAuthModal = function () {
-    authModal.classList.add("active");
-    document.body.style.overflow = "hidden";
-};
+        category: "Biznes",
 
-window.closeAuthModal = function () {
-    authModal.classList.remove("active");
-    document.body.style.overflow = "";
-    clearAuthMessages();
-    authForm.reset();
-};
+        year: "2013",
 
-window.switchAuthMode = function (mode) {
-    authMode = mode;
-    clearAuthMessages();
+        description:
+        "Ijodkorlik, innovatsiya va yangi g‘oyalarni rivojlantirish haqida kitob.",
 
-    if (mode === "login") {
-        loginTab.classList.add("active");
-        registerTab.classList.remove("active");
-        fullNameWrap.style.display = "none";
-        confirmPasswordWrap.style.display = "none";
-        authTitle.textContent = "Akkauntga kirish";
-        authDescription.textContent = "Email va parolingiz orqali kiring";
-        authSubmit.textContent = "Kirish";
-    } else {
-        loginTab.classList.remove("active");
-        registerTab.classList.add("active");
-        fullNameWrap.style.display = "block";
-        confirmPasswordWrap.style.display = "block";
-        authTitle.textContent = "Akkaunt yaratish";
-        authDescription.textContent = "UzBooking akkauntingizni yarating";
-        authSubmit.textContent = "Ro'yxatdan o'tish";
-    }
-};
+        image:
+        "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600",
 
-/* =========================================================
-   AUTH: FORM SUBMIT
-   ========================================================= */
-authForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    clearAuthMessages();
+        pdf:
+        "https://pdftolink.app/view/a7979744-7128-4729-9ca3-a36e21d64cfc"
+    },
 
-    const email = authEmailInput.value.trim().toLowerCase();
-    const password = authPasswordInput.value;
-    const confirmPassword = confirmPasswordInput.value;
-    const fullName = fullNameInput.value.trim();
+    {
+        id: 2,
 
-    if (!email || !isValidEmail(email)) {
-        showAuthError("Email manzilini to'g'ri kiriting.");
-        return;
-    }
-    if (!password || password.length < 6) {
-        showAuthError("Parol kamida 6 ta belgidan iborat bo'lishi kerak.");
-        return;
-    }
-    if (authMode === "register" && password !== confirmPassword) {
-        showAuthError("Parollar bir xil emas.");
-        return;
-    }
+        title: "O‘tkan kunlar",
 
-    setAuthLoading(true);
+        author: "Abdulla Qodiriy",
 
-    try {
-        if (authMode === "register") {
-            await handleRegister(email, password, fullName);
-        } else {
-            await handleLogin(email, password);
-        }
-    } catch (error) {
-        console.error("Auth error:", error);
-        showAuthError(getAuthErrorMessage(error));
-    } finally {
-        setAuthLoading(false);
-    }
-});
+        category: "Roman",
 
-/* =========================================================
-   RO'YXATDAN O'TISH
-   ========================================================= */
-async function handleRegister(email, password, fullName) {
-    const existing = await findUserByEmail(email);
+        year: "1926",
 
-    if (existing) {
-        switchAuthMode("login");
-        authEmailInput.value = email;
-        showAuthError("Bu email allaqachon ro'yxatdan o'tgan. 'Kirish' bo'limidan foydalaning.");
-        return;
+        description:
+        "O‘zbek adabiyotining mashhur romanlaridan biri.",
+
+        image:
+        "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600",
+
+        pdf:
+        "#"
+    },
+
+    {
+        id: 3,
+
+        title: "Atom odatlar",
+
+        author: "James Clear",
+
+        category: "Psixologiya",
+
+        year: "2018",
+
+        description:
+        "Kichik odatlar orqali katta natijalarga erishish haqida.",
+
+        image:
+        "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=600",
+
+        pdf:
+        "#"
+    },
+
+    {
+        id: 4,
+
+        title: "JavaScript Asoslari",
+
+        author: "Online Kutubxona",
+
+        category: "IT",
+
+        year: "2026",
+
+        description:
+        "JavaScript dasturlash tilini boshlang‘ich darajada o‘rganish uchun qo‘llanma.",
+
+        image:
+        "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600",
+
+        pdf:
+        "#"
+    },
+
+    {
+        id: 5,
+
+        title: "Buyuk Ipak Yo‘li",
+
+        author: "Tarixiy tadqiqot",
+
+        category: "Tarix",
+
+        year: "2020",
+
+        description:
+        "Buyuk Ipak Yo‘li va uning tarixiy ahamiyati haqida.",
+
+        image:
+        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=600",
+
+        pdf:
+        "#"
+    },
+
+    {
+        id: 6,
+
+        title: "Biznesni boshlash",
+
+        author: "Biznes maktabi",
+
+        category: "Biznes",
+
+        year: "2024",
+
+        description:
+        "Biznes boshlash va rivojlantirish bo‘yicha amaliy qo‘llanma.",
+
+        image:
+        "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600",
+
+        pdf:
+        "#"
     }
 
-    const newUserRef = push(ref(db, "users"));
-    const uid = newUserRef.key;
-
-    const userData = {
-        uid: uid,
-        email: email,
-        password: password, // ⚠️ oddiy matn — faqat demo
-        name: fullName || "",
-        provider: "password",
-        createdAt: new Date().toISOString()
-    };
-
-    await set(newUserRef, userData);
-
-    saveSession({
-        uid: uid,
-        email: email,
-        name: fullName || ""
-    });
-
-    applyUserUI(currentUser);
-
-    showAuthSuccess("Akkaunt muvaffaqiyatli yaratildi!");
-    toast("✓ Akkaunt yaratildi!");
-    setTimeout(() => closeAuthModal(), 900);
-}
-
-/* =========================================================
-   KIRISH
-   ========================================================= */
-async function handleLogin(email, password) {
-    const found = await findUserByEmail(email);
-
-    if (!found) {
-        switchAuthMode("register");
-        authEmailInput.value = email;
-        showAuthError("Bu email ro'yxatdan o'tmagan. Iltimos, avval ro'yxatdan o'ting.");
-        return;
-    }
-
-    const userData = found.data;
-
-    if (String(userData.password) !== String(password)) {
-        showAuthError("Parol noto'g'ri. Qayta urinib ko'ring.");
-        return;
-    }
-
-    saveSession({
-        uid: userData.uid || found.key,
-        email: userData.email,
-        name: userData.name || ""
-    });
-
-    applyUserUI(currentUser);
-
-    showAuthSuccess("Muvaffaqiyatli kirdingiz!");
-    toast("✓ Xush kelibsiz!");
-    setTimeout(() => closeAuthModal(), 700);
-}
-
-/* Email bo'yicha qidiruv — indeks talab qiladi */
-async function findUserByEmail(email) {
-    const usersQuery = query(
-        ref(db, "users"),
-        orderByChild("email"),
-        equalTo(email)
-    );
-    const snapshot = await get(usersQuery);
-    if (!snapshot.exists()) return null;
-
-    let result = null;
-    snapshot.forEach(child => {
-        result = { key: child.key, data: child.val() };
-    });
-    return result;
-}
-
-/* =========================================================
-   CHIQISH
-   ========================================================= */
-logoutBtn.addEventListener("click", function () {
-    clearSession();
-    applyUserUI(null);
-    toast("✓ Akkauntdan chiqildi.");
-});
-
-/* =========================================================
-   MEHMONXONALAR
-   ========================================================= */
-const DEFAULT_HOTELS = [
-    { name: "Tashkent Luxury Hotel", city: "Toshkent", price: 85, rating: 4.9, badge: "TOP", tags: ["Wi-Fi", "Nonushta", "Parking"] },
-    { name: "Samarkand Premium Hotel", city: "Samarqand", price: 120, rating: 4.8, badge: "PREMIUM", tags: ["Wi-Fi", "SPA", "Restoran"] },
-    { name: "Bukhara Deluxe Hotel", city: "Buxoro", price: 70, rating: 4.7, badge: "", tags: ["Wi-Fi", "Nonushta", "Transfer"] },
-    { name: "Khiva Heritage Hotel", city: "Xiva", price: 65, rating: 4.8, badge: "", tags: ["Wi-Fi", "Restoran", "Nonushta"] },
-    { name: "Fergana Garden Hotel", city: "Farg'ona", price: 58, rating: 4.6, badge: "", tags: ["Wi-Fi", "Pool", "Parking"] },
-    { name: "Capital Grand Hotel", city: "Toshkent", price: 110, rating: 4.9, badge: "NEW", tags: ["Wi-Fi", "SPA", "Gym"] }
 ];
 
-function loadHotelsFromFirebase() {
-    const hotelsRef = ref(db, "hotels");
 
-    onValue(hotelsRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-            allHotels = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-            renderHotels(allHotels);
-        } else {
-            seedDefaultHotels();
-        }
-    }, (error) => {
-        console.warn("Hotels o'qilmadi:", error);
-        allHotels = DEFAULT_HOTELS.map((h, i) => ({ id: "local-" + i, ...h }));
-        renderHotels(allHotels);
-    });
-}
+/* =========================================================
+   KITOBLARNI CHIQARISH
+   ========================================================= */
 
-async function seedDefaultHotels() {
-    allHotels = DEFAULT_HOTELS.map((h, i) => ({ id: "local-" + i, ...h }));
-    renderHotels(allHotels);
+const booksGrid = document.getElementById("booksGrid");
 
-    try {
-        for (const hotel of DEFAULT_HOTELS) {
-            const newHotelRef = push(ref(db, "hotels"));
-            await set(newHotelRef, hotel);
-        }
-    } catch (e) {
-        console.warn("Default mehmonxonalarni yozib bo'lmadi:", e);
-    }
-}
+function displayBooks(list) {
 
-function renderHotels(hotelsList) {
-    hotelsContainer.innerHTML = "";
+    booksGrid.innerHTML = "";
 
-    if (!hotelsList || hotelsList.length === 0) {
-        hotelsContainer.innerHTML = `
-            <div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,.6)">
-                Hech qanday mehmonxona topilmadi.
-            </div>`;
+    const empty = document.getElementById("empty");
+
+    if (list.length === 0) {
+
+        empty.style.display = "block";
+
         return;
+
     }
 
-    hotelsList.forEach(hotel => {
-        const card = document.createElement("article");
-        card.className = "card glass";
+    empty.style.display = "none";
 
-        const tagsHtml = (hotel.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("");
-        const badgeHtml = hotel.badge ? `<span class="hotel-badge">${escapeHtml(hotel.badge)}</span>` : "";
-        const imageHtml = hotel.image
-            ? `<img src="${escapeHtml(hotel.image)}" alt="${escapeHtml(hotel.name)}">`
-            : `<div class="hotel-placeholder-icon">🏢</div>`;
+
+    list.forEach(book => {
+
+        const card = document.createElement("div");
+
+        card.className = "book-card";
 
         card.innerHTML = `
-            <div class="card-image">
-                ${imageHtml}
-                ${badgeHtml}
-                <button class="heart" onclick="favorite(this)">♡</button>
+
+            <div class="book-cover">
+
+                <img
+                    src="${book.image}"
+                    alt="${book.title}"
+                    onerror="this.src='https://via.placeholder.com/600x800?text=Book'"
+                >
+
             </div>
-            <div class="card-body">
-                <div class="rating">★★★★★ <span>${hotel.rating || 5.0}</span></div>
-                <h3>${escapeHtml(hotel.name)}</h3>
-                <div class="location">📍 ${escapeHtml(hotel.city)}, O'zbekiston</div>
-                <div class="tags">${tagsHtml}</div>
-                <div class="card-footer">
-                    <div class="price">$${hotel.price} <small>/ tun</small></div>
-                    <button class="book" onclick="openBooking('${escapeHtml(hotel.name)}', ${Number(hotel.price)})">Booking</button>
+
+            <div class="book-info">
+
+                <div class="book-category">
+                    ${book.category}
                 </div>
+
+                <div class="book-title">
+                    ${book.title}
+                </div>
+
+                <div class="book-author">
+                    ${book.author}
+                </div>
+
+                <div class="book-buttons">
+
+                    <button
+                        class="read-btn"
+                        onclick="readBook(${book.id})">
+                        📖 O‘qish
+                    </button>
+
+                    <button
+                        class="info-btn"
+                        onclick="showDetails(${book.id})">
+                        ℹ️
+                    </button>
+
+                </div>
+
             </div>
         `;
-        hotelsContainer.appendChild(card);
+
+        booksGrid.appendChild(card);
+
     });
+
 }
 
-/* =========================================================
-   FILTR
-   ========================================================= */
-window.filterHotels = function (city, btn) {
-    document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
-    btn.classList.add("active");
-
-    if (city === "all") {
-        renderHotels(allHotels);
-    } else {
-        const filtered = allHotels.filter(h => String(h.city).toLowerCase() === city.toLowerCase());
-        renderHotels(filtered);
-    }
-};
 
 /* =========================================================
-   BOOKING
+   KITOBNI O‘QISH
    ========================================================= */
-let hotelName = "";
-let hotelPrice = 0;
-const today = new Date().toISOString().split("T")[0];
 
-["checkin", "checkout", "modalCheckin", "modalCheckout"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.min = today;
-});
+function readBook(id) {
 
-["modalCheckin", "modalCheckout", "modalGuests"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-        el.addEventListener("change", calculateTotal);
-        el.addEventListener("input", calculateTotal);
-    }
-});
+    const book = books.find(b => b.id === id);
 
-window.openBooking = function (name, price) {
-    hotelName = name;
-    hotelPrice = Number(price);
+    if (!book) return;
 
-    document.getElementById("selectedHotel").textContent = name;
-    document.getElementById("selectedHotelPrice").textContent = "$" + price;
+    if (!book.pdf || book.pdf === "#") {
 
-    document.getElementById("modalCheckin").value = document.getElementById("checkin").value;
-    document.getElementById("modalCheckout").value = document.getElementById("checkout").value;
-    document.getElementById("modalGuests").value = document.getElementById("guests").value;
+        alert(
+            "Bu kitob uchun hozircha o‘qish havolasi qo‘shilmagan."
+        );
 
-    if (currentUser) {
-        document.getElementById("email").value = currentUser.email || "";
-        document.getElementById("name").value = currentUser.name || "";
+        return;
     }
 
-    calculateTotal();
-    document.getElementById("bookingModal").classList.add("active");
-    document.body.style.overflow = "hidden";
+    /*
+       PDFtoLink yoki boshqa PDF viewer
+       yangi oynada ochiladi.
+    */
+
+    window.open(
+        book.pdf,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* =========================================================
+   TAFSILOT
+   ========================================================= */
+
+function showDetails(id) {
+
+    const book = books.find(b => b.id === id);
+
+    if (!book) return;
+
+    const modal = document.getElementById("detailModal");
+
+    const detail = document.getElementById("detailContent");
+
+    detail.innerHTML = `
+
+        <div class="detail">
+
+            <img
+                src="${book.image}"
+                alt="${book.title}"
+            >
+
+            <div>
+
+                <div class="book-category">
+                    ${book.category}
+                </div>
+
+                <h2>
+                    ${book.title}
+                </h2>
+
+                <p>
+                    <strong>Muallif:</strong>
+                    ${book.author}
+                </p>
+
+                <p>
+                    <strong>Nashr yili:</strong>
+                    ${book.year}
+                </p>
+
+                <p>
+                    ${book.description}
+                </p>
+
+                ${
+                    book.pdf !== "#"
+                    ?
+                    `<a
+                        class="big-read"
+                        href="${book.pdf}"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        📖 Kitobni o‘qish
+                    </a>`
+                    :
+                    `<span>
+                        Kitob havolasi hali qo‘shilmagan.
+                    </span>`
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+    modal.classList.add("show");
+
+}
+
+
+/* =========================================================
+   MODAL YOPISH
+   ========================================================= */
+
+function closeModal() {
+
+    document
+        .getElementById("detailModal")
+        .classList.remove("show");
+
+}
+
+
+window.onclick = function(event) {
+
+    const modal =
+        document.getElementById("detailModal");
+
+    if (event.target === modal) {
+
+        closeModal();
+
+    }
+
 };
 
-window.closeBooking = function () {
-    document.getElementById("bookingModal").classList.remove("active");
-    document.body.style.overflow = "";
-};
-
-window.calculateTotal = function () {
-    const checkin = document.getElementById("modalCheckin").value;
-    const checkout = document.getElementById("modalCheckout").value;
-
-    if (!checkin || !checkout) {
-        document.getElementById("total").textContent = "$" + hotelPrice;
-        return;
-    }
-
-    const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
-    document.getElementById("total").textContent = nights > 0 ? "$" + (nights * hotelPrice) : "$0";
-};
-
-window.confirmBooking = async function () {
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim().toLowerCase();
-    const checkin = document.getElementById("modalCheckin").value;
-    const checkout = document.getElementById("modalCheckout").value;
-    const guests = document.getElementById("modalGuests").value;
-
-    if (!name || !phone || !email || !checkin || !checkout) {
-        toast("Iltimos, barcha maydonlarni to'ldiring.");
-        return;
-    }
-    if (!isValidEmail(email)) {
-        toast("Email manzilini to'g'ri kiriting.");
-        return;
-    }
-    if (new Date(checkout) <= new Date(checkin)) {
-        toast("Ketish sanasi noto'g'ri.");
-        return;
-    }
-
-    if (!currentUser || !currentUser.uid) {
-        toast("Booking qilish uchun avval akkauntga kiring.");
-        closeBooking();
-        switchAuthMode("login");
-        openAuthModal();
-        return;
-    }
-
-    const confirmBtn = document.getElementById("confirmBtn");
-    confirmBtn.disabled = true;
-    confirmBtn.textContent = "Saqlanmoqda...";
-
-    const bookingData = {
-        hotel: hotelName,
-        price: hotelPrice,
-        name: name,
-        phone: phone,
-        email: email,
-        checkin: checkin,
-        checkout: checkout,
-        guests: guests,
-        uid: currentUser.uid,
-        createdAt: new Date().toISOString()
-    };
-
-    try {
-        const userBookingsRef = push(ref(db, "bookings/" + currentUser.uid));
-        await set(userBookingsRef, bookingData);
-
-        closeBooking();
-        toast("✓ Booking so'rovingiz saqlandi!");
-
-        document.getElementById("name").value = currentUser.name || "";
-        document.getElementById("phone").value = "";
-        document.getElementById("email").value = currentUser.email || "";
-    } catch (err) {
-        console.error("Booking Error:", err);
-        toast("Xatolik yuz berdi. Qayta urinib ko'ring.");
-    } finally {
-        confirmBtn.disabled = false;
-        confirmBtn.textContent = "✓ Bookingni tasdiqlash";
-    }
-};
 
 /* =========================================================
    QIDIRUV
    ========================================================= */
-window.searchHotels = function () {
-    const location = document.getElementById("location").value.trim();
-    const checkin = document.getElementById("checkin").value;
-    const checkout = document.getElementById("checkout").value;
 
-    if (!location) {
-        toast("Manzilni kiriting.");
-        return;
-    }
-    if (!checkin || !checkout) {
-        toast("Kelish va ketish sanalarini tanlang.");
-        return;
-    }
-    if (new Date(checkout) <= new Date(checkin)) {
-        toast("Sanalarni to'g'ri tanlang.");
-        return;
-    }
+function searchBooks() {
 
-    const filtered = allHotels.filter(h =>
-        String(h.city).toLowerCase().includes(location.toLowerCase()) ||
-        String(h.name).toLowerCase().includes(location.toLowerCase())
+    const query =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const result = books.filter(book =>
+
+        book.title
+            .toLowerCase()
+            .includes(query)
+
+        ||
+
+        book.author
+            .toLowerCase()
+            .includes(query)
+
+        ||
+
+        book.category
+            .toLowerCase()
+            .includes(query)
+
     );
 
-    renderHotels(filtered);
-    toast(`${location} bo'yicha ${filtered.length} ta natija topildi.`);
-    scrollToHotels();
-};
+    displayBooks(result);
+
+}
+
+
+document
+    .getElementById("searchInput")
+    .addEventListener(
+        "input",
+        searchBooks
+    );
+
 
 /* =========================================================
-   YORDAMCHI FUNKSIYALAR
+   KATEGORIYA
    ========================================================= */
-window.favorite = function (button) {
-    button.textContent = button.textContent.trim() === "♡" ? "♥" : "♡";
-    toast(button.textContent === "♥" ? "Sevimlilarga qo'shildi." : "Sevimlilardan olib tashlandi.");
-};
 
-window.scrollToHotels = function () {
-    document.getElementById("hotels").scrollIntoView({ behavior: "smooth" });
-};
+function filterCategory(category, button) {
 
-window.showAbout = function () {
-    toast("UzBooking — O'zbekistondagi turar joylarni topish va booking qilish platformasi.");
-};
+    document
+        .querySelectorAll(".category")
+        .forEach(btn => {
 
-function getAuthErrorMessage(error) {
-    const msg = error?.message || "";
-    if (msg.includes("permission")) {
-        return "Ruxsat yo'q. Firebase Realtime Database qoidalarini tekshiring (read/write).";
+            btn.classList.remove("active");
+
+        });
+
+    button.classList.add("active");
+
+
+    if (category === "all") {
+
+        displayBooks(books);
+
+        return;
+
     }
-    return msg || "Xatolik yuz berdi.";
+
+
+    const result = books.filter(
+        book => book.category === category
+    );
+
+    displayBooks(result);
+
 }
 
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-function showAuthError(msg) {
-    authSuccess.classList.remove("show");
-    authError.textContent = msg;
-    authError.classList.add("show");
-}
-
-function showAuthSuccess(msg) {
-    authError.classList.remove("show");
-    authSuccess.textContent = msg;
-    authSuccess.classList.add("show");
-}
-
-function clearAuthMessages() {
-    authError.textContent = "";
-    authSuccess.textContent = "";
-    authError.classList.remove("show");
-    authSuccess.classList.remove("show");
-}
-
-function setAuthLoading(loading) {
-    authSubmit.disabled = loading;
-    if (loading) {
-        authSubmit.textContent = "Kutilmoqda...";
-    } else {
-        authSubmit.textContent = authMode === "login" ? "Kirish" : "Ro'yxatdan o'tish";
-    }
-}
-
-window.togglePassword = function (inputId, button) {
-    const input = document.getElementById(inputId);
-    if (input.type === "password") {
-        input.type = "text";
-        button.textContent = "🙈";
-    } else {
-        input.type = "password";
-        button.textContent = "👁";
-    }
-};
-
-function getInitial(val) {
-    return String(val).trim().charAt(0).toUpperCase() || "U";
-}
-
-function escapeHtml(val) {
-    return String(val)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-let toastTimer;
-window.toast = function (msg) {
-    const el = document.getElementById("toast");
-    el.textContent = msg;
-    el.classList.add("show");
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
-};
 
 /* =========================================================
    START
    ========================================================= */
-restoreSession();
-loadHotelsFromFirebase();
+
+displayBooks(books);
 
 </script>
+
 </body>
 </html>
