@@ -4,33 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>UzBooking — O'zbekistonda mehmonxona bron qilish</title>
+<title>UzBooking — Hotel Booking</title>
 
 <meta name="description"
       content="UzBooking — O'zbekistondagi mehmonxonalarni topish, joylashtirish va bron qilish platformasi.">
 
+<meta name="theme-color" content="#070b14">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet">
 
 <style>
+
 :root{
-    --bg:#07111f;
-    --bg2:#0d1b2e;
-    --card:rgba(255,255,255,.075);
-    --card2:rgba(255,255,255,.11);
-    --border:rgba(255,255,255,.12);
+    --bg:#060a12;
+    --bg2:#0b1220;
+    --card:rgba(255,255,255,.055);
+    --card-hover:rgba(255,255,255,.085);
+    --border:rgba(255,255,255,.11);
+
     --text:#f8fafc;
     --muted:#94a3b8;
+
     --primary:#6366f1;
     --primary2:#8b5cf6;
-    --success:#22c55e;
-    --danger:#ef4444;
-    --warning:#f59e0b;
-    --shadow:0 20px 60px rgba(0,0,0,.35);
+    --cyan:#22d3ee;
+
+    --green:#22c55e;
+    --red:#ef4444;
+    --yellow:#f59e0b;
+
     --radius:22px;
+
+    --shadow:
+        0 25px 80px rgba(0,0,0,.38);
 }
 
 *{
@@ -44,13 +54,39 @@ html{
 }
 
 body{
-    font-family:Inter,Arial,sans-serif;
-    background:
-        radial-gradient(circle at 10% 10%,rgba(99,102,241,.18),transparent 30%),
-        radial-gradient(circle at 90% 20%,rgba(139,92,246,.14),transparent 30%),
-        linear-gradient(135deg,#050b14,#0a1728 50%,#07111f);
-    color:var(--text);
     min-height:100vh;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    color:var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(99,102,241,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(139,92,246,.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(34,211,238,.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #04070d,
+            #09111e 50%,
+            #050912
+        );
+
+    overflow-x:hidden;
 }
 
 body.modal-open{
@@ -68,62 +104,116 @@ button{
     cursor:pointer;
 }
 
-a{
-    color:inherit;
-    text-decoration:none;
+img{
+    max-width:100%;
 }
 
-/* ================= NAVBAR ================= */
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* ======================================================
+   SCROLLBAR
+====================================================== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#050810;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#273449;
+    border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#394962;
+}
+
+/* ======================================================
+   NAVBAR
+====================================================== */
 
 .navbar{
     position:sticky;
     top:0;
     z-index:100;
-    backdrop-filter:blur(22px);
-    background:rgba(5,11,20,.78);
-    border-bottom:1px solid var(--border);
+
+    background:rgba(4,8,15,.78);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    border-bottom:
+        1px solid var(--border);
 }
 
 .nav-inner{
-    max-width:1250px;
+    width:min(1320px,calc(100% - 32px));
     margin:auto;
-    padding:16px 22px;
+
+    height:74px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     gap:20px;
 }
 
 .logo{
-    font-size:25px;
-    font-weight:800;
-    letter-spacing:-1px;
+    font-size:24px;
+    font-weight:900;
+    letter-spacing:-1.2px;
+
+    white-space:nowrap;
 }
 
 .logo span{
-    color:#818cf8;
+    background:
+        linear-gradient(
+            90deg,
+            #818cf8,
+            #c084fc,
+            #67e8f9
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
 }
 
 .nav-links{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:4px;
 }
 
-.nav-links a,
-.nav-links button{
+.nav-link{
+    padding:10px 13px;
+
+    border-radius:11px;
+
     color:#cbd5e1;
+
     background:transparent;
+
     border:0;
-    padding:10px 14px;
-    border-radius:12px;
+
     transition:.2s;
 }
 
-.nav-links a:hover,
-.nav-links button:hover{
-    background:rgba(255,255,255,.07);
+.nav-link:hover{
     color:#fff;
+    background:rgba(255,255,255,.07);
 }
 
 .user-area{
@@ -132,257 +222,483 @@ a{
     gap:10px;
 }
 
-.user-info{
+.user-box{
     display:flex;
     align-items:center;
     gap:9px;
-    padding:7px 10px;
+
+    padding:5px 7px 5px 5px;
+
+    border-radius:14px;
+
     background:rgba(255,255,255,.06);
+
     border:1px solid var(--border);
-    border-radius:15px;
 }
 
 .user-photo{
     width:34px;
     height:34px;
+
     border-radius:50%;
+
     object-fit:cover;
 }
 
 .user-name{
-    font-size:13px;
-    font-weight:600;
-    max-width:130px;
+    max-width:125px;
+
     overflow:hidden;
-    text-overflow:ellipsis;
     white-space:nowrap;
-}
+    text-overflow:ellipsis;
 
-.google-btn{
-    border:1px solid rgba(255,255,255,.15);
-    background:#fff;
-    color:#111827;
-    padding:11px 16px;
-    border-radius:13px;
+    font-size:12px;
     font-weight:700;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    transition:.2s;
-}
-
-.google-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:0 8px 25px rgba(255,255,255,.12);
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    max-width:1250px;
-    margin:auto;
-    padding:90px 22px 55px;
-    text-align:center;
-}
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    padding:8px 13px;
-    border-radius:999px;
-    background:rgba(99,102,241,.13);
-    border:1px solid rgba(129,140,248,.25);
-    color:#a5b4fc;
-    font-size:13px;
-    font-weight:600;
-    margin-bottom:22px;
-}
-
-.hero h1{
-    font-size:clamp(42px,7vw,78px);
-    line-height:1;
-    letter-spacing:-4px;
-    max-width:950px;
-    margin:0 auto 24px;
-}
-
-.gradient{
-    background:linear-gradient(90deg,#818cf8,#c084fc,#67e8f9);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-}
-
-.hero p{
-    max-width:720px;
-    margin:auto;
-    color:var(--muted);
-    font-size:17px;
-    line-height:1.7;
-}
-
-.hero-buttons{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    margin-top:32px;
-    flex-wrap:wrap;
 }
 
 .btn{
     border:0;
-    border-radius:14px;
-    padding:13px 19px;
-    font-weight:700;
-    transition:.2s;
+
+    border-radius:13px;
+
+    padding:12px 17px;
+
+    font-size:13px;
+    font-weight:800;
+
+    transition:
+        transform .2s,
+        box-shadow .2s,
+        background .2s;
 }
 
 .btn:hover{
     transform:translateY(-2px);
 }
 
+.btn:disabled{
+    opacity:.55;
+    cursor:not-allowed;
+    transform:none;
+}
+
 .btn-primary{
     color:#fff;
-    background:linear-gradient(135deg,var(--primary),var(--primary2));
-    box-shadow:0 10px 30px rgba(99,102,241,.25);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+    box-shadow:
+        0 12px 30px rgba(99,102,241,.25);
+}
+
+.btn-primary:hover{
+    box-shadow:
+        0 16px 38px rgba(99,102,241,.34);
 }
 
 .btn-secondary{
     color:#e2e8f0;
-    background:rgba(255,255,255,.07);
-    border:1px solid var(--border);
+
+    background:
+        rgba(255,255,255,.065);
+
+    border:
+        1px solid var(--border);
 }
 
-/* ================= SEARCH ================= */
-
-.search-box{
-    max-width:1050px;
-    margin:30px auto 0;
-    padding:10px;
-    display:grid;
-    grid-template-columns:1.5fr 1fr 1fr 1fr auto;
+.google-btn{
+    display:flex;
+    align-items:center;
     gap:9px;
-    background:rgba(255,255,255,.055);
-    border:1px solid var(--border);
+
+    background:#fff;
+    color:#111827;
+
+    border:0;
+
+    border-radius:13px;
+
+    padding:11px 15px;
+
+    font-size:12px;
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.google-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(255,255,255,.12);
+}
+
+.google-icon{
+    width:20px;
+    height:20px;
+}
+
+/* ======================================================
+   HERO
+====================================================== */
+
+.hero{
+    width:min(1320px,calc(100% - 32px));
+    margin:auto;
+
+    padding:
+        100px
+        20px
+        65px;
+
+    text-align:center;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 13px;
+
+    border-radius:999px;
+
+    background:
+        rgba(99,102,241,.10);
+
+    border:
+        1px solid rgba(129,140,248,.24);
+
+    color:#a5b4fc;
+
+    font-size:12px;
+    font-weight:700;
+
+    margin-bottom:23px;
+}
+
+.hero h1{
+    max-width:980px;
+
+    margin:0 auto;
+
+    font-size:
+        clamp(45px,7vw,82px);
+
+    line-height:
+        .98;
+
+    letter-spacing:
+        -4px;
+
+    font-weight:900;
+}
+
+.gradient{
+    background:
+        linear-gradient(
+            90deg,
+            #818cf8,
+            #c084fc,
+            #67e8f9
+        );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-description{
+    max-width:720px;
+
+    margin:
+        25px auto
+        0;
+
+    color:var(--muted);
+
+    font-size:16px;
+
+    line-height:1.75;
+}
+
+.hero-actions{
+    margin-top:31px;
+
+    display:flex;
+    justify-content:center;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+/* ======================================================
+   SEARCH
+====================================================== */
+
+.search-wrap{
+    width:min(1100px,calc(100% - 32px));
+
+    margin:
+        0 auto
+        25px;
+}
+
+.search-panel{
+    display:grid;
+
+    grid-template-columns:
+        1.8fr
+        1fr
+        1fr
+        1fr
+        auto;
+
+    gap:8px;
+
+    padding:10px;
+
     border-radius:20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid var(--border);
+
     box-shadow:var(--shadow);
-    backdrop-filter:blur(20px);
+
+    backdrop-filter:
+        blur(22px);
 }
 
-.field{
-    position:relative;
-}
-
-.field input,
-.field select{
+.input{
     width:100%;
-    height:48px;
-    border:1px solid transparent;
-    outline:0;
+    height:47px;
+
+    outline:none;
+
+    border:
+        1px solid transparent;
+
     border-radius:12px;
-    background:rgba(255,255,255,.065);
+
+    padding:0 13px;
+
     color:#fff;
-    padding:0 14px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    transition:.2s;
 }
 
-.field select option{
-    background:#0f172a;
+.input::placeholder{
+    color:#64748b;
+}
+
+.input:focus{
+    border-color:
+        rgba(129,140,248,.55);
+
+    background:
+        rgba(255,255,255,.075);
+}
+
+select.input option{
     color:#fff;
+    background:#0b1220;
 }
 
-.field input:focus,
-.field select:focus{
-    border-color:#6366f1;
-}
-
-/* ================= MAIN ================= */
+/* ======================================================
+   CONTAINER
+====================================================== */
 
 .container{
-    max-width:1250px;
+    width:min(1320px,calc(100% - 32px));
+
     margin:auto;
-    padding:25px 22px 70px;
+
+    padding-bottom:90px;
 }
 
-.section-header{
+.section{
+    margin-top:55px;
+}
+
+.section-heading{
     display:flex;
-    align-items:end;
+
     justify-content:space-between;
+    align-items:end;
+
     gap:20px;
-    margin:35px 0 22px;
+
+    margin-bottom:22px;
 }
 
-.section-header h2{
+.section-heading h2{
     font-size:29px;
+
     letter-spacing:-1px;
 }
 
-.section-header p{
-    color:var(--muted);
+.section-heading p{
     margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:13px;
 }
 
-/* ================= HOTEL GRID ================= */
+/* ======================================================
+   HOTEL GRID
+====================================================== */
 
 .hotel-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
     gap:20px;
 }
 
 .hotel-card{
     overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.035)
+        );
+
+    border:
+        1px solid var(--border);
+
     border-radius:var(--radius);
-    background:var(--card);
-    border:1px solid var(--border);
-    box-shadow:0 12px 40px rgba(0,0,0,.2);
-    transition:.25s;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.22);
+
+    transition:
+        transform .25s,
+        border-color .25s,
+        background .25s;
 }
 
 .hotel-card:hover{
-    transform:translateY(-5px);
-    background:var(--card2);
-    box-shadow:var(--shadow);
+    transform:translateY(-6px);
+
+    border-color:
+        rgba(129,140,248,.28);
+
+    background:
+        var(--card-hover);
 }
 
-.hotel-image{
-    height:230px;
+.hotel-cover{
+    height:235px;
+
     position:relative;
-    background:#111827;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111827,
+            #1e293b
+        );
+
+    overflow:hidden;
 }
 
-.hotel-image img{
+.hotel-cover img{
     width:100%;
     height:100%;
+
     object-fit:cover;
+
+    transition:
+        transform .5s;
+}
+
+.hotel-card:hover
+.hotel-cover img{
+    transform:scale(1.045);
+}
+
+.hotel-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.28),
+            transparent 40%,
+            rgba(0,0,0,.5)
+        );
 }
 
 .hotel-badge{
     position:absolute;
+
     top:14px;
     left:14px;
+
     padding:7px 10px;
-    border-radius:10px;
-    background:rgba(0,0,0,.6);
+
+    border-radius:9px;
+
+    background:
+        rgba(0,0,0,.58);
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
     backdrop-filter:blur(10px);
-    font-size:12px;
-    font-weight:700;
+
+    font-size:11px;
+    font-weight:800;
 }
 
-.favorite{
+.favorite-btn{
     position:absolute;
-    top:12px;
-    right:12px;
+
+    right:13px;
+    top:13px;
+
     width:40px;
     height:40px;
+
     border-radius:50%;
-    border:1px solid rgba(255,255,255,.2);
-    background:rgba(0,0,0,.45);
+
+    border:
+        1px solid rgba(255,255,255,.16);
+
+    background:
+        rgba(0,0,0,.42);
+
     color:#fff;
-    font-size:19px;
+
+    backdrop-filter:blur(10px);
+
+    font-size:18px;
+
+    transition:.2s;
 }
 
-.favorite.active{
+.favorite-btn:hover{
+    transform:scale(1.06);
+}
+
+.favorite-btn.active{
     color:#fb7185;
 }
 
@@ -390,148 +706,245 @@ a{
     padding:18px;
 }
 
-.hotel-title-row{
+.hotel-top{
     display:flex;
+
     justify-content:space-between;
+
     gap:10px;
 }
 
-.hotel-title{
-    font-size:19px;
+.hotel-name{
+    font-size:18px;
     font-weight:800;
+
+    line-height:1.3;
 }
 
 .rating{
-    white-space:nowrap;
     color:#fbbf24;
-    font-size:13px;
-    font-weight:700;
+
+    white-space:nowrap;
+
+    font-size:12px;
+    font-weight:800;
 }
 
 .hotel-location{
-    color:var(--muted);
-    font-size:13px;
     margin-top:7px;
+
+    color:#94a3b8;
+
+    font-size:12px;
 }
 
 .hotel-description{
-    color:#aab6c8;
-    font-size:13px;
-    line-height:1.55;
-    margin-top:13px;
+    margin-top:12px;
+
     min-height:40px;
+
+    color:#aab6c8;
+
+    font-size:12px;
+
+    line-height:1.6;
 }
 
-.tags{
+.tag-list{
     display:flex;
+
     flex-wrap:wrap;
+
     gap:6px;
+
     margin-top:14px;
 }
 
 .tag{
-    font-size:11px;
-    color:#c7d2fe;
-    background:rgba(99,102,241,.12);
-    border:1px solid rgba(129,140,248,.15);
     padding:5px 8px;
-    border-radius:8px;
+
+    border-radius:7px;
+
+    color:#c7d2fe;
+
+    background:
+        rgba(99,102,241,.10);
+
+    border:
+        1px solid rgba(129,140,248,.13);
+
+    font-size:10px;
+    font-weight:700;
 }
 
-.hotel-bottom{
+.hotel-footer{
     display:flex;
-    align-items:center;
+
     justify-content:space-between;
+    align-items:end;
+
+    gap:12px;
+
     margin-top:18px;
 }
 
 .price strong{
-    font-size:20px;
+    display:block;
+
+    font-size:18px;
 }
 
-.price span{
-    color:var(--muted);
-    font-size:12px;
+.price small{
+    color:#64748b;
+
+    font-size:10px;
 }
 
 .card-actions{
     display:flex;
-    gap:7px;
+    gap:6px;
 }
 
-.small-btn{
+.action-btn{
     border:0;
+
     border-radius:10px;
-    padding:9px 12px;
-    font-size:12px;
-    font-weight:700;
+
+    padding:9px 11px;
+
+    font-size:11px;
+    font-weight:800;
 }
 
 .book-btn{
-    background:#fff;
     color:#111827;
+    background:#fff;
 }
 
 .edit-btn{
-    background:rgba(99,102,241,.18);
     color:#c7d2fe;
+    background:rgba(99,102,241,.15);
 }
 
 .delete-btn{
-    background:rgba(239,68,68,.13);
     color:#fca5a5;
+    background:rgba(239,68,68,.12);
 }
 
-/* ================= EMPTY ================= */
+/* ======================================================
+   EMPTY
+====================================================== */
 
 .empty{
     grid-column:1/-1;
+
+    min-height:240px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    flex-direction:column;
+
     text-align:center;
-    padding:70px 20px;
-    border:1px dashed rgba(255,255,255,.15);
-    border-radius:24px;
+
+    padding:30px;
+
+    border:
+        1px dashed rgba(255,255,255,.15);
+
+    border-radius:22px;
+
     color:var(--muted);
 }
 
 .empty-icon{
-    font-size:45px;
-    margin-bottom:14px;
+    font-size:44px;
+
+    margin-bottom:13px;
 }
 
-/* ================= DASHBOARD ================= */
+.empty h3{
+    color:#e2e8f0;
+
+    font-size:17px;
+}
+
+.empty p{
+    max-width:520px;
+
+    margin-top:7px;
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+/* ======================================================
+   DASHBOARD
+====================================================== */
 
 .dashboard{
     margin-top:65px;
-    padding:30px;
-    background:rgba(255,255,255,.045);
-    border:1px solid var(--border);
-    border-radius:28px;
+
+    padding:28px;
+
+    border-radius:26px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid var(--border);
 }
 
-.dashboard-top{
+.dashboard-head{
     display:flex;
-    align-items:center;
+
     justify-content:space-between;
-    gap:15px;
-    margin-bottom:22px;
+    align-items:center;
+
+    gap:20px;
+
+    margin-bottom:24px;
 }
 
-.dashboard-top h2{
-    font-size:27px;
+.dashboard-head h2{
+    font-size:26px;
 }
 
-/* ================= MODAL ================= */
+.dashboard-head p{
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+/* ======================================================
+   MODAL
+====================================================== */
 
 .modal{
     position:fixed;
+
     inset:0;
+
     z-index:500;
+
     display:none;
+
     align-items:center;
     justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.72);
-    backdrop-filter:blur(12px);
+
+    padding:16px;
+
+    background:
+        rgba(0,0,0,.76);
+
+    backdrop-filter:
+        blur(15px);
 }
 
 .modal.active{
@@ -539,247 +952,454 @@ a{
 }
 
 .modal-box{
-    width:min(720px,100%);
-    max-height:92vh;
+    width:min(760px,100%);
+
+    max-height:
+        calc(100vh - 30px);
+
     overflow:auto;
-    background:#0d192a;
-    border:1px solid var(--border);
+
     border-radius:25px;
-    box-shadow:0 30px 100px rgba(0,0,0,.5);
+
+    background:
+        #0b1321;
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 40px 120px rgba(0,0,0,.65);
+
+    animation:
+        modalIn .22s ease;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:none;
+    }
 }
 
 .modal-header{
     position:sticky;
+
     top:0;
-    z-index:2;
+
+    z-index:5;
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
-    padding:21px 23px;
-    background:rgba(13,25,42,.94);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid var(--border);
+    justify-content:space-between;
+
+    padding:19px 22px;
+
+    background:
+        rgba(11,19,33,.94);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid var(--border);
 }
 
-.modal-header h3{
-    font-size:21px;
+.modal-title{
+    font-size:19px;
+    font-weight:800;
 }
 
-.close{
+.close-btn{
     width:38px;
     height:38px;
+
     border:0;
+
     border-radius:11px;
-    background:rgba(255,255,255,.07);
+
+    background:
+        rgba(255,255,255,.07);
+
     color:#fff;
+
     font-size:20px;
 }
 
 .form{
-    padding:23px;
+    padding:22px;
 }
 
 .form-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:15px;
 }
 
 .form-group{
-    margin-bottom:15px;
+    margin-bottom:14px;
 }
 
-.form-group.full{
+.form-full{
     grid-column:1/-1;
 }
 
-.form-group label{
+.form-label{
     display:block;
-    color:#cbd5e1;
-    font-size:13px;
-    font-weight:600;
+
     margin-bottom:7px;
+
+    color:#cbd5e1;
+
+    font-size:11px;
+    font-weight:800;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea{
+.form-control{
     width:100%;
-    border:1px solid var(--border);
-    outline:0;
-    color:#fff;
-    background:rgba(255,255,255,.055);
+
+    border:
+        1px solid var(--border);
+
     border-radius:12px;
+
+    outline:none;
+
+    background:
+        rgba(255,255,255,.055);
+
+    color:#fff;
+
     padding:12px 13px;
+
+    transition:.2s;
 }
 
-.form-group textarea{
-    min-height:110px;
+.form-control:focus{
+    border-color:
+        rgba(129,140,248,.6);
+
+    background:
+        rgba(255,255,255,.075);
+}
+
+textarea.form-control{
+    min-height:105px;
     resize:vertical;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-    border-color:#6366f1;
 }
 
 .form-actions{
     display:flex;
+
     justify-content:flex-end;
-    gap:9px;
-    margin-top:10px;
+
+    gap:8px;
+
+    margin-top:9px;
 }
 
-/* ================= UPLOAD ================= */
+/* ======================================================
+   IMAGE UPLOAD
+====================================================== */
 
-.upload-box{
-    border:1px dashed rgba(129,140,248,.4);
-    border-radius:14px;
-    padding:18px;
+.upload-area{
+    padding:17px;
+
+    border-radius:15px;
+
+    border:
+        1px dashed rgba(129,140,248,.35);
+
+    background:
+        rgba(99,102,241,.045);
+
     text-align:center;
-    background:rgba(99,102,241,.06);
 }
 
-.upload-box input{
-    border:0;
-    padding:0;
-    background:transparent;
+.upload-area input{
+    width:100%;
+
+    color:#cbd5e1;
+
+    font-size:12px;
 }
 
-/* ================= BOOKING ================= */
+/* ======================================================
+   BOOKING
+====================================================== */
 
-.booking-summary{
-    padding:20px 23px;
-    border-bottom:1px solid var(--border);
+.booking-info{
+    padding:20px 22px;
+
+    border-bottom:
+        1px solid var(--border);
 }
 
-.booking-hotel{
+.booking-hotel-name{
     font-size:20px;
-    font-weight:800;
+    font-weight:900;
 }
 
-.booking-price{
+.booking-hotel-price{
+    margin-top:6px;
+
     color:#a5b4fc;
-    margin-top:5px;
-}
 
-/* ================= TOAST ================= */
-
-.toast-container{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    z-index:1000;
-    display:flex;
-    flex-direction:column;
-    gap:9px;
-}
-
-.toast{
-    min-width:280px;
-    max-width:380px;
-    padding:14px 16px;
-    border-radius:14px;
-    background:#111c2d;
-    border:1px solid var(--border);
-    box-shadow:var(--shadow);
-    animation:toastIn .25s ease;
     font-size:13px;
 }
 
+/* ======================================================
+   LOADING
+====================================================== */
+
+.loading{
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    min-height:220px;
+}
+
+.spinner{
+    width:30px;
+    height:30px;
+
+    border:
+        3px solid rgba(255,255,255,.12);
+
+    border-top-color:
+        #818cf8;
+
+    border-radius:50%;
+
+    animation:
+        spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* ======================================================
+   FIREBASE ERROR
+====================================================== */
+
+.firebase-status{
+    position:fixed;
+
+    left:16px;
+    bottom:16px;
+
+    z-index:300;
+
+    display:none;
+
+    width:min(450px,calc(100% - 32px));
+
+    padding:15px;
+
+    border-radius:16px;
+
+    background:
+        rgba(15,23,42,.96);
+
+    border:
+        1px solid rgba(239,68,68,.35);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.5);
+}
+
+.firebase-status.show{
+    display:block;
+}
+
+.firebase-status-title{
+    color:#fca5a5;
+
+    font-size:13px;
+    font-weight:800;
+
+    margin-bottom:7px;
+}
+
+.firebase-status-text{
+    color:#cbd5e1;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+.firebase-status-close{
+    position:absolute;
+
+    right:10px;
+    top:8px;
+
+    border:0;
+
+    background:none;
+
+    color:#94a3b8;
+
+    font-size:18px;
+}
+
+/* ======================================================
+   TOAST
+====================================================== */
+
+.toast-container{
+    position:fixed;
+
+    right:18px;
+    bottom:18px;
+
+    z-index:1000;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    width:min(390px,calc(100% - 36px));
+}
+
+.toast{
+    padding:14px 15px;
+
+    border-radius:14px;
+
+    background:
+        rgba(15,23,42,.95);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.45);
+
+    color:#e2e8f0;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+    animation:
+        toastIn .25s ease;
+}
+
 .toast.success{
-    border-color:rgba(34,197,94,.3);
+    border-color:
+        rgba(34,197,94,.3);
 }
 
 .toast.error{
-    border-color:rgba(239,68,68,.3);
+    border-color:
+        rgba(239,68,68,.4);
 }
 
 @keyframes toastIn{
     from{
-        transform:translateY(20px);
         opacity:0;
+        transform:translateY(15px);
     }
+
     to{
-        transform:translateY(0);
         opacity:1;
+        transform:none;
     }
 }
 
-/* ================= LOADER ================= */
-
-.loader{
-    width:24px;
-    height:24px;
-    border:3px solid rgba(255,255,255,.2);
-    border-top-color:#818cf8;
-    border-radius:50%;
-    animation:spin .7s linear infinite;
-}
-
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
-
-.loading{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:50px;
-}
-
-/* ================= FOOTER ================= */
+/* ======================================================
+   FOOTER
+====================================================== */
 
 footer{
-    border-top:1px solid var(--border);
-    background:rgba(0,0,0,.15);
+    border-top:
+        1px solid var(--border);
+
+    background:
+        rgba(0,0,0,.16);
 }
 
-.footer-inner{
-    max-width:1250px;
+.footer{
+    width:min(1320px,calc(100% - 32px));
+
     margin:auto;
-    padding:35px 22px;
+
+    padding:40px 0;
+
     display:flex;
+
     justify-content:space-between;
-    gap:20px;
+
+    gap:25px;
+
     color:var(--muted);
-    font-size:13px;
+
+    font-size:11px;
 }
 
 .footer-logo{
     color:#fff;
-    font-weight:800;
-    font-size:19px;
-    margin-bottom:7px;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    margin-bottom:6px;
 }
 
-/* ================= RESPONSIVE ================= */
+/* ======================================================
+   RESPONSIVE
+====================================================== */
 
-@media(max-width:1000px){
+@media(max-width:1100px){
+
     .hotel-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
     }
 
-    .search-box{
-        grid-template-columns:1fr 1fr;
+    .search-panel{
+        grid-template-columns:
+            1fr 1fr;
     }
 }
 
 @media(max-width:760px){
+
+    .nav-inner{
+        height:65px;
+    }
+
     .nav-links{
         display:none;
     }
 
     .hero{
-        padding-top:60px;
+        padding-top:65px;
     }
 
     .hero h1{
-        letter-spacing:-2px;
+        letter-spacing:-2.5px;
     }
 
-    .search-box{
+    .search-panel{
         grid-template-columns:1fr;
     }
 
@@ -791,7 +1411,7 @@ footer{
         grid-template-columns:1fr;
     }
 
-    .form-group.full{
+    .form-full{
         grid-column:auto;
     }
 
@@ -799,7 +1419,12 @@ footer{
         padding:20px;
     }
 
-    .footer-inner{
+    .dashboard-head{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .footer{
         flex-direction:column;
     }
 
@@ -809,84 +1434,161 @@ footer{
 }
 
 @media(max-width:450px){
-    .nav-inner{
-        padding:12px 14px;
+
+    .nav-inner,
+    .container,
+    .search-wrap{
+        width:
+            calc(100% - 22px);
     }
 
-    .hero,
-    .container{
-        padding-left:14px;
-        padding-right:14px;
+    .hero{
+        width:
+            calc(100% - 22px);
+
+        padding-left:5px;
+        padding-right:5px;
     }
 
     .hero h1{
         font-size:43px;
     }
 
-    .card-actions{
+    .hotel-footer{
+        align-items:stretch;
         flex-direction:column;
     }
+
+    .card-actions{
+        justify-content:flex-end;
+    }
+
+    .footer{
+        width:
+            calc(100% - 22px);
+    }
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
 
-<nav class="navbar">
+<header class="navbar">
+
     <div class="nav-inner">
 
         <a href="#" class="logo">
             Uz<span>Booking</span>
         </a>
 
-        <div class="nav-links">
-            <a href="#hotels">Mehmonxonalar</a>
-            <a href="#dashboard">Mening mehmonxonalarim</a>
-            <button id="navAddBtn">🏨 Mehmonxona joylash</button>
-        </div>
+        <nav class="nav-links">
 
-        <div class="user-area" id="userArea">
+            <a class="nav-link" href="#hotels">
+                Mehmonxonalar
+            </a>
 
-            <button class="google-btn" id="loginBtn">
-                <span>G</span>
+            <a class="nav-link" href="#dashboard">
+                Mening mehmonxonalarim
+            </a>
+
+            <button
+                class="nav-link"
+                id="navAdd"
+                type="button">
+                🏨 Mehmonxona joylash
+            </button>
+
+        </nav>
+
+        <div id="userArea" class="user-area">
+
+            <button
+                id="loginButton"
+                class="google-btn"
+                type="button">
+
+                <svg
+                    class="google-icon"
+                    viewBox="0 0 24 24">
+
+                    <path
+                        fill="#4285F4"
+                        d="M21.35 12.23c0-.72-.06-1.42-.18-2.09H12v3.96h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.26z"/>
+
+                    <path
+                        fill="#34A853"
+                        d="M12 21.7c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.75 9.75 0 0 0 12 21.7z"/>
+
+                    <path
+                        fill="#FBBC05"
+                        d="M6.54 13.78a5.87 5.87 0 0 1 0-3.56V7.69H3.3a9.74 9.74 0 0 0 0 8.62l3.24-2.53z"/>
+
+                    <path
+                        fill="#EA4335"
+                        d="M12 6.19c1.43 0 2.72.49 3.73 1.46l2.8-2.8C16.84 3.26 14.63 2.3 12 2.3a9.75 9.75 0 0 0-8.7 5.39l3.24 2.53C7.31 7.91 9.46 6.19 12 6.19z"/>
+
+                </svg>
+
                 Google orqali kirish
+
             </button>
 
         </div>
 
     </div>
-</nav>
+
+</header>
 
 
-<!-- ================= HERO ================= -->
+<!-- ======================================================
+     HERO
+====================================================== -->
 
 <section class="hero">
 
-    <div class="badge">
+    <div class="hero-badge">
         🇺🇿 O'zbekiston bo'ylab mehmonxonalar
     </div>
 
     <h1>
         Sayohatingizni
-        <span class="gradient">qulayroq</span>
-        qiling
+        <br>
+        <span class="gradient">
+            qulayroq qiling.
+        </span>
     </h1>
 
-    <p>
-        O'zbekistondagi mehmonxonalarni toping, narxlarni solishtiring
-        va o'zingizning mehmonxonangizni UzBooking platformasiga joylashtiring.
+    <p class="hero-description">
+
+        O'zbekistondagi mehmonxonalarni toping,
+        narxlarni ko'ring va o'zingizning
+        mehmonxonangizni UzBooking'ga joylashtiring.
+
     </p>
 
-    <div class="hero-buttons">
+    <div class="hero-actions">
 
-        <button class="btn btn-primary" id="heroAddBtn">
+        <button
+            id="heroAdd"
+            class="btn btn-primary"
+            type="button">
+
             🏨 Mehmonxona joylash
+
         </button>
 
-        <button class="btn btn-secondary" id="scrollHotelsBtn">
+        <button
+            id="heroExplore"
+            class="btn btn-secondary"
+            type="button">
+
             🔎 Mehmonxonalarni ko'rish
+
         </button>
 
     </div>
@@ -894,163 +1596,296 @@ footer{
 </section>
 
 
-<!-- ================= SEARCH ================= -->
+<!-- ======================================================
+     SEARCH
+====================================================== -->
 
-<div class="container">
+<div class="search-wrap">
 
-    <div class="search-box">
+    <div class="search-panel">
 
-        <div class="field">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="🔎 Mehmonxona nomi yoki joylashuvi..."
-            >
-        </div>
+        <input
+            id="searchInput"
+            class="input"
+            type="search"
+            placeholder="🔎 Mehmonxona nomi, shahar yoki manzil...">
 
-        <div class="field">
-            <select id="cityFilter">
-                <option value="">Barcha shaharlar</option>
-                <option value="Toshkent">Toshkent</option>
-                <option value="Samarqand">Samarqand</option>
-                <option value="Buxoro">Buxoro</option>
-                <option value="Xiva">Xiva</option>
-                <option value="Farg'ona">Farg'ona</option>
-                <option value="Andijon">Andijon</option>
-                <option value="Namangan">Namangan</option>
-                <option value="Navoiy">Navoiy</option>
-                <option value="Qarshi">Qarshi</option>
-                <option value="Termiz">Termiz</option>
-            </select>
-        </div>
+        <select
+            id="cityFilter"
+            class="input">
 
-        <div class="field">
-            <select id="priceFilter">
-                <option value="">Barcha narxlar</option>
-                <option value="0-300000">300 000 so'mgacha</option>
-                <option value="300000-600000">300 000 – 600 000</option>
-                <option value="600000-1000000">600 000 – 1 000 000</option>
-                <option value="1000000+">1 000 000+</option>
-            </select>
-        </div>
+            <option value="">
+                Barcha shaharlar
+            </option>
 
-        <div class="field">
-            <select id="ratingFilter">
-                <option value="">Barcha reytinglar</option>
-                <option value="5">5 ⭐</option>
-                <option value="4">4+ ⭐</option>
-                <option value="3">3+ ⭐</option>
-            </select>
-        </div>
+            <option>Toshkent</option>
+            <option>Samarqand</option>
+            <option>Buxoro</option>
+            <option>Xiva</option>
+            <option>Farg'ona</option>
+            <option>Andijon</option>
+            <option>Namangan</option>
+            <option>Navoiy</option>
+            <option>Qarshi</option>
+            <option>Termiz</option>
+            <option>Pop</option>
+            <option>Chust</option>
 
-        <button class="btn btn-primary" id="clearFilters">
+        </select>
+
+        <select
+            id="priceFilter"
+            class="input">
+
+            <option value="">
+                Barcha narxlar
+            </option>
+
+            <option value="0-300000">
+                300 minggacha
+            </option>
+
+            <option value="300000-600000">
+                300–600 ming
+            </option>
+
+            <option value="600000-1000000">
+                600 ming–1 mln
+            </option>
+
+            <option value="1000000+">
+                1 mln+
+            </option>
+
+        </select>
+
+        <select
+            id="ratingFilter"
+            class="input">
+
+            <option value="">
+                Barcha reytinglar
+            </option>
+
+            <option value="5">
+                5 ⭐
+            </option>
+
+            <option value="4">
+                4+ ⭐
+            </option>
+
+            <option value="3">
+                3+ ⭐
+            </option>
+
+        </select>
+
+        <button
+            id="clearFilters"
+            class="btn btn-secondary"
+            type="button">
+
             Tozalash
+
         </button>
 
     </div>
 
-
-    <!-- ================= HOTELS ================= -->
-
-    <section id="hotels">
-
-        <div class="section-header">
-
-            <div>
-                <h2>Mehmonxonalar</h2>
-                <p id="hotelCount">Yuklanmoqda...</p>
-            </div>
-
-            <button class="btn btn-primary" id="sectionAddBtn">
-                + Mehmonxona joylash
-            </button>
-
-        </div>
-
-        <div id="hotelGrid" class="hotel-grid">
-
-            <div class="empty">
-                <div class="loading">
-                    <div class="loader"></div>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= USER DASHBOARD ================= -->
-
-    <section id="dashboard" class="dashboard">
-
-        <div class="dashboard-top">
-
-            <div>
-                <h2>👤 Mening mehmonxonalarim</h2>
-                <p style="color:var(--muted);margin-top:6px">
-                    Siz joylashtirgan mehmonxonalarni boshqaring.
-                </p>
-            </div>
-
-            <button class="btn btn-primary" id="dashboardAddBtn">
-                + Qo'shish
-            </button>
-
-        </div>
-
-        <div id="myHotelsGrid" class="hotel-grid">
-
-            <div class="empty">
-                <div class="empty-icon">🔐</div>
-                <p>Mehmonxonalarni boshqarish uchun Google orqali kiring.</p>
-            </div>
-
-        </div>
-
-    </section>
-
 </div>
 
 
-<!-- ================= HOTEL MODAL ================= -->
+<!-- ======================================================
+     MAIN
+====================================================== -->
 
-<div class="modal" id="hotelModal">
+<main class="container">
+
+    <!-- HOTELS -->
+
+    <section
+        id="hotels"
+        class="section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <h2>
+                    Mehmonxonalar
+                </h2>
+
+                <p id="hotelCount">
+                    Yuklanmoqda...
+                </p>
+
+            </div>
+
+            <button
+                id="sectionAdd"
+                class="btn btn-primary"
+                type="button">
+
+                + Mehmonxona joylash
+
+            </button>
+
+        </div>
+
+        <div
+            id="hotelGrid"
+            class="hotel-grid">
+
+            <div class="empty">
+
+                <div class="loading">
+
+                    <div class="spinner"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+
+    <section
+        id="dashboard"
+        class="dashboard">
+
+        <div class="dashboard-head">
+
+            <div>
+
+                <h2>
+                    👤 Mening panelim
+                </h2>
+
+                <p>
+                    O'zingiz joylashtirgan mehmonxonalarni
+                    va bronlarni boshqaring.
+                </p>
+
+            </div>
+
+            <button
+                id="dashboardAdd"
+                class="btn btn-primary"
+                type="button">
+
+                + Mehmonxona
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="myHotelsGrid"
+            class="hotel-grid">
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Google orqali kiring
+                </h3>
+
+                <p>
+                    O'z mehmonxonalaringizni boshqarish
+                    uchun Google hisobingiz bilan kiring.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ======================================================
+     HOTEL MODAL
+====================================================== -->
+
+<div
+    id="hotelModal"
+    class="modal">
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h3 id="hotelModalTitle">
-                🏨 Mehmonxona joylash
-            </h3>
+            <div
+                id="hotelModalTitle"
+                class="modal-title">
 
-            <button class="close" data-close="hotelModal">
+                🏨 Mehmonxona joylash
+
+            </div>
+
+            <button
+                class="close-btn"
+                data-close="hotelModal"
+                type="button">
+
                 ×
+
             </button>
 
         </div>
 
-        <form class="form" id="hotelForm">
 
-            <input type="hidden" id="hotelId">
+        <form
+            id="hotelForm"
+            class="form">
+
+            <input
+                type="hidden"
+                id="editingHotelId">
+
 
             <div class="form-grid">
 
                 <div class="form-group">
-                    <label>Mehmonxona nomi *</label>
+
+                    <label class="form-label">
+                        Mehmonxona nomi *
+                    </label>
+
                     <input
                         id="hotelName"
+                        class="form-control"
                         required
                         maxlength="100"
-                        placeholder="Masalan: Chodak Grand Hotel"
-                    >
+                        placeholder="Masalan: Chodak Grand Hotel">
+
                 </div>
 
+
                 <div class="form-group">
-                    <label>Shahar *</label>
-                    <select id="hotelCity" required>
-                        <option value="">Shaharni tanlang</option>
+
+                    <label class="form-label">
+                        Shahar *
+                    </label>
+
+                    <select
+                        id="hotelCity"
+                        class="form-control"
+                        required>
+
+                        <option value="">
+                            Shaharni tanlang
+                        </option>
+
                         <option>Toshkent</option>
                         <option>Samarqand</option>
                         <option>Buxoro</option>
@@ -1063,115 +1898,183 @@ footer{
                         <option>Termiz</option>
                         <option>Pop</option>
                         <option>Chust</option>
+
                     </select>
+
                 </div>
 
+
                 <div class="form-group">
-                    <label>Manzil *</label>
+
+                    <label class="form-label">
+                        Manzil *
+                    </label>
+
                     <input
                         id="hotelAddress"
+                        class="form-control"
                         required
                         maxlength="200"
-                        placeholder="Ko'cha, mahalla..."
-                    >
+                        placeholder="Ko'cha, mahalla...">
+
                 </div>
 
+
                 <div class="form-group">
-                    <label>1 kecha narxi (so'm) *</label>
+
+                    <label class="form-label">
+                        Narx / 1 kecha *
+                    </label>
+
                     <input
                         id="hotelPrice"
+                        class="form-control"
                         type="number"
-                        min="0"
+                        min="1"
                         required
-                        placeholder="350000"
-                    >
+                        placeholder="350000">
+
                 </div>
 
+
                 <div class="form-group">
-                    <label>Reyting</label>
-                    <select id="hotelRating">
+
+                    <label class="form-label">
+                        Reyting
+                    </label>
+
+                    <select
+                        id="hotelRating"
+                        class="form-control">
+
                         <option value="5">5.0 ⭐</option>
                         <option value="4.9">4.9 ⭐</option>
                         <option value="4.8">4.8 ⭐</option>
                         <option value="4.7">4.7 ⭐</option>
                         <option value="4.5">4.5 ⭐</option>
-                        <option value="4.0">4.0 ⭐</option>
+                        <option value="4">4.0 ⭐</option>
                         <option value="3.5">3.5 ⭐</option>
+                        <option value="3">3.0 ⭐</option>
+
                     </select>
+
                 </div>
+
 
                 <div class="form-group">
-                    <label>Badge</label>
-                    <select id="hotelBadge">
-                        <option value="Tavsiya etiladi">Tavsiya etiladi</option>
-                        <option value="Yangi">Yangi</option>
-                        <option value="Premium">Premium</option>
-                        <option value="Mashhur">Mashhur</option>
-                        <option value="">Badge yo'q</option>
+
+                    <label class="form-label">
+                        Badge
+                    </label>
+
+                    <select
+                        id="hotelBadge"
+                        class="form-control">
+
+                        <option value="Tavsiya etiladi">
+                            Tavsiya etiladi
+                        </option>
+
+                        <option value="Yangi">
+                            Yangi
+                        </option>
+
+                        <option value="Premium">
+                            Premium
+                        </option>
+
+                        <option value="Mashhur">
+                            Mashhur
+                        </option>
+
+                        <option value="">
+                            Badge yo'q
+                        </option>
+
                     </select>
+
                 </div>
 
-                <div class="form-group full">
-                    <label>Xizmatlar / Teglar</label>
+
+                <div class="form-group form-full">
+
+                    <label class="form-label">
+                        Xizmatlar
+                    </label>
+
                     <input
                         id="hotelTags"
-                        placeholder="Wi-Fi, Nonushta, Parking, Basseyn"
-                    >
+                        class="form-control"
+                        placeholder="Wi-Fi, Nonushta, Parking, Basseyn">
+
                 </div>
 
-                <div class="form-group full">
 
-                    <label>Mehmonxona rasmi *</label>
+                <div class="form-group form-full">
 
-                    <div class="upload-box">
+                    <label class="form-label">
+                        Mehmonxona rasmi *
+                    </label>
+
+                    <div class="upload-area">
 
                         <input
                             id="hotelImage"
                             type="file"
-                            accept="image/*"
-                        >
+                            accept="image/jpeg,image/png,image/webp,image/jpg">
 
                         <div
                             id="imagePreview"
-                            style="margin-top:12px;color:var(--muted);font-size:12px"
-                        >
+                            style="
+                                margin-top:10px;
+                                color:#64748b;
+                                font-size:11px;
+                            ">
+
                             Rasm tanlanmagan
+
                         </div>
 
                     </div>
 
                 </div>
 
-                <div class="form-group full">
 
-                    <label>Qo'shimcha ma'lumot</label>
+                <div class="form-group form-full">
+
+                    <label class="form-label">
+                        Mehmonxona haqida
+                    </label>
 
                     <textarea
                         id="hotelDescription"
-                        maxlength="1000"
-                        placeholder="Mehmonxona haqida ma'lumot..."
-                    ></textarea>
+                        class="form-control"
+                        maxlength="1200"
+                        placeholder="Mehmonxona haqida batafsil ma'lumot..."></textarea>
 
                 </div>
 
             </div>
 
+
             <div class="form-actions">
 
                 <button
-                    type="button"
                     class="btn btn-secondary"
                     data-close="hotelModal"
-                >
+                    type="button">
+
                     Bekor qilish
+
                 </button>
 
                 <button
-                    type="submit"
+                    id="saveHotel"
                     class="btn btn-primary"
-                    id="saveHotelBtn"
-                >
+                    type="submit">
+
                     Saqlash
+
                 </button>
 
             </div>
@@ -1183,106 +2086,182 @@ footer{
 </div>
 
 
-<!-- ================= BOOKING MODAL ================= -->
+<!-- ======================================================
+     BOOKING MODAL
+====================================================== -->
 
-<div class="modal" id="bookingModal">
+<div
+    id="bookingModal"
+    class="modal">
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h3>📅 Bron qilish</h3>
+            <div class="modal-title">
+                📅 Bron qilish
+            </div>
 
-            <button class="close" data-close="bookingModal">
+            <button
+                class="close-btn"
+                data-close="bookingModal"
+                type="button">
+
                 ×
+
             </button>
 
         </div>
 
-        <div class="booking-summary">
 
-            <div class="booking-hotel" id="bookingHotelName">
-                Mehmonxona
+        <div class="booking-info">
+
+            <div
+                id="bookingHotelName"
+                class="booking-hotel-name">
+
+                Hotel
+
             </div>
 
-            <div class="booking-price" id="bookingHotelPrice">
+            <div
+                id="bookingHotelPrice"
+                class="booking-hotel-price">
+
                 0 so'm / kecha
+
             </div>
 
         </div>
 
-        <form class="form" id="bookingForm">
 
-            <input type="hidden" id="bookingHotelId">
+        <form
+            id="bookingForm"
+            class="form">
+
+            <input
+                type="hidden"
+                id="bookingHotelId">
+
 
             <div class="form-group">
-                <label>Ism familiya *</label>
-                <input id="bookingName" required>
-            </div>
 
-            <div class="form-group">
-                <label>Telefon raqam *</label>
+                <label class="form-label">
+                    Ism familiya *
+                </label>
+
                 <input
-                    id="bookingPhone"
+                    id="guestName"
+                    class="form-control"
                     required
-                    placeholder="+998 90 123 45 67"
-                >
+                    maxlength="100"
+                    placeholder="Ismingiz">
+
             </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Telefon *
+                </label>
+
+                <input
+                    id="guestPhone"
+                    class="form-control"
+                    required
+                    placeholder="+998 90 123 45 67">
+
+            </div>
+
 
             <div class="form-grid">
 
                 <div class="form-group">
-                    <label>Kelish sanasi *</label>
-                    <input id="checkIn" type="date" required>
+
+                    <label class="form-label">
+                        Kelish *
+                    </label>
+
+                    <input
+                        id="checkIn"
+                        class="form-control"
+                        type="date"
+                        required>
+
                 </div>
+
 
                 <div class="form-group">
-                    <label>Ketish sanasi *</label>
-                    <input id="checkOut" type="date" required>
+
+                    <label class="form-label">
+                        Ketish *
+                    </label>
+
+                    <input
+                        id="checkOut"
+                        class="form-control"
+                        type="date"
+                        required>
+
                 </div>
 
             </div>
 
+
             <div class="form-group">
-                <label>Mehmonlar soni</label>
+
+                <label class="form-label">
+                    Mehmonlar soni
+                </label>
+
                 <input
-                    id="guests"
+                    id="guestCount"
+                    class="form-control"
                     type="number"
                     min="1"
-                    max="20"
-                    value="1"
-                >
+                    max="30"
+                    value="1">
+
             </div>
+
 
             <div
                 id="bookingTotal"
                 style="
-                    padding:15px;
+                    padding:14px;
+                    margin-bottom:15px;
                     border-radius:13px;
                     background:rgba(99,102,241,.08);
                     border:1px solid rgba(129,140,248,.15);
-                    margin-bottom:15px;
                     color:#c7d2fe;
-                "
-            >
+                    font-size:12px;
+                    font-weight:700;
+                ">
+
                 Umumiy summa: 0 so'm
+
             </div>
+
 
             <div class="form-actions">
 
                 <button
-                    type="button"
                     class="btn btn-secondary"
                     data-close="bookingModal"
-                >
+                    type="button">
+
                     Bekor qilish
+
                 </button>
 
                 <button
-                    type="submit"
+                    id="submitBooking"
                     class="btn btn-primary"
-                >
+                    type="submit">
+
                     Bron qilish
+
                 </button>
 
             </div>
@@ -1294,16 +2273,53 @@ footer{
 </div>
 
 
-<!-- ================= TOAST ================= -->
+<!-- ======================================================
+     TOAST
+====================================================== -->
 
-<div class="toast-container" id="toastContainer"></div>
+<div
+    id="toastContainer"
+    class="toast-container">
+</div>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- ======================================================
+     FIREBASE ERROR
+====================================================== -->
+
+<div
+    id="firebaseError"
+    class="firebase-status">
+
+    <button
+        id="closeFirebaseError"
+        class="firebase-status-close"
+        type="button">
+
+        ×
+
+    </button>
+
+    <div class="firebase-status-title">
+        Firebase xatosi
+    </div>
+
+    <div
+        id="firebaseErrorText"
+        class="firebase-status-text">
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
 
 <footer>
 
-    <div class="footer-inner">
+    <div class="footer">
 
         <div>
 
@@ -1318,7 +2334,7 @@ footer{
         </div>
 
         <div>
-            © 2026 UzBooking. Barcha huquqlar himoyalangan.
+            © 2026 UzBooking
         </div>
 
     </div>
@@ -1326,26 +2342,35 @@ footer{
 </footer>
 
 
-<!-- ================= FIREBASE ================= -->
+<!-- ======================================================
+     FIREBASE + APPLICATION
+====================================================== -->
 
 <script type="module">
 
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
+/* ======================================================
+   FIREBASE CDN
+====================================================== */
 
 import {
     initializeApp
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
-    getAnalytics
+    getAnalytics,
+    isSupported as analyticsSupported
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
 
 import {
-    getAuth,
+    initializeAuth,
+    indexedDBLocalPersistence,
+    browserLocalPersistence,
+    browserSessionPersistence,
+    browserPopupRedirectResolver,
     GoogleAuthProvider,
     signInWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
     signOut,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
@@ -1358,130 +2383,177 @@ import {
     deleteDoc,
     doc,
     getDoc,
-    onSnapshot,
+    getDocs,
     query,
     orderBy,
-    serverTimestamp
+    where,
+    onSnapshot,
+    serverTimestamp,
+    limit
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 import {
     getStorage,
     ref,
     uploadBytes,
-    getDownloadURL,
-    deleteObject
+    getDownloadURL
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-storage.js";
 
 
-/* =========================================================
+/* ======================================================
    FIREBASE CONFIG
-========================================================= */
+====================================================== */
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyD9x2UdBdlpswzkr-GNjt8m2wCSF74Qigg",
+    apiKey:
+        "AIzaSyD9x2UdBdlpswzkr-GNjt8m2wCSF74Qigg",
 
-    authDomain: "uzbooking-e4b16.firebaseapp.com",
+    authDomain:
+        "uzbooking-e4b16.firebaseapp.com",
 
-    projectId: "uzbooking-e4b16",
+    projectId:
+        "uzbooking-e4b16",
 
-    storageBucket: "uzbooking-e4b16.firebasestorage.app",
+    storageBucket:
+        "uzbooking-e4b16.firebasestorage.app",
 
-    messagingSenderId: "909458482543",
+    messagingSenderId:
+        "909458482543",
 
-    appId: "1:909458482543:web:e1477cb41a3dde1017b49a",
+    appId:
+        "1:909458482543:web:e1477cb41a3dde1017b49a",
 
-    measurementId: "G-QY80FPHH9K"
+    measurementId:
+        "G-QY80FPHH9K"
+
 };
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* ======================================================
+   FIREBASE INIT
+====================================================== */
 
-const app = initializeApp(firebaseConfig);
+const app =
+    initializeApp(firebaseConfig);
+
+
+/* ======================================================
+   AUTH
+====================================================== */
+
+const auth =
+    initializeAuth(app, {
+
+        persistence: [
+
+            indexedDBLocalPersistence,
+
+            browserLocalPersistence,
+
+            browserSessionPersistence
+
+        ],
+
+        popupRedirectResolver:
+            browserPopupRedirectResolver
+
+    });
+
+
+/* ======================================================
+   DATABASE
+====================================================== */
+
+const db =
+    getFirestore(app);
+
+
+/* ======================================================
+   STORAGE
+====================================================== */
+
+const storage =
+    getStorage(app);
+
+
+/* ======================================================
+   ANALYTICS
+====================================================== */
 
 let analytics = null;
 
-try {
-    analytics = getAnalytics(app);
-} catch(error) {
-    console.warn("Analytics:", error);
+try{
+
+    if(
+        await analyticsSupported()
+    ){
+
+        analytics =
+            getAnalytics(app);
+
+    }
+
+}catch(error){
+
+    console.warn(
+        "Analytics unavailable:",
+        error
+    );
+
 }
 
-const auth = getAuth(app);
 
-const db = getFirestore(app);
+/* ======================================================
+   GOOGLE PROVIDER
+====================================================== */
 
-const storage = getStorage(app);
+const googleProvider =
+    new GoogleAuthProvider();
 
-const provider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
+
+    prompt:
+        "select_account"
+
+});
 
 
-/* =========================================================
+/* ======================================================
    STATE
-========================================================= */
+====================================================== */
 
 let currentUser = null;
 
-let allHotels = [];
-
-let editingHotelId = null;
-
-let currentBookingHotel = null;
+let hotels = [];
 
 let unsubscribeHotels = null;
 
+let editingHotel = null;
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+let selectedBookingHotel = null;
 
-const hotelGrid = document.getElementById("hotelGrid");
-
-const myHotelsGrid = document.getElementById("myHotelsGrid");
-
-const hotelCount = document.getElementById("hotelCount");
-
-const userArea = document.getElementById("userArea");
-
-const loginBtn = document.getElementById("loginBtn");
-
-const hotelForm = document.getElementById("hotelForm");
-
-const bookingForm = document.getElementById("bookingForm");
-
-const searchInput = document.getElementById("searchInput");
-
-const cityFilter = document.getElementById("cityFilter");
-
-const priceFilter = document.getElementById("priceFilter");
-
-const ratingFilter = document.getElementById("ratingFilter");
-
-const hotelImage = document.getElementById("hotelImage");
-
-const imagePreview = document.getElementById("imagePreview");
-
-const saveHotelBtn = document.getElementById("saveHotelBtn");
+let isSavingHotel = false;
 
 
-/* =========================================================
+/* ======================================================
+   DOM
+====================================================== */
+
+const $ = id =>
+    document.getElementById(id);
+
+
+/* ======================================================
    HELPERS
-========================================================= */
-
-function money(value){
-
-    return new Intl.NumberFormat("uz-UZ").format(
-        Number(value || 0)
-    ) + " so'm";
-
-}
-
+====================================================== */
 
 function escapeHTML(value){
 
-    if(value === null || value === undefined){
+    if(
+        value === undefined ||
+        value === null
+    ){
         return "";
     }
 
@@ -1495,79 +2567,302 @@ function escapeHTML(value){
 }
 
 
-function showToast(message,type="success"){
+function money(value){
 
-    const container = document.getElementById("toastContainer");
+    return new Intl.NumberFormat(
+        "uz-UZ"
+    ).format(
+        Number(value || 0)
+    ) + " so'm";
 
-    const toast = document.createElement("div");
+}
 
-    toast.className = `toast ${type}`;
 
-    toast.textContent = message;
+function today(){
 
-    container.appendChild(toast);
+    return new Date()
+        .toISOString()
+        .slice(0,10);
 
-    setTimeout(()=>{
-        toast.remove();
-    },4000);
+}
+
+
+function showToast(
+    message,
+    type="success"
+){
+
+    const toast =
+        document.createElement("div");
+
+    toast.className =
+        `toast ${type}`;
+
+    toast.textContent =
+        message;
+
+    $("toastContainer")
+        .appendChild(toast);
+
+    setTimeout(
+        () => toast.remove(),
+        4500
+    );
 
 }
 
 
 function openModal(id){
 
-    document.getElementById(id).classList.add("active");
+    $(id)
+        .classList
+        .add("active");
 
-    document.body.classList.add("modal-open");
+    document.body
+        .classList
+        .add("modal-open");
 
 }
 
 
 function closeModal(id){
 
-    document.getElementById(id).classList.remove("active");
+    $(id)
+        .classList
+        .remove("active");
 
-    if(!document.querySelector(".modal.active")){
-        document.body.classList.remove("modal-open");
+    if(
+        !document.querySelector(
+            ".modal.active"
+        )
+    ){
+
+        document.body
+            .classList
+            .remove("modal-open");
+
     }
 
 }
 
 
-/* =========================================================
-   GOOGLE AUTH
-========================================================= */
+function firebaseErrorMessage(error){
 
-async function login(){
+    const code =
+        error?.code || "";
+
+    const message =
+        error?.message || "Noma'lum xatolik.";
+
+    const map = {
+
+        "auth/popup-blocked":
+            "Brauzer popup oynani blokladi. Redirect orqali qayta urinib ko'ring.",
+
+        "auth/popup-closed-by-user":
+            "Google login oynasi foydalanuvchi tomonidan yopildi.",
+
+        "auth/cancelled-popup-request":
+            "Boshqa login oynasi allaqachon ochilgan.",
+
+        "auth/unauthorized-domain":
+            "Bu domen Firebase Authentication → Authorized Domains ro'yxatiga qo'shilmagan.",
+
+        "auth/operation-not-allowed":
+            "Firebase Authentication'da Google provider yoqilmagan.",
+
+        "auth/invalid-api-key":
+            "Firebase API key noto'g'ri yoki Firebase Authentication uchun yaroqsiz.",
+
+        "auth/network-request-failed":
+            "Internet yoki Firebase serveriga ulanishda muammo.",
+
+        "auth/internal-error":
+            "Firebase Authentication ichki xatolik qaytardi.",
+
+        "permission-denied":
+            "Firestore Security Rules ushbu amalni rad etdi.",
+
+        "storage/unauthorized":
+            "Storage Security Rules fayl yuklashga ruxsat bermadi.",
+
+        "storage/quota-exceeded":
+            "Firebase Storage quota yoki billing bilan bog'liq muammo.",
+
+        "failed-precondition":
+            "Firebase xizmatini ishga tushirish uchun kerakli sozlama bajarilmagan."
+
+    };
+
+    return `
+        <b>Kod:</b> ${escapeHTML(code || "unknown")}
+        <br>
+        <b>Xabar:</b> ${escapeHTML(
+            map[code] || message
+        )}
+    `;
+
+}
+
+
+function showFirebaseError(error){
+
+    console.error(
+        "Firebase error:",
+        error
+    );
+
+    $("firebaseErrorText")
+        .innerHTML =
+        firebaseErrorMessage(error);
+
+    $("firebaseError")
+        .classList
+        .add("show");
+
+}
+
+
+$("closeFirebaseError")
+    .addEventListener(
+        "click",
+        () => {
+
+            $("firebaseError")
+                .classList
+                .remove("show");
+
+        }
+    );
+
+
+/* ======================================================
+   AUTH LOGIN
+====================================================== */
+
+async function loginWithGoogle(){
+
+    const button =
+        $("loginButton");
+
+    button.disabled = true;
+
+    button.textContent =
+        "Google ochilmoqda...";
+
 
     try{
 
         await signInWithPopup(
             auth,
-            provider
+            googleProvider
         );
+
+    }catch(error){
+
+        console.error(
+            "Popup login:",
+            error
+        );
+
+
+        /*
+         * Popup bloklansa redirectga o'tamiz.
+         */
+
+        if(
+            error.code ===
+                "auth/popup-blocked" ||
+
+            error.code ===
+                "auth/operation-not-supported-in-this-environment"
+        ){
+
+            try{
+
+                await signInWithRedirect(
+                    auth,
+                    googleProvider
+                );
+
+                return;
+
+            }catch(
+                redirectError
+            ){
+
+                showFirebaseError(
+                    redirectError
+                );
+
+            }
+
+        }else if(
+            error.code !==
+                "auth/popup-closed-by-user"
+        ){
+
+            showFirebaseError(
+                error
+            );
+
+            showToast(
+                "Google orqali kirishda xatolik.",
+                "error"
+            );
+
+        }
+
+    }finally{
+
+        button.disabled = false;
+
+        button.innerHTML = `
+            <span>G</span>
+            Google orqali kirish
+        `;
+
+    }
+
+}
+
+
+/* ======================================================
+   REDIRECT RESULT
+====================================================== */
+
+try{
+
+    const result =
+        await getRedirectResult(auth);
+
+    if(result?.user){
 
         showToast(
             "Google orqali muvaffaqiyatli kirdingiz!"
         );
 
-    }catch(error){
+    }
 
-        console.error(error);
+}catch(error){
 
-        if(error.code === "auth/popup-closed-by-user"){
-            return;
-        }
+    if(
+        error.code !==
+            "auth/no-auth-event"
+    ){
 
-        showToast(
-            "Kirishda xatolik: " + error.message,
-            "error"
+        showFirebaseError(
+            error
         );
 
     }
 
 }
 
+
+/* ======================================================
+   LOGOUT
+====================================================== */
 
 async function logout(){
 
@@ -1581,11 +2876,8 @@ async function logout(){
 
     }catch(error){
 
-        console.error(error);
-
-        showToast(
-            "Chiqishda xatolik.",
-            "error"
+        showFirebaseError(
+            error
         );
 
     }
@@ -1593,78 +2885,99 @@ async function logout(){
 }
 
 
-/* =========================================================
+/* ======================================================
    AUTH STATE
-========================================================= */
+====================================================== */
 
 onAuthStateChanged(
     auth,
     user => {
 
-        currentUser = user;
+        currentUser =
+            user || null;
 
         renderUser();
 
         renderMyHotels();
 
+        renderHotels();
+
     }
 );
 
+
+/* ======================================================
+   USER UI
+====================================================== */
 
 function renderUser(){
 
     if(!currentUser){
 
-        userArea.innerHTML = `
-            <button class="google-btn" id="loginBtn">
-                <span>G</span>
+        $("userArea").innerHTML = `
+
+            <button
+                id="loginButton"
+                class="google-btn"
+                type="button">
+
+                <span style="font-weight:900">
+                    G
+                </span>
+
                 Google orqali kirish
+
             </button>
+
         `;
 
-        document
-            .getElementById("loginBtn")
-            .addEventListener("click",login);
+        $("loginButton")
+            .addEventListener(
+                "click",
+                loginWithGoogle
+            );
 
         return;
     }
 
 
-    const photo = currentUser.photoURL ||
-        "https://ui-avatars.com/api/?name=User";
+    const photo =
+        currentUser.photoURL ||
+        "https://ui-avatars.com/api/?name=User&background=6366f1&color=fff";
 
 
-    userArea.innerHTML = `
+    $("userArea").innerHTML = `
 
-        <div class="user-info">
+        <div class="user-box">
 
             <img
                 class="user-photo"
                 src="${escapeHTML(photo)}"
-                alt="User"
-            >
+                alt="User">
 
             <span class="user-name">
                 ${escapeHTML(
                     currentUser.displayName ||
                     currentUser.email ||
-                    "User"
+                    "Foydalanuvchi"
                 )}
             </span>
 
         </div>
 
         <button
+            id="logoutButton"
             class="btn btn-secondary"
-            id="logoutBtn"
-        >
+            type="button">
+
             Chiqish
+
         </button>
+
     `;
 
 
-    document
-        .getElementById("logoutBtn")
+    $("logoutButton")
         .addEventListener(
             "click",
             logout
@@ -1673,269 +2986,319 @@ function renderUser(){
 }
 
 
-/* =========================================================
-   HOTELS REALTIME LISTENER
-========================================================= */
+/* ======================================================
+   FIRESTORE LISTENER
+====================================================== */
 
-function listenHotels(){
+function startHotelListener(){
 
-    const hotelsRef = collection(
-        db,
-        "hotels"
-    );
+    if(unsubscribeHotels){
 
-    const hotelsQuery = query(
-        hotelsRef,
-        orderBy("createdAt","desc")
-    );
+        unsubscribeHotels();
 
-
-    unsubscribeHotels = onSnapshot(
-
-        hotelsQuery,
-
-        snapshot => {
-
-            allHotels = snapshot.docs.map(
-                item => ({
-                    id:item.id,
-                    ...item.data()
-                })
-            );
-
-            renderHotels();
-
-            renderMyHotels();
-
-        },
-
-        error => {
-
-            console.error(error);
-
-            hotelGrid.innerHTML = `
-
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        ⚠️
-                    </div>
-
-                    <h3>Ma'lumotlarni yuklashda xatolik</h3>
-
-                    <p style="margin-top:8px">
-                        Firestore Security Rules yoki Database sozlamalarini tekshiring.
-                    </p>
-
-                </div>
-            `;
-
-            showToast(
-                "Firestore ulanishida xatolik.",
-                "error"
-            );
-
-        }
-
-    );
-
-}
-
-
-listenHotels();
-
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-function getFilteredHotels(){
-
-    const search =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-    const city =
-        cityFilter.value;
-
-    const price =
-        priceFilter.value;
-
-    const rating =
-        ratingFilter.value;
-
-
-    return allHotels.filter(hotel => {
-
-        const searchable = `
-
-            ${hotel.name || ""}
-
-            ${hotel.city || ""}
-
-            ${hotel.address || ""}
-
-            ${hotel.description || ""}
-
-            ${(hotel.tags || []).join(" ")}
-
-        `.toLowerCase();
-
-
-        if(
-            search &&
-            !searchable.includes(search)
-        ){
-            return false;
-        }
-
-
-        if(
-            city &&
-            hotel.city !== city
-        ){
-            return false;
-        }
-
-
-        const p = Number(
-            hotel.price || 0
-        );
-
-
-        if(price === "0-300000" && p > 300000){
-            return false;
-        }
-
-        if(price === "300000-600000" &&
-           (p < 300000 || p > 600000)){
-            return false;
-        }
-
-        if(price === "600000-1000000" &&
-           (p < 600000 || p > 1000000)){
-            return false;
-        }
-
-        if(price === "1000000+" && p < 1000000){
-            return false;
-        }
-
-
-        if(
-            rating &&
-            Number(hotel.rating || 0) < Number(rating)
-        ){
-            return false;
-        }
-
-
-        return true;
-
-    });
-
-}
-
-
-/* =========================================================
-   RENDER HOTELS
-========================================================= */
-
-function renderHotels(){
-
-    const hotels = getFilteredHotels();
-
-    hotelCount.textContent =
-        `${hotels.length} ta mehmonxona`;
-
-
-    if(!hotels.length){
-
-        hotelGrid.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🏨
-                </div>
-
-                <h3>Mehmonxona topilmadi</h3>
-
-                <p style="margin-top:8px">
-                    Hozircha ushbu filter bo'yicha mehmonxona mavjud emas.
-                </p>
-
-            </div>
-
-        `;
-
-        return;
     }
 
 
-    hotelGrid.innerHTML =
-        hotels.map(
-            hotelCard
-        ).join("");
+    const hotelsRef =
+        collection(
+            db,
+            "hotels"
+        );
 
 
-    attachCardEvents(
-        hotelGrid
+    /*
+     * OrderBy ishlatmaymiz.
+     * Shu sababli Firestore'da index muammosi
+     * yuzaga kelish ehtimoli kamayadi.
+     */
+
+    unsubscribeHotels =
+        onSnapshot(
+
+            hotelsRef,
+
+            snapshot => {
+
+                hotels =
+                    snapshot.docs.map(
+                        item => ({
+                            id:item.id,
+                            ...item.data()
+                        })
+                    );
+
+
+                hotels.sort(
+                    (a,b) => {
+
+                        const aTime =
+                            a.createdAt?.seconds ||
+                            0;
+
+                        const bTime =
+                            b.createdAt?.seconds ||
+                            0;
+
+                        return bTime - aTime;
+
+                    }
+                );
+
+
+                renderHotels();
+
+                renderMyHotels();
+
+            },
+
+            error => {
+
+                showFirebaseError(
+                    error
+                );
+
+                $("hotelGrid")
+                    .innerHTML = `
+
+                        <div class="empty">
+
+                            <div class="empty-icon">
+                                ⚠️
+                            </div>
+
+                            <h3>
+                                Mehmonxonalarni yuklab bo'lmadi
+                            </h3>
+
+                            <p>
+                                Firestore Security Rules
+                                sozlamalarini tekshiring.
+                            </p>
+
+                        </div>
+
+                    `;
+
+            }
+
+        );
+
+}
+
+
+startHotelListener();
+
+
+/* ======================================================
+   FILTERED HOTELS
+====================================================== */
+
+function filteredHotels(){
+
+    const search =
+        $("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const city =
+        $("cityFilter").value;
+
+
+    const price =
+        $("priceFilter").value;
+
+
+    const rating =
+        $("ratingFilter").value;
+
+
+    return hotels.filter(
+        hotel => {
+
+            const text = `
+
+                ${hotel.name || ""}
+
+                ${hotel.city || ""}
+
+                ${hotel.address || ""}
+
+                ${hotel.description || ""}
+
+                ${(hotel.tags || []).join(" ")}
+
+            `.toLowerCase();
+
+
+            if(
+                search &&
+                !text.includes(search)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                city &&
+                hotel.city !== city
+            ){
+
+                return false;
+
+            }
+
+
+            const p =
+                Number(
+                    hotel.price || 0
+                );
+
+
+            if(
+                price === "0-300000" &&
+                p > 300000
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                price === "300000-600000" &&
+                (p < 300000 || p > 600000)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                price === "600000-1000000" &&
+                (p < 600000 || p > 1000000)
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                price === "1000000+" &&
+                p < 1000000
+            ){
+
+                return false;
+
+            }
+
+
+            if(
+                rating &&
+                Number(hotel.rating || 0) <
+                    Number(rating)
+            ){
+
+                return false;
+
+            }
+
+
+            /*
+             * Faqat published hotel ko'rsatiladi.
+             * Eski documentlarda status bo'lmasa ham
+             * ko'rsatamiz.
+             */
+
+            if(
+                hotel.status &&
+                hotel.status !== "published"
+            ){
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
     );
 
 }
 
 
-/* =========================================================
+/* ======================================================
    HOTEL CARD
-========================================================= */
+====================================================== */
 
 function hotelCard(hotel){
 
-    const tags = Array.isArray(hotel.tags)
-        ? hotel.tags
-        : [];
-
-
     const isOwner =
         currentUser &&
-        hotel.ownerId === currentUser.uid;
+        hotel.ownerId ===
+            currentUser.uid;
 
 
     const image =
         hotel.imageUrl ||
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80";
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85";
+
+
+    const tags =
+        Array.isArray(hotel.tags)
+        ?
+        hotel.tags.slice(0,5)
+        :
+        [];
+
+
+    const favorite =
+        localStorage.getItem(
+            `uzbooking_favorite_${hotel.id}`
+        ) === "1";
 
 
     return `
 
-        <article class="hotel-card">
+        <article
+            class="hotel-card">
 
-            <div class="hotel-image">
+            <div class="hotel-cover">
 
                 <img
                     src="${escapeHTML(image)}"
-                    alt="${escapeHTML(hotel.name)}"
-                    loading="lazy"
-                >
+                    alt="${escapeHTML(hotel.name || "Hotel")}"
+                    loading="lazy">
+
+                <div class="hotel-overlay"></div>
 
                 ${
                     hotel.badge
                     ?
-                    `<div class="hotel-badge">
-                        ${escapeHTML(hotel.badge)}
-                    </div>`
+                    `
+                    <div class="hotel-badge">
+                        ${escapeHTML(
+                            hotel.badge
+                        )}
+                    </div>
+                    `
                     :
                     ""
                 }
 
                 <button
-                    class="favorite"
+                    class="favorite-btn ${favorite ? "active" : ""}"
                     data-favorite="${hotel.id}"
-                    title="Sevimlilarga qo'shish"
-                >
-                    ♡
+                    title="Sevimli">
+
+                    ${favorite ? "♥" : "♡"}
+
                 </button>
 
             </div>
@@ -1943,22 +3306,40 @@ function hotelCard(hotel){
 
             <div class="hotel-content">
 
-                <div class="hotel-title-row">
+                <div class="hotel-top">
 
-                    <div class="hotel-title">
-                        ${escapeHTML(hotel.name)}
+                    <div class="hotel-name">
+                        ${escapeHTML(
+                            hotel.name
+                        )}
                     </div>
 
                     <div class="rating">
-                        ★ ${escapeHTML(hotel.rating || "0")}
+                        ★ ${escapeHTML(
+                            hotel.rating || "0"
+                        )}
                     </div>
 
                 </div>
 
 
                 <div class="hotel-location">
-                    📍 ${escapeHTML(hotel.city)}
-                    ${hotel.address ? " · " + escapeHTML(hotel.address) : ""}
+
+                    📍 ${escapeHTML(
+                        hotel.city || ""
+                    )}
+
+                    ${
+                        hotel.address
+                        ?
+                        " · " +
+                        escapeHTML(
+                            hotel.address
+                        )
+                        :
+                        ""
+                    }
+
                 </div>
 
 
@@ -1972,30 +3353,34 @@ function hotelCard(hotel){
                 </div>
 
 
-                <div class="tags">
+                <div class="tag-list">
 
-                    ${tags.slice(0,5).map(
+                    ${tags.map(
                         tag => `
+
                             <span class="tag">
                                 ${escapeHTML(tag)}
                             </span>
+
                         `
                     ).join("")}
 
                 </div>
 
 
-                <div class="hotel-bottom">
+                <div class="hotel-footer">
 
                     <div class="price">
 
                         <strong>
-                            ${money(hotel.price)}
+                            ${money(
+                                hotel.price
+                            )}
                         </strong>
 
-                        <span>
+                        <small>
                             / kecha
-                        </span>
+                        </small>
 
                     </div>
 
@@ -2007,29 +3392,31 @@ function hotelCard(hotel){
                             ?
                             `
                             <button
-                                class="small-btn edit-btn"
-                                data-edit="${hotel.id}"
-                            >
+                                class="action-btn edit-btn"
+                                data-edit="${hotel.id}">
+
                                 ✏️
+
                             </button>
 
                             <button
-                                class="small-btn delete-btn"
-                                data-delete="${hotel.id}"
-                            >
+                                class="action-btn delete-btn"
+                                data-delete="${hotel.id}">
+
                                 🗑️
+
                             </button>
                             `
                             :
                             ""
                         }
 
-
                         <button
-                            class="small-btn book-btn"
-                            data-book="${hotel.id}"
-                        >
+                            class="action-btn book-btn"
+                            data-book="${hotel.id}">
+
                             Bron
+
                         </button>
 
                     </div>
@@ -2045,14 +3432,194 @@ function hotelCard(hotel){
 }
 
 
-/* =========================================================
-   CARD EVENTS
-========================================================= */
+/* ======================================================
+   RENDER HOTELS
+====================================================== */
 
-function attachCardEvents(container){
+function renderHotels(){
+
+    const result =
+        filteredHotels();
+
+
+    $("hotelCount")
+        .textContent =
+        `${result.length} ta mehmonxona`;
+
+
+    if(!result.length){
+
+        $("hotelGrid")
+            .innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🏨
+                    </div>
+
+                    <h3>
+                        Mehmonxona topilmadi
+                    </h3>
+
+                    <p>
+                        Qidiruv yoki filterlarni
+                        o'zgartirib ko'ring.
+                    </p>
+
+                </div>
+
+            `;
+
+        return;
+
+    }
+
+
+    $("hotelGrid")
+        .innerHTML =
+        result.map(
+            hotelCard
+        ).join("");
+
+
+    bindHotelEvents(
+        $("hotelGrid")
+    );
+
+}
+
+
+/* ======================================================
+   MY HOTELS
+====================================================== */
+
+function renderMyHotels(){
+
+    if(!currentUser){
+
+        $("myHotelsGrid")
+            .innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🔐
+                    </div>
+
+                    <h3>
+                        Google orqali kiring
+                    </h3>
+
+                    <p>
+                        Mehmonxonalarni boshqarish
+                        uchun Google hisobingiz bilan kiring.
+                    </p>
+
+                    <button
+                        id="dashboardLogin"
+                        class="btn btn-primary"
+                        style="margin-top:16px"
+                        type="button">
+
+                        Google orqali kirish
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+        $("dashboardLogin")
+            .addEventListener(
+                "click",
+                loginWithGoogle
+            );
+
+        return;
+
+    }
+
+
+    const mine =
+        hotels.filter(
+            hotel =>
+                hotel.ownerId ===
+                currentUser.uid
+        );
+
+
+    if(!mine.length){
+
+        $("myHotelsGrid")
+            .innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🏨
+                    </div>
+
+                    <h3>
+                        Hali mehmonxona yo'q
+                    </h3>
+
+                    <p>
+                        Birinchi mehmonxonangizni
+                        joylashtiring.
+                    </p>
+
+                    <button
+                        id="emptyAdd"
+                        class="btn btn-primary"
+                        style="margin-top:16px"
+                        type="button">
+
+                        + Mehmonxona joylash
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+        $("emptyAdd")
+            .addEventListener(
+                "click",
+                openAddHotel
+            );
+
+        return;
+
+    }
+
+
+    $("myHotelsGrid")
+        .innerHTML =
+        mine.map(
+            hotelCard
+        ).join("");
+
+
+    bindHotelEvents(
+        $("myHotelsGrid")
+    );
+
+}
+
+
+/* ======================================================
+   BIND CARD EVENTS
+====================================================== */
+
+function bindHotelEvents(container){
 
     container
-        .querySelectorAll("[data-book]")
+        .querySelectorAll(
+            "[data-book]"
+        )
         .forEach(button => {
 
             button.addEventListener(
@@ -2060,12 +3627,18 @@ function attachCardEvents(container){
                 () => {
 
                     const hotel =
-                        allHotels.find(
-                            h => h.id === button.dataset.book
+                        hotels.find(
+                            item =>
+                                item.id ===
+                                button.dataset.book
                         );
 
                     if(hotel){
-                        openBooking(hotel);
+
+                        openBooking(
+                            hotel
+                        );
+
                     }
 
                 }
@@ -2075,7 +3648,9 @@ function attachCardEvents(container){
 
 
     container
-        .querySelectorAll("[data-edit]")
+        .querySelectorAll(
+            "[data-edit]"
+        )
         .forEach(button => {
 
             button.addEventListener(
@@ -2083,12 +3658,18 @@ function attachCardEvents(container){
                 () => {
 
                     const hotel =
-                        allHotels.find(
-                            h => h.id === button.dataset.edit
+                        hotels.find(
+                            item =>
+                                item.id ===
+                                button.dataset.edit
                         );
 
                     if(hotel){
-                        openEditHotel(hotel);
+
+                        openEditHotel(
+                            hotel
+                        );
+
                     }
 
                 }
@@ -2098,7 +3679,9 @@ function attachCardEvents(container){
 
 
     container
-        .querySelectorAll("[data-delete]")
+        .querySelectorAll(
+            "[data-delete]"
+        )
         .forEach(button => {
 
             button.addEventListener(
@@ -2106,12 +3689,18 @@ function attachCardEvents(container){
                 async () => {
 
                     const hotel =
-                        allHotels.find(
-                            h => h.id === button.dataset.delete
+                        hotels.find(
+                            item =>
+                                item.id ===
+                                button.dataset.delete
                         );
 
                     if(hotel){
-                        await deleteHotel(hotel);
+
+                        await deleteHotel(
+                            hotel
+                        );
+
                     }
 
                 }
@@ -2121,7 +3710,9 @@ function attachCardEvents(container){
 
 
     container
-        .querySelectorAll("[data-favorite]")
+        .querySelectorAll(
+            "[data-favorite]"
+        )
         .forEach(button => {
 
             button.addEventListener(
@@ -2132,19 +3723,26 @@ function attachCardEvents(container){
                         button.dataset.favorite;
 
                     const key =
-                        `favorite_${id}`;
+                        `uzbooking_favorite_${id}`;
+
 
                     const active =
-                        localStorage.getItem(key) === "1";
+                        localStorage.getItem(
+                            key
+                        ) === "1";
 
 
                     if(active){
 
-                        localStorage.removeItem(key);
+                        localStorage.removeItem(
+                            key
+                        );
 
-                        button.classList.remove("active");
+                        button.classList
+                            .remove("active");
 
-                        button.textContent = "♡";
+                        button.textContent =
+                            "♡";
 
                     }else{
 
@@ -2153,9 +3751,11 @@ function attachCardEvents(container){
                             "1"
                         );
 
-                        button.classList.add("active");
+                        button.classList
+                            .add("active");
 
-                        button.textContent = "♥";
+                        button.textContent =
+                            "♥";
 
                     }
 
@@ -2164,155 +3764,53 @@ function attachCardEvents(container){
 
         });
 
-
-    container
-        .querySelectorAll("[data-favorite]")
-        .forEach(button => {
-
-            if(
-                localStorage.getItem(
-                    `favorite_${button.dataset.favorite}`
-                ) === "1"
-            ){
-
-                button.classList.add("active");
-
-                button.textContent = "♥";
-
-            }
-
-        });
-
 }
 
 
-/* =========================================================
-   MY HOTELS
-========================================================= */
+/* ======================================================
+   OPEN ADD
+====================================================== */
 
-function renderMyHotels(){
-
-    if(!currentUser){
-
-        myHotelsGrid.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🔐
-                </div>
-
-                <h3>Google orqali kiring</h3>
-
-                <p style="margin-top:8px">
-                    Mehmonxonalaringizni boshqarish uchun
-                    Google hisobingiz bilan kiring.
-                </p>
-
-            </div>
-        `;
-
-        return;
-    }
-
-
-    const myHotels =
-        allHotels.filter(
-            hotel =>
-                hotel.ownerId === currentUser.uid
-        );
-
-
-    if(!myHotels.length){
-
-        myHotelsGrid.innerHTML = `
-
-            <div class="empty">
-
-                <div class="empty-icon">
-                    🏨
-                </div>
-
-                <h3>Sizda hali mehmonxona yo'q</h3>
-
-                <p style="margin-top:8px">
-                    Birinchi mehmonxonangizni joylashtiring.
-                </p>
-
-                <button
-                    class="btn btn-primary"
-                    style="margin-top:18px"
-                    id="emptyAddBtn"
-                >
-                    + Mehmonxona joylash
-                </button>
-
-            </div>
-        `;
-
-
-        document
-            .getElementById("emptyAddBtn")
-            .addEventListener(
-                "click",
-                openAddHotel
-            );
-
-        return;
-    }
-
-
-    myHotelsGrid.innerHTML =
-        myHotels
-            .map(hotelCard)
-            .join("");
-
-
-    attachCardEvents(
-        myHotelsGrid
-    );
-
-}
-
-
-/* =========================================================
-   OPEN ADD HOTEL
-========================================================= */
-
-function openAddHotel(){
+async function openAddHotel(){
 
     if(!currentUser){
 
         showToast(
-            "Avval Google orqali tizimga kiring.",
+            "Avval Google orqali kiring.",
             "error"
         );
 
-        login();
+        await loginWithGoogle();
 
         return;
+
     }
 
 
-    editingHotelId = null;
+    editingHotel =
+        null;
 
-    hotelForm.reset();
 
-    document.getElementById(
-        "hotelId"
-    ).value = "";
+    $("hotelForm")
+        .reset();
 
-    document.getElementById(
-        "hotelModalTitle"
-    ).textContent =
+
+    $("editingHotelId")
+        .value = "";
+
+
+    $("hotelModalTitle")
+        .textContent =
         "🏨 Mehmonxona joylash";
 
 
-    imagePreview.textContent =
+    $("imagePreview")
+        .textContent =
         "Rasm tanlanmagan";
 
 
-    saveHotelBtn.textContent =
+    $("saveHotel")
+        .textContent =
         "Saqlash";
 
 
@@ -2323,85 +3821,119 @@ function openAddHotel(){
 }
 
 
-/* =========================================================
-   OPEN EDIT HOTEL
-========================================================= */
+/* ======================================================
+   OPEN EDIT
+====================================================== */
 
 function openEditHotel(hotel){
 
     if(
         !currentUser ||
-        hotel.ownerId !== currentUser.uid
+        hotel.ownerId !==
+            currentUser.uid
     ){
 
         showToast(
-            "Bu mehmonxonani tahrirlash huquqingiz yo'q.",
+            "Siz bu mehmonxonani tahrirlay olmaysiz.",
             "error"
         );
 
         return;
+
     }
 
 
-    editingHotelId = hotel.id;
+    editingHotel =
+        hotel;
 
 
-    document.getElementById("hotelId").value =
+    $("editingHotelId")
+        .value =
         hotel.id;
 
-    document.getElementById("hotelName").value =
+
+    $("hotelName")
+        .value =
         hotel.name || "";
 
-    document.getElementById("hotelCity").value =
+
+    $("hotelCity")
+        .value =
         hotel.city || "";
 
-    document.getElementById("hotelAddress").value =
+
+    $("hotelAddress")
+        .value =
         hotel.address || "";
 
-    document.getElementById("hotelPrice").value =
+
+    $("hotelPrice")
+        .value =
         hotel.price || "";
 
-    document.getElementById("hotelRating").value =
-        hotel.rating || "5";
 
-    document.getElementById("hotelBadge").value =
+    $("hotelRating")
+        .value =
+        String(
+            hotel.rating || 5
+        );
+
+
+    $("hotelBadge")
+        .value =
         hotel.badge || "";
 
-    document.getElementById("hotelTags").value =
-        Array.isArray(hotel.tags)
-        ? hotel.tags.join(", ")
-        : "";
 
-    document.getElementById("hotelDescription").value =
+    $("hotelTags")
+        .value =
+        Array.isArray(hotel.tags)
+        ?
+        hotel.tags.join(", ")
+        :
+        "";
+
+
+    $("hotelDescription")
+        .value =
         hotel.description || "";
 
 
-    imagePreview.innerHTML =
-        hotel.imageUrl
-        ?
-        `
-        <img
-            src="${escapeHTML(hotel.imageUrl)}"
-            style="
-                width:160px;
-                height:100px;
-                object-fit:cover;
-                border-radius:12px;
-                margin-top:8px;
-            "
-        >
-        `
-        :
-        "Rasm yo'q";
+    if(hotel.imageUrl){
+
+        $("imagePreview")
+            .innerHTML = `
+
+                <img
+                    src="${escapeHTML(
+                        hotel.imageUrl
+                    )}"
+                    style="
+                        width:180px;
+                        height:105px;
+                        object-fit:cover;
+                        border-radius:12px;
+                        margin-top:8px;
+                    "
+                    alt="Current image">
+
+            `;
+
+    }else{
+
+        $("imagePreview")
+            .textContent =
+            "Rasm mavjud emas.";
+
+    }
 
 
-    document.getElementById(
-        "hotelModalTitle"
-    ).textContent =
+    $("hotelModalTitle")
+        .textContent =
         "✏️ Mehmonxonani tahrirlash";
 
 
-    saveHotelBtn.textContent =
+    $("saveHotel")
+        .textContent =
         "O'zgarishlarni saqlash";
 
 
@@ -2412,225 +3944,470 @@ function openEditHotel(hotel){
 }
 
 
-/* =========================================================
+/* ======================================================
    IMAGE PREVIEW
-========================================================= */
+====================================================== */
 
-hotelImage.addEventListener(
-    "change",
-    () => {
+$("hotelImage")
+    .addEventListener(
+        "change",
+        event => {
 
-        const file =
-            hotelImage.files[0];
-
-        if(!file){
-
-            imagePreview.textContent =
-                "Rasm tanlanmagan";
-
-            return;
-        }
+            const file =
+                event.target.files[0];
 
 
-        if(file.size > 10 * 1024 * 1024){
+            if(!file){
 
-            hotelImage.value = "";
+                return;
 
-            imagePreview.textContent =
-                "Rasm hajmi 10 MB dan oshmasligi kerak.";
+            }
 
-            showToast(
-                "Rasm juda katta.",
-                "error"
+
+            const allowed = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ];
+
+
+            if(
+                !allowed.includes(
+                    file.type
+                )
+            ){
+
+                event.target.value =
+                    "";
+
+                showToast(
+                    "Faqat JPG, PNG yoki WEBP rasm yuklang.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if(
+                file.size >
+                10 * 1024 * 1024
+            ){
+
+                event.target.value =
+                    "";
+
+                showToast(
+                    "Rasm 10 MB dan kichik bo'lishi kerak.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                e => {
+
+                    $("imagePreview")
+                        .innerHTML = `
+
+                        <img
+                            src="${e.target.result}"
+                            style="
+                                width:180px;
+                                height:105px;
+                                object-fit:cover;
+                                border-radius:12px;
+                            "
+                            alt="Preview">
+
+                        <div
+                            style="
+                                margin-top:7px;
+                                color:#94a3b8;
+                                font-size:10px;
+                            ">
+
+                            ${escapeHTML(
+                                file.name
+                            )}
+
+                        </div>
+
+                    `;
+
+                };
+
+
+            reader.readAsDataURL(
+                file
             );
 
-            return;
         }
+    );
 
 
-        const reader =
-            new FileReader();
+/* ======================================================
+   UPLOAD IMAGE
+====================================================== */
 
+async function uploadHotelImage(
+    file,
+    hotelId
+){
 
-        reader.onload =
-            event => {
+    if(!currentUser){
 
-                imagePreview.innerHTML = `
-
-                    <img
-                        src="${event.target.result}"
-                        style="
-                            width:160px;
-                            height:100px;
-                            object-fit:cover;
-                            border-radius:12px;
-                        "
-                    >
-
-                    <div style="margin-top:6px">
-                        ${escapeHTML(file.name)}
-                    </div>
-
-                `;
-
-            };
-
-
-        reader.readAsDataURL(file);
+        throw new Error(
+            "Foydalanuvchi tizimga kirmagan."
+        );
 
     }
-);
 
 
-/* =========================================================
+    const extension =
+        file.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+    const path =
+        `hotelImages/${currentUser.uid}/${hotelId}/cover.${extension}`;
+
+
+    const imageRef =
+        ref(
+            storage,
+            path
+        );
+
+
+    await uploadBytes(
+        imageRef,
+        file,
+        {
+            contentType:
+                file.type
+        }
+    );
+
+
+    return await getDownloadURL(
+        imageRef
+    );
+
+}
+
+
+/* ======================================================
    SAVE HOTEL
-========================================================= */
+====================================================== */
 
-hotelForm.addEventListener(
-    "submit",
-    async event => {
+$("hotelForm")
+    .addEventListener(
+        "submit",
+        async event => {
 
-        event.preventDefault();
-
-
-        if(!currentUser){
-
-            showToast(
-                "Google orqali kiring.",
-                "error"
-            );
-
-            return;
-        }
+            event.preventDefault();
 
 
-        const name =
-            document.getElementById(
-                "hotelName"
-            ).value.trim();
+            if(isSavingHotel){
+
+                return;
+
+            }
 
 
-        const city =
-            document.getElementById(
-                "hotelCity"
-            ).value;
+            if(!currentUser){
+
+                showToast(
+                    "Avval Google orqali kiring.",
+                    "error"
+                );
+
+                return;
+
+            }
 
 
-        const address =
-            document.getElementById(
-                "hotelAddress"
-            ).value.trim();
+            const name =
+                $("hotelName")
+                    .value
+                    .trim();
 
 
-        const price =
-            Number(
-                document.getElementById(
-                    "hotelPrice"
-                ).value
-            );
+            const city =
+                $("hotelCity")
+                    .value;
 
 
-        const rating =
-            Number(
-                document.getElementById(
-                    "hotelRating"
-                ).value
-            );
+            const address =
+                $("hotelAddress")
+                    .value
+                    .trim();
 
 
-        const badge =
-            document.getElementById(
-                "hotelBadge"
-            ).value;
+            const price =
+                Number(
+                    $("hotelPrice")
+                        .value
+                );
 
 
-        const description =
-            document.getElementById(
-                "hotelDescription"
-            ).value.trim();
+            const rating =
+                Number(
+                    $("hotelRating")
+                        .value
+                );
 
 
-        const tags =
-            document.getElementById(
-                "hotelTags"
-            ).value
-            .split(",")
-            .map(x => x.trim())
-            .filter(Boolean);
+            const badge =
+                $("hotelBadge")
+                    .value;
 
 
-        const imageFile =
-            hotelImage.files[0];
+            const tags =
+                $("hotelTags")
+                    .value
+                    .split(",")
+                    .map(
+                        x => x.trim()
+                    )
+                    .filter(Boolean)
+                    .slice(0,10);
 
 
-        if(!name || !city || !address){
-
-            showToast(
-                "Majburiy maydonlarni to'ldiring.",
-                "error"
-            );
-
-            return;
-        }
+            const description =
+                $("hotelDescription")
+                    .value
+                    .trim();
 
 
-        if(!price || price < 0){
-
-            showToast(
-                "Narxni to'g'ri kiriting.",
-                "error"
-            );
-
-            return;
-        }
+            const imageFile =
+                $("hotelImage")
+                    .files[0];
 
 
-        saveHotelBtn.disabled = true;
+            if(
+                !name ||
+                !city ||
+                !address
+            ){
 
-        saveHotelBtn.innerHTML = `
-            <span style="
-                display:flex;
-                align-items:center;
-                gap:8px;
-            ">
-                <span class="loader"
-                    style="
-                        width:16px;
-                        height:16px;
-                        border-width:2px;
-                    ">
-                </span>
-                Saqlanmoqda...
-            </span>
-        `;
+                showToast(
+                    "Majburiy maydonlarni to'ldiring.",
+                    "error"
+                );
+
+                return;
+
+            }
 
 
-        try{
+            if(
+                !Number.isFinite(price) ||
+                price <= 0
+            ){
 
-            let imageUrl = "";
+                showToast(
+                    "Narxni to'g'ri kiriting.",
+                    "error"
+                );
+
+                return;
+
+            }
 
 
-            /* ============================
-               NEW HOTEL
-            ============================ */
+            if(
+                !editingHotel &&
+                !imageFile
+            ){
 
-            if(!editingHotelId){
+                showToast(
+                    "Mehmonxona rasmini tanlang.",
+                    "error"
+                );
 
-                if(!imageFile){
+                return;
 
-                    throw new Error(
-                        "Mehmonxona rasmi tanlanmagan."
+            }
+
+
+            isSavingHotel =
+                true;
+
+
+            const button =
+                $("saveHotel");
+
+
+            button.disabled =
+                true;
+
+            button.textContent =
+                "Saqlanmoqda...";
+
+
+            try{
+
+                /*
+                 * YANGI HOTEL
+                 */
+
+                if(!editingHotel){
+
+                    /*
+                     * Avval document yaratamiz.
+                     */
+
+                    const hotelRef =
+                        await addDoc(
+                            collection(
+                                db,
+                                "hotels"
+                            ),
+                            {
+
+                                name,
+
+                                city,
+
+                                address,
+
+                                price,
+
+                                rating,
+
+                                badge,
+
+                                tags,
+
+                                description,
+
+                                imageUrl:"",
+
+                                ownerId:
+                                    currentUser.uid,
+
+                                ownerName:
+                                    currentUser.displayName ||
+                                    "",
+
+                                ownerEmail:
+                                    currentUser.email ||
+                                    "",
+
+                                status:
+                                    "published",
+
+                                createdAt:
+                                    serverTimestamp(),
+
+                                updatedAt:
+                                    serverTimestamp()
+
+                            }
+                        );
+
+
+                    /*
+                     * Keyin rasmni Storage'ga
+                     * yuklaymiz.
+                     */
+
+                    const imageUrl =
+                        await uploadHotelImage(
+                            imageFile,
+                            hotelRef.id
+                        );
+
+
+                    /*
+                     * URL'ni Firestore'ga yozamiz.
+                     */
+
+                    await updateDoc(
+                        hotelRef,
+                        {
+
+                            imageUrl,
+
+                            updatedAt:
+                                serverTimestamp()
+
+                        }
+                    );
+
+
+                    showToast(
+                        "Mehmonxona muvaffaqiyatli joylashtirildi! 🎉"
                     );
 
                 }
 
 
-                const hotelRef =
-                    await addDoc(
-                        collection(
+                /*
+                 * EDIT HOTEL
+                 */
+
+                else{
+
+                    const existing =
+                        hotels.find(
+                            h =>
+                                h.id ===
+                                editingHotel.id
+                        );
+
+
+                    if(
+                        !existing ||
+                        existing.ownerId !==
+                            currentUser.uid
+                    ){
+
+                        throw new Error(
+                            "Bu mehmonxonani o'zgartirish huquqingiz yo'q."
+                        );
+
+                    }
+
+
+                    const hotelRef =
+                        doc(
                             db,
-                            "hotels"
-                        ),
+                            "hotels",
+                            editingHotel.id
+                        );
+
+
+                    let imageUrl =
+                        existing.imageUrl ||
+                        "";
+
+
+                    if(imageFile){
+
+                        imageUrl =
+                            await uploadHotelImage(
+                                imageFile,
+                                editingHotel.id
+                            );
+
+                    }
+
+
+                    await updateDoc(
+                        hotelRef,
                         {
 
                             name,
@@ -2649,23 +4426,7 @@ hotelForm.addEventListener(
 
                             description,
 
-                            imageUrl:"",
-
-                            ownerId:
-                                currentUser.uid,
-
-                            ownerName:
-                                currentUser.displayName ||
-                                "",
-
-                            ownerEmail:
-                                currentUser.email ||
-                                "",
-
-                            status:"published",
-
-                            createdAt:
-                                serverTimestamp(),
+                            imageUrl,
 
                             updatedAt:
                                 serverTimestamp()
@@ -2674,198 +4435,68 @@ hotelForm.addEventListener(
                     );
 
 
-                const extension =
-                    imageFile.name
-                        .split(".")
-                        .pop()
-                        .toLowerCase();
-
-
-                const imageRef =
-                    ref(
-                        storage,
-                        `hotelImages/${currentUser.uid}/${hotelRef.id}/cover.${extension}`
-                    );
-
-
-                await uploadBytes(
-                    imageRef,
-                    imageFile
-                );
-
-
-                imageUrl =
-                    await getDownloadURL(
-                        imageRef
-                    );
-
-
-                await updateDoc(
-                    hotelRef,
-                    {
-                        imageUrl,
-                        updatedAt:
-                            serverTimestamp()
-                    }
-                );
-
-
-                showToast(
-                    "Mehmonxona muvaffaqiyatli joylashtirildi! 🎉"
-                );
-
-            }
-
-
-            /* ============================
-               EDIT HOTEL
-            ============================ */
-
-            else{
-
-                const hotelRef =
-                    doc(
-                        db,
-                        "hotels",
-                        editingHotelId
-                    );
-
-
-                const existing =
-                    allHotels.find(
-                        h =>
-                            h.id ===
-                            editingHotelId
-                    );
-
-
-                if(
-                    !existing ||
-                    existing.ownerId !== currentUser.uid
-                ){
-
-                    throw new Error(
-                        "Bu mehmonxonani tahrirlash mumkin emas."
+                    showToast(
+                        "Mehmonxona yangilandi! ✅"
                     );
 
                 }
 
 
-                imageUrl =
-                    existing.imageUrl || "";
-
-
-                if(imageFile){
-
-                    const extension =
-                        imageFile.name
-                            .split(".")
-                            .pop()
-                            .toLowerCase();
-
-
-                    const imageRef =
-                        ref(
-                            storage,
-                            `hotelImages/${currentUser.uid}/${editingHotelId}/cover.${extension}`
-                        );
-
-
-                    await uploadBytes(
-                        imageRef,
-                        imageFile
-                    );
-
-
-                    imageUrl =
-                        await getDownloadURL(
-                            imageRef
-                        );
-
-                }
-
-
-                await updateDoc(
-                    hotelRef,
-                    {
-
-                        name,
-
-                        city,
-
-                        address,
-
-                        price,
-
-                        rating,
-
-                        badge,
-
-                        tags,
-
-                        description,
-
-                        imageUrl,
-
-                        updatedAt:
-                            serverTimestamp()
-
-                    }
+                closeModal(
+                    "hotelModal"
                 );
 
+
+                $("hotelForm")
+                    .reset();
+
+
+                editingHotel =
+                    null;
+
+
+            }catch(error){
+
+                showFirebaseError(
+                    error
+                );
 
                 showToast(
-                    "Mehmonxona yangilandi! ✅"
+                    "Saqlashda xatolik yuz berdi.",
+                    "error"
                 );
 
+            }finally{
+
+                isSavingHotel =
+                    false;
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    editingHotel
+                    ?
+                    "O'zgarishlarni saqlash"
+                    :
+                    "Saqlash";
+
             }
-
-
-            closeModal(
-                "hotelModal"
-            );
-
-
-            hotelForm.reset();
-
-            editingHotelId = null;
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                error.message ||
-                "Saqlashda xatolik yuz berdi.",
-                "error"
-            );
-
-        }finally{
-
-            saveHotelBtn.disabled = false;
-
-            saveHotelBtn.textContent =
-                editingHotelId
-                ?
-                "O'zgarishlarni saqlash"
-                :
-                "Saqlash";
 
         }
-
-    }
-);
+    );
 
 
-/* =========================================================
+/* ======================================================
    DELETE HOTEL
-========================================================= */
+====================================================== */
 
 async function deleteHotel(hotel){
 
     if(!currentUser){
 
         return;
+
     }
 
 
@@ -2875,22 +4506,25 @@ async function deleteHotel(hotel){
     ){
 
         showToast(
-            "Bu mehmonxonani o'chirish huquqingiz yo'q.",
+            "Bu hotel sizniki emas.",
             "error"
         );
 
         return;
+
     }
 
 
-    const yes =
+    const confirmed =
         confirm(
-            `"${hotel.name}" mehmonxonasini o'chirmoqchimisiz?`
+            `"${hotel.name}" mehmonxonasini o'chirishni tasdiqlaysizmi?`
         );
 
 
-    if(!yes){
+    if(!confirmed){
+
         return;
+
     }
 
 
@@ -2912,7 +4546,9 @@ async function deleteHotel(hotel){
 
     }catch(error){
 
-        console.error(error);
+        showFirebaseError(
+            error
+        );
 
         showToast(
             "O'chirishda xatolik.",
@@ -2924,60 +4560,48 @@ async function deleteHotel(hotel){
 }
 
 
-/* =========================================================
-   BOOKING
-========================================================= */
+/* ======================================================
+   BOOKING OPEN
+====================================================== */
 
 function openBooking(hotel){
 
-    currentBookingHotel =
+    selectedBookingHotel =
         hotel;
 
 
-    document.getElementById(
-        "bookingHotelId"
-    ).value =
+    $("bookingHotelId")
+        .value =
         hotel.id;
 
 
-    document.getElementById(
-        "bookingHotelName"
-    ).textContent =
+    $("bookingHotelName")
+        .textContent =
         hotel.name;
 
 
-    document.getElementById(
-        "bookingHotelPrice"
-    ).textContent =
-        money(hotel.price) +
-        " / kecha";
+    $("bookingHotelPrice")
+        .textContent =
+        `${money(hotel.price)} / kecha`;
 
 
-    bookingForm.reset();
+    $("bookingForm")
+        .reset();
 
 
-    document.getElementById(
-        "bookingTotal"
-    ).textContent =
+    $("bookingTotal")
+        .textContent =
         "Umumiy summa: 0 so'm";
 
 
-    const today =
-        new Date()
-            .toISOString()
-            .split("T")[0];
+    $("checkIn")
+        .min =
+        today();
 
 
-    document.getElementById(
-        "checkIn"
-    ).min =
-        today;
-
-
-    document.getElementById(
-        "checkOut"
-    ).min =
-        today;
+    $("checkOut")
+        .min =
+        today();
 
 
     openModal(
@@ -2987,470 +4611,517 @@ function openBooking(hotel){
 }
 
 
-/* =========================================================
-   CALCULATE BOOKING
-========================================================= */
+/* ======================================================
+   BOOKING CALCULATION
+====================================================== */
 
 function calculateBooking(){
 
-    if(!currentBookingHotel){
-        return;
-    }
-
-
-    const checkIn =
-        document.getElementById(
-            "checkIn"
-        ).value;
-
-
-    const checkOut =
-        document.getElementById(
-            "checkOut"
-        ).value;
-
-
-    if(!checkIn || !checkOut){
-
-        document.getElementById(
-            "bookingTotal"
-        ).textContent =
-            "Umumiy summa: 0 so'm";
+    if(!selectedBookingHotel){
 
         return;
+
     }
 
 
     const start =
-        new Date(checkIn);
+        $("checkIn")
+            .value;
 
 
     const end =
-        new Date(checkOut);
+        $("checkOut")
+            .value;
 
 
-    const diff =
-        end - start;
+    if(!start || !end){
+
+        $("bookingTotal")
+            .textContent =
+            "Umumiy summa: 0 so'm";
+
+        return;
+
+    }
+
+
+    const first =
+        new Date(
+            start + "T00:00:00"
+        );
+
+
+    const last =
+        new Date(
+            end + "T00:00:00"
+        );
 
 
     const nights =
-        Math.ceil(
-            diff /
-            (1000 * 60 * 60 * 24)
+        Math.round(
+            (
+                last - first
+            ) /
+            86400000
         );
 
 
     if(nights <= 0){
 
-        document.getElementById(
-            "bookingTotal"
-        ).textContent =
+        $("bookingTotal")
+            .textContent =
             "Ketish sanasi kelish sanasidan keyin bo'lishi kerak.";
 
         return;
+
     }
 
 
     const total =
         nights *
         Number(
-            currentBookingHotel.price || 0
+            selectedBookingHotel.price
         );
 
 
-    document.getElementById(
-        "bookingTotal"
-    ).textContent =
-        `${nights} kecha × ${money(currentBookingHotel.price)}
-         = ${money(total)}`;
+    $("bookingTotal")
+        .textContent =
+        `${nights} kecha × ${money(
+            selectedBookingHotel.price
+        )} = ${money(total)}`;
 
 }
 
 
-document.getElementById(
-    "checkIn"
-).addEventListener(
-    "change",
-    () => {
-
-        const value =
-            document.getElementById(
-                "checkIn"
-            ).value;
-
-        document.getElementById(
-            "checkOut"
-        ).min = value;
-
-        calculateBooking();
-
-    }
-);
-
-
-document.getElementById(
-    "checkOut"
-).addEventListener(
-    "change",
-    calculateBooking
-);
-
-
-/* =========================================================
-   SAVE BOOKING
-========================================================= */
-
-bookingForm.addEventListener(
-    "submit",
-    async event => {
-
-        event.preventDefault();
-
-
-        if(!currentBookingHotel){
-
-            return;
-        }
-
-
-        const name =
-            document.getElementById(
-                "bookingName"
-            ).value.trim();
-
-
-        const phone =
-            document.getElementById(
-                "bookingPhone"
-            ).value.trim();
-
-
-        const checkIn =
-            document.getElementById(
-                "checkIn"
-            ).value;
-
-
-        const checkOut =
-            document.getElementById(
-                "checkOut"
-            ).value;
-
-
-        const guests =
-            Number(
-                document.getElementById(
-                    "guests"
-                ).value
-            );
-
-
-        if(!name || !phone || !checkIn || !checkOut){
-
-            showToast(
-                "Bron ma'lumotlarini to'liq kiriting.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        const start =
-            new Date(checkIn);
-
-        const end =
-            new Date(checkOut);
-
-
-        const nights =
-            Math.ceil(
-                (end-start) /
-                (1000*60*60*24)
-            );
-
-
-        if(nights <= 0){
-
-            showToast(
-                "Sanalarni tekshiring.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        const total =
-            nights *
-            Number(
-                currentBookingHotel.price
-            );
-
-
-        try{
-
-            await addDoc(
-                collection(
-                    db,
-                    "bookings"
-                ),
-                {
-
-                    hotelId:
-                        currentBookingHotel.id,
-
-                    hotelName:
-                        currentBookingHotel.name,
-
-                    hotelOwnerId:
-                        currentBookingHotel.ownerId,
-
-                    customerName:
-                        name,
-
-                    customerPhone:
-                        phone,
-
-                    checkIn,
-
-                    checkOut,
-
-                    guests,
-
-                    nights,
-
-                    total,
-
-                    status:"new",
-
-                    createdAt:
-                        serverTimestamp()
-
-                }
-            );
-
-
-            showToast(
-                "Bron so'rovingiz yuborildi! 🎉"
-            );
-
-
-            closeModal(
-                "bookingModal"
-            );
-
-
-            bookingForm.reset();
-
-
-        }catch(error){
-
-            console.error(error);
-
-            showToast(
-                "Bron yuborishda xatolik.",
-                "error"
-            );
+$("checkIn")
+    .addEventListener(
+        "change",
+        () => {
+
+            $("checkOut")
+                .min =
+                $("checkIn")
+                    .value;
+
+            calculateBooking();
 
         }
-
-    }
-);
+    );
 
 
-/* =========================================================
+$("checkOut")
+    .addEventListener(
+        "change",
+        calculateBooking
+    );
+
+
+/* ======================================================
+   BOOKING SAVE
+====================================================== */
+
+$("bookingForm")
+    .addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+
+            if(!selectedBookingHotel){
+
+                return;
+
+            }
+
+
+            const name =
+                $("guestName")
+                    .value
+                    .trim();
+
+
+            const phone =
+                $("guestPhone")
+                    .value
+                    .trim();
+
+
+            const checkIn =
+                $("checkIn")
+                    .value;
+
+
+            const checkOut =
+                $("checkOut")
+                    .value;
+
+
+            const guests =
+                Number(
+                    $("guestCount")
+                        .value
+                );
+
+
+            if(
+                !name ||
+                !phone ||
+                !checkIn ||
+                !checkOut
+            ){
+
+                showToast(
+                    "Bron ma'lumotlarini to'liq kiriting.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const first =
+                new Date(
+                    checkIn +
+                    "T00:00:00"
+                );
+
+
+            const last =
+                new Date(
+                    checkOut +
+                    "T00:00:00"
+                );
+
+
+            const nights =
+                Math.round(
+                    (last-first) /
+                    86400000
+                );
+
+
+            if(nights <= 0){
+
+                showToast(
+                    "Sanalarni tekshiring.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const total =
+                nights *
+                Number(
+                    selectedBookingHotel.price
+                );
+
+
+            const button =
+                $("submitBooking");
+
+
+            button.disabled =
+                true;
+
+            button.textContent =
+                "Yuborilmoqda...";
+
+
+            try{
+
+                await addDoc(
+                    collection(
+                        db,
+                        "bookings"
+                    ),
+                    {
+
+                        hotelId:
+                            selectedBookingHotel.id,
+
+                        hotelName:
+                            selectedBookingHotel.name,
+
+                        hotelOwnerId:
+                            selectedBookingHotel.ownerId,
+
+                        customerUid:
+                            currentUser?.uid ||
+                            null,
+
+                        customerName:
+                            name,
+
+                        customerPhone:
+                            phone,
+
+                        checkIn,
+
+                        checkOut,
+
+                        guests,
+
+                        nights,
+
+                        total,
+
+                        status:
+                            "new",
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                showToast(
+                    "Bron so'rovi yuborildi! 🎉"
+                );
+
+
+                closeModal(
+                    "bookingModal"
+                );
+
+
+                $("bookingForm")
+                    .reset();
+
+
+            }catch(error){
+
+                showFirebaseError(
+                    error
+                );
+
+                showToast(
+                    "Bron yuborishda xatolik.",
+                    "error"
+                );
+
+            }finally{
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    "Bron qilish";
+
+            }
+
+        }
+    );
+
+
+/* ======================================================
    FILTER EVENTS
-========================================================= */
-
-searchInput.addEventListener(
-    "input",
-    renderHotels
-);
-
-cityFilter.addEventListener(
-    "change",
-    renderHotels
-);
-
-priceFilter.addEventListener(
-    "change",
-    renderHotels
-);
-
-ratingFilter.addEventListener(
-    "change",
-    renderHotels
-);
-
-
-document.getElementById(
-    "clearFilters"
-).addEventListener(
-    "click",
-    () => {
-
-        searchInput.value = "";
-
-        cityFilter.value = "";
-
-        priceFilter.value = "";
-
-        ratingFilter.value = "";
-
-        renderHotels();
-
-    }
-);
-
-
-/* =========================================================
-   OPEN BUTTONS
-========================================================= */
+====================================================== */
 
 [
-    "navAddBtn",
-    "heroAddBtn",
-    "sectionAddBtn",
-    "dashboardAddBtn"
-].forEach(id => {
+    "searchInput",
+    "cityFilter",
+    "priceFilter",
+    "ratingFilter"
+].forEach(
+    id => {
 
-    document
-        .getElementById(id)
-        .addEventListener(
+        $(id).addEventListener(
+            "input",
+            renderHotels
+        );
+
+        $(id).addEventListener(
+            "change",
+            renderHotels
+        );
+
+    }
+);
+
+
+$("clearFilters")
+    .addEventListener(
+        "click",
+        () => {
+
+            $("searchInput")
+                .value = "";
+
+            $("cityFilter")
+                .value = "";
+
+            $("priceFilter")
+                .value = "";
+
+            $("ratingFilter")
+                .value = "";
+
+            renderHotels();
+
+        }
+    );
+
+
+/* ======================================================
+   OPEN BUTTONS
+====================================================== */
+
+[
+    "navAdd",
+    "heroAdd",
+    "sectionAdd",
+    "dashboardAdd"
+].forEach(
+    id => {
+
+        $(id).addEventListener(
             "click",
             openAddHotel
         );
 
-});
-
-
-document.getElementById(
-    "scrollHotelsBtn"
-).addEventListener(
-    "click",
-    () => {
-
-        document
-            .getElementById("hotels")
-            .scrollIntoView({
-                behavior:"smooth"
-            });
-
     }
 );
 
 
-/* =========================================================
-   CLOSE MODALS
-========================================================= */
+$("heroExplore")
+    .addEventListener(
+        "click",
+        () => {
 
-document
-    .querySelectorAll("[data-close]")
-    .forEach(button => {
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                closeModal(
-                    button.dataset.close
-                );
-
-            }
-        );
-
-    });
-
-
-document
-    .querySelectorAll(".modal")
-    .forEach(modal => {
-
-        modal.addEventListener(
-            "click",
-            event => {
-
-                if(event.target === modal){
-
-                    closeModal(
-                        modal.id
-                    );
-
-                }
-
-            }
-        );
-
-    });
-
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(event.key === "Escape"){
-
-            document
-                .querySelectorAll(".modal.active")
-                .forEach(modal => {
-
-                    closeModal(
-                        modal.id
-                    );
-
+            $("hotels")
+                .scrollIntoView({
+                    behavior:"smooth"
                 });
 
         }
-
-    }
-);
+    );
 
 
-/* =========================================================
-   GLOBAL LOGIN BUTTON
-========================================================= */
+/* ======================================================
+   MODAL CLOSE
+====================================================== */
 
 document
-    .querySelectorAll("#loginBtn")
-    .forEach(btn => {
+    .querySelectorAll(
+        "[data-close]"
+    )
+    .forEach(
+        button => {
 
-        btn.addEventListener(
-            "click",
-            login
-        );
+            button.addEventListener(
+                "click",
+                () => {
 
-    });
+                    closeModal(
+                        button.dataset.close
+                    );
 
+                }
+            );
 
-/* =========================================================
-   DEFAULT DATE
-========================================================= */
-
-const today =
-    new Date()
-        .toISOString()
-        .split("T")[0];
-
-document.getElementById(
-    "checkIn"
-).min = today;
-
-document.getElementById(
-    "checkOut"
-).min = today;
+        }
+    );
 
 
-/* =========================================================
-   CONSOLE
-========================================================= */
+document
+    .querySelectorAll(
+        ".modal"
+    )
+    .forEach(
+        modal => {
+
+            modal.addEventListener(
+                "click",
+                event => {
+
+                    if(
+                        event.target ===
+                        modal
+                    ){
+
+                        closeModal(
+                            modal.id
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+document
+    .addEventListener(
+        "keydown",
+        event => {
+
+            if(
+                event.key ===
+                "Escape"
+            ){
+
+                document
+                    .querySelectorAll(
+                        ".modal.active"
+                    )
+                    .forEach(
+                        modal => {
+
+                            closeModal(
+                                modal.id
+                            );
+
+                        }
+                    );
+
+            }
+
+        }
+    );
+
+
+/* ======================================================
+   DATE INITIALIZATION
+====================================================== */
+
+$("checkIn")
+    .min =
+    today();
+
+$("checkOut")
+    .min =
+    today();
+
+
+/* ======================================================
+   INITIAL LOGIN BUTTON
+====================================================== */
+
+$("loginButton")
+    .addEventListener(
+        "click",
+        loginWithGoogle
+    );
+
+
+/* ======================================================
+   DEBUG
+====================================================== */
 
 console.log(
-    "UzBooking Firebase initialized successfully."
+    "UzBooking initialized."
 );
 
 console.log(
-    "Project:",
+    "Firebase project:",
     firebaseConfig.projectId
 );
 
