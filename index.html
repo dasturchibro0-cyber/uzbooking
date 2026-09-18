@@ -3,1032 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Online Kutubxona</title>
-
-<meta name="description" content="Online kutubxona — kitoblarni qidiring va internet orqali o‘qing.">
-
+<title>UzBooking — Dam olish maskanlarini bron qilish</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --bg: #f5f7fb;
-    --card: #ffffff;
-    --text: #172033;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-    --shadow: 0 10px 30px rgba(0,0,0,.08);
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-}
-
-/* HEADER */
-header {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.navbar {
-    max-width: 1200px;
-    margin: auto;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 21px;
-    font-weight: 800;
-    color: var(--primary);
-}
-
-.logo-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--primary);
-    color: white;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 21px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 25px;
-}
-
-.nav-links a {
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.nav-links a:hover {
-    color: var(--primary);
-}
-
-/* HERO */
-.hero {
-    background: linear-gradient(135deg, #1d4ed8, #2563eb);
-    color: white;
-    padding: 70px 20px;
-}
-
-.hero-content {
-    max-width: 1100px;
-    margin: auto;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 44px;
-    margin-bottom: 15px;
-}
-
-.hero p {
-    font-size: 18px;
-    opacity: .9;
-    margin-bottom: 30px;
-}
-
-.search-box {
-    max-width: 700px;
-    margin: auto;
-    background: white;
-    border-radius: 14px;
-    padding: 7px;
-    display: flex;
-    box-shadow: 0 10px 30px rgba(0,0,0,.2);
-}
-
-.search-box input {
-    flex: 1;
-    border: none;
-    outline: none;
-    padding: 15px;
-    font-size: 16px;
-    border-radius: 10px;
-}
-
-.search-box button {
-    border: none;
-    background: var(--primary);
-    color: white;
-    padding: 0 25px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.search-box button:hover {
-    background: var(--primary-dark);
-}
-
-/* MAIN */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 45px 20px;
-}
-
-.section-title {
-    font-size: 28px;
-    margin-bottom: 25px;
-}
-
-/* CATEGORIES */
-.categories {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-}
-
-.category {
-    border: 1px solid var(--border);
-    background: white;
-    padding: 11px 18px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.category:hover,
-.category.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
-/* BOOK GRID */
-.books-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-}
-
-.book-card {
-    background: var(--card);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: .25s;
-}
-
-.book-card:hover {
-    transform: translateY(-5px);
-}
-
-.book-cover {
-    height: 260px;
-    background: #e8edf7;
-    overflow: hidden;
-}
-
-.book-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.book-info {
-    padding: 18px;
-}
-
-.book-category {
-    color: var(--primary);
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-}
-
-.book-title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 7px;
-}
-
-.book-author {
-    color: var(--muted);
-    margin-bottom: 15px;
-}
-
-.book-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.read-btn,
-.info-btn {
-    flex: 1;
-    padding: 11px 8px;
-    border-radius: 9px;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.read-btn {
-    background: var(--primary);
-    color: white;
-}
-
-.read-btn:hover {
-    background: var(--primary-dark);
-}
-
-.info-btn {
-    background: #eef2ff;
-    color: var(--primary);
-}
-
-/* EMPTY */
-.empty {
-    display: none;
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-}
-
-.empty-icon {
-    font-size: 50px;
-    margin-bottom: 15px;
-}
-
-/* MODAL */
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.6);
-    z-index: 200;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-content {
-    background: white;
-    width: 100%;
-    max-width: 700px;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 18px;
-    padding: 25px;
-    position: relative;
-}
-
-.close {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    border: none;
-    background: #f1f1f1;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.detail {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 25px;
-}
-
-.detail img {
-    width: 180px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.detail h2 {
-    margin-bottom: 10px;
-}
-
-.detail p {
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 12px;
-}
-
-.big-read {
-    display: inline-block;
-    background: var(--primary);
-    color: white;
-    padding: 13px 25px;
-    border-radius: 9px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-/* FOOTER */
-footer {
-    background: #111827;
-    color: white;
-    margin-top: 50px;
-    padding: 40px 20px;
-}
-
-.footer-inner {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-}
-
-footer p {
-    color: #9ca3af;
-    margin-top: 10px;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1000px) {
-    .books-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 700px) {
-    .hero h1 {
-        font-size: 32px;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    .books-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .book-cover {
-        height: 230px;
-    }
-
-    .detail {
-        grid-template-columns: 1fr;
-    }
-
-    .detail img {
-        width: 160px;
-        height: 220px;
-    }
-
-    .footer-inner {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 450px) {
-    .books-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .book-cover {
-        height: 300px;
-    }
-
-    .search-box {
-        flex-direction: column;
-        background: transparent;
-        box-shadow: none;
-        gap: 8px;
-    }
-
-    .search-box input {
-        width: 100%;
-    }
-
-    .search-box button {
-        height: 48px;
-    }
-}
+:root{--primary:#2563eb;--primary2:#1d4ed8;--orange:#f59e0b;--green:#16a34a;--red:#dc2626;--bg:#f6f8fc;--card:#fff;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--shadow:0 20px 60px rgba(15,23,42,.08);--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.container{width:min(1180px,calc(100% - 32px));margin:auto}
+.header{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(226,232,240,.9)}
+.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:14px}.logo{font-size:25px;font-weight:800}.logo b{color:var(--primary)}
+.nav-right{display:flex;align-items:center;gap:8px}.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:800}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary2)}.btn-soft{background:#eff6ff;color:var(--primary)}.btn-ghost{background:transparent;color:var(--text)}.btn-owner{background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.icon-btn{width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:12px;display:grid;place-items:center}
+.user-box{display:none;align-items:center;gap:8px;background:#f8fafc;border:1px solid var(--line);padding:5px 8px 5px 5px;border-radius:13px}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#2563eb,#60a5fa);color:#fff;font-weight:800;font-size:13px}
+.hero{padding:48px 0 28px}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}.tag{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;background:#eaf2ff;color:var(--primary);border-radius:999px;font-size:12px;font-weight:800}.hero h1{font-size:clamp(38px,5vw,62px);line-height:1.02;margin:14px 0}.hero p{font-size:18px;line-height:1.7;color:var(--muted);max-width:650px}
+.search{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:8px;box-shadow:0 14px 40px rgba(15,23,42,.06);margin-top:24px}.search-item{padding:10px 13px;border-right:1px solid var(--line)}.search-item label{display:block;text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:800;color:var(--muted);margin-bottom:5px}.search-item input,.search-item select{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-weight:700}
+.hero-art{min-height:360px;border-radius:28px;background:linear-gradient(145deg,#dbeafe,#eef2ff 52%,#fff);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero-art:before,.hero-art:after{content:"";position:absolute;border-radius:50%;background:rgba(37,99,235,.10)}.hero-art:before{width:300px;height:300px;right:-90px;top:-100px}.hero-art:after{width:190px;height:190px;left:-60px;bottom:-60px}
+.floating{position:absolute;background:#fff;border:1px solid rgba(255,255,255,.8);box-shadow:0 14px 40px rgba(37,99,235,.15);border-radius:16px;padding:14px 15px}.floating strong{display:block;font-size:18px}.floating small{color:var(--muted)}.f1{left:22px;bottom:30px}.f2{right:24px;top:82px}.f3{right:32px;bottom:26px}
+.section{padding:26px 0}.section-top{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:18px}.section h2{margin:0;font-size:28px}.muted{color:var(--muted)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}.chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 13px;font-weight:800;color:#334155}.chip.active{background:#eff6ff;color:var(--primary);border-color:#bfdbfe}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 10px 30px rgba(15,23,42,.05)}.photo{height:220px;background:#e2e8f0;position:relative}.photo img{width:100%;height:100%;object-fit:cover}.verified{position:absolute;left:12px;top:12px;background:#fff;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:800;box-shadow:0 5px 16px rgba(0,0,0,.08)}.fav{position:absolute;right:12px;top:12px;width:40px;height:40px;border:0;background:#fff;border-radius:50%;font-size:20px}
+.card-body{padding:15px}.row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.card h3{margin:0;font-size:18px}.rating{white-space:nowrap;font-weight:800}.meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin:8px 0}.desc{font-size:13px;color:#475569;line-height:1.55;min-height:42px}.price{font-size:18px;font-weight:800;margin-top:12px}.price span{font-size:12px;font-weight:500;color:var(--muted)}.actions{display:flex;gap:8px;margin-top:13px}.actions .btn{flex:1}
+.empty{grid-column:1/-1;background:#fff;border:1px dashed #cbd5e1;padding:35px;border-radius:18px;text-align:center;color:var(--muted)}
+.panel{display:none;background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow);margin:10px 0 20px}.panel.show{display:block}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}.panel-head h2{margin:0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.stat{border:1px solid var(--line);background:#f8fafc;border-radius:15px;padding:15px}.stat b{font-size:25px;display:block}.stat span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{border:1px solid var(--line);background:#fff;padding:9px 12px;border-radius:10px;font-weight:800}.tab.active{background:#eff6ff;border-color:#bfdbfe;color:var(--primary)}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800}.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:12px;padding:11px 12px;outline:0;background:#fff}.field textarea{min-height:100px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#93c5fd;box-shadow:0 0 0 4px #eff6ff}
+.table-wrap{overflow:auto}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 8px;border-bottom:1px solid var(--line);font-size:13px;text-align:left;white-space:nowrap}.table th{font-size:10px;text-transform:uppercase;color:var(--muted)}.hidden{display:none!important}
+.notice{display:none;border-radius:12px;padding:11px 13px;font-size:13px;margin:10px 0}.notice.show{display:block}.notice.info{background:#eff6ff;color:#1e40af}.notice.ok{background:#ecfdf5;color:#166534}.notice.err{background:#fef2f2;color:#991b1b}
+.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:100;align-items:center;justify-content:center;padding:16px}.modal.show{display:flex}.modal-box{width:min(540px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:22px;padding:22px;box-shadow:0 30px 100px rgba(0,0,0,.24)}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.close{width:38px;height:38px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:19px}.modal h2{margin:0}.switch{display:flex;gap:4px;background:#f1f5f9;padding:4px;border-radius:12px;margin:16px 0}.switch button{flex:1;border:0;background:transparent;padding:10px;border-radius:9px;font-weight:800}.switch button.active{background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.08);color:var(--primary)}
+footer{padding:40px 0 65px;color:var(--muted);font-size:12px}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.search{grid-template-columns:1fr 1fr}.search-item{border-right:0;border-bottom:1px solid var(--line)}.search button{grid-column:1/-1}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.container{width:min(100% - 20px,520px)}.nav{min-height:66px}.logo{font-size:21px}.nav-right .btn-owner{display:none}.user-box{display:flex}.hero{padding-top:28px}.grid{grid-template-columns:1fr}.search{grid-template-columns:1fr}.search button{grid-column:auto}.search-item{border-bottom:1px solid var(--line)}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.stats{grid-template-columns:1fr}.hero-art{min-height:250px}}
 </style>
 </head>
-
 <body>
-
-<header>
-    <div class="navbar">
-
-        <div class="logo">
-            <div class="logo-icon">📚</div>
-            <span>Online Kutubxona</span>
-        </div>
-
-        <nav class="nav-links">
-            <a href="#home">Bosh sahifa</a>
-            <a href="#books">Kitoblar</a>
-            <a href="#categories">Kategoriyalar</a>
-        </nav>
-
+<header class="header">
+  <div class="container nav">
+    <a class="logo" href="#"><b>Uz</b>Booking</a>
+    <div class="nav-right">
+      <button class="btn btn-owner" onclick="openOwnerAuth()">🏠 Maskan egasi</button>
+      <div id="userBox" class="user-box"><div id="avatar" class="avatar">U</div><span id="userName" style="font-size:12px;font-weight:700"></span></div>
+      <button id="customerLoginBtn" class="btn btn-primary" onclick="openCustomerAuth()">👤 Mijoz kirishi</button>
+      <button id="dashboardBtn" class="btn btn-soft hidden" onclick="toggleOwnerPanel()">🏡 Kabinet</button>
+      <button id="logoutBtn" class="btn btn-ghost hidden" onclick="logout()">Chiqish</button>
     </div>
+  </div>
 </header>
 
-
-<section class="hero" id="home">
-    <div class="hero-content">
-
-        <h1>Bilim olamiga xush kelibsiz 📚</h1>
-
-        <p>
-            Minglab kitoblarni qidiring va internet orqali o‘qing.
-        </p>
-
-        <div class="search-box">
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Kitob yoki muallifni qidiring..."
-            >
-
-            <button onclick="searchBooks()">
-                🔎 Qidirish
-            </button>
-        </div>
-
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="tag">🇺🇿 O‘zbekiston bo‘ylab dam olish</span>
+      <h1>Dam olish maskaningizni toping va bron qiling.</h1>
+      <p>Chorvoq, Zaamin, Samarqand va boshqa hududlardagi dam olish maskanlari, dacha va kottedjlarni bir joydan izlang.</p>
+      <div class="search">
+        <div class="search-item"><label>Qayerga?</label><input id="q" placeholder="Masalan, Chorvoq"></div>
+        <div class="search-item"><label>Viloyat</label><select id="region"><option value="">Barchasi</option><option>Toshkent</option><option>Samarqand</option><option>Buxoro</option><option>Jizzax</option><option>Namangan</option><option>Farg‘ona</option><option>Andijon</option><option>Qashqadaryo</option><option>Surxondaryo</option><option>Navoiy</option><option>Xorazm</option><option>Sirdaryo</option><option>Qoraqalpog‘iston</option></select></div>
+        <div class="search-item"><label>Kelish</label><input id="checkIn" type="date"></div>
+        <div class="search-item"><label>Ketish</label><input id="checkOut" type="date"></div>
+        <button class="btn btn-primary" onclick="searchResorts()">🔎 Qidirish</button>
+      </div>
     </div>
+    <div class="hero-art">
+      <div class="floating f1"><strong>⭐ 4.9 / 5</strong><small>Yuqori reytingli maskanlar</small></div>
+      <div class="floating f2"><strong>🏡 Dacha</strong><small>Oilaviy dam olish</small></div>
+      <div class="floating f3"><strong>🔐 Xavfsiz bron</strong><small>Firebase bilan</small></div>
+    </div>
+  </div>
 </section>
 
-
-<main class="container">
-
-    <section id="categories">
-
-        <h2 class="section-title">
-            Kategoriyalar
-        </h2>
-
-        <div class="categories">
-
-            <button class="category active"
-                    onclick="filterCategory('all', this)">
-                Barchasi
-            </button>
-
-            <button class="category"
-                    onclick="filterCategory('Roman', this)">
-                📖 Roman
-            </button>
-
-            <button class="category"
-                    onclick="filterCategory('Biznes', this)">
-                💼 Biznes
-            </button>
-
-            <button class="category"
-                    onclick="filterCategory('Tarix', this)">
-                🏛 Tarix
-            </button>
-
-            <button class="category"
-                    onclick="filterCategory('IT', this)">
-                💻 IT
-            </button>
-
-            <button class="category"
-                    onclick="filterCategory('Psixologiya', this)">
-                🧠 Psixologiya
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <section id="books">
-
-        <h2 class="section-title">
-            📚 Kitoblar
-        </h2>
-
-        <div class="books-grid" id="booksGrid"></div>
-
-        <div class="empty" id="empty">
-            <div class="empty-icon">📚</div>
-            <h3>Kitob topilmadi</h3>
-            <p>Boshqa nom yoki muallif bilan qidirib ko‘ring.</p>
-        </div>
-
-    </section>
-
-</main>
-
-
-<!-- DETAIL MODAL -->
-
-<div class="modal" id="detailModal">
-
-    <div class="modal-content">
-
-        <button class="close" onclick="closeModal()">
-            ×
-        </button>
-
-        <div id="detailContent"></div>
-
+<section class="section" id="resorts">
+  <div class="container">
+    <div class="section-top">
+      <div><h2>Dam olish maskanlari</h2><div class="muted">Maskan egalari tomonidan joylashtirilgan maskanlar.</div></div>
+      <div class="filters">
+        <button class="chip active" onclick="sortResorts('popular',this)">Mashhur</button>
+        <button class="chip" onclick="sortResorts('price',this)">Narx</button>
+        <button class="chip" onclick="sortResorts('rating',this)">Reyting</button>
+      </div>
     </div>
+    <div id="resortGrid" class="grid"></div>
+  </div>
+</section>
 
+<section class="section">
+<div class="container">
+  <div id="ownerPanel" class="panel">
+    <div class="panel-head">
+      <div><h2>🏠 Maskan egasi kabineti</h2><div class="muted">Dacha yoki dam olish maskaningizni joylashtiring.</div></div>
+      <button class="icon-btn" onclick="toggleOwnerPanel()">×</button>
+    </div>
+    <div id="ownerPending" class="notice info">Maskan egasi sifatida tizimga kirgansiz. Maskaningizni bemalol joylashtirishingiz mumkin.</div>
+    <div id="ownerContent">
+      <div class="stats">
+        <div class="stat"><b id="sResorts">0</b><span>Mening maskanlarim</span></div>
+        <div class="stat"><b id="sApproved">0</b><span>Faol maskanlar</span></div>
+        <div class="stat"><b id="sBookings">0</b><span>Bronlar</span></div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="ownerTab('add',this)">+ Dacha/maskan qo‘shish</button>
+        <button class="tab" onclick="ownerTab('list',this)">Mening maskanlarim</button>
+        <button class="tab" onclick="ownerTab('bookings',this)">Bronlar</button>
+      </div>
+
+      <div id="ownerAdd" style="margin-top:16px">
+        <form id="resortForm" class="form-grid">
+          <div class="field"><label>Maskan nomi</label><input id="rName" required placeholder="Masalan, Chorvoq Family Dacha"></div>
+          <div class="field"><label>Viloyat</label><select id="rRegion" required><option value="">Tanlang</option><option>Toshkent</option><option>Samarqand</option><option>Buxoro</option><option>Jizzax</option><option>Namangan</option><option>Farg‘ona</option><option>Andijon</option><option>Qashqadaryo</option><option>Surxondaryo</option><option>Navoiy</option><option>Xorazm</option><option>Sirdaryo</option><option>Qoraqalpog‘iston</option></select></div>
+          <div class="field"><label>Joylashuvi</label><input id="rLocation" required placeholder="Bo‘stonliq, Chorvoq"></div>
+          <div class="field"><label>Bir kecha narxi (UZS)</label><input id="rPrice" required type="number" min="0" placeholder="500000"></div>
+          <div class="field"><label>Rasm URL</label><input id="rImage" placeholder="https://..."></div>
+          <div class="field"><label>Reyting</label><input id="rRating" type="number" min="1" max="5" step="0.1" value="5"></div>
+          <div class="field"><label>Latitude</label><input id="rLat" type="number" step="any" placeholder="41.62"></div>
+          <div class="field"><label>Longitude</label><input id="rLng" type="number" step="any" placeholder="69.94"></div>
+          <div class="field full"><label>Qulayliklar</label><input id="rAmenities" placeholder="Hovuz, sauna, Wi-Fi, parking"></div>
+          <div class="field full"><label>Tavsif</label><textarea id="rDesc" required placeholder="Maskan haqida batafsil ma'lumot..."></textarea></div>
+          <div class="field full"><button class="btn btn-primary" type="submit">Maskanni joylashtirish</button></div>
+        </form>
+        <div id="ownerNotice" class="notice"></div>
+      </div>
+      <div id="ownerList" class="hidden" style="margin-top:16px"></div>
+      <div id="ownerBookings" class="hidden" style="margin-top:16px"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer><div class="container">© 2026 UzBooking — dam olish maskanlari uchun bron platformasi.</div></footer>
+
+<div id="authModal" class="modal">
+<div class="modal-box">
+  <div class="modal-head">
+    <div><h2 id="modalTitle">Mijoz kirishi</h2><div id="modalSubtitle" class="muted" style="font-size:13px;margin-top:4px">Bron qilish uchun tizimga kiring.</div></div>
+    <button class="close" onclick="closeAuth()">×</button>
+  </div>
+  <div id="authSwitch" class="switch">
+    <button id="loginTab" class="active" onclick="setMode('login')">Kirish</button>
+    <button id="signupTab" onclick="setMode('signup')">Ro‘yxatdan o‘tish</button>
+  </div>
+  <div id="authNotice" class="notice"></div>
+
+  <form id="authForm">
+    <div id="ownerFields" class="hidden">
+      <div class="form-grid">
+        <div class="field"><label>Ism *</label><input id="firstName" placeholder="Ayub"></div>
+        <div class="field"><label>Familiya *</label><input id="lastName" placeholder="Jonov"></div>
+      </div>
+      <div class="field"><label>Telefon raqami *</label><input id="phone" type="tel" placeholder="+998 90 123 45 67"></div>
+    </div>
+    <div id="customerNameField" class="field hidden"><label>Ism familiya</label><input id="customerName" placeholder="Ism Familiya"></div>
+    <div class="field"><label>Elektron pochta *</label><input id="email" required type="email" placeholder="siz@example.com"></div>
+    <div class="field"><label>Parol *</label><input id="password" required type="password" minlength="6" placeholder="Kamida 6 belgi"></div>
+    <div id="forgotWrap"><button type="button" class="btn btn-ghost" style="padding-left:0" onclick="resetPassword()">Parolni unutdingizmi?</button></div>
+    <button id="submitAuth" class="btn btn-primary" style="width:100%;margin-top:5px" type="submit">Kirish</button>
+  </form>
+</div>
 </div>
 
-
-<footer>
-
-    <div class="footer-inner">
-
-        <div>
-            <h2>📚 Online Kutubxona</h2>
-            <p>Bilim — eng katta boylik.</p>
-        </div>
-
-        <div>
-            <h3>Bo‘limlar</h3>
-            <p>Kitoblar</p>
-            <p>Kategoriyalar</p>
-            <p>Mualliflar</p>
-        </div>
-
-        <div>
-            <h3>Ma'lumot</h3>
-            <p>© 2026 Online Kutubxona</p>
-        </div>
-
+<div id="bookingModal" class="modal">
+<div class="modal-box">
+  <div class="modal-head"><div><h2>📝 Bron qilish</h2><div id="bookingName" class="muted" style="font-size:13px;margin-top:4px"></div></div><button class="close" onclick="closeBooking()">×</button></div>
+  <div id="bookingNotice" class="notice"></div>
+  <form id="bookingForm">
+    <div class="form-grid">
+      <div class="field"><label>Kelish *</label><input id="bIn" required type="date"></div>
+      <div class="field"><label>Ketish *</label><input id="bOut" required type="date"></div>
+      <div class="field"><label>Mehmonlar *</label><input id="bGuests" required type="number" min="1" value="2"></div>
+      <div class="field"><label>Telefon *</label><input id="bPhone" required type="tel" placeholder="+998 90 123 45 67"></div>
+      <div class="field full"><button class="btn btn-primary" style="width:100%" type="submit">Bron so‘rovini yuborish</button></div>
     </div>
-
-</footer>
-
-
-<script>
-
-/* =========================================================
-   KITOBLAR
-   ========================================================= */
-
-const books = [
-
-    {
-        id: 1,
-
-        title: "Creative Confidence",
-
-        author: "Tom Kelley",
-
-        category: "Biznes",
-
-        year: "2013",
-
-        description:
-        "Ijodkorlik, innovatsiya va yangi g‘oyalarni rivojlantirish haqida kitob.",
-
-        image:
-        "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=600",
-
-        pdf:
-        "https://pdftolink.app/view/a7979744-7128-4729-9ca3-a36e21d64cfc"
-    },
-
-    {
-        id: 2,
-
-        title: "O‘tkan kunlar",
-
-        author: "Abdulla Qodiriy",
-
-        category: "Roman",
-
-        year: "1926",
-
-        description:
-        "O‘zbek adabiyotining mashhur romanlaridan biri.",
-
-        image:
-        "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600",
-
-        pdf:
-        "#"
-    },
-
-    {
-        id: 3,
-
-        title: "Atom odatlar",
-
-        author: "James Clear",
-
-        category: "Psixologiya",
-
-        year: "2018",
-
-        description:
-        "Kichik odatlar orqali katta natijalarga erishish haqida.",
-
-        image:
-        "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=600",
-
-        pdf:
-        "#"
-    },
-
-    {
-        id: 4,
-
-        title: "JavaScript Asoslari",
-
-        author: "Online Kutubxona",
-
-        category: "IT",
-
-        year: "2026",
-
-        description:
-        "JavaScript dasturlash tilini boshlang‘ich darajada o‘rganish uchun qo‘llanma.",
-
-        image:
-        "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=600",
-
-        pdf:
-        "#"
-    },
-
-    {
-        id: 5,
-
-        title: "Buyuk Ipak Yo‘li",
-
-        author: "Tarixiy tadqiqot",
-
-        category: "Tarix",
-
-        year: "2020",
-
-        description:
-        "Buyuk Ipak Yo‘li va uning tarixiy ahamiyati haqida.",
-
-        image:
-        "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=600",
-
-        pdf:
-        "#"
-    },
-
-    {
-        id: 6,
-
-        title: "Biznesni boshlash",
-
-        author: "Biznes maktabi",
-
-        category: "Biznes",
-
-        year: "2024",
-
-        description:
-        "Biznes boshlash va rivojlantirish bo‘yicha amaliy qo‘llanma.",
-
-        image:
-        "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600",
-
-        pdf:
-        "#"
-    }
-
-];
-
-
-/* =========================================================
-   KITOBLARNI CHIQARISH
-   ========================================================= */
-
-const booksGrid = document.getElementById("booksGrid");
-
-function displayBooks(list) {
-
-    booksGrid.innerHTML = "";
-
-    const empty = document.getElementById("empty");
-
-    if (list.length === 0) {
-
-        empty.style.display = "block";
-
-        return;
-
-    }
-
-    empty.style.display = "none";
-
-
-    list.forEach(book => {
-
-        const card = document.createElement("div");
-
-        card.className = "book-card";
-
-        card.innerHTML = `
-
-            <div class="book-cover">
-
-                <img
-                    src="${book.image}"
-                    alt="${book.title}"
-                    onerror="this.src='https://via.placeholder.com/600x800?text=Book'"
-                >
-
-            </div>
-
-            <div class="book-info">
-
-                <div class="book-category">
-                    ${book.category}
-                </div>
-
-                <div class="book-title">
-                    ${book.title}
-                </div>
-
-                <div class="book-author">
-                    ${book.author}
-                </div>
-
-                <div class="book-buttons">
-
-                    <button
-                        class="read-btn"
-                        onclick="readBook(${book.id})">
-                        📖 O‘qish
-                    </button>
-
-                    <button
-                        class="info-btn"
-                        onclick="showDetails(${book.id})">
-                        ℹ️
-                    </button>
-
-                </div>
-
-            </div>
-        `;
-
-        booksGrid.appendChild(card);
-
-    });
-
-}
-
-
-/* =========================================================
-   KITOBNI O‘QISH
-   ========================================================= */
-
-function readBook(id) {
-
-    const book = books.find(b => b.id === id);
-
-    if (!book) return;
-
-    if (!book.pdf || book.pdf === "#") {
-
-        alert(
-            "Bu kitob uchun hozircha o‘qish havolasi qo‘shilmagan."
-        );
-
-        return;
-    }
-
-    /*
-       PDFtoLink yoki boshqa PDF viewer
-       yangi oynada ochiladi.
-    */
-
-    window.open(
-        book.pdf,
-        "_blank",
-        "noopener,noreferrer"
-    );
-
-}
-
-
-/* =========================================================
-   TAFSILOT
-   ========================================================= */
-
-function showDetails(id) {
-
-    const book = books.find(b => b.id === id);
-
-    if (!book) return;
-
-    const modal = document.getElementById("detailModal");
-
-    const detail = document.getElementById("detailContent");
-
-    detail.innerHTML = `
-
-        <div class="detail">
-
-            <img
-                src="${book.image}"
-                alt="${book.title}"
-            >
-
-            <div>
-
-                <div class="book-category">
-                    ${book.category}
-                </div>
-
-                <h2>
-                    ${book.title}
-                </h2>
-
-                <p>
-                    <strong>Muallif:</strong>
-                    ${book.author}
-                </p>
-
-                <p>
-                    <strong>Nashr yili:</strong>
-                    ${book.year}
-                </p>
-
-                <p>
-                    ${book.description}
-                </p>
-
-                ${
-                    book.pdf !== "#"
-                    ?
-                    `<a
-                        class="big-read"
-                        href="${book.pdf}"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        📖 Kitobni o‘qish
-                    </a>`
-                    :
-                    `<span>
-                        Kitob havolasi hali qo‘shilmagan.
-                    </span>`
-                }
-
-            </div>
-
-        </div>
-
-    `;
-
-    modal.classList.add("show");
-
-}
-
-
-/* =========================================================
-   MODAL YOPISH
-   ========================================================= */
-
-function closeModal() {
-
-    document
-        .getElementById("detailModal")
-        .classList.remove("show");
-
-}
-
-
-window.onclick = function(event) {
-
-    const modal =
-        document.getElementById("detailModal");
-
-    if (event.target === modal) {
-
-        closeModal();
-
-    }
-
+  </form>
+</div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getAnalytics, isSupported as analyticsSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
+  authDomain: "uzbektelegrami.firebaseapp.com",
+  databaseURL: "https://uzbektelegrami-default-rtdb.firebaseio.com",
+  projectId: "uzbektelegrami",
+  storageBucket: "uzbektelegrami.firebasestorage.app",
+  messagingSenderId: "13650278375",
+  appId: "1:13650278375:web:b4b3e06021399c41dc6f42",
+  measurementId: "G-80MM024Q4W"
+};
+const app=initializeApp(firebaseConfig);
+analyticsSupported().then(x=>x&&getAnalytics(app)).catch(()=>{});
+const auth=getAuth(app), db=getDatabase(app);
+// MUHIM: sessiya brauzer yopilgandan keyin ham saqlanishi uchun
+setPersistence(auth,browserLocalPersistence).catch(()=>{});
+
+let mode="login", account="customer", currentUser=null, profile=null, profileUnsub=null;
+let resorts={}, sortMode="popular", bookingId=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const money=n=>new Intl.NumberFormat("uz-UZ").format(Number(n||0));
+const notice=(el,msg,type="info")=>{el.className="notice show "+type;el.textContent=msg};
+function clearNotice(el){el.className="notice";el.textContent=""}
+const isOwnerRole=r=>r==="owner"||r==="owner_pending";
+
+window.openCustomerAuth=()=>{account="customer";$("authModal").classList.add("show");setMode("login")};
+window.openOwnerAuth=()=>{account="owner";$("authModal").classList.add("show");setMode("login")};
+window.closeAuth=()=>$("authModal").classList.remove("show");
+window.closeBooking=()=>$("bookingModal").classList.remove("show");
+
+window.setMode=m=>{
+  mode=m; clearNotice($("authNotice"));
+  $("loginTab").classList.toggle("active",m==="login");$("signupTab").classList.toggle("active",m==="signup");
+  $("ownerFields").classList.toggle("hidden",!(account==="owner"&&m==="signup"));
+  $("customerNameField").classList.toggle("hidden",!(account==="customer"&&m==="signup"));
+  $("forgotWrap").classList.toggle("hidden",m!=="login");
+  $("submitAuth").textContent=m==="login"?(account==="owner"?"🏠 Maskan egasi sifatida kirish":"👤 Mijoz sifatida kirish"):(account==="owner"?"🏡 Maskan egasi bo‘lish":"👤 Mijoz hisobini yaratish");
+  $("modalTitle").textContent=account==="owner"?"🏠 Maskan egasi": "👤 Mijoz";
+  $("modalSubtitle").textContent=account==="owner"?"Dacha yoki maskaningizni UzBooking’ga joylashtiring.":"Bron qilish va buyurtmalarni ko‘rish uchun tizimga kiring.";
 };
 
-
-/* =========================================================
-   QIDIRUV
-   ========================================================= */
-
-function searchBooks() {
-
-    const query =
-        document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
-
-    const result = books.filter(book =>
-
-        book.title
-            .toLowerCase()
-            .includes(query)
-
-        ||
-
-        book.author
-            .toLowerCase()
-            .includes(query)
-
-        ||
-
-        book.category
-            .toLowerCase()
-            .includes(query)
-
-    );
-
-    displayBooks(result);
-
-}
-
-
-document
-    .getElementById("searchInput")
-    .addEventListener(
-        "input",
-        searchBooks
-    );
-
-
-/* =========================================================
-   KATEGORIYA
-   ========================================================= */
-
-function filterCategory(category, button) {
-
-    document
-        .querySelectorAll(".category")
-        .forEach(btn => {
-
-            btn.classList.remove("active");
-
-        });
-
-    button.classList.add("active");
-
-
-    if (category === "all") {
-
-        displayBooks(books);
-
-        return;
-
+$("authForm").addEventListener("submit",async e=>{
+ e.preventDefault();clearNotice($("authNotice"));
+ try{
+  const email=$("email").value.trim(), password=$("password").value;
+  if(mode==="signup"){
+    const cred=await createUserWithEmailAndPassword(auth,email,password);
+    let userData;
+    if(account==="owner"){
+      userData={uid:cred.user.uid,role:"owner_pending",status:"active",firstName:$("firstName").value.trim(),lastName:$("lastName").value.trim(),name:`${$("firstName").value.trim()} ${$("lastName").value.trim()}`.trim(),phone:$("phone").value.trim(),email,createdAt:Date.now()};
+    }else{
+      userData={uid:cred.user.uid,role:"user",status:"active",name:$("customerName").value.trim()||email.split("@")[0],email,createdAt:Date.now()};
     }
+    await set(ref(db,`users/${cred.user.uid}`),userData);
+    // Mahalliy holatni darhol yangilash — onAuthStateChanged bilan poyga bo'lmasligi uchun
+    profile=userData;
+    updateAuthUI(cred.user,userData);
+    closeAuth();
+    if(account==="owner"){
+      // Panelni avtomatik ochib beramiz
+      setTimeout(async()=>{ await toggleOwnerPanel(); },350);
+    }
+  }else{
+    await signInWithEmailAndPassword(auth,email,password);
+    closeAuth();
+  }
+ }catch(err){notice($("authNotice"),friendly(err),"err")}
+});
 
+window.resetPassword=async()=>{
+ const email=$("email").value.trim();if(!email){notice($("authNotice"),"Email kiriting.","err");return}
+ try{await sendPasswordResetEmail(auth,email);notice($("authNotice"),"Parolni tiklash xati yuborildi.","ok")}catch(err){notice($("authNotice"),friendly(err),"err")}
+};
+function friendly(err){return ({'auth/invalid-credential':"Email yoki parol noto‘g‘ri.",'auth/email-already-in-use':"Bu email allaqachon ishlatilgan.",'auth/weak-password':"Parol kamida 6 belgidan iborat bo‘lsin.",'auth/invalid-email':"Email formati noto‘g‘ri.",'auth/network-request-failed':"Internet aloqasini tekshiring."}[err.code]||err.message||"Xatolik yuz berdi.");}
 
-    const result = books.filter(
-        book => book.category === category
-    );
-
-    displayBooks(result);
-
+function updateAuthUI(u, prof){
+ if(!u){
+   $("customerLoginBtn").classList.remove("hidden");
+   $("logoutBtn").classList.add("hidden");
+   $("dashboardBtn").classList.add("hidden");
+   $("userBox").style.display="none";
+   $("ownerPanel").classList.remove("show");
+   return;
+ }
+ $("customerLoginBtn").classList.add("hidden");
+ $("logoutBtn").classList.remove("hidden");
+ $("userBox").style.display="flex";
+ $("userName").textContent=prof?.name||u.email;
+ $("avatar").textContent=(prof?.name||u.email).slice(0,1).toUpperCase();
+ const isOwner=isOwnerRole(prof?.role);
+ $("dashboardBtn").classList.toggle("hidden",!isOwner);
 }
 
+onAuthStateChanged(auth, u => {
+ currentUser=u;
+ // Avvalgi profil tinglovchini tozalaymiz
+ if(profileUnsub){profileUnsub();profileUnsub=null}
+ if(!u){ profile=null; updateAuthUI(null,null); return }
 
-/* =========================================================
-   START
-   ========================================================= */
+ // Profilni real-time kuzatish: signup paytida set() bajarilgach darhol yangilanadi
+ profileUnsub=onValue(ref(db,`users/${u.uid}`), snap=>{
+   profile = snap.exists() ? snap.val() : null;
+   updateAuthUI(u, profile);
+ }, ()=>{ /* ruxsat xatosi bo'lsa jim o'tamiz */ });
+});
 
-displayBooks(books);
+window.logout=async()=>{ try{await signOut(auth);}catch{} };
+window.toggleOwnerPanel=async()=>{const panel=$("ownerPanel");panel.classList.toggle("show");if(panel.classList.contains("show"))await loadOwner()};
+window.ownerTab=(tab,el)=>{document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));el.classList.add("active");$("ownerAdd").classList.toggle("hidden",tab!=="add");$("ownerList").classList.toggle("hidden",tab!=="list");$("ownerBookings").classList.toggle("hidden",tab!=="bookings");if(tab==="list")renderOwnerList();if(tab==="bookings")renderOwnerBookings()};
 
+$("resortForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ if(!isOwnerRole(profile?.role)){notice($("ownerNotice"),"Avval maskan egasi sifatida ro‘yxatdan o‘ting yoki tizimga kiring.","err");return}
+ const r=push(ref(db,"resorts"));
+ const data={ownerUid:currentUser.uid,ownerName:profile.name||"",ownerPhone:profile.phone||"",name:$("rName").value.trim(),region:$("rRegion").value,location:$("rLocation").value.trim(),price:Number($("rPrice").value),image:$("rImage").value.trim(),rating:Number($("rRating").value||5),latitude:$("rLat").value?Number($("rLat").value):null,longitude:$("rLng").value?Number($("rLng").value):null,amenities:$("rAmenities").value.split(",").map(x=>x.trim()).filter(Boolean),description:$("rDesc").value.trim(),status:"approved",createdAt:Date.now()};
+ try{await set(r,data);e.target.reset();notice($("ownerNotice"),"Maskan muvaffaqiyatli joylashtirildi va saytda ko‘rindi.","ok");await loadResorts();await loadOwner()}catch(err){notice($("ownerNotice"),err.message,"err")}
+});
+
+async function loadOwner(){
+ const isOwner=isOwnerRole(profile?.role);
+ $("ownerPending").classList.remove("show");
+ $("ownerContent").classList.toggle("hidden",!isOwner);
+ if(!isOwner)return;
+ const mine=Object.entries(resorts).filter(([,x])=>x.ownerUid===currentUser.uid);
+ $("sResorts").textContent=mine.length;
+ $("sApproved").textContent=mine.filter(([,x])=>x.status==="approved").length;
+ try{const b=await get(ref(db,"bookings"));const n=b.exists()?Object.values(b.val()).filter(x=>x.ownerUid===currentUser.uid).length:0;$("sBookings").textContent=n}catch{$("sBookings").textContent="0"}
+}
+function renderOwnerList(){
+ const mine=Object.entries(resorts).filter(([,x])=>x.ownerUid===currentUser.uid);
+ $("ownerList").innerHTML=mine.length?`<div class="table-wrap"><table class="table"><tr><th>Maskan</th><th>Viloyat</th><th>Narx</th><th>Status</th></tr>${mine.map(([,x])=>`<tr><td>${esc(x.name)}</td><td>${esc(x.region)}</td><td>${money(x.price)} UZS</td><td>${esc(x.status)}</td></tr>`).join("")}</table></div>`:`<div class="empty">Hali maskan qo‘shilmagan.</div>`;
+}
+async function renderOwnerBookings(){
+ try{const s=await get(ref(db,"bookings"));const arr=s.exists()?Object.entries(s.val()).filter(([,x])=>x.ownerUid===currentUser.uid):[];$("ownerBookings").innerHTML=arr.length?`<div class="table-wrap"><table class="table"><tr><th>Maskan</th><th>Mehmon</th><th>Sana</th><th>Mehmon</th><th>Status</th></tr>${arr.map(([,x])=>`<tr><td>${esc(x.resortName)}</td><td>${esc(x.guestName||x.guestEmail)}</td><td>${esc(x.checkIn)} → ${esc(x.checkOut)}</td><td>${x.guests}</td><td>${esc(x.status)}</td></tr>`).join("")}</table></div>`:`<div class="empty">Bron yo‘q.</div>`}catch{$("ownerBookings").innerHTML=`<div class="empty">Bronlarni yuklashda xato.</div>`}
+}
+
+window.openBooking=id=>{
+ if(!currentUser){openCustomerAuth();notice($("authNotice"),"Bron qilish uchun mijoz sifatida kiring.","info");return}
+ bookingId=id;$("bookingName").textContent=resorts[id]?.name||"";$("bookingModal").classList.add("show");clearNotice($("bookingNotice"));
+};
+$("bookingForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const ci=$("bIn").value,co=$("bOut").value;if(new Date(co)<=new Date(ci)){notice($("bookingNotice"),"Ketish sanasi kelish sanasidan keyin bo‘lishi kerak.","err");return}
+ const r=resorts[bookingId];if(!r)return;
+ const p=push(ref(db,"bookings"));
+ try{await set(p,{bookingId:p.key,resortId:bookingId,resortName:r.name,ownerUid:r.ownerUid||"",guestUid:currentUser.uid,guestName:profile?.name||currentUser.email,guestEmail:currentUser.email,phone:$("bPhone").value.trim(),checkIn:ci,checkOut:co,guests:Number($("bGuests").value),status:"pending",createdAt:Date.now()});notice($("bookingNotice"),"Bron so‘rovi yuborildi.","ok");e.target.reset()}catch(err){notice($("bookingNotice"),err.message,"err")}
+});
+
+window.searchResorts=()=>{renderResorts();document.getElementById("resorts").scrollIntoView({behavior:"smooth"})};
+window.sortResorts=(mode,el)=>{sortMode=mode;document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));el.classList.add("active");renderResorts()};
+function renderResorts(){
+ let arr=Object.entries(resorts).map(([id,x])=>({id,...x})).filter(x=>x.status==="approved");
+ const q=$("q").value.trim().toLowerCase(),rg=$("region").value;
+ if(q)arr=arr.filter(x=>`${x.name} ${x.location} ${x.description}`.toLowerCase().includes(q));
+ if(rg)arr=arr.filter(x=>x.region===rg);
+ if(sortMode==="price")arr.sort((a,b)=>(a.price||0)-(b.price||0));
+ if(sortMode==="rating"||sortMode==="popular")arr.sort((a,b)=>(b.rating||0)-(a.rating||0));
+ $("resortGrid").innerHTML=arr.length?arr.map(x=>{
+   const fav=JSON.parse(localStorage.getItem("uzbooking_fav")||"[]").includes(x.id);
+   const img=x.image||"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80";
+   return `<article class="card"><div class="photo"><img src="${esc(img)}" alt="${esc(x.name)}"><span class="verified">✓ Tasdiqlangan</span><button class="fav" onclick="toggleFav('${x.id}',event)">${fav?"❤️":"♡"}</button></div><div class="card-body"><div class="row"><h3>${esc(x.name)}</h3><div class="rating">⭐ ${Number(x.rating||0).toFixed(1)}</div></div><div class="meta"><span>📍 ${esc(x.location||x.region)}</span><span>🏡 ${esc(x.region||"")}</span></div><div class="desc">${esc(x.description||"")}</div><div class="price">${money(x.price)} UZS <span>/ kecha</span></div><div class="actions"><button class="btn btn-soft" onclick="details('${x.id}')">Batafsil</button><button class="btn btn-primary" onclick="openBooking('${x.id}')">Bron qilish</button></div></div></article>`;
+ }).join(""):`<div class="empty">Mos keladigan maskan topilmadi.</div>`;
+}
+window.toggleFav=(id,e)=>{e.stopPropagation();let a=JSON.parse(localStorage.getItem("uzbooking_fav")||"[]");a=a.includes(id)?a.filter(x=>x!==id):[...a,id];localStorage.setItem("uzbooking_fav",JSON.stringify(a));renderResorts()};
+window.details=id=>{const x=resorts[id];alert(`${x.name}\n\n📍 ${x.location||x.region}\n⭐ ${x.rating||0}\n💰 ${money(x.price)} UZS / kecha\n\n${x.description||""}\n\nQulayliklar: ${Array.isArray(x.amenities)?x.amenities.join(", "):(x.amenities||"")}`)};
+
+async function loadResorts(){try{const s=await get(ref(db,"resorts"));resorts=s.exists()?s.val():{}}catch{resorts={}}renderResorts()}
+loadResorts();
+
+["checkIn","checkOut","q","region"].forEach(id=>{const e=$(id);if(e)e.addEventListener("change",renderResorts)});
 </script>
-
 </body>
 </html>
