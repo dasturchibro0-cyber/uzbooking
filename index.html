@@ -3,21 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>UzBooking — Booking & Hotel Reservation</title>
-
 <meta name="description" content="UzBooking — O'zbekistonda mehmonxona va turar joylarni qidirish, solishtirish va online booking qilish platformasi.">
 <meta name="keywords" content="UzBooking, Booking, Uzbekistan booking, hotel booking, mehmonxona booking">
 <meta name="robots" content="index, follow">
-
 <link rel="canonical" href="https://uzbooking.online/">
-
 <meta property="og:title" content="UzBooking — Booking & Hotel Reservation">
 <meta property="og:description" content="O'zbekistondagi mehmonxonalarni toping va online booking qiling.">
 <meta property="og:url" content="https://uzbooking.online/">
 <meta property="og:site_name" content="UzBooking">
 <meta property="og:type" content="website">
-
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -27,7 +22,6 @@
   "url":"https://uzbooking.online/"
 }
 </script>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -224,17 +218,14 @@ footer a:hover{color:#fff}
 }
 </style>
 </head>
-
 <body>
 
 <header class="header glass">
 <div class="header-inner">
-
 <a href="/" class="logo">
     <div class="logo-icon">U</div>
     UzBooking
 </a>
-
 <nav class="nav">
     <a href="#home">Bosh sahifa</a>
     <a href="#hotels">Mehmonxonalar</a>
@@ -242,14 +233,12 @@ footer a:hover{color:#fff}
     <a href="#about">Biz haqimizda</a>
     <a href="#contact">Aloqa</a>
 </nav>
-
 <div class="header-right">
 <select class="lang">
     <option>UZ</option>
     <option>RU</option>
     <option>EN</option>
 </select>
-
 <div class="auth-user" id="authUser">
     <div class="auth-avatar" id="authAvatar">U</div>
     <div class="auth-info">
@@ -258,20 +247,16 @@ footer a:hover{color:#fff}
     </div>
     <button class="logout-btn" id="logoutBtn">Chiqish</button>
 </div>
-
 <button class="login" id="loginBtn">Kirish</button>
 </div>
-
 </div>
 </header>
-
 
 <section class="hero" id="home">
 <div class="hero-content">
 <div class="badge">✦ O'zbekiston Booking Platformasi</div>
 <h1>Sayohatingizni <span class="gradient-text">UzBooking</span> bilan boshlang</h1>
 <p>Mehmonxonalar, xonalar va turar joylarni toping, narxlarni solishtiring va bookingni bir necha daqiqada amalga oshiring.</p>
-
 <div class="hero-actions">
 <button class="primary-btn" onclick="scrollToHotels()">🔎 Booking qidirish</button>
 <button class="secondary-btn" onclick="showAbout()">Batafsil →</button>
@@ -279,26 +264,21 @@ footer a:hover{color:#fff}
 </div>
 </section>
 
-
 <div class="search-area glass">
 <div class="search-title">🔎 Booking qidirish</div>
 <div class="search-grid">
-
 <div class="field">
 <label>Manzil</label>
 <input id="location" type="text" placeholder="Toshkent, Samarqand...">
 </div>
-
 <div class="field">
 <label>Kelish</label>
 <input id="checkin" type="date">
 </div>
-
 <div class="field">
 <label>Ketish</label>
 <input id="checkout" type="date">
 </div>
-
 <div class="field">
 <label>Mehmonlar</label>
 <select id="guests">
@@ -310,22 +290,18 @@ footer a:hover{color:#fff}
 <option value="6">6 mehmon</option>
 </select>
 </div>
-
 <button class="search-btn" onclick="searchHotels()">Qidirish</button>
 </div>
 </div>
 
-
 <section class="section" id="hotels">
 <div class="container">
-
 <div class="section-head">
 <div>
 <h2 class="section-title">Mashhur mehmonxonalar</h2>
 <p class="section-subtitle">Booking uchun mavjud variantlar</p>
 </div>
 </div>
-
 <div class="filters" id="cityFilters">
 <button class="filter active" onclick="filterHotels('all', this)">Barchasi</button>
 <button class="filter" onclick="filterHotels('Toshkent', this)">Toshkent</button>
@@ -334,17 +310,13 @@ footer a:hover{color:#fff}
 <button class="filter" onclick="filterHotels('Xiva', this)">Xiva</button>
 <button class="filter" onclick="filterHotels('Farg\'ona', this)">Farg'ona</button>
 </div>
-
-<!-- DINAMIK MEHMONXONALAR SHU YERGA YUKLANADI -->
 <div class="cards" id="hotelsContainer">
     <div style="grid-column: 1/-1; text-align:center; padding: 40px; color: rgba(255,255,255,0.6);">
         Mehmonxonalar yuklanmoqda...
     </div>
 </div>
-
 </div>
 </section>
-
 
 <section class="section" id="services">
 <div class="container">
@@ -354,26 +326,22 @@ footer a:hover{color:#fff}
 <p class="section-subtitle">Booking jarayonini osonlashtiring</p>
 </div>
 </div>
-
 <div class="benefits">
 <div class="benefit glass">
 <div class="icon">🔎</div>
 <h3>Oson qidiruv</h3>
 <p>Kerakli joyni shahar va sanalar bo'yicha tez toping.</p>
 </div>
-
 <div class="benefit glass">
 <div class="icon">💎</div>
 <h3>Shaffof narx</h3>
 <p>Booking qilishdan oldin narxlarni aniq ko'ring.</p>
 </div>
-
 <div class="benefit glass">
 <div class="icon">⚡</div>
 <h3>Tez booking</h3>
 <p>Bir necha bosqichda bron so'rovini yuboring.</p>
 </div>
-
 <div class="benefit glass">
 <div class="icon">🔒</div>
 <h3>Xavfsiz</h3>
@@ -382,7 +350,6 @@ footer a:hover{color:#fff}
 </div>
 </div>
 </section>
-
 
 <section class="section" id="about">
 <div class="container">
@@ -396,38 +363,32 @@ footer a:hover{color:#fff}
 </div>
 </section>
 
-
 <footer id="contact">
 <div class="footer-grid">
 <div>
 <div class="footer-logo">UzBooking</div>
 <p class="footer-text">UzBooking — mehmonxonalar, xonalar va turar joylarni qidirish va booking qilish uchun zamonaviy platforma.</p>
 </div>
-
 <div>
 <h3>UzBooking</h3>
 <a href="#home">Bosh sahifa</a>
 <a href="#hotels">Mehmonxonalar</a>
 <a href="#services">Xizmatlar</a>
 </div>
-
 <div>
 <h3>Yordam</h3>
 <a href="#">FAQ</a>
 <a href="#">Booking qoidalari</a>
 <a href="#">Maxfiylik</a>
 </div>
-
 <div>
 <h3>Aloqa</h3>
 <a href="mailto:info@uzbooking.online">info@uzbooking.online</a>
 <a href="tel:+998901234567">+998 90 123 45 67</a>
 </div>
 </div>
-
 <div class="copyright">© 2026 UzBooking — Barcha huquqlar himoyalangan.</div>
 </footer>
-
 
 <!-- BOOKING MODAL -->
 <div class="modal" id="bookingModal">
@@ -435,27 +396,22 @@ footer a:hover{color:#fff}
 <button class="close" onclick="closeBooking()">×</button>
 <h2>Booking qilish</h2>
 <p class="modal-subtitle">Bron ma'lumotlarini kiriting</p>
-
 <div class="selected">
 <div class="selected-name" id="selectedHotel">Hotel</div>
 <div class="selected-price">Narx: <strong id="selectedHotelPrice">$0</strong> / tun</div>
 </div>
-
 <div class="form">
 <label>Ism va familiya</label>
 <input id="name" type="text" placeholder="Ismingiz va familiyangiz">
 </div>
-
 <div class="form">
 <label>Telefon</label>
 <input id="phone" type="tel" placeholder="+998 90 123 45 67">
 </div>
-
 <div class="form">
 <label>Email</label>
 <input id="email" type="email" placeholder="example@gmail.com">
 </div>
-
 <div class="two">
 <div class="form">
 <label>Kelish</label>
@@ -466,7 +422,6 @@ footer a:hover{color:#fff}
 <input id="modalCheckout" type="date">
 </div>
 </div>
-
 <div class="form">
 <label>Mehmonlar</label>
 <select id="modalGuests">
@@ -478,45 +433,36 @@ footer a:hover{color:#fff}
 <option value="6">6 mehmon</option>
 </select>
 </div>
-
 <div class="total">
 <span>Umumiy summa</span>
 <strong id="total">$0</strong>
 </div>
-
 <button class="confirm" id="confirmBtn" onclick="confirmBooking()">✓ Bookingni tasdiqlash</button>
 </div>
 </div>
 
-
-<!-- AUTH MODAL (faqat Email + Parol) -->
+<!-- AUTH MODAL -->
 <div class="modal" id="authModal">
 <div class="modal-box glass auth-modal-box">
 <button class="close" onclick="closeAuthModal()">×</button>
 <div class="auth-logo">U</div>
 <h2 class="auth-title" id="authTitle">UzBooking</h2>
 <p class="auth-description" id="authDescription">Akkauntingizga kiring</p>
-
 <div class="auth-tabs">
 <button type="button" class="auth-tab active" id="loginTab" onclick="switchAuthMode('login')">Kirish</button>
 <button type="button" class="auth-tab" id="registerTab" onclick="switchAuthMode('register')">Ro'yxatdan o'tish</button>
 </div>
-
 <div class="auth-error" id="authError"></div>
 <div class="auth-success" id="authSuccess"></div>
-
 <form id="authForm">
-
 <div class="form" id="fullNameWrap" style="display:none">
 <label>Ism va familiya</label>
 <input id="fullName" type="text" autocomplete="name" placeholder="Ismingiz va familiyangiz">
 </div>
-
 <div class="form">
 <label>Email</label>
 <input id="authEmailInput" type="email" autocomplete="email" placeholder="example@gmail.com" required>
 </div>
-
 <div class="form">
 <label>Parol</label>
 <div class="password-wrap">
@@ -525,7 +471,6 @@ footer a:hover{color:#fff}
 </div>
 <div class="password-rule">Parol kamida 6 ta belgidan iborat bo'lishi kerak.</div>
 </div>
-
 <div class="form" id="confirmPasswordWrap" style="display:none">
 <label>Parolni tasdiqlang</label>
 <div class="password-wrap">
@@ -533,15 +478,12 @@ footer a:hover{color:#fff}
 <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword',this)">👁</button>
 </div>
 </div>
-
 <button type="submit" class="auth-submit" id="authSubmit">Kirish</button>
 </form>
-
 </div>
 </div>
 
 <div class="toast" id="toast"></div>
-
 
 <!-- ================= FIREBASE REALTIME DATABASE + APP LOGIC ================= -->
 <script type="module">
@@ -549,14 +491,12 @@ footer a:hover{color:#fff}
 /* ---------- Firebase SDK (faqat App + Realtime Database + Analytics) ---------- */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-
 import {
     getDatabase,
     ref,
     push,
     set,
     get,
-    update,
     query,
     orderByChild,
     equalTo,
@@ -616,14 +556,14 @@ const authError = document.getElementById("authError");
 const authSuccess = document.getElementById("authSuccess");
 const hotelsContainer = document.getElementById("hotelsContainer");
 
-let authMode = "login";     // "login" | "register"
+let authMode = "login";
 let allHotels = [];
-let currentUser = null;     // { uid, email, name } — Realtime DB dan
+let currentUser = null;
 
 const SESSION_KEY = "uzbooking_session";
 
 /* =========================================================
-   SESSIYANI TIKLASH (localStorage orqali)
+   SESSIYANI TIKLASH
    ========================================================= */
 function restoreSession() {
     try {
@@ -650,7 +590,6 @@ function clearSession() {
     localStorage.removeItem(SESSION_KEY);
 }
 
-/* UI ni yangilash */
 function applyUserUI(user) {
     if (!user) {
         authUser.classList.remove("active");
@@ -669,7 +608,7 @@ function applyUserUI(user) {
 }
 
 /* =========================================================
-   AUTH: MODAL OCHISH / YOPISH
+   AUTH: MODAL
    ========================================================= */
 loginBtn.addEventListener("click", () => {
     switchAuthMode("login");
@@ -688,9 +627,6 @@ window.closeAuthModal = function () {
     authForm.reset();
 };
 
-/* =========================================================
-   AUTH: REJIM ALMASHTIRISH
-   ========================================================= */
 window.switchAuthMode = function (mode) {
     authMode = mode;
     clearAuthMessages();
@@ -726,7 +662,6 @@ authForm.addEventListener("submit", async function (event) {
     const confirmPassword = confirmPasswordInput.value;
     const fullName = fullNameInput.value.trim();
 
-    /* --- Validatsiya --- */
     if (!email || !isValidEmail(email)) {
         showAuthError("Email manzilini to'g'ri kiriting.");
         return;
@@ -757,10 +692,9 @@ authForm.addEventListener("submit", async function (event) {
 });
 
 /* =========================================================
-   RO'YXATDAN O'TISH (to'g'ridan-to'g'ri Realtime Database)
+   RO'YXATDAN O'TISH
    ========================================================= */
 async function handleRegister(email, password, fullName) {
-    /* 1) Email band emasligini tekshiramiz */
     const existing = await findUserByEmail(email);
 
     if (existing) {
@@ -770,14 +704,13 @@ async function handleRegister(email, password, fullName) {
         return;
     }
 
-    /* 2) Realtime Database'ga yangi foydalanuvchini yozamiz */
     const newUserRef = push(ref(db, "users"));
     const uid = newUserRef.key;
 
     const userData = {
         uid: uid,
         email: email,
-        password: password,          // ⚠️ oddiy matn — faqat demo uchun
+        password: password, // ⚠️ oddiy matn — faqat demo
         name: fullName || "",
         provider: "password",
         createdAt: new Date().toISOString()
@@ -785,7 +718,6 @@ async function handleRegister(email, password, fullName) {
 
     await set(newUserRef, userData);
 
-    /* 3) Sessiyani saqlaymiz */
     saveSession({
         uid: uid,
         email: email,
@@ -800,7 +732,7 @@ async function handleRegister(email, password, fullName) {
 }
 
 /* =========================================================
-   KIRISH (avval DB dan qidiramiz, keyin parolni tekshiramiz)
+   KIRISH
    ========================================================= */
 async function handleLogin(email, password) {
     const found = await findUserByEmail(email);
@@ -819,7 +751,6 @@ async function handleLogin(email, password) {
         return;
     }
 
-    /* Sessiyani saqlaymiz */
     saveSession({
         uid: userData.uid || found.key,
         email: userData.email,
@@ -833,7 +764,7 @@ async function handleLogin(email, password) {
     setTimeout(() => closeAuthModal(), 700);
 }
 
-/* Email bo'yicha foydalanuvchini topish */
+/* Email bo'yicha qidiruv — indeks talab qiladi */
 async function findUserByEmail(email) {
     const usersQuery = query(
         ref(db, "users"),
@@ -860,7 +791,7 @@ logoutBtn.addEventListener("click", function () {
 });
 
 /* =========================================================
-   MEHMONXONALAR (Realtime Database)
+   MEHMONXONALAR
    ========================================================= */
 const DEFAULT_HOTELS = [
     { name: "Tashkent Luxury Hotel", city: "Toshkent", price: 85, rating: 4.9, badge: "TOP", tags: ["Wi-Fi", "Nonushta", "Parking"] },
