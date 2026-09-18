@@ -29,20 +29,11 @@
 </script>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box
-}
-
-html{
-    scroll-behavior:smooth
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
     font-family:Inter,Arial,Helvetica,sans-serif;
-    min-height:100vh;
-    color:#fff;
+    min-height:100vh;color:#fff;
     background:
         radial-gradient(circle at 10% 10%,#4f46e5 0,transparent 30%),
         radial-gradient(circle at 90% 20%,#06b6d4 0,transparent 30%),
@@ -50,944 +41,186 @@ body{
         linear-gradient(135deg,#07111f,#111827 50%,#0f172a);
     background-attachment:fixed
 }
-
 body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    background:linear-gradient(120deg,rgba(255,255,255,.04),transparent 40%);
-    z-index:-1
+    content:"";position:fixed;inset:0;pointer-events:none;
+    background:linear-gradient(120deg,rgba(255,255,255,.04),transparent 40%);z-index:-1
 }
-
-a{
-    text-decoration:none;
-    color:inherit
-}
-
-button,
-input,
-select{
-    font:inherit
-}
-
-button{
-    cursor:pointer
-}
-
-img{
-    width:100%;
-    display:block
-}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+button{cursor:pointer}
+img{width:100%;display:block}
 
 .glass{
-    background:linear-gradient(
-        135deg,
-        rgba(255,255,255,.16),
-        rgba(255,255,255,.05)
-    );
+    background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
     border:1px solid rgba(255,255,255,.20);
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.25),
-        inset 0 1px 0 rgba(255,255,255,.15);
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px)
-}
-
-.header{
-    position:sticky;
-    top:15px;
-    width:min(1200px,92%);
-    margin:15px auto 0;
-    border-radius:22px;
-    z-index:1000
-}
-
-.header-inner{
-    min-height:72px;
-    padding:12px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px
-}
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:24px;
-    font-weight:900;
-    letter-spacing:-1px
-}
-
-.logo-icon{
-    width:40px;
-    height:40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:13px;
-    background:linear-gradient(135deg,#60a5fa,#8b5cf6);
-    box-shadow:0 8px 25px rgba(96,165,250,.35)
-}
-
-.nav{
-    display:flex;
-    gap:27px;
-    color:rgba(255,255,255,.75);
-    font-size:14px;
-    font-weight:700
-}
-
-.nav a{
-    transition:.2s
-}
-
-.nav a:hover{
-    color:#fff
-}
-
-.header-right{
-    display:flex;
-    align-items:center;
-    gap:9px
-}
-
-.lang{
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    border:1px solid rgba(255,255,255,.15);
-    padding:10px;
-    border-radius:10px;
-    outline:none
-}
-
-.lang option{
-    color:#111827
-}
-
-.auth-user{
-    display:none;
-    align-items:center;
-    gap:8px;
-    padding:5px 8px 5px 5px;
-    border-radius:12px;
-    background:rgba(255,255,255,.08);
-    border:1px solid rgba(255,255,255,.12)
-}
-
-.auth-user.active{
-    display:flex
-}
-
-.auth-avatar{
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    object-fit:cover;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
-    font-size:13px
-}
-
-.auth-info{
-    max-width:140px;
-    overflow:hidden
-}
-
-.auth-name{
-    font-size:12px;
-    font-weight:900;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis
-}
-
-.auth-email{
-    font-size:10px;
-    color:rgba(255,255,255,.5);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis
-}
-
-.logout-btn{
-    border:none;
-    color:#fff;
-    background:rgba(239,68,68,.16);
-    border:1px solid rgba(239,68,68,.25);
-    padding:8px 10px;
-    border-radius:9px;
-    font-size:11px;
-    font-weight:800
-}
-
-.login{
-    border:none;
-    padding:10px 17px;
-    border-radius:10px;
-    color:#fff;
-    background:linear-gradient(135deg,#3b82f6,#8b5cf6);
-    font-weight:800;
-    box-shadow:0 8px 25px rgba(59,130,246,.25)
-}
-
-.hero{
-    width:min(1200px,92%);
-    margin:0 auto;
-    min-height:600px;
-    display:flex;
-    align-items:center;
-    position:relative
-}
-
-.hero-content{
-    max-width:780px;
-    padding:70px 0
-}
-
-.badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:9px 14px;
-    border-radius:50px;
-    background:rgba(255,255,255,.09);
-    border:1px solid rgba(255,255,255,.16);
-    color:#dbeafe;
-    font-size:13px;
-    font-weight:800;
-    margin-bottom:22px
-}
-
-.hero h1{
-    font-size:clamp(44px,7vw,78px);
-    line-height:.98;
-    letter-spacing:-3px;
-    margin-bottom:25px
-}
-
-.gradient-text{
-    background:linear-gradient(90deg,#60a5fa,#a78bfa,#22d3ee);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent
-}
-
-.hero p{
-    max-width:650px;
-    color:rgba(255,255,255,.72);
-    font-size:18px;
-    line-height:1.7;
-    margin-bottom:28px
-}
-
-.hero-actions{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap
-}
-
-.primary-btn{
-    border:none;
-    color:#fff;
-    padding:14px 21px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    font-weight:800;
-    box-shadow:0 12px 30px rgba(59,130,246,.3);
-    transition:.2s
-}
-
-.primary-btn:hover{
-    transform:translateY(-2px)
-}
-
-.secondary-btn{
-    border:1px solid rgba(255,255,255,.18);
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    padding:14px 21px;
-    border-radius:12px;
-    font-weight:800;
-    backdrop-filter:blur(15px)
-}
-
-.search-area{
-    width:min(1100px,90%);
-    margin:-60px auto 70px;
-    position:relative;
-    z-index:10;
-    padding:22px;
-    border-radius:24px
-}
-
-.search-title{
-    font-size:18px;
-    font-weight:900;
-    margin-bottom:17px
-}
-
-.search-grid{
-    display:grid;
-    grid-template-columns:1.3fr 1fr 1fr .9fr auto;
-    gap:11px
-}
-
-.field label{
-    display:block;
-    color:rgba(255,255,255,.60);
-    font-size:11px;
-    text-transform:uppercase;
-    font-weight:800;
-    margin-bottom:7px
-}
-
-.field input,
-.field select{
-    width:100%;
-    height:48px;
-    padding:0 12px;
-    border-radius:11px;
-    border:1px solid rgba(255,255,255,.16);
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    outline:none
-}
-
-.field input::placeholder{
-    color:rgba(255,255,255,.45)
-}
-
-.field select option{
-    color:#111827
-}
-
-.search-btn{
-    height:48px;
-    align-self:end;
-    border:none;
-    border-radius:11px;
-    padding:0 22px;
-    color:#fff;
-    background:linear-gradient(135deg,#06b6d4,#2563eb);
-    font-weight:900;
-    box-shadow:0 10px 25px rgba(37,99,235,.25)
-}
-
-.container{
-    width:min(1200px,92%);
-    margin:auto
-}
-
-.section{
-    padding-bottom:85px
-}
-
-.section-head{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    margin-bottom:25px
-}
-
-.section-title{
-    font-size:32px;
-    letter-spacing:-1px
-}
-
-.section-subtitle{
-    color:rgba(255,255,255,.55);
-    margin-top:5px
-}
-
-.filters{
-    display:flex;
-    gap:9px;
-    overflow-x:auto;
-    padding-bottom:20px
-}
-
-.filter{
-    flex-shrink:0;
-    border:1px solid rgba(255,255,255,.14);
-    background:rgba(255,255,255,.07);
-    color:rgba(255,255,255,.72);
-    padding:9px 15px;
-    border-radius:50px;
-    font-size:13px;
-    font-weight:800
-}
-
-.filter.active{
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    color:#fff;
-    border-color:transparent
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px
-}
-
-.card{
-    border-radius:20px;
-    overflow:hidden;
-    transition:.3s
-}
-
-.card:hover{
-    transform:translateY(-7px);
-    box-shadow:0 25px 65px rgba(0,0,0,.35)
-}
-
-.card-image{
-    height:200px;
-    position:relative;
-    background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03));
-    display:flex;
-    align-items:center;
-    justify-content:center
-}
-
-.card-image img{
-    height:100%;
-    object-fit:cover
-}
-
-.hotel-placeholder-icon{
-    font-size:50px;
-    opacity:0.6
-}
-
-.hotel-badge{
-    position:absolute;
-    top:13px;
-    left:13px;
-    z-index:2;
-    padding:6px 10px;
-    border-radius:8px;
-    background:rgba(0,0,0,.45);
-    border:1px solid rgba(255,255,255,.15);
-    font-size:11px;
-    font-weight:900
-}
-
-.heart{
-    position:absolute;
-    top:12px;
-    right:12px;
-    z-index:3;
-    width:37px;
-    height:37px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,.2);
-    background:rgba(0,0,0,.35);
-    color:#fff;
-    font-size:18px
-}
-
-.card-body{
-    padding:20px
-}
-
-.rating{
-    color:#fbbf24;
-    font-size:13px;
-    margin-bottom:8px
-}
-
-.rating span{
-    color:rgba(255,255,255,.55);
-    margin-left:6px
-}
-
-.card h3{
-    font-size:20px;
-    margin-bottom:5px
-}
-
-.location{
-    color:rgba(255,255,255,.53);
-    font-size:13px;
-    margin-bottom:15px
-}
-
-.tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-    margin-bottom:18px
-}
-
-.tag{
-    padding:5px 8px;
-    border-radius:6px;
-    background:rgba(255,255,255,.07);
-    color:rgba(255,255,255,.60);
-    font-size:11px
-}
-
-.card-footer{
-    padding-top:15px;
-    border-top:1px solid rgba(255,255,255,.10);
-    display:flex;
-    justify-content:space-between;
-    align-items:center
-}
-
-.price{
-    font-size:23px;
-    font-weight:900
-}
-
-.price small{
-    color:rgba(255,255,255,.48);
-    font-size:11px;
-    font-weight:500
-}
-
-.book{
-    border:none;
-    color:#fff;
-    background:rgba(37,99,235,.85);
-    padding:10px 15px;
-    border-radius:9px;
-    font-weight:800
-}
-
-.benefits{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:16px
-}
-
-.benefit{
-    padding:23px;
-    border-radius:18px
-}
-
-.icon{
-    width:45px;
-    height:45px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border-radius:13px;
-    background:rgba(96,165,250,.15);
-    border:1px solid rgba(96,165,250,.20);
-    font-size:21px;
-    margin-bottom:14px
-}
-
-.benefit h3{
-    font-size:16px;
-    margin-bottom:6px
-}
-
-.benefit p{
-    color:rgba(255,255,255,.53);
-    font-size:13px
-}
-
-.cta{
-    padding:50px;
-    border-radius:25px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:30px;
-    background:linear-gradient(
-        120deg,
-        rgba(37,99,235,.35),
-        rgba(124,58,237,.30)
-    )
-}
-
-.cta h2{
-    font-size:32px;
-    margin-bottom:8px
-}
-
-.cta p{
-    color:rgba(255,255,255,.62)
-}
-
-footer{
-    margin-top:20px;
-    padding:55px 0 25px;
-    background:rgba(0,0,0,.25);
-    border-top:1px solid rgba(255,255,255,.08)
-}
-
-.footer-grid{
-    width:min(1200px,92%);
-    margin:auto;
-    display:grid;
-    grid-template-columns:2fr 1fr 1fr 1fr;
-    gap:40px
-}
-
-.footer-logo{
-    font-size:23px;
-    font-weight:900;
-    margin-bottom:12px
-}
-
-.footer-text{
-    max-width:350px;
-    color:rgba(255,255,255,.50);
-    font-size:13px;
-    line-height:1.8
-}
-
-footer h3{
-    font-size:14px;
-    margin-bottom:13px
-}
-
-footer a{
-    display:block;
-    color:rgba(255,255,255,.52);
-    font-size:13px;
-    margin:9px 0
-}
-
-footer a:hover{
-    color:#fff
-}
-
-.copyright{
-    width:min(1200px,92%);
-    margin:40px auto 0;
-    padding-top:20px;
-    border-top:1px solid rgba(255,255,255,.08);
-    color:rgba(255,255,255,.40);
-    font-size:12px
-}
-
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:5000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    background:rgba(0,0,0,.65);
-    backdrop-filter:blur(10px)
-}
-
-.modal.active{
-    display:flex
-}
-
-.modal-box{
-    width:100%;
-    max-width:540px;
-    border-radius:22px;
-    padding:28px;
-    max-height:90vh;
-    overflow-y:auto;
-    position:relative
-}
-
-.close{
-    position:absolute;
-    right:17px;
-    top:13px;
-    width:35px;
-    height:35px;
-    border:none;
-    border-radius:50%;
-    background:rgba(255,255,255,.08);
-    color:#fff;
-    font-size:23px
-}
-
-.modal h2{
-    font-size:25px
-}
-
-.modal-subtitle{
-    color:rgba(255,255,255,.53);
-    font-size:13px;
-    margin-top:4px
-}
-
-.selected{
-    margin:20px 0;
-    padding:15px;
-    border-radius:13px;
-    background:rgba(255,255,255,.07);
-    border:1px solid rgba(255,255,255,.10)
-}
-
-.selected-name{
-    font-size:17px;
-    font-weight:900
-}
-
-.selected-price{
-    color:rgba(255,255,255,.55);
-    font-size:13px;
-    margin-top:4px
-}
-
-.form{
-    margin-bottom:14px
-}
-
-.form label{
-    display:block;
-    color:rgba(255,255,255,.63);
-    font-size:12px;
-    font-weight:800;
-    margin-bottom:6px
-}
-
-.form input,
-.form select{
-    width:100%;
-    height:46px;
-    padding:0 12px;
-    border-radius:9px;
-    border:1px solid rgba(255,255,255,.14);
-    background:rgba(255,255,255,.07);
-    color:#fff;
-    outline:none
-}
-
-.form select option{
-    color:#111827
-}
-
-.two{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:11px
-}
-
-.total{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:15px 0;
-    margin-top:5px;
-    border-top:1px solid rgba(255,255,255,.10);
-    border-bottom:1px solid rgba(255,255,255,.10);
-    margin-bottom:15px
-}
-
-.total strong{
-    font-size:22px
-}
-
-.confirm{
-    width:100%;
-    height:49px;
-    border:none;
-    border-radius:10px;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    color:#fff;
-    font-weight:900
-}
-
-.auth-modal-box{
-    max-width:430px
-}
-
-.auth-logo{
-    width:58px;
-    height:58px;
-    margin:0 auto 16px;
-    border-radius:17px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    font-size:27px;
-    font-weight:900;
-    box-shadow:0 15px 40px rgba(37,99,235,.3)
-}
-
-.auth-title{
-    text-align:center;
-    font-size:28px;
-    margin-bottom:5px
-}
-
-.auth-description{
-    text-align:center;
-    color:rgba(255,255,255,.55);
-    font-size:13px;
-    margin-bottom:24px
-}
-
-.auth-tabs{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    padding:4px;
-    background:rgba(255,255,255,.06);
-    border-radius:11px;
-    margin-bottom:20px
-}
-
-.auth-tab{
-    border:none;
-    color:rgba(255,255,255,.55);
-    background:transparent;
-    padding:10px;
-    border-radius:8px;
-    font-weight:800;
-    font-size:13px
-}
-
-.auth-tab.active{
-    color:#fff;
-    background:rgba(255,255,255,.12)
-}
-
-.auth-error{
-    display:none;
-    padding:11px 13px;
-    border-radius:9px;
-    margin-bottom:15px;
-    background:rgba(239,68,68,.12);
-    border:1px solid rgba(239,68,68,.25);
-    color:#fecaca;
-    font-size:12px;
-    line-height:1.5
-}
-
-.auth-error.show{
-    display:block
-}
-
-.auth-success{
-    display:none;
-    padding:11px 13px;
-    border-radius:9px;
-    margin-bottom:15px;
-    background:rgba(34,197,94,.12);
-    border:1px solid rgba(34,197,94,.25);
-    color:#bbf7d0;
-    font-size:12px;
-    line-height:1.5
-}
-
-.auth-success.show{
-    display:block
-}
-
-.auth-submit{
-    width:100%;
-    height:49px;
-    border:none;
-    border-radius:10px;
-    color:#fff;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    font-weight:900;
-    transition:.2s
-}
-
-.auth-submit:hover{
-    transform:translateY(-1px)
-}
-
-.auth-submit:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-    transform:none
-}
-
-.password-wrap{
-    position:relative
-}
-
-.password-wrap input{
-    padding-right:50px
-}
-
-.password-toggle{
-    position:absolute;
-    right:8px;
-    top:50%;
-    transform:translateY(-50%);
-    width:36px;
-    height:36px;
-    border:none;
-    border-radius:8px;
-    background:rgba(255,255,255,.06);
-    color:rgba(255,255,255,.65)
-}
-
-.password-rule{
-    color:rgba(255,255,255,.42);
-    font-size:10px;
-    margin-top:6px
-}
-
-.toast{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    z-index:8000;
-    max-width:360px;
-    padding:14px 18px;
-    border-radius:12px;
-    background:rgba(15,23,42,.94);
-    border:1px solid rgba(255,255,255,.14);
-    backdrop-filter:blur(15px);
-    color:#fff;
-    font-size:13px;
-    font-weight:700;
-    opacity:0;
-    transform:translateY(15px);
-    pointer-events:none;
-    transition:.25s
-}
-
-.toast.show{
-    opacity:1;
-    transform:translateY(0)
-}
+    box-shadow:0 20px 60px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.15);
+    backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)
+}
+
+.header{position:sticky;top:15px;width:min(1200px,92%);margin:15px auto 0;border-radius:22px;z-index:1000}
+.header-inner{min-height:72px;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:900;letter-spacing:-1px}
+.logo-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:linear-gradient(135deg,#60a5fa,#8b5cf6);box-shadow:0 8px 25px rgba(96,165,250,.35)}
+.nav{display:flex;gap:27px;color:rgba(255,255,255,.75);font-size:14px;font-weight:700}
+.nav a{transition:.2s}
+.nav a:hover{color:#fff}
+.header-right{display:flex;align-items:center;gap:9px}
+.lang{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.15);padding:10px;border-radius:10px;outline:none}
+.lang option{color:#111827}
+
+.auth-user{display:none;align-items:center;gap:8px;padding:5px 8px 5px 5px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12)}
+.auth-user.active{display:flex}
+.auth-avatar{width:34px;height:34px;border-radius:50%;object-fit:cover;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px}
+.auth-info{max-width:140px;overflow:hidden}
+.auth-name{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.auth-email{font-size:10px;color:rgba(255,255,255,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.logout-btn{border:none;color:#fff;background:rgba(239,68,68,.16);border:1px solid rgba(239,68,68,.25);padding:8px 10px;border-radius:9px;font-size:11px;font-weight:800}
+.login{border:none;padding:10px 17px;border-radius:10px;color:#fff;background:linear-gradient(135deg,#3b82f6,#8b5cf6);font-weight:800;box-shadow:0 8px 25px rgba(59,130,246,.25)}
+
+.hero{width:min(1200px,92%);margin:0 auto;min-height:600px;display:flex;align-items:center;position:relative}
+.hero-content{max-width:780px;padding:70px 0}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:50px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);color:#dbeafe;font-size:13px;font-weight:800;margin-bottom:22px}
+.hero h1{font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-3px;margin-bottom:25px}
+.gradient-text{background:linear-gradient(90deg,#60a5fa,#a78bfa,#22d3ee);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:650px;color:rgba(255,255,255,.72);font-size:18px;line-height:1.7;margin-bottom:28px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.primary-btn{border:none;color:#fff;padding:14px 21px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#7c3aed);font-weight:800;box-shadow:0 12px 30px rgba(59,130,246,.3);transition:.2s}
+.primary-btn:hover{transform:translateY(-2px)}
+.secondary-btn{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;padding:14px 21px;border-radius:12px;font-weight:800;backdrop-filter:blur(15px)}
+
+.search-area{width:min(1100px,90%);margin:-60px auto 70px;position:relative;z-index:10;padding:22px;border-radius:24px}
+.search-title{font-size:18px;font-weight:900;margin-bottom:17px}
+.search-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr .9fr auto;gap:11px}
+.field label{display:block;color:rgba(255,255,255,.60);font-size:11px;text-transform:uppercase;font-weight:800;margin-bottom:7px}
+.field input,.field select{width:100%;height:48px;padding:0 12px;border-radius:11px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;outline:none}
+.field input::placeholder{color:rgba(255,255,255,.45)}
+.field select option{color:#111827}
+.search-btn{height:48px;align-self:end;border:none;border-radius:11px;padding:0 22px;color:#fff;background:linear-gradient(135deg,#06b6d4,#2563eb);font-weight:900;box-shadow:0 10px 25px rgba(37,99,235,.25)}
+
+.container{width:min(1200px,92%);margin:auto}
+.section{padding-bottom:85px}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:25px}
+.section-title{font-size:32px;letter-spacing:-1px}
+.section-subtitle{color:rgba(255,255,255,.55);margin-top:5px}
+
+.filters{display:flex;gap:9px;overflow-x:auto;padding-bottom:20px}
+.filter{flex-shrink:0;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:rgba(255,255,255,.72);padding:9px 15px;border-radius:50px;font-size:13px;font-weight:800}
+.filter.active{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-color:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{border-radius:20px;overflow:hidden;transition:.3s}
+.card:hover{transform:translateY(-7px);box-shadow:0 25px 65px rgba(0,0,0,.35)}
+.card-image{height:200px;position:relative;background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03));display:flex;align-items:center;justify-content:center}
+.card-image img{height:100%;object-fit:cover}
+.hotel-placeholder-icon{font-size:50px;opacity:.6}
+.hotel-badge{position:absolute;top:13px;left:13px;z-index:2;padding:6px 10px;border-radius:8px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.15);font-size:11px;font-weight:900}
+.heart{position:absolute;top:12px;right:12px;z-index:3;width:37px;height:37px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.35);color:#fff;font-size:18px}
+.card-body{padding:20px}
+.rating{color:#fbbf24;font-size:13px;margin-bottom:8px}
+.rating span{color:rgba(255,255,255,.55);margin-left:6px}
+.card h3{font-size:20px;margin-bottom:5px}
+.location{color:rgba(255,255,255,.53);font-size:13px;margin-bottom:15px}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.tag{padding:5px 8px;border-radius:6px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.60);font-size:11px}
+.card-footer{padding-top:15px;border-top:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;align-items:center}
+.price{font-size:23px;font-weight:900}
+.price small{color:rgba(255,255,255,.48);font-size:11px;font-weight:500}
+.book{border:none;color:#fff;background:rgba(37,99,235,.85);padding:10px 15px;border-radius:9px;font-weight:800}
+
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.benefit{padding:23px;border-radius:18px}
+.icon{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:13px;background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.20);font-size:21px;margin-bottom:14px}
+.benefit h3{font-size:16px;margin-bottom:6px}
+.benefit p{color:rgba(255,255,255,.53);font-size:13px}
+
+.cta{padding:50px;border-radius:25px;display:flex;align-items:center;justify-content:space-between;gap:30px;background:linear-gradient(120deg,rgba(37,99,235,.35),rgba(124,58,237,.30))}
+.cta h2{font-size:32px;margin-bottom:8px}
+.cta p{color:rgba(255,255,255,.62)}
+
+footer{margin-top:20px;padding:55px 0 25px;background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.08)}
+.footer-grid{width:min(1200px,92%);margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.footer-logo{font-size:23px;font-weight:900;margin-bottom:12px}
+.footer-text{max-width:350px;color:rgba(255,255,255,.50);font-size:13px;line-height:1.8}
+footer h3{font-size:14px;margin-bottom:13px}
+footer a{display:block;color:rgba(255,255,255,.52);font-size:13px;margin:9px 0}
+footer a:hover{color:#fff}
+.copyright{width:min(1200px,92%);margin:40px auto 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.40);font-size:12px}
+
+.modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.65);backdrop-filter:blur(10px)}
+.modal.active{display:flex}
+.modal-box{width:100%;max-width:540px;border-radius:22px;padding:28px;max-height:90vh;overflow-y:auto;position:relative}
+.close{position:absolute;right:17px;top:13px;width:35px;height:35px;border:none;border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-size:23px}
+.modal h2{font-size:25px}
+.modal-subtitle{color:rgba(255,255,255,.53);font-size:13px;margin-top:4px}
+
+.selected{margin:20px 0;padding:15px;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10)}
+.selected-name{font-size:17px;font-weight:900}
+.selected-price{color:rgba(255,255,255,.55);font-size:13px;margin-top:4px}
+
+.form{margin-bottom:14px}
+.form label{display:block;color:rgba(255,255,255,.63);font-size:12px;font-weight:800;margin-bottom:6px}
+.form input,.form select{width:100%;height:46px;padding:0 12px;border-radius:9px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:#fff;outline:none}
+.form select option{color:#111827}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+
+.total{display:flex;align-items:center;justify-content:space-between;padding:15px 0;margin-top:5px;border-top:1px solid rgba(255,255,255,.10);border-bottom:1px solid rgba(255,255,255,.10);margin-bottom:15px}
+.total strong{font-size:22px}
+.confirm{width:100%;height:49px;border:none;border-radius:10px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;font-weight:900}
+
+.auth-modal-box{max-width:430px}
+.auth-logo{width:58px;height:58px;margin:0 auto 16px;border-radius:17px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#2563eb,#7c3aed);font-size:27px;font-weight:900;box-shadow:0 15px 40px rgba(37,99,235,.3)}
+.auth-title{text-align:center;font-size:28px;margin-bottom:5px}
+.auth-description{text-align:center;color:rgba(255,255,255,.55);font-size:13px;margin-bottom:24px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;padding:4px;background:rgba(255,255,255,.06);border-radius:11px;margin-bottom:20px}
+.auth-tab{border:none;color:rgba(255,255,255,.55);background:transparent;padding:10px;border-radius:8px;font-weight:800;font-size:13px}
+.auth-tab.active{color:#fff;background:rgba(255,255,255,.12)}
+
+.auth-error{display:none;padding:11px 13px;border-radius:9px;margin-bottom:15px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.25);color:#fecaca;font-size:12px;line-height:1.5}
+.auth-error.show{display:block}
+.auth-success{display:none;padding:11px 13px;border-radius:9px;margin-bottom:15px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:#bbf7d0;font-size:12px;line-height:1.5}
+.auth-success.show{display:block}
+
+.auth-submit{width:100%;height:49px;border:none;border-radius:10px;color:#fff;background:linear-gradient(135deg,#2563eb,#7c3aed);font-weight:900;transition:.2s}
+.auth-submit:hover{transform:translateY(-1px)}
+.auth-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+.password-wrap{position:relative}
+.password-wrap input{padding-right:50px}
+.password-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:none;border-radius:8px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.65)}
+.password-rule{color:rgba(255,255,255,.42);font-size:10px;margin-top:6px}
+
+.toast{position:fixed;right:20px;bottom:20px;z-index:8000;max-width:360px;padding:14px 18px;border-radius:12px;background:rgba(15,23,42,.94);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(15px);color:#fff;font-size:13px;font-weight:700;opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s}
+.toast.show{opacity:1;transform:translateY(0)}
 
 @media(max-width:1000px){
-    .nav{ display:none }
-    .search-grid{ grid-template-columns:1fr 1fr }
-    .cards{ grid-template-columns:1fr 1fr }
-    .benefits{ grid-template-columns:1fr 1fr }
-    .footer-grid{ grid-template-columns:1fr 1fr }
+    .nav{display:none}
+    .search-grid{grid-template-columns:1fr 1fr}
+    .cards{grid-template-columns:1fr 1fr}
+    .benefits{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1fr 1fr}
 }
-
 @media(max-width:650px){
-    .header{ top:8px; margin-top:8px }
-    .header-inner{ min-height:62px; padding:10px 13px }
-    .logo{ font-size:20px }
-    .logo-icon{ width:34px; height:34px }
-    .lang{ display:none }
-    .auth-info{ display:none }
-    .auth-user{ padding:4px }
-    .logout-btn{ padding:7px 8px }
-    .hero{ min-height:560px }
-    .hero-content{ padding-top:50px }
-    .hero h1{ font-size:43px; letter-spacing:-2px }
-    .hero p{ font-size:15px }
-    .search-area{ margin-top:-55px }
-    .search-grid{ grid-template-columns:1fr }
-    .cards{ grid-template-columns:1fr }
-    .benefits{ grid-template-columns:1fr }
-    .section-title{ font-size:27px }
-    .cta{ padding:30px 23px; flex-direction:column; align-items:flex-start }
-    .cta h2{ font-size:26px }
-    .footer-grid{ grid-template-columns:1fr }
-    .two{ grid-template-columns:1fr }
+    .header{top:8px;margin-top:8px}
+    .header-inner{min-height:62px;padding:10px 13px}
+    .logo{font-size:20px}
+    .logo-icon{width:34px;height:34px}
+    .lang{display:none}
+    .auth-info{display:none}
+    .auth-user{padding:4px}
+    .logout-btn{padding:7px 8px}
+    .hero{min-height:560px}
+    .hero-content{padding-top:50px}
+    .hero h1{font-size:43px;letter-spacing:-2px}
+    .hero p{font-size:15px}
+    .search-area{margin-top:-55px}
+    .search-grid{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    .benefits{grid-template-columns:1fr}
+    .section-title{font-size:27px}
+    .cta{padding:30px 23px;flex-direction:column;align-items:flex-start}
+    .cta h2{font-size:26px}
+    .footer-grid{grid-template-columns:1fr}
+    .two{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -1256,7 +489,7 @@ footer a:hover{
 </div>
 
 
-<!-- AUTH MODAL -->
+<!-- AUTH MODAL (faqat Email + Parol) -->
 <div class="modal" id="authModal">
 <div class="modal-box glass auth-modal-box">
 <button class="close" onclick="closeAuthModal()">×</button>
@@ -1265,17 +498,23 @@ footer a:hover{
 <p class="auth-description" id="authDescription">Akkauntingizga kiring</p>
 
 <div class="auth-tabs">
-<button class="auth-tab active" id="loginTab" onclick="switchAuthMode('login')">Kirish</button>
-<button class="auth-tab" id="registerTab" onclick="switchAuthMode('register')">Ro'yxatdan o'tish</button>
+<button type="button" class="auth-tab active" id="loginTab" onclick="switchAuthMode('login')">Kirish</button>
+<button type="button" class="auth-tab" id="registerTab" onclick="switchAuthMode('register')">Ro'yxatdan o'tish</button>
 </div>
 
 <div class="auth-error" id="authError"></div>
 <div class="auth-success" id="authSuccess"></div>
 
 <form id="authForm">
+
+<div class="form" id="fullNameWrap" style="display:none">
+<label>Ism va familiya</label>
+<input id="fullName" type="text" autocomplete="name" placeholder="Ismingiz va familiyangiz">
+</div>
+
 <div class="form">
 <label>Email</label>
-<input id="authEmail" type="email" autocomplete="email" placeholder="example@gmail.com" required>
+<input id="authEmailInput" type="email" autocomplete="email" placeholder="example@gmail.com" required>
 </div>
 
 <div class="form">
@@ -1304,10 +543,13 @@ footer a:hover{
 <div class="toast" id="toast"></div>
 
 
-<!-- FIREBASE SDK & APP LOGIC -->
+<!-- ================= FIREBASE + APP LOGIC ================= -->
 <script type="module">
 
+/* ---------- Firebase SDK ---------- */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -1315,7 +557,8 @@ import {
     onAuthStateChanged,
     signOut,
     setPersistence,
-    browserLocalPersistence
+    browserLocalPersistence,
+    updateProfile
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 import {
@@ -1323,9 +566,14 @@ import {
     ref,
     push,
     set,
+    get,
+    query,
+    orderByChild,
+    equalTo,
     onValue
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
+/* ---------- Firebase config ---------- */
 const firebaseConfig = {
     apiKey: "AIzaSyD9x2UdBdlpswzkr-GNjt8m2wCSF74Qigg",
     authDomain: "uzbooking-e4b16.firebaseapp.com",
@@ -1337,136 +585,312 @@ const firebaseConfig = {
     databaseURL: "https://uzbooking-e4b16-default-rtdb.firebaseio.com"
 };
 
+/* ---------- Initialize ---------- */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
+/* Analytics (ixtiyoriy, xato bersa e'tibor bermaymiz) */
+try {
+    if (await isSupported()) {
+        getAnalytics(app);
+    }
+} catch (e) {
+    console.warn("Analytics ishlamadi:", e);
+}
+
+/* Sessiyani saqlash (local persistence) */
 try {
     await setPersistence(auth, browserLocalPersistence);
-} catch(error) {
+} catch (error) {
     console.error("Firebase persistence error:", error);
 }
 
-// Elements
+/* ---------- Elements ---------- */
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 const authUser = document.getElementById("authUser");
 const authName = document.getElementById("authName");
 const authEmail = document.getElementById("authEmail");
 const authAvatar = document.getElementById("authAvatar");
+
 const authModal = document.getElementById("authModal");
 const authForm = document.getElementById("authForm");
 const authTitle = document.getElementById("authTitle");
 const authDescription = document.getElementById("authDescription");
 const authSubmit = document.getElementById("authSubmit");
+
 const loginTab = document.getElementById("loginTab");
 const registerTab = document.getElementById("registerTab");
+
+const fullNameWrap = document.getElementById("fullNameWrap");
+const fullNameInput = document.getElementById("fullName");
+const authEmailInput = document.getElementById("authEmailInput");
+const authPasswordInput = document.getElementById("authPassword");
 const confirmPasswordWrap = document.getElementById("confirmPasswordWrap");
+const confirmPasswordInput = document.getElementById("confirmPassword");
+
 const authError = document.getElementById("authError");
 const authSuccess = document.getElementById("authSuccess");
 const hotelsContainer = document.getElementById("hotelsContainer");
 
-let authMode = "login";
+let authMode = "login";     // "login" | "register"
 let allHotels = [];
 
-// AUTH HANDLERS
+/* =========================================================
+   AUTH: MODAL OCHISH / YOPISH
+   ========================================================= */
 loginBtn.addEventListener("click", () => {
     switchAuthMode("login");
-    authModal.classList.add("active");
-    document.body.style.overflow = "hidden";
+    openAuthModal();
 });
 
-window.closeAuthModal = function(){
+window.openAuthModal = function () {
+    authModal.classList.add("active");
+    document.body.style.overflow = "hidden";
+};
+
+window.closeAuthModal = function () {
     authModal.classList.remove("active");
     document.body.style.overflow = "";
     clearAuthMessages();
+    authForm.reset();
 };
 
-window.switchAuthMode = function(mode){
+/* =========================================================
+   AUTH: REJIM ALMASHTIRISH (Kirish / Ro'yxatdan o'tish)
+   ========================================================= */
+window.switchAuthMode = function (mode) {
     authMode = mode;
     clearAuthMessages();
-    authForm.reset();
-    if(mode === "login"){
+
+    if (mode === "login") {
         loginTab.classList.add("active");
         registerTab.classList.remove("active");
+        fullNameWrap.style.display = "none";
         confirmPasswordWrap.style.display = "none";
         authTitle.textContent = "Akkauntga kirish";
         authDescription.textContent = "Email va parolingiz orqali kiring";
         authSubmit.textContent = "Kirish";
-    }else{
+        authPasswordInput.setAttribute("autocomplete", "current-password");
+    } else {
         loginTab.classList.remove("active");
         registerTab.classList.add("active");
+        fullNameWrap.style.display = "block";
         confirmPasswordWrap.style.display = "block";
         authTitle.textContent = "Akkaunt yaratish";
         authDescription.textContent = "UzBooking akkauntingizni yarating";
         authSubmit.textContent = "Ro'yxatdan o'tish";
+        authPasswordInput.setAttribute("autocomplete", "new-password");
     }
 };
 
-authForm.addEventListener("submit", async function(event){
+/* =========================================================
+   AUTH: FORM SUBMIT
+   ========================================================= */
+authForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     clearAuthMessages();
 
-    const email = document.getElementById("authEmail").value.trim();
-    const password = document.getElementById("authPassword").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
+    const email = authEmailInput.value.trim().toLowerCase();
+    const password = authPasswordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+    const fullName = fullNameInput.value.trim();
 
-    if(!email || !isValidEmail(email)){
+    /* --- Validatsiya --- */
+    if (!email || !isValidEmail(email)) {
         showAuthError("Email manzilini to'g'ri kiriting.");
         return;
     }
-    if(!password || password.length < 6){
+    if (!password || password.length < 6) {
         showAuthError("Parol kamida 6 ta belgidan iborat bo'lishi kerak.");
         return;
     }
-    if(authMode === "register" && password !== confirmPassword){
+    if (authMode === "register" && password !== confirmPassword) {
         showAuthError("Parollar bir xil emas.");
         return;
     }
 
     setAuthLoading(true);
 
-    try{
-        if(authMode === "register"){
-            const credential = await createUserWithEmailAndPassword(auth, email, password);
-            localStorage.setItem("uzbooking_current_uid", credential.user.uid);
-            showAuthSuccess("Akkaunt muvaffaqiyatli yaratildi.");
-            toast("✓ Akkaunt yaratildi!");
-            setTimeout(() => closeAuthModal(), 800);
-        }else{
-            const credential = await signInWithEmailAndPassword(auth, email, password);
-            localStorage.setItem("uzbooking_current_uid", credential.user.uid);
-            showAuthSuccess("Muvaffaqiyatli kirildi.");
-            toast("✓ Xush kelibsiz!");
-            setTimeout(() => closeAuthModal(), 700);
+    try {
+        if (authMode === "register") {
+            await handleRegister(email, password, fullName);
+        } else {
+            await handleLogin(email, password);
         }
-    }catch(error){
+    } catch (error) {
         console.error("Auth error:", error);
         showAuthError(getAuthErrorMessage(error));
-    }finally{
+    } finally {
         setAuthLoading(false);
     }
 });
 
-logoutBtn.addEventListener("click", async function(){
-    try{
+/* =========================================================
+   RO'YXATDAN O'TISH
+   ========================================================= */
+async function handleRegister(email, password, fullName) {
+    /* 1) Firebase Realtime DB da bu email bor-yo'qligini tekshiramiz */
+    let exists = null;
+    try {
+        exists = await userEmailExists(email);
+    } catch (e) {
+        console.warn("DB tekshiruvi ishlamadi:", e);
+        exists = null;
+    }
+
+    if (exists === true) {
+        switchAuthMode("login");
+        authEmailInput.value = email;
+        showAuthError("Bu email allaqachon ro'yxatdan o'tgan. Iltimos, 'Kirish' bo'limidan foydalaning.");
+        return;
+    }
+
+    try {
+        /* 2) Firebase Authentication'da akkaunt yaratamiz */
+        const credential = await createUserWithEmailAndPassword(auth, email, password);
+
+        /* 3) displayName saqlaymiz */
+        if (fullName) {
+            try {
+                await updateProfile(credential.user, { displayName: fullName });
+            } catch (e) {
+                console.warn("displayName saqlanmadi:", e);
+            }
+        }
+
+        /* 4) Realtime Database'ga mijozni yozamiz */
+        try {
+            await set(ref(db, "users/" + credential.user.uid), {
+                uid: credential.user.uid,
+                email: email,
+                name: fullName || "",
+                provider: "password",
+                createdAt: new Date().toISOString()
+            });
+        } catch (e) {
+            console.warn("users tuguniga yozilmadi (DB rules?):", e);
+        }
+
+        showAuthSuccess("Akkaunt muvaffaqiyatli yaratildi!");
+        toast("✓ Akkaunt yaratildi!");
+        setTimeout(() => closeAuthModal(), 900);
+
+    } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+            switchAuthMode("login");
+            authEmailInput.value = email;
+            showAuthError("Bu email allaqachon ro'yxatdan o'tgan. 'Kirish' bo'limidan foydalaning.");
+            return;
+        }
+        throw error;
+    }
+}
+
+/* =========================================================
+   KIRISH (avval DB dan tekshiradi, keyin Firebase Auth)
+   ========================================================= */
+async function handleLogin(email, password) {
+    /* 1) Mijoz Firebase'da bormi? */
+    let exists = null;
+    try {
+        exists = await userEmailExists(email);
+    } catch (e) {
+        console.warn("DB tekshiruvi ishlamadi:", e);
+        exists = null;
+    }
+
+    if (exists === false) {
+        switchAuthMode("register");
+        authEmailInput.value = email;
+        showAuthError("Bu email ro'yxatdan o'tmagan. Iltimos, avval ro'yxatdan o'ting.");
+        return;
+    }
+
+    /* 2) Firebase Auth orqali kirish */
+    try {
+        const credential = await signInWithEmailAndPassword(auth, email, password);
+
+        /* Profil yozuvi bo'lmasa — yaratib qo'yamiz */
+        try {
+            const uref = ref(db, "users/" + credential.user.uid);
+            const snap = await get(uref);
+            if (!snap.exists()) {
+                await set(uref, {
+                    uid: credential.user.uid,
+                    email: email,
+                    name: credential.user.displayName || "",
+                    provider: "password",
+                    createdAt: new Date().toISOString()
+                });
+            }
+        } catch (e) {
+            console.warn("Profil tekshiruvi ishlamadi:", e);
+        }
+
+        showAuthSuccess("Muvaffaqiyatli kirdingiz!");
+        toast("✓ Xush kelibsiz!");
+        setTimeout(() => closeAuthModal(), 700);
+
+    } catch (error) {
+        if (error.code === "auth/user-not-found") {
+            switchAuthMode("register");
+            authEmailInput.value = email;
+            showAuthError("Siz ro'yxatdan o'tmagansiz. Iltimos, ro'yxatdan o'ting.");
+            return;
+        }
+        if (error.code === "auth/wrong-password") {
+            showAuthError("Parol noto'g'ri. Qayta urinib ko'ring.");
+            return;
+        }
+        if (error.code === "auth/invalid-credential") {
+            showAuthError("Email yoki parol noto'g'ri. Agar akkauntingiz bo'lmasa — ro'yxatdan o'ting.");
+            return;
+        }
+        throw error;
+    }
+}
+
+/* Email DB da mavjudmi? */
+async function userEmailExists(email) {
+    const usersQuery = query(
+        ref(db, "users"),
+        orderByChild("email"),
+        equalTo(email)
+    );
+    const snapshot = await get(usersQuery);
+    return snapshot.exists();
+}
+
+/* =========================================================
+   CHIQISH
+   ========================================================= */
+logoutBtn.addEventListener("click", async function () {
+    try {
         await signOut(auth);
         localStorage.removeItem("uzbooking_current_uid");
         toast("✓ Akkauntdan chiqildi.");
-    }catch(error){
+    } catch (error) {
         console.error("Logout error:", error);
+        toast("Chiqishda xatolik yuz berdi.");
     }
 });
 
-onAuthStateChanged(auth, function(user){
-    if(user){
+/* =========================================================
+   AUTH HOLATINI KUZATISH
+   ========================================================= */
+onAuthStateChanged(auth, function (user) {
+    if (user) {
         localStorage.setItem("uzbooking_current_uid", user.uid);
         authUser.classList.add("active");
         loginBtn.style.display = "none";
-        authName.textContent = user.displayName || "Foydalanuvchi";
+
+        const shownName = user.displayName || (user.email ? user.email.split("@")[0] : "Foydalanuvchi");
+        authName.textContent = shownName;
         authEmail.textContent = user.email || "";
-        authAvatar.textContent = getInitial(user.email || user.displayName || "U");
-    }else{
+        authAvatar.textContent = getInitial(shownName);
+    } else {
         authUser.classList.remove("active");
         loginBtn.style.display = "block";
         authName.textContent = "Foydalanuvchi";
@@ -1476,38 +900,57 @@ onAuthStateChanged(auth, function(user){
     }
 });
 
-// FIREBASE REALTIME DATABASE HOTELS & BOOKING LOGIC
-function loadHotelsFromFirebase(){
-    const hotelsRef = ref(db, 'hotels');
+/* =========================================================
+   MEHMONXONALAR (Realtime Database)
+   ========================================================= */
+const DEFAULT_HOTELS = [
+    { name: "Tashkent Luxury Hotel", city: "Toshkent", price: 85, rating: 4.9, badge: "TOP", tags: ["Wi-Fi", "Nonushta", "Parking"] },
+    { name: "Samarkand Premium Hotel", city: "Samarqand", price: 120, rating: 4.8, badge: "PREMIUM", tags: ["Wi-Fi", "SPA", "Restoran"] },
+    { name: "Bukhara Deluxe Hotel", city: "Buxoro", price: 70, rating: 4.7, badge: "", tags: ["Wi-Fi", "Nonushta", "Transfer"] },
+    { name: "Khiva Heritage Hotel", city: "Xiva", price: 65, rating: 4.8, badge: "", tags: ["Wi-Fi", "Restoran", "Nonushta"] },
+    { name: "Fergana Garden Hotel", city: "Farg'ona", price: 58, rating: 4.6, badge: "", tags: ["Wi-Fi", "Pool", "Parking"] },
+    { name: "Capital Grand Hotel", city: "Toshkent", price: 110, rating: 4.9, badge: "NEW", tags: ["Wi-Fi", "SPA", "Gym"] }
+];
+
+function loadHotelsFromFirebase() {
+    const hotelsRef = ref(db, "hotels");
+
     onValue(hotelsRef, (snapshot) => {
         const data = snapshot.val();
-        if(data){
+        if (data) {
             allHotels = Object.keys(data).map(key => ({ id: key, ...data[key] }));
             renderHotels(allHotels);
-        }else{
-            // Baza bo'sh bo'lsa default mehmonxonalarni yuklab beramiz
-            const defaultHotels = [
-                { name: "Tashkent Luxury Hotel", city: "Toshkent", price: 85, rating: 4.9, badge: "TOP", tags: ["Wi-Fi", "Nonushta", "Parking"] },
-                { name: "Samarkand Premium Hotel", city: "Samarqand", price: 120, rating: 4.8, badge: "PREMIUM", tags: ["Wi-Fi", "SPA", "Restoran"] },
-                { name: "Bukhara Deluxe Hotel", city: "Buxoro", price: 70, rating: 4.7, badge: "", tags: ["Wi-Fi", "Nonushta", "Transfer"] },
-                { name: "Khiva Heritage Hotel", city: "Xiva", price: 65, rating: 4.8, badge: "", tags: ["Wi-Fi", "Restoran", "Nonushta"] },
-                { name: "Fergana Garden Hotel", city: "Farg'ona", price: 58, rating: 4.6, badge: "", tags: ["Wi-Fi", "Pool", "Parking"] },
-                { name: "Capital Grand Hotel", city: "Toshkent", price: 110, rating: 4.9, badge: "NEW", tags: ["Wi-Fi", "SPA", "Gym"] }
-            ];
-            
-            defaultHotels.forEach(hotel => {
-                const newHotelRef = push(ref(db, 'hotels'));
-                set(newHotelRef, hotel);
-            });
+        } else {
+            seedDefaultHotels();
         }
+    }, (error) => {
+        console.warn("Hotels o'qilmadi:", error);
+        /* DB o'qishga ruxsat bo'lmasa — lokal ro'yxatni ko'rsatamiz */
+        allHotels = DEFAULT_HOTELS.map((h, i) => ({ id: "local-" + i, ...h }));
+        renderHotels(allHotels);
     });
 }
 
-function renderHotels(hotelsList){
+async function seedDefaultHotels() {
+    allHotels = DEFAULT_HOTELS.map((h, i) => ({ id: "local-" + i, ...h }));
+    renderHotels(allHotels);
+
+    try {
+        for (const hotel of DEFAULT_HOTELS) {
+            const newHotelRef = push(ref(db, "hotels"));
+            await set(newHotelRef, hotel);
+        }
+    } catch (e) {
+        console.warn("Default mehmonxonalarni yozib bo'lmadi:", e);
+    }
+}
+
+function renderHotels(hotelsList) {
     hotelsContainer.innerHTML = "";
-    if(!hotelsList || hotelsList.length === 0){
+
+    if (!hotelsList || hotelsList.length === 0) {
         hotelsContainer.innerHTML = `
-            <div style="grid-column: 1/-1; text-align:center; padding:40px; color:rgba(255,255,255,0.6)">
+            <div style="grid-column:1/-1;text-align:center;padding:40px;color:rgba(255,255,255,.6)">
                 Hech qanday mehmonxona topilmadi.
             </div>`;
         return;
@@ -1519,10 +962,13 @@ function renderHotels(hotelsList){
 
         const tagsHtml = (hotel.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("");
         const badgeHtml = hotel.badge ? `<span class="hotel-badge">${escapeHtml(hotel.badge)}</span>` : "";
+        const imageHtml = hotel.image
+            ? `<img src="${escapeHtml(hotel.image)}" alt="${escapeHtml(hotel.name)}">`
+            : `<div class="hotel-placeholder-icon">🏢</div>`;
 
         card.innerHTML = `
             <div class="card-image">
-                ${hotel.image ? `<img src="${escapeHtml(hotel.image)}" alt="${escapeHtml(hotel.name)}">` : `<div class="hotel-placeholder-icon">🏢</div>`}
+                ${imageHtml}
                 ${badgeHtml}
                 <button class="heart" onclick="favorite(this)">♡</button>
             </div>
@@ -1533,7 +979,7 @@ function renderHotels(hotelsList){
                 <div class="tags">${tagsHtml}</div>
                 <div class="card-footer">
                     <div class="price">$${hotel.price} <small>/ tun</small></div>
-                    <button class="book" onclick="openBooking('${escapeHtml(hotel.name)}', ${hotel.price})">Booking</button>
+                    <button class="book" onclick="openBooking('${escapeHtml(hotel.name)}', ${Number(hotel.price)})">Booking</button>
                 </div>
             </div>
         `;
@@ -1541,52 +987,72 @@ function renderHotels(hotelsList){
     });
 }
 
-window.filterHotels = function(city, btn){
+/* =========================================================
+   FILTR
+   ========================================================= */
+window.filterHotels = function (city, btn) {
     document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
     btn.classList.add("active");
 
-    if(city === 'all'){
+    if (city === "all") {
         renderHotels(allHotels);
-    }else{
-        const filtered = allHotels.filter(h => h.city.toLowerCase() === city.toLowerCase());
+    } else {
+        const filtered = allHotels.filter(h => String(h.city).toLowerCase() === city.toLowerCase());
         renderHotels(filtered);
     }
 };
 
+/* =========================================================
+   BOOKING
+   ========================================================= */
 let hotelName = "";
 let hotelPrice = 0;
 const today = new Date().toISOString().split("T")[0];
 
 ["checkin", "checkout", "modalCheckin", "modalCheckout"].forEach(id => {
     const el = document.getElementById(id);
-    if(el) el.min = today;
+    if (el) el.min = today;
 });
 
-window.openBooking = function(name, price){
+["modalCheckin", "modalCheckout", "modalGuests"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.addEventListener("change", calculateTotal);
+        el.addEventListener("input", calculateTotal);
+    }
+});
+
+window.openBooking = function (name, price) {
     hotelName = name;
-    hotelPrice = price;
+    hotelPrice = Number(price);
 
     document.getElementById("selectedHotel").textContent = name;
     document.getElementById("selectedHotelPrice").textContent = "$" + price;
+
     document.getElementById("modalCheckin").value = document.getElementById("checkin").value;
     document.getElementById("modalCheckout").value = document.getElementById("checkout").value;
     document.getElementById("modalGuests").value = document.getElementById("guests").value;
+
+    if (auth.currentUser) {
+        document.getElementById("email").value = auth.currentUser.email || "";
+        document.getElementById("name").value = auth.currentUser.displayName || "";
+    }
 
     calculateTotal();
     document.getElementById("bookingModal").classList.add("active");
     document.body.style.overflow = "hidden";
 };
 
-window.closeBooking = function(){
+window.closeBooking = function () {
     document.getElementById("bookingModal").classList.remove("active");
     document.body.style.overflow = "";
 };
 
-window.calculateTotal = function(){
+window.calculateTotal = function () {
     const checkin = document.getElementById("modalCheckin").value;
     const checkout = document.getElementById("modalCheckout").value;
 
-    if(!checkin || !checkout){
+    if (!checkin || !checkout) {
         document.getElementById("total").textContent = "$" + hotelPrice;
         return;
     }
@@ -1595,36 +1061,33 @@ window.calculateTotal = function(){
     document.getElementById("total").textContent = nights > 0 ? "$" + (nights * hotelPrice) : "$0";
 };
 
-window.confirmBooking = async function(){
+window.confirmBooking = async function () {
     const name = document.getElementById("name").value.trim();
     const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
     const checkin = document.getElementById("modalCheckin").value;
     const checkout = document.getElementById("modalCheckout").value;
     const guests = document.getElementById("modalGuests").value;
 
-    if(!name || !phone || !email || !checkin || !checkout){
+    if (!name || !phone || !email || !checkin || !checkout) {
         toast("Iltimos, barcha maydonlarni to'ldiring.");
         return;
     }
-
-    if(!isValidEmail(email)){
+    if (!isValidEmail(email)) {
         toast("Email manzilini to'g'ri kiriting.");
         return;
     }
-
-    if(new Date(checkout) <= new Date(checkin)){
+    if (new Date(checkout) <= new Date(checkin)) {
         toast("Ketish sanasi noto'g'ri.");
         return;
     }
 
     const currentUser = auth.currentUser;
-    if(!currentUser){
+    if (!currentUser) {
         toast("Booking qilish uchun avval akkauntga kiring.");
         closeBooking();
         switchAuthMode("login");
-        authModal.classList.add("active");
-        document.body.style.overflow = "hidden";
+        openAuthModal();
         return;
     }
 
@@ -1646,17 +1109,16 @@ window.confirmBooking = async function(){
     };
 
     try {
-        // Firebase Realtime Database'ga saqlash
-        const userBookingsRef = push(ref(db, 'bookings/' + currentUser.uid));
+        const userBookingsRef = push(ref(db, "bookings/" + currentUser.uid));
         await set(userBookingsRef, bookingData);
 
         closeBooking();
-        toast("✓ Booking so'rovingiz Firebase'ga saqlandi!");
+        toast("✓ Booking so'rovingiz saqlandi!");
 
-        ["name", "phone", "email"].forEach(id => {
-            document.getElementById(id).value = "";
-        });
-    } catch(err) {
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("email").value = "";
+    } catch (err) {
         console.error("Booking Error:", err);
         toast("Xatolik yuz berdi. Qayta urinib ko'ring.");
     } finally {
@@ -1665,105 +1127,127 @@ window.confirmBooking = async function(){
     }
 };
 
-window.searchHotels = function(){
+/* =========================================================
+   QIDIRUV
+   ========================================================= */
+window.searchHotels = function () {
     const location = document.getElementById("location").value.trim();
     const checkin = document.getElementById("checkin").value;
     const checkout = document.getElementById("checkout").value;
-    const guests = document.getElementById("guests").value;
 
-    if(!location){
+    if (!location) {
         toast("Manzilni kiriting.");
         return;
     }
-    if(!checkin || !checkout){
+    if (!checkin || !checkout) {
         toast("Kelish va ketish sanalarini tanlang.");
         return;
     }
-    if(new Date(checkout) <= new Date(checkin)){
+    if (new Date(checkout) <= new Date(checkin)) {
         toast("Sanalarni to'g'ri tanlang.");
         return;
     }
 
-    const filtered = allHotels.filter(h => h.city.toLowerCase().includes(location.toLowerCase()));
+    const filtered = allHotels.filter(h =>
+        String(h.city).toLowerCase().includes(location.toLowerCase()) ||
+        String(h.name).toLowerCase().includes(location.toLowerCase())
+    );
+
     renderHotels(filtered);
     toast(`${location} bo'yicha ${filtered.length} ta natija topildi.`);
     scrollToHotels();
 };
 
-window.favorite = function(button){
+/* =========================================================
+   YORDAMCHI FUNKSIYALAR
+   ========================================================= */
+window.favorite = function (button) {
     button.textContent = button.textContent.trim() === "♡" ? "♥" : "♡";
     toast(button.textContent === "♥" ? "Sevimlilarga qo'shildi." : "Sevimlilardan olib tashlandi.");
 };
 
-window.scrollToHotels = function(){
-    document.getElementById("hotels").scrollIntoView({ behavior:"smooth" });
+window.scrollToHotels = function () {
+    document.getElementById("hotels").scrollIntoView({ behavior: "smooth" });
 };
 
-window.showAbout = function(){
+window.showAbout = function () {
     toast("UzBooking — O'zbekistondagi turar joylarni topish va booking qilish platformasi.");
 };
 
-// HELPERS
-function getAuthErrorMessage(error){
+function getAuthErrorMessage(error) {
     const code = error?.code || "";
-    switch(code){
-        case "auth/invalid-email": return "Email manzili noto'g'ri.";
-        case "auth/weak-password": return "Parol kamida 6 ta belgi bo'lishi kerak.";
+    switch (code) {
+        case "auth/invalid-email":        return "Email manzili noto'g'ri.";
+        case "auth/weak-password":        return "Parol kamida 6 ta belgidan iborat bo'lishi kerak.";
         case "auth/email-already-in-use": return "Bu email allaqachon ro'yxatdan o'tgan.";
-        case "auth/invalid-credential": return "Email yoki parol noto'g'ri.";
-        default: return error?.message || "Xatolik yuz berdi.";
+        case "auth/user-not-found":       return "Siz ro'yxatdan o'tmagansiz. Ro'yxatdan o'ting.";
+        case "auth/wrong-password":       return "Parol noto'g'ri.";
+        case "auth/invalid-credential":   return "Email yoki parol noto'g'ri.";
+        case "auth/too-many-requests":    return "Juda ko'p urinish. Keyinroq qayta urinib ko'ring.";
+        case "auth/network-request-failed": return "Internet aloqasi yo'q. Ulanishni tekshiring.";
+        case "auth/operation-not-allowed": return "Email/Parol usuli Firebase Console'da yoqilmagan.";
+        default:                          return error?.message || "Xatolik yuz berdi.";
     }
 }
 
-function isValidEmail(email){
+function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function showAuthError(msg){
+function showAuthError(msg) {
     authSuccess.classList.remove("show");
     authError.textContent = msg;
     authError.classList.add("show");
 }
 
-function showAuthSuccess(msg){
+function showAuthSuccess(msg) {
     authError.classList.remove("show");
     authSuccess.textContent = msg;
     authSuccess.classList.add("show");
 }
 
-function clearAuthMessages(){
+function clearAuthMessages() {
     authError.textContent = "";
     authSuccess.textContent = "";
     authError.classList.remove("show");
     authSuccess.classList.remove("show");
 }
 
-function setAuthLoading(loading){
+function setAuthLoading(loading) {
     authSubmit.disabled = loading;
-    authSubmit.textContent = loading ? "Kutilmoqda..." : (authMode === "login" ? "Kirish" : "Ro'yxatdan o'tish");
+    if (loading) {
+        authSubmit.textContent = "Kutilmoqda...";
+    } else {
+        authSubmit.textContent = authMode === "login" ? "Kirish" : "Ro'yxatdan o'tish";
+    }
 }
 
-window.togglePassword = function(inputId, button){
+window.togglePassword = function (inputId, button) {
     const input = document.getElementById(inputId);
-    if(input.type === "password"){
+    if (input.type === "password") {
         input.type = "text";
         button.textContent = "🙈";
-    }else{
+    } else {
         input.type = "password";
         button.textContent = "👁";
     }
 };
 
-function getInitial(val){
+function getInitial(val) {
     return String(val).trim().charAt(0).toUpperCase() || "U";
 }
 
-function escapeHtml(val){
-    return String(val).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+function escapeHtml(val) {
+    return String(val)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 let toastTimer;
-window.toast = function(msg){
+window.toast = function (msg) {
     const el = document.getElementById("toast");
     el.textContent = msg;
     el.classList.add("show");
@@ -1771,7 +1255,9 @@ window.toast = function(msg){
     toastTimer = setTimeout(() => el.classList.remove("show"), 3000);
 };
 
-// INITIALIZE APP
+/* =========================================================
+   START
+   ========================================================= */
 loadHotelsFromFirebase();
 
 </script>
