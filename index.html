@@ -3,423 +3,469 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#4f46e5">
-<meta name="description" content="UzBooking — O'zbekiston bo'ylab dam olish maskanlarini toping va onlayn bron qiling.">
-<title>UzBooking — Dam olish maskanlarini bron qilish</title>
+<meta name="theme-color" content="#059669">
+<title>dach.uz — Dacha e'lonlari</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
-:root{
-  --brand:#4f46e5;--brand-2:#6366f1;--accent:#06b6d4;--text:#0f172a;--muted:#475569;
-  --line:rgba(226,232,240,.9);--line-2:rgba(238,240,247,.9);--radius:18px;
-  --bg-image:url('https://user33569.na.imgto.link/public/20260918/photo-2026-09-18-21-17-50.avif');
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden;background:linear-gradient(180deg,rgba(15,23,42,.6) 0%,rgba(15,23,42,.4) 35%,rgba(15,23,42,.75) 100%),linear-gradient(135deg,rgba(79,70,229,.35),rgba(6,182,212,.25)),var(--bg-image) center/cover no-repeat fixed}
-@media(max-width:768px){body{background-attachment:scroll,scroll,scroll}}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer;border:0;background:transparent;color:inherit}
-button:disabled{opacity:.6;cursor:not-allowed}
+:root{--brand:#059669;--brand2:#10b981;--bg:#f8fafc;--text:#0f172a;--muted:#64748b;--line:#e2e8f0;--card:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+button{cursor:pointer;border:0;font:inherit;background:transparent;color:inherit}
+input,select,textarea{font:inherit}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.container{width:min(1240px,calc(100% - 40px));margin:auto}
-.header{position:sticky;top:0;z-index:80;background:rgba(15,23,42,.35);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.15)}
-.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{display:flex;align-items:center;flex-shrink:0}
-.logo-img{height:56px;width:auto;max-width:260px;object-fit:contain;border-radius:12px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55))}
-.nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 16px;border-radius:12px;font-weight:700;font-size:14px;transition:.15s;white-space:nowrap}
-.btn-primary{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;box-shadow:0 10px 24px -12px rgba(79,70,229,.8)}
-.btn-primary:hover{transform:translateY(-1px)}
-.btn-soft{background:rgba(255,255,255,.95);color:#4338ca;border:1.5px solid rgba(255,255,255,.6)}
-.btn-soft:hover{background:#fff}
-.btn-ghost{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.35)}
-.btn-ghost:hover{background:rgba(255,255,255,.25)}
-.btn-owner{background:linear-gradient(135deg,#fb923c,#f97316);color:#fff}
-.btn-owner:hover{transform:translateY(-1px)}
-.btn .i{font-size:15px;line-height:1}
-.user-box{display:none;align-items:center;gap:8px;background:rgba(255,255,255,.95);padding:4px 12px 4px 4px;border-radius:999px}
-.avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:#fff;font-weight:800;font-size:12.5px}
-.hero{padding:60px 0 40px}
-.tag{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(255,255,255,.2);backdrop-filter:blur(14px);color:#fff;border-radius:999px;font-size:12.5px;font-weight:800;border:1.5px solid rgba(255,255,255,.35)}
-.hero h1{font-size:clamp(36px,5.2vw,64px);line-height:1.02;letter-spacing:-.035em;margin:18px 0 24px;font-weight:900;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.5)}
-.search{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr auto;background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border:1.5px solid rgba(255,255,255,.7);border-radius:22px;padding:8px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);margin-top:12px}
-.search-item{padding:12px 16px;border-right:1px solid var(--line-2)}
-.search-item:last-of-type{border-right:0}
-.search-item label{display:block;font-size:10.5px;font-weight:800;letter-spacing:.09em;color:var(--muted);text-transform:uppercase;margin-bottom:5px}
-.search-item input,.search-item select{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-weight:700;font-size:14px;padding:0}
-.search .btn-primary{margin:6px;padding:14px 22px;font-size:15px;border-radius:16px}
-.section{padding:34px 0}
-.section-top{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:22px;flex-wrap:wrap}
-.section h2{margin:0 0 6px;font-size:clamp(22px,3vw,30px);font-weight:900;color:#fff;text-shadow:0 3px 16px rgba(0,0,0,.6)}
-.section .muted{color:rgba(255,255,255,.85);font-size:14px}
-.muted{color:var(--muted);font-size:14px}
-.filters{display:flex;gap:8px;flex-wrap:wrap}
-.chip{background:rgba(255,255,255,.9);padding:10px 17px;border-radius:999px;font-weight:700;font-size:13px;color:#334155;transition:.2s}
-.chip:hover{border-color:#c7d2fe;color:#4338ca;transform:translateY(-1px)}
-.chip.active{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff}
-.view-chip{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.card{background:rgba(255,255,255,.97);border:1.5px solid rgba(255,255,255,.85);border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 50px -20px rgba(0,0,0,.55);transition:transform .25s;display:flex;flex-direction:column}
-.card:hover{transform:translateY(-6px)}
-.photo{height:230px;background:#e2e8f0;position:relative;overflow:hidden}
-.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.verified{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.96);padding:7px 12px;border-radius:999px;font-size:11px;font-weight:800;color:#047857;z-index:4}
-.featured-badge{position:absolute;right:12px;bottom:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:10.5px;font-weight:800;padding:5px 11px;border-radius:999px;z-index:4}
-.card-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
-.row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.card h3{margin:0;font-size:17px;font-weight:800;line-height:1.3;color:#0f172a}
-.rating{white-space:nowrap;font-weight:800;font-size:13px;background:#fef3c7;color:#92400e;padding:4px 9px;border-radius:999px}
-.meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12.5px;margin:10px 0 0;font-weight:600}
-.desc{font-size:13.5px;color:#475569;line-height:1.55;margin:12px 0 0;min-height:42px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.price{font-size:19px;font-weight:900;margin-top:auto;padding-top:14px;background:linear-gradient(135deg,#4f46e5,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
-.price span{font-size:12.5px;font-weight:600;color:var(--muted);-webkit-text-fill-color:var(--muted)}
-.actions{display:flex;gap:8px;padding-top:12px}
-.actions .btn{flex:1}
-.empty{grid-column:1/-1;background:rgba(255,255,255,.92);padding:60px 24px;border-radius:22px;text-align:center;color:#334155;font-size:14.5px;font-weight:600}
-.map-view{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
-.map-view.hidden{display:none}
-#resortsMap{width:100%;height:min(72vh,640px);background:#e2e8f0;z-index:1}
-.panel{display:none;background:rgba(255,255,255,.97);border-radius:22px;padding:24px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);margin:14px 0 22px}
-.panel.show{display:block}
-.panel-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px;flex-wrap:wrap}
-.panel-head h2{margin:0;font-size:22px;font-weight:900}
-.icon-btn{width:40px;height:40px;border-radius:12px;background:#f1f5f9;display:grid;place-items:center;color:#334155;font-size:20px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-.stat{border:1px solid var(--line);background:linear-gradient(135deg,#fafbff,#f4f6fc);border-radius:16px;padding:16px}
-.stat b{font-size:26px;font-weight:900;display:block;line-height:1}
-.stat span{font-size:12px;color:var(--muted);font-weight:600;display:block;margin-top:5px}
-.tabs{display:flex;gap:6px;flex-wrap:wrap;background:#f4f6fc;padding:5px;border-radius:14px;width:fit-content}
-.tab{padding:9px 14px;border-radius:10px;font-weight:700;font-size:13px;color:#475569}
-.tab.active{background:#fff;color:#4f46e5;box-shadow:0 4px 12px rgba(15,23,42,.08)}
-.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-.field{display:flex;flex-direction:column;gap:7px}
-.field.full{grid-column:1/-1}
-.field label{font-size:12.5px;font-weight:700;color:#334155}
-.field input,.field select,.field textarea{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;outline:0;background:#fbfcfe;font-size:14px;color:#0f172a;width:100%}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:#a5b4fc;background:#fff;box-shadow:0 0 0 4px rgba(99,102,241,.14)}
-.field textarea{min-height:100px;resize:vertical;font-family:inherit}
-.owner-img-manager{border:1.5px dashed var(--line);border-radius:14px;padding:14px;background:#fafbff}
-.thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
-.thumb{position:relative;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);aspect-ratio:4/3;background:#f1f5f9}
-.thumb img{width:100%;height:100%;object-fit:cover}
-.thumb .b-cover{position:absolute;left:7px;top:7px;padding:3px 8px;font-size:10px;font-weight:800;background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;border-radius:999px}
-.thumb .ops{position:absolute;inset:auto 7px 7px 7px;display:flex;gap:5px;justify-content:flex-end}
-.thumb .ops button{width:28px;height:28px;border-radius:8px;background:rgba(15,23,42,.72);color:#fff;font-size:14px;display:grid;place-items:center;border:0}
-.thumb .ops button:hover{background:#4f46e5}
-.url-row{display:flex;gap:8px;margin-top:10px}
-.url-row input{flex:1}
-.help{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.5}
-.table-wrap{overflow-x:auto}
-.table{width:100%;border-collapse:collapse;min-width:600px}
-.table th,.table td{padding:12px 14px;border-bottom:1px solid var(--line-2);font-size:13px;text-align:left}
-.table th{background:#fafbff;color:#64748b;font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.notice{display:none;border-radius:14px;padding:12px 16px;font-size:13.5px;margin:10px 0;font-weight:600}
-.notice.show{display:block}
-.notice.info{background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe}
-.notice.ok{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
-.notice.err{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
-.hidden{display:none!important}
+.container{width:min(1280px,calc(100% - 32px));margin:auto}
+
+/* HEADER */
+.header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:80;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.header-top{display:flex;align-items:center;gap:16px;padding:12px 0}
+.logo{display:flex;align-items:center;gap:8px;flex-shrink:0;text-decoration:none}
+.logo-ic{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#059669,#10b981);display:grid;place-items:center;font-size:20px;color:#fff;box-shadow:0 6px 16px -6px rgba(5,150,105,.9)}
+.logo-tx{font-size:22px;font-weight:900;letter-spacing:-.03em;color:var(--text)}
+.logo-tx span{color:var(--brand)}
+.search-main{flex:1;display:flex;background:#f1f5f9;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;max-width:640px}
+.search-main input{flex:1;padding:12px 16px;border:0;outline:0;background:transparent;font-size:14px;font-weight:500}
+.search-main button{padding:0 20px;background:var(--brand);color:#fff;font-weight:700;display:flex;align-items:center;gap:6px;transition:.2s}
+.search-main button:hover{background:#047857}
+.nav-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+.icon-btn{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font-size:18px;transition:.15s;position:relative;color:#475569}
+.icon-btn:hover{background:#f1f5f9;color:var(--brand)}
+.icon-btn .badge-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:#ef4444;border-radius:50%;border:2px solid #fff}
+.btn-post{padding:11px 18px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;border-radius:10px;font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;box-shadow:0 8px 20px -10px rgba(5,150,105,.9);transition:.15s}
+.btn-post:hover{transform:translateY(-1px);box-shadow:0 12px 26px -10px rgba(5,150,105,1)}
+.user-menu{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;background:#f1f5f9;border-radius:999px;cursor:pointer;transition:.15s}
+.user-menu:hover{background:#e2e8f0}
+.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#059669,#0ea5e9);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+
+/* CATEGORY BAR */
+.cat-bar{background:#fff;border-bottom:1px solid var(--line);padding:10px 0;overflow-x:auto;scrollbar-width:none}
+.cat-bar::-webkit-scrollbar{display:none}
+.cat-list{display:flex;gap:6px;white-space:nowrap}
+.cat{padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700;color:#475569;background:#f1f5f9;transition:.15s;flex-shrink:0;display:flex;align-items:center;gap:6px}
+.cat:hover{background:#d1fae5;color:#047857}
+.cat.active{background:var(--brand);color:#fff}
+.cat .ic{font-size:15px}
+
+/* HERO BANNER */
+.hero{padding:22px 0}
+.hero-banner{background:linear-gradient(135deg,#059669,#0ea5e9);border-radius:20px;padding:34px 30px;color:#fff;box-shadow:0 20px 50px -20px rgba(5,150,105,.6);position:relative;overflow:hidden}
+.hero-banner::after{content:"";position:absolute;right:-40px;top:-40px;width:220px;height:220px;background:rgba(255,255,255,.1);border-radius:50%}
+.hero-banner::before{content:"";position:absolute;right:40px;bottom:-70px;width:160px;height:160px;background:rgba(255,255,255,.08);border-radius:50%}
+.hero-banner h1{font-size:clamp(24px,3.5vw,34px);font-weight:900;letter-spacing:-.03em;margin-bottom:8px;position:relative;z-index:1}
+.hero-banner p{font-size:15px;opacity:.95;max-width:560px;line-height:1.5;position:relative;z-index:1}
+
+/* MAIN LAYOUT */
+.main-layout{display:grid;grid-template-columns:260px 1fr;gap:24px;padding:20px 0 60px}
+.sidebar{background:#fff;border-radius:16px;border:1px solid var(--line);padding:18px;height:fit-content;position:sticky;top:100px}
+.sidebar h3{font-size:14px;font-weight:800;margin-bottom:14px;color:var(--text);display:flex;align-items:center;gap:6px}
+.filter-group{margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.filter-group:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.filter-group label{display:block;font-size:12px;font-weight:700;color:#334155;margin-bottom:8px}
+.filter-group select,.filter-group input{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:13.5px;outline:0;background:#fafbfd;transition:.15s}
+.filter-group select:focus,.filter-group input:focus{border-color:#6ee7b7;background:#fff;box-shadow:0 0 0 3px rgba(16,185,129,.14)}
+.price-row{display:flex;gap:8px}
+.price-row input{flex:1}
+.filter-apply{width:100%;padding:12px;background:var(--brand);color:#fff;border-radius:10px;font-weight:800;font-size:14px;transition:.15s;margin-top:6px}
+.filter-apply:hover{background:#047857}
+
+/* LISTINGS */
+.listings-header{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.listings-count{font-size:14px;color:var(--muted);font-weight:600}
+.listings-count b{color:var(--text);font-weight:800}
+.sort-select{padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:13.5px;font-weight:600;background:#fff;outline:0;cursor:pointer}
+.sort-select:focus{border-color:#6ee7b7}
+
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border-radius:14px;border:1px solid var(--line);overflow:hidden;transition:.2s;cursor:pointer;display:flex;flex-direction:column;position:relative}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 40px -16px rgba(0,0,0,.15);border-color:#a7f3d0}
+.photo{height:200px;background:#f1f5f9;position:relative;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.card:hover .photo img{transform:scale(1.05)}
+.fav-btn{position:absolute;right:10px;top:10px;width:36px;height:36px;background:rgba(255,255,255,.95);backdrop-filter:blur(6px);border-radius:50%;display:grid;place-items:center;font-size:16px;color:#64748b;transition:.2s;z-index:2}
+.fav-btn:hover{transform:scale(1.1)}
+.fav-btn.active{color:#ef4444}
+.card-cat{position:absolute;left:10px;top:10px;padding:5px 10px;background:rgba(15,23,42,.7);backdrop-filter:blur(6px);color:#fff;font-size:11px;font-weight:800;border-radius:6px;z-index:2}
+.card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:15.5px;font-weight:800;line-height:1.3;color:var(--text);margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-loc{font-size:12.5px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:4px;margin-bottom:10px}
+.card-price{font-size:19px;font-weight:900;color:var(--brand);letter-spacing:-.02em;margin-top:auto}
+.card-price span{font-size:12.5px;font-weight:600;color:var(--muted)}
+.card-date{font-size:11.5px;color:#94a3b8;margin-top:8px;padding-top:10px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center}
+
+/* EMPTY */
+.empty{grid-column:1/-1;background:#fff;border:2px dashed var(--line);border-radius:18px;padding:70px 24px;text-align:center}
+.empty .em-ic{font-size:52px;margin-bottom:14px;opacity:.4}
+.empty h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.empty p{color:var(--muted);font-size:14px;line-height:1.5;max-width:400px;margin:0 auto}
+.empty button{margin-top:18px;padding:12px 24px;background:var(--brand);color:#fff;border-radius:10px;font-weight:800;font-size:14px}
+
+/* MODAL */
 .modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(15,23,42,.75);backdrop-filter:blur(8px);padding:20px;overflow-y:auto}
 .modal.show{display:flex;align-items:flex-start;justify-content:center}
-.modal-box{width:min(760px,100%);background:#fff;border-radius:24px;padding:26px;box-shadow:0 40px 100px -20px rgba(0,0,0,.8);margin:auto;max-height:calc(100vh - 40px);overflow-y:auto}
+.modal-box{width:min(720px,100%);background:#fff;border-radius:20px;padding:26px;box-shadow:0 40px 100px -20px rgba(0,0,0,.7);margin:auto;max-height:calc(100vh - 40px);overflow-y:auto;animation:mIn .25s}
+@keyframes mIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
 .modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:18px}
-.modal-head h2{margin:0;font-size:20px;font-weight:900}
+.modal-head h2{font-size:20px;font-weight:900;letter-spacing:-.02em}
 .modal-head .sub{color:var(--muted);font-size:13px;margin-top:4px}
-.close{width:40px;height:40px;border-radius:12px;background:#f1f5f9;display:grid;place-items:center;color:#334155;font-size:20px;flex-shrink:0}
-.close:hover{background:#e2e8f0}
-.switch{display:flex;gap:4px;background:#f1f5f9;padding:5px;border-radius:14px;margin:16px 0}
-.switch button{flex:1;padding:10px;border-radius:10px;font-weight:800;font-size:13.5px;color:#475569}
-.switch button.active{background:#fff;color:#4f46e5;box-shadow:0 4px 12px rgba(15,23,42,.08)}
-.gallery-main{width:100%;aspect-ratio:16/10;background:#f1f5f9;border-radius:16px;overflow:hidden;margin-bottom:12px;position:relative;cursor:zoom-in}
-.gallery-main img{width:100%;height:100%;object-fit:cover}
-.gallery-thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:9px}
-.gallery-thumbs img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:11px;border:2.5px solid transparent;cursor:pointer}
-.gallery-thumbs img.active{border-color:var(--brand)}
-.detail-section{margin-top:20px;padding-top:20px;border-top:1px solid var(--line-2)}
-.detail-section h3{margin:16px 0 10px;font-size:14px;font-weight:800;color:#334155}
-.detail-section h3:first-child{margin-top:0}
-.info-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0}
-.info-list .item{background:linear-gradient(135deg,#fafbff,#f4f6fc);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
-.info-list .item b{display:block;font-size:10.5px;text-transform:uppercase;color:var(--muted);letter-spacing:.07em;margin-bottom:4px;font-weight:800}
-.info-list .item span{font-weight:700;color:#0f172a;font-size:13.5px;word-break:break-word}
-.desc-text{font-size:14px;line-height:1.7;color:#334155;white-space:pre-line;margin:0}
-.amenity-chips{display:flex;flex-wrap:wrap;gap:7px}
-.amenity-chips span{background:linear-gradient(135deg,#eef2ff,#e0e7ff);color:#4338ca;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700}
-.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:rgba(15,23,42,.95);color:#fff;padding:12px 20px;border-radius:14px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:400;max-width:calc(100vw - 32px);text-align:center}
+.close-btn{width:40px;height:40px;border-radius:12px;background:#f1f5f9;display:grid;place-items:center;font-size:20px;color:#475569;flex-shrink:0;transition:.15s}
+.close-btn:hover{background:#e2e8f0}
+
+/* FORM */
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:12.5px;font-weight:700;color:#334155}
+.field label .req{color:#ef4444}
+.field input,.field select,.field textarea{padding:12px 14px;border:1.5px solid var(--line);border-radius:11px;font-size:14px;outline:0;background:#fafbfd;transition:.15s;width:100%;font-family:inherit}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#6ee7b7;background:#fff;box-shadow:0 0 0 4px rgba(16,185,129,.14)}
+.field textarea{min-height:110px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.img-upload{border:2px dashed var(--line);border-radius:12px;padding:16px;background:#fafbfd;text-align:center;transition:.15s}
+.img-upload:hover{border-color:#6ee7b7;background:#ecfdf5}
+.img-upload input{display:none}
+.img-upload label{display:block;cursor:pointer;font-size:13.5px;color:var(--muted);font-weight:600}
+.img-upload label b{color:var(--brand);font-weight:800}
+.img-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:12px}
+.img-thumb{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;border:1.5px solid var(--line)}
+.img-thumb img{width:100%;height:100%;object-fit:cover}
+.img-thumb button{position:absolute;top:4px;right:4px;width:22px;height:22px;background:rgba(15,23,42,.75);color:#fff;border-radius:6px;font-size:12px;display:grid;place-items:center}
+
+/* SWITCH TABS */
+.tabs{display:flex;gap:4px;background:#f1f5f9;padding:5px;border-radius:12px;margin-bottom:18px}
+.tabs button{flex:1;padding:10px;border-radius:9px;font-weight:800;font-size:13.5px;color:#64748b;transition:.2s}
+.tabs button.active{background:#fff;color:var(--brand);box-shadow:0 4px 12px rgba(15,23,42,.08)}
+
+/* NOTICE */
+.notice{display:none;border-radius:11px;padding:11px 15px;font-size:13.5px;margin:10px 0;font-weight:600}
+.notice.show{display:block}
+.notice.ok{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.notice.err{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.notice.info{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
+
+/* DETAIL MODAL */
+.detail-imgs{display:grid;grid-template-columns:2fr 1fr;gap:6px;border-radius:14px;overflow:hidden;margin-bottom:18px;height:340px}
+.detail-imgs .big{grid-row:1/3;height:100%}
+.detail-imgs img{width:100%;height:100%;object-fit:cover;cursor:pointer}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.detail-item{background:#fafbfd;border:1px solid var(--line);border-radius:11px;padding:11px 13px}
+.detail-item b{display:block;font-size:10.5px;text-transform:uppercase;color:var(--muted);letter-spacing:.06em;margin-bottom:4px;font-weight:800}
+.detail-item span{font-weight:700;font-size:13.5px}
+.detail-desc{font-size:14px;line-height:1.7;color:#334155;white-space:pre-line}
+.contact-btn{width:100%;padding:15px;background:linear-gradient(135deg,#059669,#10b981);color:#fff;border-radius:12px;font-weight:800;font-size:15px;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* TOAST */
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#0f172a;color:#fff;padding:12px 20px;border-radius:12px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:.25s;z-index:500;box-shadow:0 20px 50px -12px rgba(0,0,0,.6);max-width:calc(100vw - 32px);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast.ok{background:linear-gradient(135deg,#059669,#10b981)}
 .toast.err{background:linear-gradient(135deg,#dc2626,#ef4444)}
-footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
-.footer-inner{display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
-.footer-contact{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;font-size:13px}
-.footer-label{color:rgba(255,255,255,.75);font-weight:700}
-.footer-link{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);padding:9px 15px;border-radius:999px;color:#fff;font-weight:700;text-decoration:none}
-.footer-link:hover{background:rgba(255,255,255,.28)}
-.footer-link svg{width:16px;height:16px;flex-shrink:0;display:block}
-.footer-link .phone-ic{color:#34d399}
-.footer-link .tg-ic{color:#38bdf8}
-.owner-fab{position:fixed;right:20px;bottom:24px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;font-size:34px;font-weight:300;line-height:1;display:none;place-items:center;box-shadow:0 16px 40px -8px rgba(249,115,22,.95);z-index:60;border:2px solid rgba(255,255,255,.4);padding-bottom:5px}
-.owner-fab.show{display:grid}
-.loading{text-align:center;color:#fff;padding:40px;font-size:14px;font-weight:600}
+
+.hidden{display:none!important}
+.loading{text-align:center;padding:60px 20px;color:var(--muted);font-size:14px;font-weight:600;grid-column:1/-1}
+
+/* RESPONSIVE */
 @media(max-width:1000px){
+  .main-layout{grid-template-columns:1fr}
+  .sidebar{position:static;display:none}
+  .sidebar.show{display:block;position:fixed;inset:0;z-index:90;border-radius:0;overflow-y:auto;padding:20px}
   .grid{grid-template-columns:repeat(2,1fr)}
-  .search{grid-template-columns:1fr 1fr;padding:10px;gap:2px}
-  .search-item{border-right:0;border-bottom:1px solid var(--line-2)}
-  .search .btn-primary{grid-column:1/-1;margin:6px 0 0;padding:14px}
+  .mobile-filter-btn{display:flex!important}
 }
 @media(max-width:720px){
-  .container{width:min(100% - 24px,560px)}
-  .nav{min-height:auto;padding:12px 0;flex-wrap:wrap;gap:8px}
-  .logo-img{height:44px;max-width:180px}
-  .nav-right{gap:6px;flex-wrap:nowrap}
-  .nav-right .btn{padding:9px 11px}
-  .nav-right .btn .lbl{display:none}
-  .nav-right .btn .i{font-size:18px}
-  .hero{padding:36px 0 20px}
-  .search{grid-template-columns:1fr;margin-top:12px}
-  .search-item{border-bottom:1px solid var(--line-2)}
-  .grid{grid-template-columns:1fr;gap:16px}
+  .container{width:min(100% - 20px,560px)}
+  .header-top{flex-wrap:wrap;gap:10px;padding:10px 0}
+  .search-main{order:3;width:100%;max-width:none;flex-basis:100%}
+  .nav-actions .btn-post .lbl-tx{display:none}
+  .btn-post{padding:11px 14px}
+  .user-menu{padding:4px}
+  .user-menu .u-name{display:none}
+  .grid{grid-template-columns:1fr;gap:14px}
   .photo{height:220px}
-  .section{padding:26px 0}
-  .panel{padding:18px}
-  .panel-head h2{font-size:18px}
-  .stats{grid-template-columns:1fr 1fr;gap:10px}
-  .form-grid{grid-template-columns:1fr}
-  .field.full{grid-column:auto}
-  .modal{padding:12px}
-  .modal-box{padding:20px;border-radius:20px}
-  .info-list{grid-template-columns:1fr}
-  #resortsMap{height:min(62vh,520px)}
-  footer{padding:32px 0 90px}
-  .footer-contact{flex-direction:column;gap:8px;width:100%}
-  .footer-link{width:min(100%,320px);justify-content:center}
+  .form-row{grid-template-columns:1fr}
+  .detail-imgs{height:240px;grid-template-columns:1fr}
+  .detail-imgs .big{grid-row:auto}
+  .detail-grid{grid-template-columns:1fr}
+  .hero-banner{padding:24px 20px}
+  .modal-box{padding:20px}
 }
-@media(max-width:400px){
-  .stats{grid-template-columns:1fr}
-  .logo-img{height:40px;max-width:150px}
-  .nav-right .btn{padding:8px 9px}
-}
+.mobile-filter-btn{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:13px 24px;background:var(--brand);color:#fff;border-radius:999px;font-weight:800;font-size:14px;box-shadow:0 12px 28px -8px rgba(5,150,105,.9);z-index:70;align-items:center;gap:8px}
 </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="header">
-  <div class="container nav">
-    <a class="logo" href="#" aria-label="UzBooking"><img class="logo-img" src="https://user33569.na.imgto.link/public/20260918/photo-2026-09-18-21-09-54.avif" alt="UzBooking" onerror="this.style.display='none'"></a>
-    <div class="nav-right">
-      <button class="btn btn-owner" onclick="openOwnerAuth()"><span class="i">🏠</span><span class="lbl">Maskan egasi</span></button>
-      <div id="userBox" class="user-box"><div id="avatar" class="avatar">U</div><span id="userName" style="font-size:12.5px;font-weight:700;color:#0f172a"></span></div>
-      <button id="customerLoginBtn" class="btn btn-soft" onclick="openCustomerAuth()"><span class="i">👤</span><span class="lbl">Kirish</span></button>
-      <button id="dashboardBtn" class="btn btn-soft hidden" onclick="toggleOwnerPanel()"><span class="i">🏡</span><span class="lbl">Kabinet</span></button>
-      <button id="logoutBtn" class="btn btn-ghost hidden" onclick="logout()"><span class="i">↪</span><span class="lbl">Chiqish</span></button>
+  <div class="container">
+    <div class="header-top">
+      <a href="#" class="logo">
+        <div class="logo-ic">🏡</div>
+        <div class="logo-tx">dach<span>.uz</span></div>
+      </a>
+      <div class="search-main">
+        <input id="mainSearch" placeholder="Dacha, joylashuv yoki kalit so'z..." onkeydown="if(event.key==='Enter')applySearch()">
+        <button onclick="applySearch()">🔍 Qidirish</button>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" title="Sevimlilar" onclick="showFavorites()">❤️<span class="badge-dot hidden" id="favDot"></span></button>
+        <button class="btn-post" onclick="openPostAd()"><span>➕</span><span class="lbl-tx">E'lon berish</span></button>
+        <div class="user-menu hidden" id="userMenu" onclick="toggleUserDropdown(event)">
+          <div class="avatar" id="avatarBox">U</div>
+          <span class="u-name" id="userName" style="font-size:13px;font-weight:700"></span>
+        </div>
+        <button class="icon-btn" id="loginBtn" onclick="openAuth()" title="Kirish">👤</button>
+      </div>
     </div>
   </div>
 </header>
 
-<section class="hero">
+<!-- CATEGORY BAR -->
+<div class="cat-bar">
   <div class="container">
-    <span class="tag">🇺🇿 O'zbekiston bo'ylab dam olish</span>
-    <h1>Dam olish maskaningizni toping va bron qiling.</h1>
-    <div class="search">
-      <div class="search-item"><label>Qayerga?</label><input id="q" placeholder="Masalan, Chorvoq"></div>
-      <div class="search-item"><label>Viloyat</label>
-        <select id="region">
-          <option value="">Barchasi</option>
-          <option value="Toshkent">Toshkent</option>
-          <option value="Samarqand">Samarqand</option>
-          <option value="Buxoro">Buxoro</option>
-          <option value="Jizzax">Jizzax</option>
-          <option value="Namangan">Namangan</option>
-          <option value="Farg'ona">Farg'ona</option>
-          <option value="Andijon">Andijon</option>
-          <option value="Qashqadaryo">Qashqadaryo</option>
-          <option value="Surxondaryo">Surxondaryo</option>
-          <option value="Navoiy">Navoiy</option>
-          <option value="Xorazm">Xorazm</option>
-          <option value="Sirdaryo">Sirdaryo</option>
-          <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
-        </select>
-      </div>
-      <div class="search-item"><label>Kelish</label><input id="checkIn" type="date"></div>
-      <div class="search-item"><label>Ketish</label><input id="checkOut" type="date"></div>
-      <button class="btn btn-primary" onclick="searchResorts()"><span class="i">🔎</span> Qidirish</button>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="resorts">
-  <div class="container">
-    <div class="section-top">
-      <div><h2>Dam olish maskanlari</h2><div class="muted">Tanlangan maskanlar birinchi ko'rsatiladi.</div></div>
-      <div class="filters">
-        <button class="chip active" onclick="sortResorts('popular',this)">✨ Yangi</button>
-        <button class="chip" onclick="sortResorts('price',this)">💰 Narx</button>
-        <button class="chip" onclick="sortResorts('rating',this)">⭐ Reyting</button>
-        <button id="viewChip" class="chip view-chip" onclick="toggleViewMode()">
-          <span class="i" id="viewIcon">🗺</span>
-          <span id="viewLabel">Xarita</span>
-        </button>
-      </div>
-    </div>
-    <div id="listView">
-      <div id="resortGrid" class="grid"><div class="loading">⏳ Maskanlar yuklanmoqda...</div></div>
-    </div>
-    <div id="mapView" class="map-view hidden">
-      <div id="resortsMap"></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-<div class="container">
-  <div id="ownerPanel" class="panel">
-    <div class="panel-head">
-      <div><h2>🏠 Maskan egasi kabineti</h2><div class="muted">Dacha yoki dam olish maskaningizni joylashtiring.</div></div>
-      <button class="icon-btn" onclick="toggleOwnerPanel()">×</button>
-    </div>
-    <div id="ownerContent">
-      <div class="stats">
-        <div class="stat"><b id="sResorts">0</b><span>Mening maskanlarim</span></div>
-        <div class="stat"><b id="sApproved">0</b><span>Faol maskanlar</span></div>
-        <div class="stat"><b id="sBookings">0</b><span>Bronlar</span></div>
-      </div>
-      <div class="tabs" style="margin-bottom:16px">
-        <button class="tab active" onclick="ownerTab('add',this)">+ Qo'shish</button>
-        <button class="tab" onclick="ownerTab('list',this)">Maskanlarim</button>
-        <button class="tab" onclick="ownerTab('bookings',this)">Bronlar</button>
-      </div>
-      <div id="ownerAdd">
-        <form id="resortForm" class="form-grid">
-          <div class="field"><label>Maskan nomi</label><input id="rName" required placeholder="Chorvoq Family Dacha"></div>
-          <div class="field"><label>Viloyat</label>
-            <select id="rRegion" required>
-              <option value="">Tanlang</option>
-              <option value="Toshkent">Toshkent</option>
-              <option value="Samarqand">Samarqand</option>
-              <option value="Buxoro">Buxoro</option>
-              <option value="Jizzax">Jizzax</option>
-              <option value="Namangan">Namangan</option>
-              <option value="Farg'ona">Farg'ona</option>
-              <option value="Andijon">Andijon</option>
-              <option value="Qashqadaryo">Qashqadaryo</option>
-              <option value="Surxondaryo">Surxondaryo</option>
-              <option value="Navoiy">Navoiy</option>
-              <option value="Xorazm">Xorazm</option>
-              <option value="Sirdaryo">Sirdaryo</option>
-              <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
-            </select>
-          </div>
-          <div class="field"><label>Joylashuvi</label><input id="rLocation" required placeholder="Bo'stonliq, Chorvoq"></div>
-          <div class="field"><label>Bir kecha narxi (UZS)</label><input id="rPrice" required type="number" min="0" placeholder="500000"></div>
-          <div class="field"><label>Reyting</label><input id="rRating" type="number" min="1" max="5" step="0.1" value="5"></div>
-          <div class="field"><label>Latitude</label><input id="rLat" type="number" step="any" placeholder="41.62"></div>
-          <div class="field"><label>Longitude</label><input id="rLng" type="number" step="any" placeholder="69.94"></div>
-          <div class="field full"><label>Qulayliklar</label><input id="rAmenities" placeholder="Hovuz, sauna, Wi-Fi, parking"></div>
-          <div class="field full">
-            <label>📷 Rasmlar (maksimal 10 ta) — birinchi rasm muqova bo'ladi</label>
-            <div class="owner-img-manager">
-              <input id="rFiles" type="file" accept="image/*" multiple style="padding:10px;background:#fff">
-              <div id="rImages" class="thumb-grid"></div>
-              <div class="url-row">
-                <input id="rImageUrl" placeholder="Rasm URL manzili...">
-                <button type="button" class="btn btn-soft" onclick="rAddUrl()">+ URL qo'shish</button>
-              </div>
-              <div class="help">📌 Kamida 1 ta, maksimal 10 ta rasm.</div>
-            </div>
-          </div>
-          <div class="field full"><label>Tavsif</label><textarea id="rDesc" required placeholder="Maskan haqida batafsil ma'lumot..."></textarea></div>
-          <div class="field full"><button class="btn btn-primary" type="submit" style="width:100%;padding:14px">🚀 Maskanni joylashtirish</button></div>
-        </form>
-        <div id="ownerNotice" class="notice"></div>
-      </div>
-      <div id="ownerList" class="hidden" style="margin-top:16px"></div>
-      <div id="ownerBookings" class="hidden" style="margin-top:16px"></div>
+    <div class="cat-list" id="catList">
+      <button class="cat active" data-cat="all" onclick="setCategory('all',this)"><span class="ic">🏘</span> Barchasi</button>
+      <button class="cat" data-cat="kunlik" onclick="setCategory('kunlik',this)"><span class="ic">🌙</span> Kunlik ijara</button>
+      <button class="cat" data-cat="sotuv" onclick="setCategory('sotuv',this)"><span class="ic">💰</span> Sotuv</button>
+      <button class="cat" data-cat="hovuz" onclick="setCategory('hovuz',this)"><span class="ic">🏊</span> Hovuzli</button>
+      <button class="cat" data-cat="tog" onclick="setCategory('tog',this)"><span class="ic">⛰</span> Tog'da</button>
+      <button class="cat" data-cat="daryo" onclick="setCategory('daryo',this)"><span class="ic">🌊</span> Daryo bo'yida</button>
+      <button class="cat" data-cat="hasham" onclick="setCategory('hasham',this)"><span class="ic">✨</span> Hashamdor</button>
     </div>
   </div>
 </div>
-</section>
 
-<footer>
-  <div class="container footer-inner">
-    <div>© 2026 UzBooking — dam olish maskanlari uchun bron platformasi.</div>
-    <div class="footer-contact">
-      <span class="footer-label">Hamkorlik uchun:</span>
-      <a class="footer-link" href="tel:+998934250043">
-        <svg class="phone-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.35-.11-.74-.03-1.02.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.2c.28-.28.36-.67.25-1.02A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/></svg>
-        <span>+998 93 425 00 43</span>
-      </a>
-      <a class="footer-link" href="https://t.me/xw_ayubjonov" target="_blank" rel="noopener">
-        <svg class="tg-ic" viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-        <span>@xw_ayubjonov</span>
-      </a>
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="hero-banner">
+      <h1>O'zbekistondagi eng yaxshi dachalar</h1>
+      <p>Dam olish uchun dacha izlaysizmi? Yoki o'z dachangizni ijaraga bermoqchimisiz? dach.uz — bu sizga kerakli joy!</p>
     </div>
   </div>
-</footer>
+</div>
 
-<button id="ownerFab" class="owner-fab" onclick="ownerShowAdd()" aria-label="Maskan qo'shish">+</button>
+<!-- MAIN LAYOUT -->
+<div class="container">
+  <div class="main-layout">
 
-<div id="authModal" class="modal"><div class="modal-box">
-  <div class="modal-head"><div><h2 id="modalTitle">👤 Mijoz</h2><div id="modalSubtitle" class="sub">Bron qilish uchun tizimga kiring.</div></div><button class="close" onclick="closeAuth()">×</button></div>
-  <div id="authSwitch" class="switch">
-    <button id="loginTab" class="active" onclick="setMode('login')">Kirish</button>
-    <button id="signupTab" onclick="setMode('signup')">Ro'yxatdan o'tish</button>
-  </div>
-  <div id="authNotice" class="notice"></div>
-  <form id="authForm" novalidate>
-    <div id="ownerFields" class="hidden">
-      <div class="form-grid">
-        <div class="field"><label>Ism *</label><input id="firstName" placeholder="Ayub"></div>
-        <div class="field"><label>Familiya *</label><input id="lastName" placeholder="Jonov"></div>
+    <!-- SIDEBAR FILTERS -->
+    <aside class="sidebar" id="sidebar">
+      <h3>🔎 Filtrlar</h3>
+      <div class="filter-group">
+        <label>Viloyat</label>
+        <select id="fRegion">
+          <option value="">Barchasi</option>
+          <option>Toshkent</option><option>Samarqand</option><option>Buxoro</option>
+          <option>Jizzax</option><option>Namangan</option><option>Farg'ona</option>
+          <option>Andijon</option><option>Qashqadaryo</option><option>Surxondaryo</option>
+          <option>Navoiy</option><option>Xorazm</option><option>Sirdaryo</option>
+          <option>Qoraqalpog'iston</option>
+        </select>
       </div>
-      <div class="field"><label>Telefon raqami *</label><input id="phone" type="tel" placeholder="+998 90 123 45 67"></div>
-    </div>
-    <div id="customerNameField" class="field hidden"><label>Ism familiya</label><input id="customerName" placeholder="Ism Familiya"></div>
-    <div class="field"><label>Elektron pochta *</label><input id="email" required type="email" placeholder="siz@example.com"></div>
-    <div class="field"><label>Parol *</label><input id="password" required type="password" minlength="6" placeholder="Kamida 6 belgi"></div>
-    <div id="forgotWrap"><button type="button" style="padding:8px 0;font-size:13px;color:#4f46e5;background:transparent" onclick="resetPassword()">Parolni unutdingizmi?</button></div>
-    <button id="submitAuth" class="btn btn-primary" style="width:100%;margin-top:8px;padding:14px" type="submit">👤 Kirish</button>
-  </form>
-</div></div>
+      <div class="filter-group">
+        <label>Narx (so'm)</label>
+        <div class="price-row">
+          <input id="fPriceMin" type="number" placeholder="dan" min="0">
+          <input id="fPriceMax" type="number" placeholder="gacha" min="0">
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Xonalar soni</label>
+        <select id="fRooms">
+          <option value="">Barchasi</option>
+          <option value="1">1 xona</option>
+          <option value="2">2 xona</option>
+          <option value="3">3 xona</option>
+          <option value="4">4+ xona</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Qulayliklar</label>
+        <select id="fAmenity">
+          <option value="">Barchasi</option>
+          <option value="hovuz">Hovuz</option>
+          <option value="sauna">Sauna</option>
+          <option value="wifi">Wi-Fi</option>
+          <option value="parking">Parking</option>
+          <option value="oshxona">Oshxona</option>
+        </select>
+      </div>
+      <button class="filter-apply" onclick="applyFilters()">Filtrlash</button>
+      <button class="filter-apply" style="background:#f1f5f9;color:#475569;margin-top:8px" onclick="resetFilters()">Tozalash</button>
+    </aside>
 
-<div id="bookingModal" class="modal"><div class="modal-box">
-  <div class="modal-head"><div><h2>📝 Bron qilish</h2><div id="bookingName" class="sub"></div></div><button class="close" onclick="closeBooking()">×</button></div>
-  <div id="bookingNotice" class="notice"></div>
-  <form id="bookingForm">
-    <div class="form-grid">
-      <div class="field"><label>Kelish *</label><input id="bIn" required type="date"></div>
-      <div class="field"><label>Ketish *</label><input id="bOut" required type="date"></div>
-      <div class="field"><label>Mehmonlar *</label><input id="bGuests" required type="number" min="1" value="2"></div>
-      <div class="field"><label>Telefon *</label><input id="bPhone" required type="tel" placeholder="+998 90 123 45 67"></div>
-      <div class="field full"><button class="btn btn-primary" style="width:100%;padding:14px" type="submit">📤 Bron so'rovini yuborish</button></div>
-    </div>
-  </form>
-</div></div>
+    <!-- LISTINGS -->
+    <main>
+      <div class="listings-header">
+        <div class="listings-count"><b id="countNum">0</b> ta e'lon topildi</div>
+        <select class="sort-select" id="sortSelect" onchange="renderListings()">
+          <option value="new">Eng yangi</option>
+          <option value="cheap">Arzon narx</option>
+          <option value="expensive">Qimmat narx</option>
+        </select>
+      </div>
+      <div class="grid" id="listingsGrid">
+        <div class="loading">⏳ E'lonlar yuklanmoqda...</div>
+      </div>
+    </main>
 
-<div id="detailModal" class="modal"><div class="modal-box">
-  <div class="modal-head"><div><h2 id="dName"></h2><div id="dMeta" class="sub"></div></div><button class="close" onclick="closeDetail()">×</button></div>
-  <div class="gallery-main" id="dMainWrap"><img id="dMain" alt=""></div>
-  <div id="dThumbs" class="gallery-thumbs"></div>
-  <div class="detail-section">
-    <h3>ℹ️ Batafsil ma'lumot</h3><div id="dInfo" class="info-list"></div>
-    <h3>🛎 Qulayliklar</h3><div id="dAmenities" class="amenity-chips"></div>
-    <h3>📝 Tavsif</h3><div id="dDesc" class="desc-text"></div>
-    <div id="dMapWrap" style="margin-top:12px"></div>
   </div>
-  <button class="btn btn-primary" id="dBookBtn" style="width:100%;margin-top:18px;padding:14px">📝 Bron</button>
-</div></div>
+</div>
 
-<div id="toast" class="toast"></div>
+<!-- MOBILE FILTER BUTTON -->
+<button class="mobile-filter-btn" onclick="toggleMobileFilter()">🔎 Filtrlar</button>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- AUTH MODAL -->
+<div class="modal" id="authModal">
+  <div class="modal-box" style="max-width:440px">
+    <div class="modal-head">
+      <div><h2 id="authTitle">Kirish</h2><div class="sub" id="authSub">dach.uz hisobingizga kiring</div></div>
+      <button class="close-btn" onclick="closeModal('authModal')">×</button>
+    </div>
+    <div class="tabs" id="authTabs">
+      <button id="tabLogin" class="active" onclick="setAuthMode('login')">Kirish</button>
+      <button id="tabSignup" onclick="setAuthMode('signup')">Ro'yxatdan o'tish</button>
+    </div>
+    <div class="notice" id="authNotice"></div>
+    <form id="authForm" onsubmit="submitAuth(event)">
+      <div class="field" id="nameField" style="display:none">
+        <label>Ism familiya <span class="req">*</span></label>
+        <input id="aName" placeholder="Ism Familiya">
+      </div>
+      <div class="field">
+        <label>Email <span class="req">*</span></label>
+        <input id="aEmail" type="email" required placeholder="siz@example.com">
+      </div>
+      <div class="field">
+        <label>Parol <span class="req">*</span></label>
+        <input id="aPass" type="password" required minlength="6" placeholder="Kamida 6 belgi">
+      </div>
+      <button type="submit" class="btn-post" id="authSubmit" style="width:100%;justify-content:center;padding:14px">Kirish</button>
+    </form>
+  </div>
+</div>
+
+<!-- POST AD MODAL -->
+<div class="modal" id="postModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><h2>➕ Yangi e'lon berish</h2><div class="sub">Dachangizni joylashtiring va mijozlarni toping</div></div>
+      <button class="close-btn" onclick="closeModal('postModal')">×</button>
+    </div>
+    <div class="notice" id="postNotice"></div>
+    <form id="postForm" onsubmit="submitPost(event)">
+      <div class="field">
+        <label>E'lon sarlavhasi <span class="req">*</span></label>
+        <input id="pTitle" required placeholder="Masalan: Chorvoqdagi hashamdor dacha">
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Kategoriya <span class="req">*</span></label>
+          <select id="pCategory" required>
+            <option value="">Tanlang</option>
+            <option value="kunlik">Kunlik ijara</option>
+            <option value="sotuv">Sotuv</option>
+            <option value="hovuz">Hovuzli</option>
+            <option value="tog">Tog'da</option>
+            <option value="daryo">Daryo bo'yida</option>
+            <option value="hasham">Hashamdor</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Viloyat <span class="req">*</span></label>
+          <select id="pRegion" required>
+            <option value="">Tanlang</option>
+            <option>Toshkent</option><option>Samarqand</option><option>Buxoro</option>
+            <option>Jizzax</option><option>Namangan</option><option>Farg'ona</option>
+            <option>Andijon</option><option>Qashqadaryo</option><option>Surxondaryo</option>
+            <option>Navoiy</option><option>Xorazm</option><option>Sirdaryo</option>
+            <option>Qoraqalpog'iston</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Manzil / joylashuv <span class="req">*</span></label>
+          <input id="pLocation" required placeholder="Bo'stonliq, Chorvoq">
+        </div>
+        <div class="field">
+          <label>Narx (so'm) <span class="req">*</span></label>
+          <input id="pPrice" type="number" required min="0" placeholder="500000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Xonalar soni</label>
+          <input id="pRooms" type="number" min="1" placeholder="3">
+        </div>
+        <div class="field">
+          <label>Narx turi</label>
+          <select id="pPriceType">
+            <option value="kecha">1 kecha uchun</option>
+            <option value="kun">1 kun uchun</option>
+            <option value="umumiy">Umumiy narx (sotuv)</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Telefon raqam <span class="req">*</span></label>
+        <input id="pPhone" type="tel" required placeholder="+998 90 123 45 67">
+      </div>
+      <div class="field">
+        <label>Qulayliklar</label>
+        <input id="pAmenities" placeholder="Hovuz, sauna, Wi-Fi, parking (vergul bilan)">
+      </div>
+      <div class="field">
+        <label>Tavsif <span class="req">*</span></label>
+        <textarea id="pDesc" required placeholder="Dacha haqida batafsil ma'lumot yozing..."></textarea>
+      </div>
+      <div class="field">
+        <label>Rasmlar (kamida 1 ta) <span class="req">*</span></label>
+        <div class="img-upload">
+          <input type="file" id="pFiles" accept="image/*" multiple onchange="handleFiles(event)">
+          <label for="pFiles">📷 <b>Rasm tanlang</b> yoki bu yerga tashlang<br><span style="font-size:11.5px">Maks. 5MB / rasm, 10 tagacha</span></label>
+        </div>
+        <div class="img-preview" id="imgPreview"></div>
+      </div>
+      <button type="submit" class="btn-post" style="width:100%;justify-content:center;padding:15px;font-size:15px">🚀 E'lonni joylashtirish</button>
+    </form>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal" id="detailModal">
+  <div class="modal-box" style="max-width:840px">
+    <div class="modal-head">
+      <div><h2 id="dTitle">E'lon</h2><div class="sub" id="dSub"></div></div>
+      <button class="close-btn" onclick="closeModal('detailModal')">×</button>
+    </div>
+    <div id="dBody"></div>
+  </div>
+</div>
+
+<!-- FAVORITES MODAL -->
+<div class="modal" id="favModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div><h2>❤️ Sevimlilar</h2><div class="sub">Siz saqlab qo'ygan e'lonlar</div></div>
+      <button class="close-btn" onclick="closeModal('favModal')">×</button>
+    </div>
+    <div id="favBody"></div>
+  </div>
+</div>
+
+<!-- USER DROPDOWN -->
+<div id="userDropdown" class="hidden" style="position:fixed;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 16px 40px -12px rgba(0,0,0,.2);padding:6px;z-index:85;min-width:180px">
+  <button onclick="showMyPosts()" style="width:100%;text-align:left;padding:10px 12px;border-radius:8px;font-size:13.5px;font-weight:600;color:#334155">📋 Mening e'lonlarim</button>
+  <button onclick="showFavorites()" style="width:100%;text-align:left;padding:10px 12px;border-radius:8px;font-size:13.5px;font-weight:600;color:#334155">❤️ Sevimlilar</button>
+  <div style="height:1px;background:var(--line);margin:4px 0"></div>
+  <button onclick="logout()" style="width:100%;text-align:left;padding:10px 12px;border-radius:8px;font-size:13.5px;font-weight:600;color:#ef4444">↪ Chiqish</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import { getAnalytics, isSupported as analyticsSupported } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { getDatabase, ref, push, set, get, onValue, remove } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
@@ -428,505 +474,402 @@ const firebaseConfig = {
   projectId: "uzbektelegrami",
   storageBucket: "uzbektelegrami.firebasestorage.app",
   messagingSenderId: "13650278375",
-  appId: "1:13650278375:web:b4b3e06021399c41dc6f42",
-  measurementId: "G-80MM024Q4W"
+  appId: "1:13650278375:web:b4b3e06021399c41dc6f42"
 };
-
 const app = initializeApp(firebaseConfig);
-analyticsSupported().then(x => x && getAnalytics(app)).catch(() => {});
 const auth = getAuth(app), db = getDatabase(app);
-setPersistence(auth, browserLocalPersistence).catch(() => {});
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 
-function notice(el, msg, type = "info"){ if(!el) return; el.className = "notice show " + type; el.textContent = msg; }
-function clearNotice(el){ if(!el) return; el.className = "notice"; el.textContent = ""; }
-let toastTimer = null;
-function toast(msg, type = "info"){
-  const el = $("toast"); if(!el) return;
-  el.textContent = msg; el.className = "toast show " + type;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => { el.className = "toast " + type; }, 3200);
-}
-
-const isOwnerRole = r => r === "owner" || r === "owner_pending";
-const MAX_IMAGES = 10;
-const DEFAULT_IMG = "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80";
-const TILE_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-
-let USER = null, USER_ROLE = null;
-let RESORTS = [], BOOKINGS = [];
-let selectedResortId = null;
+let USER = null;
+let ADS = [];
 let editImages = [];
-let map = null, markersLayer = null;
-let viewMode = "list";
-let bookingResortId = null;
-let sortMode = "popular";
+let currentCategory = "all";
+let currentSearch = "";
+let favorites = JSON.parse(localStorage.getItem("dachFav") || "[]");
 
-function fmtPrice(uzs){
-  const n = Number(uzs) || 0;
-  return n.toLocaleString("uz-UZ") + " so'm";
+function toast(msg, type="info"){
+  const el = $("toast");
+  el.textContent = msg;
+  el.className = "toast show " + type;
+  setTimeout(() => el.className = "toast " + type, 3000);
 }
 
-/* AUTH STATE */
-onAuthStateChanged(auth, async user => {
+/* AUTH */
+onAuthStateChanged(auth, user => {
+  USER = user;
   if(user){
-    USER = user;
-    try{
-      const snap = await get(ref(db, "users/" + user.uid));
-      const data = snap.exists() ? snap.val() : {};
-      USER_ROLE = data.role || "customer";
-    }catch(e){ USER_ROLE = "customer"; }
-    updateAuthUI();
-    if(isOwnerRole(USER_ROLE)) loadOwnerData();
+    $("loginBtn").classList.add("hidden");
+    $("userMenu").classList.remove("hidden");
+    const name = user.email.split("@")[0];
+    $("avatarBox").textContent = name[0].toUpperCase();
+    $("userName").textContent = name;
   } else {
-    USER = null; USER_ROLE = null;
-    updateAuthUI();
+    $("loginBtn").classList.remove("hidden");
+    $("userMenu").classList.add("hidden");
   }
 });
 
-function updateAuthUI(){
-  const loggedIn = !!USER;
-  $("customerLoginBtn").classList.toggle("hidden", loggedIn);
-  $("logoutBtn").classList.toggle("hidden", !loggedIn);
-  $("userBox").style.display = loggedIn ? "flex" : "none";
-  if(loggedIn){
-    const email = USER.email || "";
-    $("avatar").textContent = (email[0] || "U").toUpperCase();
-    $("userName").textContent = email.split("@")[0];
-    const owner = isOwnerRole(USER_ROLE);
-    $("dashboardBtn").classList.toggle("hidden", !owner);
-    $("ownerFab").classList.toggle("show", owner);
-  } else {
-    $("dashboardBtn").classList.add("hidden");
-    $("ownerFab").classList.remove("show");
-  }
+function openAuth(){ $("authModal").classList.add("show"); $("authNotice").className = "notice"; }
+function closeModal(id){ $(id).classList.remove("show"); }
+
+let authMode = "login";
+function setAuthMode(m){
+  authMode = m;
+  $("tabLogin").classList.toggle("active", m === "login");
+  $("tabSignup").classList.toggle("active", m === "signup");
+  $("nameField").style.display = m === "signup" ? "flex" : "none";
+  $("authTitle").textContent = m === "signup" ? "Ro'yxatdan o'tish" : "Kirish";
+  $("authSubmit").textContent = m === "signup" ? "Hisob yaratish" : "Kirish";
 }
 
-function openCustomerAuth(){ window._authMode = "customer"; setMode("login"); $("authModal").classList.add("show"); updateAuthModal(); }
-function openOwnerAuth(){ window._authMode = "owner"; setMode("login"); $("authModal").classList.add("show"); updateAuthModal(); }
-function closeAuth(){ $("authModal").classList.remove("show"); clearNotice($("authNotice")); }
-
-function setMode(m){
-  window._authAction = m;
-  $("loginTab").classList.toggle("active", m === "login");
-  $("signupTab").classList.toggle("active", m === "signup");
-  const isOwner = window._authMode === "owner";
-  $("ownerFields").classList.toggle("hidden", !(isOwner && m === "signup"));
-  $("customerNameField").classList.toggle("hidden", !(!isOwner && m === "signup"));
-  updateAuthModal();
-}
-
-function updateAuthModal(){
-  const isOwner = window._authMode === "owner";
-  $("modalTitle").textContent = isOwner ? "🏠 Maskan egasi" : "👤 Mijoz";
-  $("modalSubtitle").textContent = isOwner ? "Dacha yoki maskaningizni UzBooking'ga joylashtiring." : "Bron qilish uchun tizimga kiring.";
-  const key = window._authAction === "login" ? (isOwner ? "🏠 Maskan egasi kirishi" : "👤 Kirish") : (isOwner ? "🏡 Maskan egasi bo'lish" : "👤 Hisob yaratish");
-  $("submitAuth").textContent = key;
-  $("forgotWrap").style.display = window._authAction === "login" ? "block" : "none";
-}
-
-$("authForm").addEventListener("submit", async e => {
+async function submitAuth(e){
   e.preventDefault();
-  const n = $("authNotice"); clearNotice(n);
-  const email = $("email").value.trim();
-  const password = $("password").value;
-  if(!email) return notice(n, "Email kiriting.", "err");
-  if(!password || password.length < 6) return notice(n, "Parol kamida 6 belgi.", "err");
+  const n = $("authNotice");
+  const email = $("aEmail").value.trim();
+  const pass = $("aPass").value;
+  n.className = "notice";
   try {
-    if(window._authAction === "signup"){
-      const cred = await createUserWithEmailAndPassword(auth, email, password);
-      const role = window._authMode === "owner" ? "owner" : "customer";
-      const profile = { email, role, createdAt: Date.now() };
-      if(window._authMode === "owner"){
-        profile.firstName = $("firstName").value.trim();
-        profile.lastName = $("lastName").value.trim();
-        profile.phone = $("phone").value.trim();
-      } else {
-        profile.name = $("customerName").value.trim();
-      }
-      await set(ref(db, "users/" + cred.user.uid), profile);
+    if(authMode === "signup"){
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      await set(ref(db, "users/" + cred.user.uid), {
+        email, name: $("aName").value.trim(), createdAt: Date.now(), role: "user"
+      });
       toast("Hisob yaratildi!", "ok");
     } else {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, pass);
+      toast("Xush kelibsiz!", "ok");
     }
-    closeAuth();
+    closeModal("authModal");
+    e.target.reset();
   } catch(err){
-    const code = err.code || "";
-    if(code.includes("email-already-in-use")) notice(n, "Bu email allaqachon ishlatilgan.", "err");
-    else if(code.includes("invalid-email")) notice(n, "Email formati noto'g'ri.", "err");
-    else if(code.includes("wrong-password") || code.includes("user-not-found") || code.includes("invalid-credential")) notice(n, "Email yoki parol noto'g'ri.", "err");
-    else if(code.includes("network")) notice(n, "Internet aloqasini tekshiring.", "err");
-    else notice(n, err.message || "Xatolik", "err");
+    n.className = "notice show err";
+    const c = err.code || "";
+    if(c.includes("email-already-in-use")) n.textContent = "Bu email band.";
+    else if(c.includes("wrong-password") || c.includes("user-not-found") || c.includes("invalid-credential")) n.textContent = "Email yoki parol noto'g'ri.";
+    else if(c.includes("invalid-email")) n.textContent = "Email formati xato.";
+    else n.textContent = err.message;
   }
+}
+
+async function logout(){
+  await signOut(auth);
+  $("userDropdown").classList.add("hidden");
+  toast("Chiqdingiz", "ok");
+}
+
+/* POST AD */
+function openPostAd(){
+  if(!USER){ toast("E'lon berish uchun tizimga kiring", "err"); openAuth(); return; }
+  $("postModal").classList.add("show");
+}
+
+async function submitPost(e){
+  e.preventDefault();
+  if(!USER){ toast("Tizimga kiring", "err"); return; }
+  if(editImages.length === 0){ toast("Kamida 1 ta rasm qo'shing", "err"); return; }
+  const n = $("postNotice");
+  n.className = "notice show info"; n.textContent = "Yuborilmoqda...";
+  try {
+    const data = {
+      title: $("pTitle").value.trim(),
+      category: $("pCategory").value,
+      region: $("pRegion").value,
+      location: $("pLocation").value.trim(),
+      price: Number($("pPrice").value) || 0,
+      rooms: $("pRooms").value ? Number($("pRooms").value) : null,
+      priceType: $("pPriceType").value,
+      phone: $("pPhone").value.trim(),
+      amenities: $("pAmenities").value.trim(),
+      description: $("pDesc").value.trim(),
+      images: editImages.slice(),
+      ownerId: USER.uid,
+      ownerEmail: USER.email,
+      createdAt: Date.now(),
+      status: "active"
+    };
+    await push(ref(db, "ads"), data);
+    n.className = "notice show ok"; n.textContent = "E'lon muvaffaqiyatli joylashtirildi!";
+    e.target.reset(); editImages = []; renderPreview();
+    toast("E'lon qo'shildi!", "ok");
+    setTimeout(() => closeModal("postModal"), 1200);
+  } catch(err){
+    n.className = "notice show err"; n.textContent = err.message;
+  }
+}
+
+function handleFiles(e){
+  const files = Array.from(e.target.files || []);
+  for(const f of files){
+    if(editImages.length >= 10){ toast("Maksimal 10 ta rasm", "err"); break; }
+    if(f.size > 5 * 1024 * 1024){ toast("Rasm 5MB dan katta", "err"); continue; }
+    const r = new FileReader();
+    r.onload = ev => { editImages.push(ev.target.result); renderPreview(); };
+    r.readAsDataURL(f);
+  }
+  e.target.value = "";
+}
+
+function renderPreview(){
+  $("imgPreview").innerHTML = editImages.map((u, i) => `
+    <div class="img-thumb">
+      <img src="${u}">
+      <button type="button" onclick="removeImg(${i})">×</button>
+    </div>`).join("");
+}
+function removeImg(i){ editImages.splice(i, 1); renderPreview(); }
+
+/* LOAD ADS */
+onValue(ref(db, "ads"), snap => {
+  ADS = [];
+  if(snap.exists()) snap.forEach(c => ADS.push({ id: c.key, ...c.val() }));
+  renderListings();
 });
 
-async function resetPassword(){
-  const email = $("email").value.trim();
-  if(!email) return notice($("authNotice"), "Email kiriting.", "err");
-  try { await sendPasswordResetEmail(auth, email); notice($("authNotice"), "Parolni tiklash xati yuborildi.", "ok"); }
-  catch(err){ notice($("authNotice"), err.message, "err"); }
+/* FILTERS */
+function applySearch(){
+  currentSearch = $("mainSearch").value.trim().toLowerCase();
+  renderListings();
 }
-async function logout(){ await signOut(auth); toast("Chiqdingiz", "ok"); }
+function setCategory(cat, btn){
+  currentCategory = cat;
+  document.querySelectorAll(".cat").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderListings();
+}
+function applyFilters(){ renderListings(); toggleMobileFilter(); }
+function resetFilters(){
+  $("fRegion").value = ""; $("fPriceMin").value = ""; $("fPriceMax").value = "";
+  $("fRooms").value = ""; $("fAmenity").value = "";
+  renderListings();
+}
+function toggleMobileFilter(){ $("sidebar").classList.toggle("show"); }
 
-/* RESORTS FROM FIREBASE */
-onValue(ref(db, "resorts"), snap => {
-  RESORTS = [];
-  if(snap.exists()){
-    snap.forEach(child => RESORTS.push({ id: child.key, ...child.val() }));
-  }
-  renderResorts();
-  if(viewMode === "map") renderMap();
-  updateStats();
-}, err => { console.error(err); toast("Firebase ulanishda xatolik", "err"); });
+function filterAds(){
+  const reg = $("fRegion").value;
+  const pMin = Number($("fPriceMin").value) || 0;
+  const pMax = Number($("fPriceMax").value) || Infinity;
+  const rooms = $("fRooms").value;
+  const amenity = $("fAmenity").value;
 
-function filteredResorts(){
-  const q = ($("q").value || "").toLowerCase().trim();
-  const region = $("region").value;
-  let list = RESORTS.filter(r => {
-    if(region && r.region !== region) return false;
-    if(q){
-      const hay = ((r.name||"") + " " + (r.location||"") + " " + (r.region||"")).toLowerCase();
-      if(!hay.includes(q)) return false;
+  let list = ADS.filter(a => {
+    if(currentCategory !== "all" && a.category !== currentCategory) return false;
+    if(reg && a.region !== reg) return false;
+    if(a.price < pMin || a.price > pMax) return false;
+    if(rooms){
+      const r = Number(a.rooms) || 0;
+      if(rooms === "4"){ if(r < 4) return false; }
+      else if(r !== Number(rooms)) return false;
+    }
+    if(amenity){
+      const am = (a.amenities || "").toLowerCase();
+      if(!am.includes(amenity)) return false;
+    }
+    if(currentSearch){
+      const hay = ((a.title||"")+" "+(a.location||"")+" "+(a.region||"")+" "+(a.description||"")).toLowerCase();
+      if(!hay.includes(currentSearch)) return false;
     }
     return true;
   });
-  if(sortMode === "price") list.sort((a,b) => (a.price||0) - (b.price||0));
-  else if(sortMode === "rating") list.sort((a,b) => (b.rating||0) - (a.rating||0));
-  else list.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+
+  const sort = $("sortSelect").value;
+  if(sort === "new") list.sort((a,b) => (b.createdAt||0) - (a.createdAt||0));
+  else if(sort === "cheap") list.sort((a,b) => (a.price||0) - (b.price||0));
+  else if(sort === "expensive") list.sort((a,b) => (b.price||0) - (a.price||0));
   return list;
 }
 
-function sortResorts(mode, btn){
-  sortMode = mode;
-  document.querySelectorAll(".chip").forEach(b => { if(!b.id || b.id !== "viewChip") b.classList.remove("active"); });
-  btn.classList.add("active");
-  renderResorts();
-}
-
-function searchResorts(){ renderResorts(); toast("Qidiruv bajarildi", "ok"); }
-
-function resortImages(r){
-  if(Array.isArray(r.images) && r.images.length) return r.images;
-  if(r.image) return [r.image];
-  return [DEFAULT_IMG];
-}
-
-function renderResorts(){
-  const grid = $("resortGrid");
-  if(!grid) return;
-  const list = filteredResorts();
+function renderListings(){
+  const grid = $("listingsGrid");
+  const list = filterAds();
+  $("countNum").textContent = list.length;
   if(!list.length){
-    grid.innerHTML = `<div class="empty">Mos keladigan maskan topilmadi.<br><br>Agar siz maskan egasi bo'lsangiz, "Maskan egasi" tugmasini bosib, o'z maskaningizni qo'shing.</div>`;
+    grid.innerHTML = `<div class="empty">
+      <div class="em-ic">🏚</div>
+      <h3>E'lon topilmadi</h3>
+      <p>Hozircha bu shartlarga mos e'lon yo'q. Filtrlarni o'zgartirib ko'ring yoki birinchi bo'lib e'lon joylashtiring!</p>
+      <button onclick="openPostAd()">➕ E'lon berish</button>
+    </div>`;
     return;
   }
-  grid.innerHTML = list.map(r => {
-    const imgs = resortImages(r);
-    const featured = !!r.featured;
+  grid.innerHTML = list.map(a => {
+    const img = a.images?.[0] || "";
+    const isFav = favorites.includes(a.id);
+    const catNames = {kunlik:"Kunlik ijara",sotuv:"Sotuv",hovuz:"Hovuzli",tog:"Tog'da",daryo:"Daryo bo'yida",hasham:"Hashamdor"};
+    const catName = catNames[a.category] || "Dacha";
+    const priceType = a.priceType === "kun" ? "/ kun" : a.priceType === "umumiy" ? "(umumiy)" : "/ kecha";
     return `
-    <article class="card${featured ? " is-featured" : ""}" data-id="${esc(r.id)}">
+    <div class="card" onclick="openDetail('${esc(a.id)}')">
       <div class="photo">
-        <img src="${esc(imgs[0])}" alt="${esc(r.name)}" loading="lazy" onerror="this.src='${DEFAULT_IMG}'">
-        <span class="verified">✔ Tasdiqlangan</span>
-        ${featured ? `<span class="featured-badge">⭐ Tanlangan</span>` : ""}
+        <img src="${esc(img)}" loading="lazy" onerror="this.style.opacity=.3">
+        <span class="card-cat">${esc(catName)}</span>
+        <button class="fav-btn ${isFav?'active':''}" onclick="event.stopPropagation();toggleFav('${esc(a.id)}')">${isFav?'❤️':'🤍'}</button>
       </div>
       <div class="card-body">
-        <div class="row">
-          <h3>${esc(r.name || "Maskan")}</h3>
-          <span class="rating">⭐ ${esc(String(r.rating || "5"))}</span>
-        </div>
-        <div class="meta"><span>📍 ${esc(r.location || r.region || "")}</span></div>
-        <p class="desc">${esc(r.description || "")}</p>
-        <div class="price">${esc(fmtPrice(r.price))} <span>/ kecha</span></div>
-        <div class="actions">
-          <button class="btn btn-soft" onclick="openDetail('${esc(r.id)}')">Batafsil</button>
-          <button class="btn btn-primary" onclick="openBooking('${esc(r.id)}')">Bron</button>
+        <h3>${esc(a.title)}</h3>
+        <div class="card-loc">📍 ${esc(a.region)}${a.location ? ", " + esc(a.location) : ""}</div>
+        <div class="card-price">${Number(a.price).toLocaleString("uz-UZ")} so'm <span>${esc(priceType)}</span></div>
+        <div class="card-date">
+          <span>${timeAgo(a.createdAt)}</span>
+          ${a.rooms ? `<span>🛏 ${esc(a.rooms)} xona</span>` : ""}
         </div>
       </div>
-    </article>`;
+    </div>`;
   }).join("");
 }
 
-/* MAP */
-function toggleViewMode(){
-  viewMode = viewMode === "list" ? "map" : "list";
-  $("listView").classList.toggle("hidden", viewMode === "map");
-  $("mapView").classList.toggle("hidden", viewMode === "list");
-  $("viewIcon").textContent = viewMode === "map" ? "📋" : "🗺";
-  $("viewLabel").textContent = viewMode === "map" ? "Ro'yxat" : "Xarita";
-  if(viewMode === "map"){ setTimeout(renderMap, 100); }
+function timeAgo(ts){
+  if(!ts) return "";
+  const diff = Date.now() - ts;
+  const m = Math.floor(diff / 60000);
+  if(m < 1) return "hozir";
+  if(m < 60) return m + " daqiqa oldin";
+  const h = Math.floor(m / 60);
+  if(h < 24) return h + " soat oldin";
+  const d = Math.floor(h / 24);
+  if(d < 30) return d + " kun oldin";
+  return new Date(ts).toLocaleDateString("uz-UZ");
 }
 
-function renderMap(){
-  if(!map){
-    map = L.map("resortsMap").setView([41.3, 64.5], 6);
-    L.tileLayer(TILE_URL, { attribution: TILE_ATTR, maxZoom: 19 }).addTo(map);
-    markersLayer = L.layerGroup().addTo(map);
-  }
-  setTimeout(() => map.invalidateSize(), 100);
-  markersLayer.clearLayers();
-  const list = filteredResorts().filter(r => r.lat && r.lng);
-  if(!list.length) return;
-  list.forEach(r => {
-    const imgs = resortImages(r);
-    const html = `
-      <div class="map-popup">
-        <img src="${esc(imgs[0])}" style="width:100%;height:118px;object-fit:cover" onerror="this.src='${DEFAULT_IMG}'">
-        <div style="padding:11px 13px 13px">
-          <h4 style="margin:0 0 5px;font-size:14px;font-weight:800">${esc(r.name||"")}</h4>
-          <div style="font-size:11.5px;color:#64748b;margin-bottom:8px">📍 ${esc(r.location||"")}</div>
-          <div style="font-size:16px;font-weight:900;color:#4f46e5;margin-bottom:10px">${esc(fmtPrice(r.price))}</div>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-soft" style="flex:1;padding:8px;font-size:12.5px" onclick="openDetail('${esc(r.id)}')">Batafsil</button>
-            <button class="btn btn-primary" style="flex:1;padding:8px;font-size:12.5px" onclick="openBooking('${esc(r.id)}')">Bron</button>
-          </div>
+/* FAVORITES */
+function toggleFav(id){
+  const i = favorites.indexOf(id);
+  if(i >= 0) favorites.splice(i, 1);
+  else favorites.push(id);
+  localStorage.setItem("dachFav", JSON.stringify(favorites));
+  updateFavDot();
+  renderListings();
+}
+function updateFavDot(){
+  $("favDot").classList.toggle("hidden", favorites.length === 0);
+}
+function showFavorites(){
+  $("userDropdown").classList.add("hidden");
+  const list = ADS.filter(a => favorites.includes(a.id));
+  if(!list.length){
+    $("favBody").innerHTML = `<div class="empty" style="border:0;padding:40px"><div class="em-ic">💔</div><h3>Sevimlilar yo'q</h3><p>E'lonlardagi yurakchani bosib, saqlab qo'ying.</p></div>`;
+  } else {
+    $("favBody").innerHTML = `<div class="grid" style="grid-template-columns:repeat(2,1fr)">${list.map(a => `
+      <div class="card" onclick="closeModal('favModal');openDetail('${esc(a.id)}')" style="cursor:pointer">
+        <div class="photo" style="height:140px"><img src="${esc(a.images?.[0]||"")}"></div>
+        <div class="card-body">
+          <h3 style="font-size:14px">${esc(a.title)}</h3>
+          <div class="card-price" style="font-size:16px">${Number(a.price).toLocaleString("uz-UZ")} so'm</div>
         </div>
-      </div>`;
-    L.marker([r.lat, r.lng]).bindPopup(html).addTo(markersLayer);
-  });
-  const bounds = L.latLngBounds(list.map(r => [r.lat, r.lng]));
-  map.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
+      </div>`).join("")}</div>`;
+  }
+  $("favModal").classList.add("show");
+}
+
+/* MY POSTS */
+function showMyPosts(){
+  $("userDropdown").classList.add("hidden");
+  if(!USER) return;
+  const mine = ADS.filter(a => a.ownerId === USER.uid);
+  if(!mine.length){
+    toast("Sizda hali e'lon yo'q", "info");
+    return;
+  }
+  $("favBody").innerHTML = `<div class="grid" style="grid-template-columns:repeat(2,1fr)">${mine.map(a => `
+    <div class="card">
+      <div class="photo" style="height:140px"><img src="${esc(a.images?.[0]||"")}"></div>
+      <div class="card-body">
+        <h3 style="font-size:14px">${esc(a.title)}</h3>
+        <div class="card-price" style="font-size:16px">${Number(a.price).toLocaleString("uz-UZ")} so'm</div>
+        <div style="display:flex;gap:6px;margin-top:8px">
+          <button class="btn-post" style="flex:1;padding:8px;font-size:12px;justify-content:center" onclick="event.stopPropagation();openDetail('${esc(a.id)}')">Ko'rish</button>
+          <button style="flex:1;padding:8px;background:#fef2f2;color:#ef4444;border-radius:8px;font-weight:700;font-size:12px" onclick="event.stopPropagation();deleteAd('${esc(a.id)}')">O'chirish</button>
+        </div>
+      </div>
+    </div>`).join("")}</div>`;
+  $("favModal").querySelector("h2").textContent = "📋 Mening e'lonlarim";
+  $("favModal").classList.add("show");
+}
+
+async function deleteAd(id){
+  if(!confirm("E'lonni o'chirishni tasdiqlaysizmi?")) return;
+  await remove(ref(db, "ads/" + id));
+  toast("E'lon o'chirildi", "ok");
+  showMyPosts();
 }
 
 /* DETAIL */
 function openDetail(id){
-  const r = RESORTS.find(x => x.id === id);
-  if(!r) return;
-  selectedResortId = id;
-  const imgs = resortImages(r);
-  $("dName").textContent = r.name || "";
-  $("dMeta").textContent = `${r.region || ""} • ${r.location || ""}`;
-  $("dMain").src = imgs[0];
-  $("dThumbs").innerHTML = imgs.map((u, i) => `<img src="${esc(u)}" onclick="selectDetailImg('${esc(id)}', ${i})" class="${i===0?'active':''}" onerror="this.src='${DEFAULT_IMG}'">`).join("");
-  $("dInfo").innerHTML = `
-    <div class="item"><b>Bir kecha narxi</b><span>${esc(fmtPrice(r.price))}</span></div>
-    <div class="item"><b>Reyting</b><span>⭐ ${esc(String(r.rating||"5"))}</span></div>
-    <div class="item"><b>Viloyat</b><span>${esc(r.region||"-")}</span></div>
-    <div class="item"><b>Joylashuv</b><span>${esc(r.location||"-")}</span></div>
+  const a = ADS.find(x => x.id === id);
+  if(!a) return;
+  $("dTitle").textContent = a.title;
+  $("dSub").textContent = `${a.region || ""}${a.location ? ", " + a.location : ""} • ${timeAgo(a.createdAt)}`;
+  const imgs = a.images || [];
+  const imgsHtml = imgs.length >= 3
+    ? `<div class="detail-imgs"><img class="big" src="${esc(imgs[0])}"><img src="${esc(imgs[1])}"><img src="${esc(imgs[2])}"></div>`
+    : imgs.length === 2
+    ? `<div class="detail-imgs"><img class="big" src="${esc(imgs[0])}"><img src="${esc(imgs[1])}"><img src="${esc(imgs[0])}"></div>`
+    : `<div style="border-radius:14px;overflow:hidden;margin-bottom:18px;height:280px"><img src="${esc(imgs[0]||"")}" style="width:100%;height:100%;object-fit:cover"></div>`;
+  const am = (a.amenities || "").split(",").map(s => s.trim()).filter(Boolean);
+  const priceType = a.priceType === "kun" ? "/ kun" : a.priceType === "umumiy" ? "(umumiy narx)" : "/ kecha";
+  $("dBody").innerHTML = `
+    ${imgsHtml}
+    <div style="font-size:26px;font-weight:900;color:#059669;margin-bottom:16px">${Number(a.price).toLocaleString("uz-UZ")} so'm <span style="font-size:13px;font-weight:600;color:#64748b">${esc(priceType)}</span></div>
+    <div class="detail-grid">
+      <div class="detail-item"><b>Viloyat</b><span>${esc(a.region||"-")}</span></div>
+      <div class="detail-item"><b>Joylashuv</b><span>${esc(a.location||"-")}</span></div>
+      ${a.rooms ? `<div class="detail-item"><b>Xonalar</b><span>${esc(a.rooms)} xona</span></div>` : ""}
+      <div class="detail-item"><b>Kategoriya</b><span>${esc(a.category||"-")}</span></div>
+    </div>
+    ${am.length ? `<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px;letter-spacing:.06em">Qulayliklar</div><div style="display:flex;flex-wrap:wrap;gap:6px">${am.map(x => `<span style="background:#ecfdf5;color:#047857;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700">${esc(x)}</span>`).join("")}</div></div>` : ""}
+    <div style="font-size:12px;font-weight:800;color:#64748b;text-transform:uppercase;margin-bottom:8px;letter-spacing:.06em">Tavsif</div>
+    <div class="detail-desc">${esc(a.description||"-")}</div>
+    <a href="tel:${esc(a.phone)}" class="contact-btn">📞 ${esc(a.phone)}</a>
   `;
-  const am = (r.amenities || "").split(",").map(s => s.trim()).filter(Boolean);
-  $("dAmenities").innerHTML = am.length ? am.map(a => `<span>${esc(a)}</span>`).join("") : `<span>Ma'lumot yo'q</span>`;
-  $("dDesc").textContent = r.description || "Tavsif mavjud emas.";
-  if(r.lat && r.lng){
-    $("dMapWrap").innerHTML = `<a class="btn btn-soft" style="display:inline-flex" href="https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lng}#map=14/${r.lat}/${r.lng}" target="_blank" rel="noopener">🗺 Xaritada ko'rish</a>`;
-  } else $("dMapWrap").innerHTML = "";
-  $("dBookBtn").onclick = () => { closeDetail(); openBooking(id); };
   $("detailModal").classList.add("show");
 }
 
-function selectDetailImg(id, i){
-  const r = RESORTS.find(x => x.id === id);
-  if(!r) return;
-  const imgs = resortImages(r);
-  $("dMain").src = imgs[i];
-  document.querySelectorAll("#dThumbs img").forEach((el, idx) => el.classList.toggle("active", idx === i));
+/* USER DROPDOWN */
+function toggleUserDropdown(e){
+  e.stopPropagation();
+  const dd = $("userDropdown");
+  if(!dd.classList.contains("hidden")){ dd.classList.add("hidden"); return; }
+  const rect = $("userMenu").getBoundingClientRect();
+  dd.style.top = (rect.bottom + 8) + "px";
+  dd.style.right = (window.innerWidth - rect.right) + "px";
+  dd.classList.remove("hidden");
 }
-
-function closeDetail(){ $("detailModal").classList.remove("show"); }
-
-/* BOOKING */
-function openBooking(id){
-  if(!USER){ toast("Bron qilish uchun tizimga kiring.", "err"); openCustomerAuth(); return; }
-  const r = RESORTS.find(x => x.id === id);
-  if(!r) return;
-  bookingResortId = id;
-  $("bookingName").textContent = r.name || "";
-  $("bookingModal").classList.add("show");
-  clearNotice($("bookingNotice"));
-}
-function closeBooking(){ $("bookingModal").classList.remove("show"); bookingResortId = null; }
-
-$("bookingForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const n = $("bookingNotice");
-  const cin = $("bIn").value, cout = $("bOut").value;
-  if(!cin || !cout) return notice(n, "Iltimos, sanalarni to'ldiring.", "err");
-  if(new Date(cout) <= new Date(cin)) return notice(n, "Ketish sanasi kelish sanasidan keyin bo'lishi kerak.", "err");
-  try {
-    await push(ref(db, "bookings"), {
-      resortId: bookingResortId,
-      userId: USER.uid,
-      userEmail: USER.email,
-      checkIn: cin, checkOut: cout,
-      guests: Number($("bGuests").value || 1),
-      phone: $("bPhone").value.trim(),
-      status: "pending",
-      createdAt: Date.now()
-    });
-    notice(n, "Bron so'rovi yuborildi!", "ok");
-    setTimeout(closeBooking, 1200);
-  } catch(err){ notice(n, err.message, "err"); }
-});
-
-/* OWNER PANEL */
-function toggleOwnerPanel(){
-  $("ownerPanel").classList.toggle("show");
-  if($("ownerPanel").classList.contains("show")) loadOwnerData();
-}
-function ownerShowAdd(){
-  $("ownerPanel").classList.add("show");
-  ownerTab("add");
-  $("ownerPanel").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-function ownerTab(t, btn){
-  document.querySelectorAll("#ownerPanel .tab").forEach(b => b.classList.remove("active"));
-  if(btn) btn.classList.add("active");
-  $("ownerAdd").classList.toggle("hidden", t !== "add");
-  $("ownerList").classList.toggle("hidden", t !== "list");
-  $("ownerBookings").classList.toggle("hidden", t !== "bookings");
-  if(t === "list") renderOwnerList();
-  if(t === "bookings") renderOwnerBookings();
-}
-
-async function loadOwnerData(){
-  if(!USER) return;
-  try {
-    const snap = await get(ref(db, "bookings"));
-    BOOKINGS = [];
-    if(snap.exists()) snap.forEach(c => BOOKINGS.push({ id: c.key, ...c.val() }));
-    updateStats(); renderOwnerList(); renderOwnerBookings();
-  } catch(e){ console.error(e); }
-}
-
-function updateStats(){
-  const mine = RESORTS.filter(r => r.ownerId === USER?.uid);
-  $("sResorts").textContent = mine.length;
-  $("sApproved").textContent = mine.filter(r => r.status === "approved" || !r.status).length;
-  $("sBookings").textContent = BOOKINGS.filter(b => mine.some(r => r.id === b.resortId)).length;
-}
-
-function renderOwnerList(){
-  const wrap = $("ownerList");
-  if(!USER) return;
-  const mine = RESORTS.filter(r => r.ownerId === USER.uid);
-  if(!mine.length){ wrap.innerHTML = `<div class="empty">Hali maskan qo'shilmagan.</div>`; return; }
-  wrap.innerHTML = `
-    <div class="table-wrap"><table class="table">
-      <thead><tr><th>Nomi</th><th>Narx</th><th>Holat</th><th></th></tr></thead>
-      <tbody>${mine.map(r => `<tr>
-        <td>${esc(r.name)}</td>
-        <td>${esc(fmtPrice(r.price))}</td>
-        <td>${r.status === "pending" ? "Kutilmoqda" : "Tasdiqlangan"}</td>
-        <td><button class="btn btn-soft" onclick="openDetail('${esc(r.id)}')">Ko'rish</button></td>
-      </tr>`).join("")}</tbody>
-    </table></div>`;
-}
-
-function renderOwnerBookings(){
-  const wrap = $("ownerBookings");
-  if(!USER) return;
-  const mine = RESORTS.filter(r => r.ownerId === USER.uid).map(r => r.id);
-  const list = BOOKINGS.filter(b => mine.includes(b.resortId));
-  if(!list.length){ wrap.innerHTML = `<div class="empty">Bron yo'q.</div>`; return; }
-  wrap.innerHTML = `
-    <div class="table-wrap"><table class="table">
-      <thead><tr><th>Maskan</th><th>Kelish</th><th>Ketish</th><th>Mehmonlar</th><th>Telefon</th></tr></thead>
-      <tbody>${list.map(b => {
-        const r = RESORTS.find(x => x.id === b.resortId);
-        return `<tr><td>${esc(r?.name || "-")}</td><td>${esc(b.checkIn)}</td><td>${esc(b.checkOut)}</td><td>${esc(String(b.guests))}</td><td>${esc(b.phone || "-")}</td></tr>`;
-      }).join("")}</tbody>
-    </table></div>`;
-}
-
-/* IMAGE MANAGER */
-function renderEditImages(){
-  const wrap = $("rImages"); if(!wrap) return;
-  wrap.innerHTML = editImages.map((u, i) => `
-    <div class="thumb">
-      <img src="${esc(u)}" onerror="this.src='${DEFAULT_IMG}'">
-      ${i === 0 ? `<span class="b-cover">Muqova</span>` : ""}
-      <div class="ops">
-        ${i > 0 ? `<button type="button" onclick="moveImg(${i}, -1)">←</button>` : ""}
-        ${i < editImages.length-1 ? `<button type="button" onclick="moveImg(${i}, 1)">→</button>` : ""}
-        <button type="button" onclick="removeImg(${i})">×</button>
-      </div>
-    </div>`).join("");
-}
-function moveImg(i, d){ const j = i + d; if(j < 0 || j >= editImages.length) return; [editImages[i], editImages[j]] = [editImages[j], editImages[i]]; renderEditImages(); }
-function removeImg(i){ editImages.splice(i, 1); renderEditImages(); }
-function rAddUrl(){
-  const u = $("rImageUrl").value.trim(); if(!u) return;
-  if(editImages.length >= MAX_IMAGES) return toast("Maksimal 10 ta rasm.", "err");
-  editImages.push(u); $("rImageUrl").value = ""; renderEditImages();
-}
-
-$("rFiles").addEventListener("change", async e => {
-  const files = Array.from(e.target.files || []);
-  for(const f of files){
-    if(editImages.length >= MAX_IMAGES){ toast("Maksimal 10 ta rasm.", "err"); break; }
-    if(f.size > 5 * 1024 * 1024){ toast("Rasm hajmi 5MB dan oshmasin.", "err"); continue; }
-    const b64 = await fileToBase64(f);
-    editImages.push(b64);
+document.addEventListener("click", e => {
+  if(!e.target.closest("#userMenu") && !e.target.closest("#userDropdown")){
+    $("userDropdown").classList.add("hidden");
   }
-  renderEditImages(); e.target.value = "";
 });
 
-function fileToBase64(file){
-  return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = () => res(r.result);
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
-}
-
-/* RESORT FORM */
-$("resortForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const n = $("ownerNotice");
-  if(!USER || !isOwnerRole(USER_ROLE)) return notice(n, "Avval maskan egasi sifatida ro'yxatdan o'ting.", "err");
-  if(!editImages.length) return notice(n, "Kamida 1 ta rasm qo'shing.", "err");
-  notice(n, "Saqlanmoqda...", "info");
-  try {
-    const data = {
-      name: $("rName").value.trim(),
-      region: $("rRegion").value,
-      location: $("rLocation").value.trim(),
-      price: Number($("rPrice").value) || 0,
-      rating: Number($("rRating").value) || 5,
-      lat: $("rLat").value ? Number($("rLat").value) : null,
-      lng: $("rLng").value ? Number($("rLng").value) : null,
-      amenities: $("rAmenities").value.trim(),
-      description: $("rDesc").value.trim(),
-      images: editImages.slice(),
-      image: editImages[0],
-      ownerId: USER.uid,
-      ownerEmail: USER.email,
-      status: "approved",
-      createdAt: Date.now()
-    };
-    await push(ref(db, "resorts"), data);
-    notice(n, "Maskan muvaffaqiyatli joylashtirildi!", "ok");
-    $("resortForm").reset(); editImages = []; renderEditImages();
-    toast("Maskan qo'shildi!", "ok");
-  } catch(err){ notice(n, err.message, "err"); }
+/* ESC to close modals */
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") document.querySelectorAll(".modal.show").forEach(m => m.classList.remove("show"));
 });
 
-/* EXPORT FUNCTIONS TO WINDOW */
-window.openDetail = openDetail;
-window.closeDetail = closeDetail;
-window.selectDetailImg = selectDetailImg;
-window.openBooking = openBooking;
-window.closeBooking = closeBooking;
-window.toggleViewMode = toggleViewMode;
-window.sortResorts = sortResorts;
-window.searchResorts = searchResorts;
-window.ownerShowAdd = ownerShowAdd;
-window.ownerTab = ownerTab;
-window.toggleOwnerPanel = toggleOwnerPanel;
-window.openCustomerAuth = openCustomerAuth;
-window.openOwnerAuth = openOwnerAuth;
-window.closeAuth = closeAuth;
-window.setMode = setMode;
-window.resetPassword = resetPassword;
+/* EXPORT */
+window.openAuth = openAuth;
+window.closeModal = closeModal;
+window.setAuthMode = setAuthMode;
+window.submitAuth = submitAuth;
 window.logout = logout;
-window.rAddUrl = rAddUrl;
-window.moveImg = moveImg;
+window.openPostAd = openPostAd;
+window.submitPost = submitPost;
+window.handleFiles = handleFiles;
 window.removeImg = removeImg;
+window.applySearch = applySearch;
+window.setCategory = setCategory;
+window.applyFilters = applyFilters;
+window.resetFilters = resetFilters;
+window.toggleMobileFilter = toggleMobileFilter;
+window.toggleFav = toggleFav;
+window.openDetail = openDetail;
+window.showFavorites = showFavorites;
+window.showMyPosts = showMyPosts;
+window.deleteAd = deleteAd;
+window.toggleUserDropdown = toggleUserDropdown;
 
-renderEditImages();
+updateFavDot();
+setAuthMode("login");
 </script>
 </body>
 </html>
