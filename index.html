@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#4f46e5">
-<meta name="description" content="UzBooking — O‘zbekiston bo‘ylab dam olish maskanlarini toping va onlayn bron qiling.">
+<meta name="description" content="UzBooking — O'zbekiston bo'ylab dam olish maskanlarini toping va onlayn bron qiling.">
 <title>UzBooking — Dam olish maskanlarini bron qilish</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,6 @@ a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 .container{width:min(1240px,calc(100% - 40px));margin:auto}
 #resorts,.panel{scroll-margin-top:96px}
-
 html[dir="rtl"] .search-item{border-right:0;border-left:1px solid var(--line-2)}
 html[dir="rtl"] .search-item:last-of-type{border-left:0}
 html[dir="rtl"] .fav{right:auto;left:12px}
@@ -36,14 +35,12 @@ html[dir="rtl"] .img-counter{right:auto;left:10px}
 html[dir="rtl"] .img-nav-prev{left:auto;right:10px}
 html[dir="rtl"] .img-nav-next{right:auto;left:10px}
 html[dir="rtl"] .featured-badge{right:auto;left:12px}
-
 .header{position:sticky;top:0;z-index:80;background:rgba(15,23,42,.35);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.15)}
 .nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{display:flex;align-items:center;flex-shrink:0}
 .logo-img{height:56px;width:auto;max-width:260px;object-fit:contain;border-radius:12px;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55));transition:transform .2s}
 .logo:hover .logo-img{transform:scale(1.03)}
 .nav-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-
 .flag-dd{position:relative;display:inline-block}
 .flag-dd-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.96);border:1.5px solid rgba(255,255,255,.6);box-shadow:0 8px 20px -10px rgba(0,0,0,.35);cursor:pointer;transition:.2s;backdrop-filter:blur(10px);color:#0f172a;font-weight:800;font-size:13px;white-space:nowrap}
 .flag-dd-btn:hover{border-color:#a5b4fc;transform:translateY(-1px)}
@@ -61,7 +58,6 @@ html[dir="rtl"] .flag-dd-menu{right:auto;left:0}
 .flag-dd-item .lbl{flex:1;text-align:start}
 .flag-dd-item .code{font-size:10.5px;color:#94a3b8;font-weight:800;letter-spacing:.05em}
 .flag-dd-item.active .code{color:#6366f1}
-
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:11px 16px;border-radius:12px;font-weight:700;font-size:14px;transition:transform .15s,background .2s,box-shadow .2s,color .2s;white-space:nowrap}
 .btn:active{transform:translateY(1px)}
 .btn-primary{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;box-shadow:0 10px 24px -12px rgba(79,70,229,.8)}
@@ -78,7 +74,6 @@ html[dir="rtl"] .flag-dd-menu{right:auto;left:0}
 .user-box{display:none;align-items:center;gap:8px;background:rgba(255,255,255,.95);border:1.5px solid rgba(255,255,255,.6);padding:4px 12px 4px 4px;border-radius:999px;box-shadow:0 8px 20px -10px rgba(0,0,0,.3)}
 html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .avatar{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#4f46e5,#06b6d4);color:#fff;font-weight:800;font-size:12.5px}
-
 .hero{padding:60px 0 40px}
 .tag{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(255,255,255,.2);backdrop-filter:blur(14px);color:#fff;border-radius:999px;font-size:12.5px;font-weight:800;border:1.5px solid rgba(255,255,255,.35);box-shadow:0 8px 20px -10px rgba(0,0,0,.4)}
 .hero h1{font-size:clamp(36px,5.2vw,64px);line-height:1.02;letter-spacing:-.035em;margin:18px 0 24px;font-weight:900;color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.5),0 2px 8px rgba(0,0,0,.4)}
@@ -89,7 +84,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .search-item input,.search-item select{width:100%;border:0;outline:0;background:transparent;color:var(--text);font-weight:700;font-size:14px;padding:0}
 .search-item input::placeholder{color:#94a3b8;font-weight:500}
 .search .btn-primary{margin:6px;padding:14px 22px;font-size:15px;border-radius:16px}
-
 .section{padding:34px 0}
 .section-top{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:22px;flex-wrap:wrap}
 .section h2{margin:0 0 6px;font-size:clamp(22px,3vw,30px);font-weight:900;letter-spacing:-.025em;color:#fff;text-shadow:0 3px 16px rgba(0,0,0,.6)}
@@ -101,20 +95,11 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .chip.active{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;border-color:transparent;box-shadow:0 10px 26px -10px rgba(79,70,229,.9)}
 .view-chip{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;border-color:transparent;box-shadow:0 10px 26px -10px rgba(15,23,42,.9)}
 .view-chip:hover{color:#fff;transform:translateY(-1px)}
-
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .card{background:rgba(255,255,255,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1.5px solid rgba(255,255,255,.85);border-radius:var(--radius);overflow:hidden;box-shadow:0 20px 50px -20px rgba(0,0,0,.55),0 4px 12px -4px rgba(0,0,0,.2);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
 .card:hover{transform:translateY(-6px);box-shadow:0 40px 80px -24px rgba(0,0,0,.7),0 8px 20px -6px rgba(0,0,0,.35)}
-
-.card.is-featured{
-  border-color:rgba(245,158,11,.65);
-  box-shadow:0 20px 50px -18px rgba(217,119,6,.45),0 4px 14px -4px rgba(0,0,0,.25);
-}
-.card.is-featured:hover{
-  box-shadow:0 40px 80px -24px rgba(217,119,6,.5),0 8px 20px -6px rgba(0,0,0,.35);
-  border-color:rgba(245,158,11,.85);
-}
-
+.card.is-featured{border-color:rgba(245,158,11,.65);box-shadow:0 20px 50px -18px rgba(217,119,6,.45),0 4px 14px -4px rgba(0,0,0,.25)}
+.card.is-featured:hover{box-shadow:0 40px 80px -24px rgba(217,119,6,.5),0 8px 20px -6px rgba(0,0,0,.35);border-color:rgba(245,158,11,.85)}
 .photo{height:230px;background:#e2e8f0;position:relative;overflow:hidden}
 .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s,opacity .3s}
 .card:hover .photo img{transform:scale(1.03)}
@@ -129,17 +114,7 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .img-dots span.active{background:#fff;width:16px;border-radius:999px}
 .img-counter{position:absolute;bottom:10px;right:10px;background:rgba(15,23,42,.7);backdrop-filter:blur(8px);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;z-index:5}
 .verified{position:absolute;left:12px;top:12px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);padding:7px 12px;border-radius:999px;font-size:11px;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,.15);color:#047857;display:inline-flex;align-items:center;gap:5px;z-index:4}
-
-.featured-badge{
-  position:absolute;right:12px;bottom:12px;
-  background:linear-gradient(135deg,#f59e0b,#d97706);
-  color:#fff;font-size:10.5px;font-weight:800;
-  padding:5px 11px;border-radius:999px;
-  box-shadow:0 8px 20px rgba(217,119,6,.55);
-  z-index:4;display:inline-flex;align-items:center;gap:4px;
-  letter-spacing:.02em;
-}
-
+.featured-badge{position:absolute;right:12px;bottom:12px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:10.5px;font-weight:800;padding:5px 11px;border-radius:999px;box-shadow:0 8px 20px rgba(217,119,6,.55);z-index:4;display:inline-flex;align-items:center;gap:4px;letter-spacing:.02em}
 .fav{position:absolute;right:12px;top:12px;width:40px;height:40px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-radius:50%;font-size:18px;display:grid;place-items:center;transition:.2s;box-shadow:0 6px 18px rgba(0,0,0,.15);z-index:4}
 .fav:hover{transform:scale(1.12)}
 .card-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
@@ -154,62 +129,22 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .actions{display:flex;gap:8px;padding-top:12px}
 .actions .btn{flex:1}
 .empty{grid-column:1/-1;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border:2px dashed rgba(255,255,255,.6);padding:60px 24px;border-radius:22px;text-align:center;color:#334155;font-size:14.5px;font-weight:600}
-
 .map-view{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);border:1.5px solid rgba(255,255,255,.7)}
 .map-view.hidden{display:none}
 #resortsMap{width:100%;height:min(72vh,640px);background:#e2e8f0;display:block;z-index:1}
 .map-empty{position:absolute;inset:0;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;color:#334155;font-weight:600;font-size:14px;text-align:center;padding:20px;z-index:5}
 .map-empty.hidden{display:none}
-
 .price-marker-wrapper{background:transparent!important;border:0!important}
-.price-pin{
-  position:absolute;left:0;top:0;
-  transform:translate(-50%,-50%);
-  display:inline-flex;align-items:center;justify-content:center;
-  background:#fff;color:#0f172a;
-  padding:7px 13px;border-radius:999px;
-  font-weight:800;font-size:13px;letter-spacing:-.01em;
-  box-shadow:0 6px 18px rgba(0,0,0,.28),0 2px 4px rgba(0,0,0,.15);
-  border:1.5px solid rgba(15,23,42,.06);
-  cursor:pointer;white-space:nowrap;
-  transition:transform .18s,background .2s,color .2s,box-shadow .2s;
-  user-select:none;
-}
-.price-pin:hover{
-  background:#0f172a;color:#fff;
-  transform:translate(-50%,-50%) scale(1.12);
-  box-shadow:0 10px 26px rgba(0,0,0,.4);
-  z-index:500;
-}
-.price-pin.active{
-  background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;
-  transform:translate(-50%,-50%) scale(1.15);
-  box-shadow:0 12px 30px -8px rgba(79,70,229,.9);
-  z-index:501;
-}
-.price-pin.cheapest{
-  background:linear-gradient(135deg,#10b981,#059669);color:#fff;
-  border-color:rgba(255,255,255,.6);
-  box-shadow:0 8px 22px -6px rgba(16,185,129,.9);
-}
-.price-pin.cheapest:hover{
-  background:linear-gradient(135deg,#059669,#047857);
-  transform:translate(-50%,-50%) scale(1.15);
-}
-.price-pin.featured-pin{
-  border-color:#f59e0b;
-  box-shadow:0 8px 22px -6px rgba(217,119,6,.75),0 0 0 2px rgba(245,158,11,.35);
-}
-
+.price-pin{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#0f172a;padding:7px 13px;border-radius:999px;font-weight:800;font-size:13px;letter-spacing:-.01em;box-shadow:0 6px 18px rgba(0,0,0,.28),0 2px 4px rgba(0,0,0,.15);border:1.5px solid rgba(15,23,42,.06);cursor:pointer;white-space:nowrap;transition:transform .18s,background .2s,color .2s,box-shadow .2s;user-select:none}
+.price-pin:hover{background:#0f172a;color:#fff;transform:translate(-50%,-50%) scale(1.12);box-shadow:0 10px 26px rgba(0,0,0,.4);z-index:500}
+.price-pin.active{background:linear-gradient(135deg,#4f46e5,#6366f1);color:#fff;transform:translate(-50%,-50%) scale(1.15);box-shadow:0 12px 30px -8px rgba(79,70,229,.9);z-index:501}
+.price-pin.cheapest{background:linear-gradient(135deg,#10b981,#059669);color:#fff;border-color:rgba(255,255,255,.6);box-shadow:0 8px 22px -6px rgba(16,185,129,.9)}
+.price-pin.cheapest:hover{background:linear-gradient(135deg,#059669,#047857);transform:translate(-50%,-50%) scale(1.15)}
+.price-pin.featured-pin{border-color:#f59e0b;box-shadow:0 8px 22px -6px rgba(217,119,6,.75),0 0 0 2px rgba(245,158,11,.35)}
 .leaflet-popup-content-wrapper{border-radius:16px;padding:0;box-shadow:0 24px 60px -12px rgba(0,0,0,.5);overflow:hidden;border:1px solid rgba(15,23,42,.06)}
 .leaflet-popup-content{margin:0;width:250px !important;line-height:1.4}
 .leaflet-popup-tip{box-shadow:0 4px 12px rgba(0,0,0,.15)}
-.leaflet-popup-close-button{
-  width:28px!important;height:28px!important;top:6px!important;right:6px!important;
-  background:rgba(255,255,255,.95)!important;border-radius:50%;color:#0f172a!important;
-  font-size:16px!important;line-height:26px!important;box-shadow:0 2px 8px rgba(0,0,0,.2);
-  display:grid!important;place-items:center;font-weight:700
-}
+.leaflet-popup-close-button{width:28px!important;height:28px!important;top:6px!important;right:6px!important;background:rgba(255,255,255,.95)!important;border-radius:50%;color:#0f172a!important;font-size:16px!important;line-height:26px!important;box-shadow:0 2px 8px rgba(0,0,0,.2);display:grid!important;place-items:center;font-weight:700}
 .leaflet-popup-close-button:hover{background:#fff!important}
 .map-popup img{width:100%;height:118px;object-fit:cover;display:block}
 .map-popup-body{padding:11px 13px 13px}
@@ -220,12 +155,10 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .map-popup-price span{font-size:11px;color:#64748b;font-weight:600;-webkit-text-fill-color:#64748b}
 .map-popup-actions{display:flex;gap:6px}
 .map-popup-actions .btn{flex:1;padding:8px 10px;font-size:12.5px;border-radius:10px}
-
 .leaflet-container{font-family:Inter,sans-serif;background:#e2e8f0}
 .leaflet-control-zoom a{background:#fff;color:#0f172a;border-color:var(--line)!important;font-weight:700}
 .leaflet-control-zoom a:hover{background:#f1f5f9}
 .leaflet-control-attribution{font-size:10px!important;background:rgba(255,255,255,.85)!important}
-
 .panel{display:none;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border:1.5px solid rgba(255,255,255,.7);border-radius:22px;padding:24px;box-shadow:0 30px 70px -20px rgba(0,0,0,.6);margin:14px 0 22px}
 .panel.show{display:block;animation:pop .3s}
 @keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -241,7 +174,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .tab{padding:9px 14px;border-radius:10px;font-weight:700;font-size:13px;color:#475569;transition:.2s}
 .tab:hover{color:#4f46e5}
 .tab.active{background:#fff;color:#4f46e5;box-shadow:0 4px 12px rgba(15,23,42,.08)}
-
 .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .field{display:flex;flex-direction:column;gap:7px}
 .field.full{grid-column:1/-1}
@@ -249,7 +181,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .field input,.field select,.field textarea{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;outline:0;background:#fbfcfe;font-size:14px;color:#0f172a;transition:.2s;width:100%}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:#a5b4fc;background:#fff;box-shadow:0 0 0 4px rgba(99,102,241,.14)}
 .field textarea{min-height:100px;resize:vertical;font-family:inherit}
-
 .owner-img-manager{border:1.5px dashed var(--line);border-radius:14px;padding:14px;background:#fafbff}
 .thumb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:10px}
 .thumb{position:relative;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);aspect-ratio:4/3;background:#f1f5f9}
@@ -261,7 +192,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .url-row{display:flex;gap:8px;margin-top:10px}
 .url-row input{flex:1}
 .help{font-size:11.5px;color:var(--muted);margin-top:6px;line-height:1.5}
-
 .table-wrap{overflow-x:auto}
 .table{width:100%;border-collapse:collapse;min-width:600px}
 .table th,.table td{padding:12px 14px;border-bottom:1px solid var(--line-2);font-size:13px;text-align:left}
@@ -272,7 +202,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .notice.ok{background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
 .notice.err{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
 .hidden{display:none!important}
-
 .modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(15,23,42,.75);backdrop-filter:blur(8px);padding:20px;overflow-y:auto}
 .modal.show{display:flex;align-items:flex-start;justify-content:center}
 .modal-box{width:min(760px,100%);background:#fff;border-radius:24px;padding:26px;box-shadow:0 40px 100px -20px rgba(0,0,0,.8);margin:auto;animation:modalPop .25s;max-height:calc(100vh - 40px);overflow-y:auto}
@@ -285,7 +214,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .switch{display:flex;gap:4px;background:#f1f5f9;padding:5px;border-radius:14px;margin:16px 0}
 .switch button{flex:1;padding:10px;border-radius:10px;font-weight:800;font-size:13.5px;color:#475569;transition:.2s}
 .switch button.active{background:#fff;color:#4f46e5;box-shadow:0 4px 12px rgba(15,23,42,.08)}
-
 .gallery-main{width:100%;aspect-ratio:16/10;background:#f1f5f9;border-radius:16px;overflow:hidden;margin-bottom:12px;position:relative;cursor:zoom-in}
 .gallery-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
 .gallery-main:hover img{transform:scale(1.03)}
@@ -307,7 +235,6 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .amenity-chips span{background:linear-gradient(135deg,#eef2ff,#e0e7ff);color:#4338ca;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700}
 .map-link{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#eef2ff,#e0e7ff);color:#4338ca;padding:10px 14px;border-radius:11px;font-size:13px;font-weight:800;margin-top:6px;transition:.2s}
 .map-link:hover{transform:translateY(-1px)}
-
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:300;align-items:center;justify-content:center;padding:20px}
 .lightbox.show{display:flex}
 .lightbox img{max-width:100%;max-height:100%;object-fit:contain;user-select:none;border-radius:8px}
@@ -316,12 +243,10 @@ html[dir="rtl"] .user-box{padding:4px 4px 4px 12px}
 .lb-prev{left:18px}.lb-next{right:18px}
 .lb-nav:hover,.lb-close:hover{background:rgba(255,255,255,.32)}
 .lb-counter{position:absolute;left:50%;transform:translateX(-50%);bottom:20px;color:#fff;font-size:13px;font-weight:700;background:rgba(255,255,255,.15);padding:7px 14px;border-radius:999px;backdrop-filter:blur(8px)}
-
 .toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:rgba(15,23,42,.95);color:#fff;padding:12px 20px;border-radius:14px;font-size:13.5px;font-weight:600;box-shadow:0 20px 50px -12px rgba(0,0,0,.7);opacity:0;pointer-events:none;transition:.25s;z-index:400;max-width:calc(100vw - 32px);text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast.ok{background:linear-gradient(135deg,#059669,#10b981)}
 .toast.err{background:linear-gradient(135deg,#dc2626,#ef4444)}
-
 footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-shadow:0 2px 10px rgba(0,0,0,.5)}
 .footer-inner{display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
 .footer-copy{color:rgba(255,255,255,.85)}
@@ -332,12 +257,10 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
 .footer-link svg{width:16px;height:16px;flex-shrink:0;display:block}
 .footer-link .phone-ic{color:#34d399}
 .footer-link .tg-ic{color:#38bdf8}
-
 .owner-fab{position:fixed;right:20px;bottom:24px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#fb923c,#f97316);color:#fff;font-size:34px;font-weight:300;line-height:1;display:none;place-items:center;box-shadow:0 16px 40px -8px rgba(249,115,22,.95),0 8px 20px -8px rgba(0,0,0,.5);z-index:60;transition:transform .15s,box-shadow .2s;border:2px solid rgba(255,255,255,.4);padding-bottom:5px}
 .owner-fab:hover{transform:scale(1.06)}
 .owner-fab:active{transform:scale(.94)}
 .owner-fab.show{display:grid}
-
 @media(max-width:1000px){
   .grid{grid-template-columns:repeat(2,1fr)}
   .search{grid-template-columns:1fr 1fr;padding:10px;gap:2px}
@@ -424,11 +347,9 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
           <span id="langCode">UZ</span><span class="chev">▼</span>
         </button>
         <div class="flag-dd-menu">
-          <div class="flag-dd-item active" data-lang="uz" onclick="setLang('uz')"><img class="flag-img" src="https://flagcdn.com/w40/uz.png" alt=""><span class="lbl">O‘zbekcha</span><span class="code">UZ</span></div>
+          <div class="flag-dd-item active" data-lang="uz" onclick="setLang('uz')"><img class="flag-img" src="https://flagcdn.com/w40/uz.png" alt=""><span class="lbl">O'zbekcha</span><span class="code">UZ</span></div>
           <div class="flag-dd-item" data-lang="ru" onclick="setLang('ru')"><img class="flag-img" src="https://flagcdn.com/w40/ru.png" alt=""><span class="lbl">Русский</span><span class="code">RU</span></div>
           <div class="flag-dd-item" data-lang="en" onclick="setLang('en')"><img class="flag-img" src="https://flagcdn.com/w40/gb.png" alt=""><span class="lbl">English</span><span class="code">EN</span></div>
-          <div class="flag-dd-item" data-lang="ar" onclick="setLang('ar')"><img class="flag-img" src="https://flagcdn.com/w40/sa.png" alt=""><span class="lbl">العربية</span><span class="code">AR</span></div>
-          <div class="flag-dd-item" data-lang="zh" onclick="setLang('zh')"><img class="flag-img" src="https://flagcdn.com/w40/cn.png" alt=""><span class="lbl">中文</span><span class="code">ZH</span></div>
         </div>
       </div>
       <div class="flag-dd" id="curDD">
@@ -437,7 +358,7 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
           <span id="curCode">UZS</span><span class="chev">▼</span>
         </button>
         <div class="flag-dd-menu">
-          <div class="flag-dd-item active" data-cur="UZS" onclick="setCurrency('UZS')"><img class="flag-img" src="https://flagcdn.com/w40/uz.png" alt=""><span class="lbl">O‘zbek so‘mi</span><span class="code">UZS</span></div>
+          <div class="flag-dd-item active" data-cur="UZS" onclick="setCurrency('UZS')"><img class="flag-img" src="https://flagcdn.com/w40/uz.png" alt=""><span class="lbl">O'zbek so'mi</span><span class="code">UZS</span></div>
           <div class="flag-dd-item" data-cur="USD" onclick="setCurrency('USD')"><img class="flag-img" src="https://flagcdn.com/w40/us.png" alt=""><span class="lbl">US Dollar</span><span class="code">USD</span></div>
           <div class="flag-dd-item" data-cur="EUR" onclick="setCurrency('EUR')"><img class="flag-img" src="https://flagcdn.com/w40/eu.png" alt=""><span class="lbl">Euro</span><span class="code">EUR</span></div>
         </div>
@@ -453,26 +374,26 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
 
 <section class="hero">
   <div class="container">
-    <span class="tag" data-t="tag">🇺🇿 O‘zbekiston bo‘ylab dam olish</span>
+    <span class="tag" data-t="tag">🇺🇿 O'zbekiston bo'ylab dam olish</span>
     <h1 data-t="heroTitle">Dam olish maskaningizni toping va bron qiling.</h1>
     <div class="search">
       <div class="search-item"><label data-t="searchWhere">Qayerga?</label><input id="q" data-t-ph="searchWherePh" placeholder="Masalan, Chorvoq"></div>
       <div class="search-item"><label data-t="searchRegion">Viloyat</label>
         <select id="region">
           <option value="" data-t="searchAll">Barchasi</option>
-          <option value="Toshkent" data-region="toshkent">Toshkent</option>
-          <option value="Samarqand" data-region="samarqand">Samarqand</option>
-          <option value="Buxoro" data-region="buxoro">Buxoro</option>
-          <option value="Jizzax" data-region="jizzax">Jizzax</option>
-          <option value="Namangan" data-region="namangan">Namangan</option>
-          <option value="Farg‘ona" data-region="fargona">Farg‘ona</option>
-          <option value="Andijon" data-region="andijon">Andijon</option>
-          <option value="Qashqadaryo" data-region="qashqadaryo">Qashqadaryo</option>
-          <option value="Surxondaryo" data-region="surxondaryo">Surxondaryo</option>
-          <option value="Navoiy" data-region="navoiy">Navoiy</option>
-          <option value="Xorazm" data-region="xorazm">Xorazm</option>
-          <option value="Sirdaryo" data-region="sirdaryo">Sirdaryo</option>
-          <option value="Qoraqalpog‘iston" data-region="qoraqalpogiston">Qoraqalpog‘iston</option>
+          <option value="Toshkent">Toshkent</option>
+          <option value="Samarqand">Samarqand</option>
+          <option value="Buxoro">Buxoro</option>
+          <option value="Jizzax">Jizzax</option>
+          <option value="Namangan">Namangan</option>
+          <option value="Farg'ona">Farg'ona</option>
+          <option value="Andijon">Andijon</option>
+          <option value="Qashqadaryo">Qashqadaryo</option>
+          <option value="Surxondaryo">Surxondaryo</option>
+          <option value="Navoiy">Navoiy</option>
+          <option value="Xorazm">Xorazm</option>
+          <option value="Sirdaryo">Sirdaryo</option>
+          <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
         </select>
       </div>
       <div class="search-item"><label data-t="searchCheckIn">Kelish</label><input id="checkIn" type="date"></div>
@@ -485,7 +406,7 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
 <section class="section" id="resorts">
   <div class="container">
     <div class="section-top">
-      <div><h2 data-t="resortsTitle">Dam olish maskanlari</h2><div class="muted" data-t="resortsSubtitle">Tanlangan maskanlar birinchi ko‘rsatiladi.</div></div>
+      <div><h2 data-t="resortsTitle">Dam olish maskanlari</h2><div class="muted" data-t="resortsSubtitle">Tanlangan maskanlar birinchi ko'rsatiladi.</div></div>
       <div class="filters">
         <button class="chip active" onclick="sortResorts('popular',this)" data-t="sortNew">✨ Yangi</button>
         <button class="chip" onclick="sortResorts('price',this)" data-t="sortPrice">💰 Narx</button>
@@ -520,7 +441,7 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
         <div class="stat"><b id="sBookings">0</b><span data-t="statBookings">Bronlar</span></div>
       </div>
       <div class="tabs" style="margin-bottom:16px">
-        <button class="tab active" onclick="ownerTab('add',this)" data-t="tabAddOwner">+ Qo‘shish</button>
+        <button class="tab active" onclick="ownerTab('add',this)" data-t="tabAddOwner">+ Qo'shish</button>
         <button class="tab" onclick="ownerTab('list',this)" data-t="tabMyResorts">Maskanlarim</button>
         <button class="tab" onclick="ownerTab('bookings',this)" data-t="tabBookings">Bronlar</button>
       </div>
@@ -530,41 +451,39 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
           <div class="field"><label data-t="fRegion">Viloyat</label>
             <select id="rRegion" required>
               <option value="" data-t="fRegionChoose">Tanlang</option>
-              <option value="Toshkent" data-region="toshkent">Toshkent</option>
-              <option value="Samarqand" data-region="samarqand">Samarqand</option>
-              <option value="Buxoro" data-region="buxoro">Buxoro</option>
-              <option value="Jizzax" data-region="jizzax">Jizzax</option>
-              <option value="Namangan" data-region="namangan">Namangan</option>
-              <option value="Farg‘ona" data-region="fargona">Farg‘ona</option>
-              <option value="Andijon" data-region="andijon">Andijon</option>
-              <option value="Qashqadaryo" data-region="qashqadaryo">Qashqadaryo</option>
-              <option value="Surxondaryo" data-region="surxondaryo">Surxondaryo</option>
-              <option value="Navoiy" data-region="navoiy">Navoiy</option>
-              <option value="Xorazm" data-region="xorazm">Xorazm</option>
-              <option value="Sirdaryo" data-region="sirdaryo">Sirdaryo</option>
-              <option value="Qoraqalpog‘iston" data-region="qoraqalpogiston">Qoraqalpog‘iston</option>
+              <option value="Toshkent">Toshkent</option>
+              <option value="Samarqand">Samarqand</option>
+              <option value="Buxoro">Buxoro</option>
+              <option value="Jizzax">Jizzax</option>
+              <option value="Namangan">Namangan</option>
+              <option value="Farg'ona">Farg'ona</option>
+              <option value="Andijon">Andijon</option>
+              <option value="Qashqadaryo">Qashqadaryo</option>
+              <option value="Surxondaryo">Surxondaryo</option>
+              <option value="Navoiy">Navoiy</option>
+              <option value="Xorazm">Xorazm</option>
+              <option value="Sirdaryo">Sirdaryo</option>
+              <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
             </select>
           </div>
-          <div class="field"><label data-t="fLocation">Joylashuvi</label><input id="rLocation" required data-t-ph="fLocationPh" placeholder="Bo‘stonliq, Chorvoq"></div>
+          <div class="field"><label data-t="fLocation">Joylashuvi</label><input id="rLocation" required data-t-ph="fLocationPh" placeholder="Bo'stonliq, Chorvoq"></div>
           <div class="field"><label data-t="fPrice">Bir kecha narxi (UZS)</label><input id="rPrice" required type="number" min="0" placeholder="500000"></div>
           <div class="field"><label data-t="fRating">Reyting</label><input id="rRating" type="number" min="1" max="5" step="0.1" value="5"></div>
           <div class="field"><label data-t="fLat">Latitude</label><input id="rLat" type="number" step="any" placeholder="41.62"></div>
           <div class="field"><label data-t="fLng">Longitude</label><input id="rLng" type="number" step="any" placeholder="69.94"></div>
           <div class="field full"><label data-t="fAmenities">Qulayliklar</label><input id="rAmenities" data-t-ph="fAmenitiesPh" placeholder="Hovuz, sauna, Wi-Fi, parking"></div>
-
           <div class="field full">
-            <label data-t="fImages">📷 Rasmlar (maksimal 10 ta) — birinchi rasm muqova bo‘ladi</label>
+            <label data-t="fImages">📷 Rasmlar (maksimal 10 ta) — birinchi rasm muqova bo'ladi</label>
             <div class="owner-img-manager">
               <input id="rFiles" type="file" accept="image/*" multiple style="padding:10px;background:#fff">
               <div id="rImages" class="thumb-grid"></div>
               <div class="url-row">
                 <input id="rImageUrl" placeholder="Rasm URL manzili...">
-                <button type="button" class="btn btn-soft" onclick="rAddUrl()" data-t="fAddUrl">+ URL qo‘shish</button>
+                <button type="button" class="btn btn-soft" onclick="rAddUrl()" data-t="fAddUrl">+ URL qo'shish</button>
               </div>
-              <div class="help" data-t="fImagesHelp">📌 Kamida 1 ta, maksimal 10 ta rasm. ← → bilan tartibini o‘zgartirasiz.</div>
+              <div class="help" data-t="fImagesHelp">📌 Kamida 1 ta, maksimal 10 ta rasm. ← → bilan tartibini o'zgartirasiz.</div>
             </div>
           </div>
-
           <div class="field full"><label data-t="fDesc">Tavsif</label><textarea id="rDesc" required data-t-ph="fDescPh" placeholder="Maskan haqida batafsil ma'lumot..."></textarea></div>
           <div class="field full"><button class="btn btn-primary" type="submit" style="width:100%;padding:14px" data-t="fSubmit">🚀 Maskanni joylashtirish</button></div>
         </form>
@@ -598,13 +517,13 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
   </div>
 </footer>
 
-<button id="ownerFab" class="owner-fab" onclick="ownerShowAdd()" aria-label="Maskan qo‘shish" type="button">+</button>
+<button id="ownerFab" class="owner-fab" onclick="ownerShowAdd()" aria-label="Maskan qo'shish" type="button">+</button>
 
 <div id="authModal" class="modal" role="dialog" aria-modal="true"><div class="modal-box">
   <div class="modal-head"><div><h2 id="modalTitle" data-t="modalCustomer">👤 Mijoz</h2><div id="modalSubtitle" class="sub" data-t="authCustomerSubtitle">Bron qilish uchun tizimga kiring.</div></div><button class="close" onclick="closeAuth()" aria-label="Yopish">×</button></div>
   <div id="authSwitch" class="switch">
     <button id="loginTab" class="active" onclick="setMode('login')" data-t="loginTab">Kirish</button>
-    <button id="signupTab" onclick="setMode('signup')" data-t="signupTab">Ro‘yxatdan o‘tish</button>
+    <button id="signupTab" onclick="setMode('signup')" data-t="signupTab">Ro'yxatdan o'tish</button>
   </div>
   <div id="authNotice" class="notice"></div>
   <form id="authForm" novalidate>
@@ -632,17 +551,17 @@ footer{padding:40px 0 90px;color:rgba(255,255,255,.85);font-size:12.5px;text-sha
       <div class="field"><label data-t="bCheckOut">Ketish *</label><input id="bOut" required type="date"></div>
       <div class="field"><label data-t="bGuests">Mehmonlar *</label><input id="bGuests" required type="number" min="1" value="2"></div>
       <div class="field"><label data-t="bPhone">Telefon *</label><input id="bPhone" required type="tel" placeholder="+998 90 123 45 67"></div>
-      <div class="field full"><button class="btn btn-primary" style="width:100%;padding:14px" type="submit" data-t="bSubmit">📤 Bron so‘rovini yuborish</button></div>
+      <div class="field full"><button class="btn btn-primary" style="width:100%;padding:14px" type="submit" data-t="bSubmit">📤 Bron so'rovini yuborish</button></div>
     </div>
   </form>
 </div></div>
 
 <div id="detailModal" class="modal" role="dialog" aria-modal="true"><div class="modal-box" id="detailBox">
   <div class="modal-head"><div><h2 id="dName"></h2><div id="dMeta" class="sub"></div></div><button class="close" onclick="closeDetail()" aria-label="Yopish">×</button></div>
-  <div class="gallery-main" id="dMainWrap"><img id="dMain" alt="" data-fb="1"><span class="zoom-hint" data-t="dZoom">🔍 Kattalashtirish uchun bosing</span></div>
+  <div class="gallery-main" id="dMainWrap"><img id="dMain" alt=""><span class="zoom-hint" data-t="dZoom">🔍 Kattalashtirish uchun bosing</span></div>
   <div id="dThumbs" class="gallery-thumbs"></div>
   <div class="detail-section">
-    <h3 data-t="detailInfo">ℹ️ Batafsil ma’lumot</h3><div id="dInfo" class="info-list"></div>
+    <h3 data-t="detailInfo">ℹ️ Batafsil ma'lumot</h3><div id="dInfo" class="info-list"></div>
     <h3 data-t="detailAmenities">🛎 Qulayliklar</h3><div id="dAmenities" class="amenity-chips"></div>
     <h3 data-t="detailDesc">📝 Tavsif</h3><div id="dDesc" class="desc-text"></div>
     <div id="dMapWrap" style="margin-top:12px"></div>
@@ -667,9 +586,6 @@ import { getAnalytics, isSupported as analyticsSupported } from "https://www.gst
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import { getDatabase, ref, set, push, get, onValue } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
-/* ============================================================
-   1) FIREBASE
-   ============================================================ */
 const firebaseConfig = {
   apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
   authDomain: "uzbektelegrami.firebaseapp.com",
@@ -685,9 +601,6 @@ analyticsSupported().then(x => x && getAnalytics(app)).catch(() => {});
 const auth = getAuth(app), db = getDatabase(app);
 setPersistence(auth, browserLocalPersistence).catch(() => {});
 
-/* ============================================================
-   2) YORDAMCHI FUNKSIYALAR (eng boshida — TDZ muammosi yo‘q)
-   ============================================================ */
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 
@@ -705,24 +618,609 @@ function toast(msg, type = "info"){
 }
 
 const isOwnerRole = r => r === "owner" || r === "owner_pending";
-
-/* ============================================================
-   3) KONSTANTALAR
-   ============================================================ */
 const MAX_IMAGES = 10;
 const DEFAULT_BG  = "https://user33569.na.imgto.link/public/20260918/photo-2026-09-18-21-17-50.avif";
 const DEFAULT_IMG = "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80";
-const LANG_FLAG = { uz:'uz', ru:'ru', en:'gb', ar:'sa', zh:'cn' };
+const LANG_FLAG = { uz:'uz', ru:'ru', en:'gb' };
 const CUR_FLAG  = { UZS:'uz', USD:'us', EUR:'eu' };
-
-/* Ishonchli va bepul OSM plitkalari (Yandex plitkalari ko‘p hollarda 403 qaytaradi) */
 const TILE_URL  = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
 
-/* ============================================================
-   4) TARJIMALAR
-   ============================================================ */
 const I18N = {
-  uz:{tag:"🇺🇿 O‘zbekiston bo‘ylab dam olish",heroTitle:"Dam olish maskaningizni toping va bron qiling.",searchWhere:"Qayerga?",searchWherePh:"Masalan, Chorvoq",searchRegion:"Viloyat",searchAll:"Barchasi",searchCheckIn:"Kelish",searchCheckOut:"Ketish",searchBtn:"Qidirish",resortsTitle:"Dam olish maskanlari",resortsSubtitle:"Tanlangan maskanlar birinchi ko‘rsatiladi.",sortNew:"✨ Yangi",sortPrice:"💰 Narx",sortRating:"⭐ Reyting",viewMap:"Xarita",viewList:"Ro‘yxat",mapEmpty:"Bu hududda koordinatali maskanlar topilmadi.",cheapest:"Eng arzon",featured:"Tanlangan",verified:"Tasdiqlangan",detailsBtn:"Batafsil",bookBtn:"Bron",perNight:"/ kecha",emptyMsg:"Mos keladigan maskan topilmadi.",ownerBtn:"Maskan egasi",loginBtn:"Kirish",cabinetBtn:"Kabinet",logoutBtn:"Chiqish",ownerPanelTitle:"🏠 Maskan egasi kabineti",ownerPanelSubtitle:"Dacha yoki dam olish maskaningizni joylashtiring.",statMine:"Mening maskanlarim",statActive:"Faol maskanlar",statBookings:"Bronlar",tabAddOwner:"+ Qo‘shish",tabMyResorts:"Maskanlarim",tabBookings:"Bronlar",fName:"Maskan nomi",fNamePh:"Chorvoq Family Dacha",fRegion:"Viloyat",fRegionChoose:"Tanlang",fLocation:"Joylashuvi",fLocationPh:"Bo‘stonliq, Chorvoq",fPrice:"Bir kecha narxi (UZS)",fImages:"📷 Rasmlar (maksimal 10 ta) — birinchi rasm muqova bo‘ladi",fAddUrl:"+ URL qo‘shish",fImagesHelp:"📌 Kamida 1 ta, maksimal 10 ta rasm. ← → bilan tartibini o‘zgartirasiz.",fRating:"Reyting",fLat:"Latitude",fLng:"Longitude",fAmenities:"Qulayliklar",fAmenitiesPh:"Hovuz, sauna, Wi-Fi, parking",fDesc:"Tavsif",fDescPh:"Maskan haqida batafsil ma'lumot...",fSubmit:"🚀 Maskanni joylashtirish",modalCustomer:"👤 Mijoz",modalOwner:"🏠 Maskan egasi",loginTab:"Kirish",signupTab:"Ro‘yxatdan o‘tish",authCustomerSubtitle:"Bron qilish va buyurtmalarni ko‘rish uchun tizimga kiring.",authOwnerSubtitle:"Dacha yoki maskaningizni UzBooking’ga joylashtiring.",fFirstName:"Ism *",fLastName:"Familiya *",fPhone:"Telefon raqami *",fCustomerName:"Ism familiya",fEmail:"Elektron pochta *",fPassword:"Parol *",fPasswordPh:"Kamida 6 belgi",forgotPass:"Parolni unutdingizmi?",submitLoginCustomer:"👤 Kirish",submitLoginOwner:"🏠 Maskan egasi kirishi",submitSignupCustomer:"👤 Hisob yaratish",submitSignupOwner:"🏡 Maskan egasi bo‘lish",bookTitle:"📝 Bron qilish",bCheckIn:"Kelish *",bCheckOut:"Ketish *",bGuests:"Mehmonlar *",bPhone:"Telefon *",bSubmit:"📤 Bron so‘rovini yuborish",detailInfo:"ℹ️ Batafsil ma’lumot",detailAmenities:"🛎 Qulayliklar",detailDesc:"📝 Tavsif",dPrice:"Bir kecha narxi",dRating:"Reyting",dRegion:"Viloyat",dLocation:"Joylashuv",dOwner:"Egasi",dPhone:"Telefon",dNoInfo:"Ma'lumot yo‘q",dNoDesc:"Tavsif mavjud emas.",dMap:"🗺 Xaritada ko‘rish",dZoom:"🔍 Kattalashtirish uchun bosing",footer:"© 2026 UzBooking — dam olish maskanlari uchun bron platformasi.",footerCoop:"Hamkorlik uchun:",stStatus:"Holat",stApproved:"Tasdiqlangan",stPending:"Kutilmoqda",msgWrongCred:"Email yoki parol noto‘g‘ri.",msgEmailUsed:"Bu email allaqachon ishlatilgan.",msgWeakPass:"Parol kamida 6 belgidan iborat bo‘lsin.",msgBadEmail:"Email formati noto‘g‘ri.",msgNetErr:"Internet aloqasini tekshiring.",msgPlaced:"Maskan muvaffaqiyatli joylashtirildi va saytda ko‘rindi.",msgNeedOwner:"Avval maskan egasi sifatida ro‘yxatdan o‘ting.",msgNeedCustomer:"Bron qilish uchun mijoz sifatida kiring.",msgResetSent:"Parolni tiklash xati yuborildi.",msgEnterEmail:"Email kiriting.",msgBookSent:"Bron so‘rovi yuborildi.",msgBadDates:"Ketish sanasi kelish sanasidan keyin bo‘lishi kerak.",msgNoResorts:"Hali maskan qo‘shilmagan.",msgNoBookings:"Bron yo‘q.",msgMaxImages:"Maksimal 10 ta rasm qo‘shish mumkin.",msgMinImages:"Kamida 1 ta rasm qo‘shing.",msgImgProcessing:"Rasmlar tayyorlanmoqda...",msgFileTooBig:"Rasm hajmi juda katta (max 5MB).",msgFillRequired:"Iltimos, barcha majburiy maydonlarni to‘ldiring."},
-  ru:{tag:"🇺🇿 Отдых по Узбекистану",heroTitle:"Найдите и забронируйте место отдыха.",searchWhere:"Куда?",searchWherePh:"Например, Чарвак",searchRegion:"Регион",searchAll:"Все",searchCheckIn:"Заезд",searchCheckOut:"Выезд",searchBtn:"Поиск",resortsTitle:"Места отдыха",resortsSubtitle:"Рекомендуемые объекты показываются первыми.",sortNew:"✨ Новые",sortPrice:"💰 Цена",sortRating:"⭐ Рейтинг",viewMap:"Карта",viewList:"Список",mapEmpty:"В этой зоне объектов с координатами не найдено.",cheapest:"Самый дешёвый",featured:"Рекомендуем",verified:"Проверено",detailsBtn:"Подробнее",bookBtn:"Бронь",perNight:"/ ночь",emptyMsg:"Ничего не найдено.",ownerBtn:"Владелец",loginBtn:"Вход",cabinetBtn:"Кабинет",logoutBtn:"Выход",ownerPanelTitle:"🏠 Кабинет владельца",ownerPanelSubtitle:"Разместите объект.",statMine:"Мои объекты",statActive:"Активные",statBookings:"Брони",tabAddOwner:"+ Добавить",tabMyResorts:"Мои объекты",tabBookings:"Брони",fName:"Название",fNamePh:"Дача",fRegion:"Регион",fRegionChoose:"Выберите",fLocation:"Расположение",fLocationPh:"Бостанлык",fPrice:"Цена за ночь (UZS)",fImages:"📷 Изображения (макс 10) — первое фото обложка",fAddUrl:"+ Добавить URL",fImagesHelp:"📌 От 1 до 10 фото. Сортируйте ← →.",fRating:"Рейтинг",fLat:"Широта",fLng:"Долгота",fAmenities:"Удобства",fAmenitiesPh:"Бассейн, сауна",fDesc:"Описание",fDescPh:"Подробно...",fSubmit:"🚀 Разместить",modalCustomer:"👤 Клиент",modalOwner:"🏠 Владелец",loginTab:"Вход",signupTab:"Регистрация",authCustomerSubtitle:"Войдите, чтобы бронировать.",authOwnerSubtitle:"Разместите объект.",fFirstName:"Имя *",fLastName:"Фамилия *",fPhone:"Телефон *",fCustomerName:"Имя",fEmail:"Email *",fPassword:"Пароль *",fPasswordPh:"Не менее 6 символов",forgotPass:"Забыли пароль?",submitLoginCustomer:"👤 Войти",submitLoginOwner:"🏠 Вход владельца",submitSignupCustomer:"👤 Создать",submitSignupOwner:"🏡 Стать владельцем",bookTitle:"📝 Бронирование",bCheckIn:"Заезд *",bCheckOut:"Выезд *",bGuests:"Гости *",bPhone:"Телефон *",bSubmit:"📤 Отправить",detailInfo:"ℹ️ Подробно",detailAmenities:"🛎 Удобства",detailDesc:"📝 Описание",dPrice:"Цена",dRating:"Рейтинг",dRegion:"Регион",dLocation:"Расположение",dOwner:"Владелец",dPhone:"Телефон",dNoInfo:"Нет данных",dNoDesc:"Нет описания.",dMap:"🗺 На карте",dZoom:"🔍 Нажмите",footer:"© 2026 UzBooking",footerCoop:"Для сотрудничества:",stStatus:"Статус",stApproved:"Одобрено",stPending:"Ожидает",msgWrongCred:"Неверный email или пароль.",msgEmailUsed:"Email используется.",msgWeakPass:"Пароль ≥6.",msgBadEmail:"Неверный email.",msgNetErr:"Проверьте интернет.",msgPlaced:"Размещено.",msgNeedOwner:"Сначала зарегистрируйтесь как владелец.",msgNeedCustomer:"Войдите как клиент.",msgResetSent:"Письмо отправлено.",msgEnterEmail:"Введите email.",msgBookSent:"Запрос отправлен.",msgBadDates:"Выезд позже заезда.",msgNoResorts:"Объектов нет.",msgNoBookings:"Броней нет.",msgMaxImages:"Максимум 10 фото.",msgMinImages:"Добавьте хотя бы 1 фото.",msgImgProcessing:"Готовим изображения...",msgFileTooBig:"Файл слишком большой (макс 5МБ).",msgFillRequired:"Заполните обязательные поля."},
-  en:{tag:"🇺🇿 Vacation across Uzbekistan",heroTitle:"Find and book your perfect getaway.",searchWhere:"Where to?",search
+  uz:{tag:"🇺🇿 O'zbekiston bo'ylab dam olish",heroTitle:"Dam olish maskaningizni toping va bron qiling.",searchWhere:"Qayerga?",searchWherePh:"Masalan, Chorvoq",searchRegion:"Viloyat",searchAll:"Barchasi",searchCheckIn:"Kelish",searchCheckOut:"Ketish",searchBtn:"Qidirish",resortsTitle:"Dam olish maskanlari",resortsSubtitle:"Tanlangan maskanlar birinchi ko'rsatiladi.",sortNew:"✨ Yangi",sortPrice:"💰 Narx",sortRating:"⭐ Reyting",viewMap:"Xarita",viewList:"Ro'yxat",mapEmpty:"Bu hududda koordinatali maskanlar topilmadi.",cheapest:"Eng arzon",featured:"Tanlangan",verified:"Tasdiqlangan",detailsBtn:"Batafsil",bookBtn:"Bron",perNight:"/ kecha",emptyMsg:"Mos keladigan maskan topilmadi.",ownerBtn:"Maskan egasi",loginBtn:"Kirish",cabinetBtn:"Kabinet",logoutBtn:"Chiqish",ownerPanelTitle:"🏠 Maskan egasi kabineti",ownerPanelSubtitle:"Dacha yoki dam olish maskaningizni joylashtiring.",statMine:"Mening maskanlarim",statActive:"Faol maskanlar",statBookings:"Bronlar",tabAddOwner:"+ Qo'shish",tabMyResorts:"Maskanlarim",tabBookings:"Bronlar",fName:"Maskan nomi",fNamePh:"Chorvoq Family Dacha",fRegion:"Viloyat",fRegionChoose:"Tanlang",fLocation:"Joylashuvi",fLocationPh:"Bo'stonliq, Chorvoq",fPrice:"Bir kecha narxi (UZS)",fImages:"📷 Rasmlar (maksimal 10 ta) — birinchi rasm muqova bo'ladi",fAddUrl:"+ URL qo'shish",fImagesHelp:"📌 Kamida 1 ta, maksimal 10 ta rasm.",fRating:"Reyting",fLat:"Latitude",fLng:"Longitude",fAmenities:"Qulayliklar",fAmenitiesPh:"Hovuz, sauna, Wi-Fi, parking",fDesc:"Tavsif",fDescPh:"Maskan haqida batafsil ma'lumot...",fSubmit:"🚀 Maskanni joylashtirish",modalCustomer:"👤 Mijoz",modalOwner:"🏠 Maskan egasi",loginTab:"Kirish",signupTab:"Ro'yxatdan o'tish",authCustomerSubtitle:"Bron qilish va buyurtmalarni ko'rish uchun tizimga kiring.",authOwnerSubtitle:"Dacha yoki maskaningizni UzBooking'ga joylashtiring.",fFirstName:"Ism *",fLastName:"Familiya *",fPhone:"Telefon raqami *",fCustomerName:"Ism familiya",fEmail:"Elektron pochta *",fPassword:"Parol *",fPasswordPh:"Kamida 6 belgi",forgotPass:"Parolni unutdingizmi?",submitLoginCustomer:"👤 Kirish",submitLoginOwner:"🏠 Maskan egasi kirishi",submitSignupCustomer:"👤 Hisob yaratish",submitSignupOwner:"🏡 Maskan egasi bo'lish",bookTitle:"📝 Bron qilish",bCheckIn:"Kelish *",bCheckOut:"Ketish *",bGuests:"Mehmonlar *",bPhone:"Telefon *",bSubmit:"📤 Bron so'rovini yuborish",detailInfo:"ℹ️ Batafsil ma'lumot",detailAmenities:"🛎 Qulayliklar",detailDesc:"📝 Tavsif",dPrice:"Bir kecha narxi",dRating:"Reyting",dRegion:"Viloyat",dLocation:"Joylashuv",dOwner:"Egasi",dPhone:"Telefon",dNoInfo:"Ma'lumot yo'q",dNoDesc:"Tavsif mavjud emas.",dMap:"🗺 Xaritada ko'rish",dZoom:"🔍 Kattalashtirish uchun bosing",footer:"© 2026 UzBooking — dam olish maskanlari uchun bron platformasi.",footerCoop:"Hamkorlik uchun:",stStatus:"Holat",stApproved:"Tasdiqlangan",stPending:"Kutilmoqda",msgWrongCred:"Email yoki parol noto'g'ri.",msgEmailUsed:"Bu email allaqachon ishlatilgan.",msgWeakPass:"Parol kamida 6 belgidan iborat bo'lsin.",msgBadEmail:"Email formati noto'g'ri.",msgNetErr:"Internet aloqasini tekshiring.",msgPlaced:"Maskan muvaffaqiyatli joylashtirildi va saytda ko'rindi.",msgNeedOwner:"Avval maskan egasi sifatida ro'yxatdan o'ting.",msgNeedCustomer:"Bron qilish uchun mijoz sifatida kiring.",msgResetSent:"Parolni tiklash xati yuborildi.",msgEnterEmail:"Email kiriting.",msgBookSent:"Bron so'rovi yuborildi.",msgBadDates:"Ketish sanasi kelish sanasidan keyin bo'lishi kerak.",msgNoResorts:"Hali maskan qo'shilmagan.",msgNoBookings:"Bron yo'q.",msgMaxImages:"Maksimal 10 ta rasm qo'shish mumkin.",msgMinImages:"Kamida 1 ta rasm qo'shing.",msgImgProcessing:"Rasmlar tayyorlanmoqda...",msgFileTooBig:"Rasm hajmi juda katta (max 5MB).",msgFillRequired:"Iltimos, barcha majburiy maydonlarni to'ldiring."},
+  ru:{tag:"🇺🇿 Отдых по Узбекистану",heroTitle:"Найдите и забронируйте место отдыха.",searchWhere:"Куда?",searchWherePh:"Например, Чарвак",searchRegion:"Регион",searchAll:"Все",searchCheckIn:"Заезд",searchCheckOut:"Выезд",searchBtn:"Поиск",resortsTitle:"Места отдыха",resortsSubtitle:"Рекомендуемые объекты показываются первыми.",sortNew:"✨ Новые",sortPrice:"💰 Цена",sortRating:"⭐ Рейтинг",viewMap:"Карта",viewList:"Список",mapEmpty:"В этой зоне объектов с координатами не найдено.",cheapest:"Самый дешёвый",featured:"Рекомендуем",verified:"Проверено",detailsBtn:"Подробнее",bookBtn:"Бронь",perNight:"/ ночь",emptyMsg:"Ничего не найдено.",ownerBtn:"Владелец",loginBtn:"Вход",cabinetBtn:"Кабинет",logoutBtn:"Выход",ownerPanelTitle:"🏠 Кабинет владельца",ownerPanelSubtitle:"Разместите объект.",statMine:"Мои объекты",statActive:"Активные",statBookings:"Брони",tabAddOwner:"+ Добавить",tabMyResorts:"Мои объекты",tabBookings:"Брони",fName:"Название",fNamePh:"Дача",fRegion:"Регион",fRegionChoose:"Выберите",fLocation:"Расположение",fLocationPh:"Бостанлык",fPrice:"Цена за ночь (UZS)",fImages:"📷 Изображения (макс 10) — первое фото обложка",fAddUrl:"+ Добавить URL",fImagesHelp:"📌 От 1 до 10 фото.",fRating:"Рейтинг",fLat:"Широта",fLng:"Долгота",fAmenities:"Удобства",fAmenitiesPh:"Бассейн, сауна",fDesc:"Описание",fDescPh:"Подробно...",fSubmit:"🚀 Разместить",modalCustomer:"👤 Клиент",modalOwner:"🏠 Владелец",loginTab:"Вход",signupTab:"Регистрация",authCustomerSubtitle:"Войдите, чтобы бронировать.",authOwnerSubtitle:"Разместите объект.",fFirstName:"Имя *",fLastName:"Фамилия *",fPhone:"Телефон *",fCustomerName:"Имя",fEmail:"Email *",fPassword:"Пароль *",fPasswordPh:"Не менее 6 символов",forgotPass:"Забыли пароль?",submitLoginCustomer:"👤 Войти",submitLoginOwner:"🏠 Вход владельца",submitSignupCustomer:"👤 Создать",submitSignupOwner:"🏡 Стать владельцем",bookTitle:"📝 Бронирование",bCheckIn:"Заезд *",bCheckOut:"Выезд *",bGuests:"Гости *",bPhone:"Телефон *",bSubmit:"📤 Отправить",detailInfo:"ℹ️ Подробно",detailAmenities:"🛎 Удобства",detailDesc:"📝 Описание",dPrice:"Цена",dRating:"Рейтинг",dRegion:"Регион",dLocation:"Расположение",dOwner:"Владелец",dPhone:"Телефон",dNoInfo:"Нет данных",dNoDesc:"Нет описания.",dMap:"🗺 На карте",dZoom:"🔍 Нажмите",footer:"© 2026 UzBooking",footerCoop:"Для сотрудничества:",stStatus:"Статус",stApproved:"Одобрено",stPending:"Ожидает",msgWrongCred:"Неверный email или пароль.",msgEmailUsed:"Email используется.",msgWeakPass:"Пароль ≥6.",msgBadEmail:"Неверный email.",msgNetErr:"Проверьте интернет.",msgPlaced:"Размещено.",msgNeedOwner:"Сначала зарегистрируйтесь как владелец.",msgNeedCustomer:"Войдите как клиент.",msgResetSent:"Письмо отправлено.",msgEnterEmail:"Введите email.",msgBookSent:"Запрос отправлен.",msgBadDates:"Выезд позже заезда.",msgNoResorts:"Объектов нет.",msgNoBookings:"Броней нет.",msgMaxImages:"Максимум 10 фото.",msgMinImages:"Добавьте хотя бы 1 фото.",msgImgProcessing:"Готовим изображения...",msgFileTooBig:"Файл слишком большой (макс 5МБ).",msgFillRequired:"Заполните обязательные поля."},
+  en:{tag:"🇺🇿 Vacation across Uzbekistan",heroTitle:"Find and book your perfect getaway.",searchWhere:"Where to?",searchWherePh:"E.g., Charvak",searchRegion:"Region",searchAll:"All",searchCheckIn:"Check-in",searchCheckOut:"Check-out",searchBtn:"Search",resortsTitle:"Resorts",resortsSubtitle:"Featured properties shown first.",sortNew:"✨ New",sortPrice:"💰 Price",sortRating:"⭐ Rating",viewMap:"Map",viewList:"List",mapEmpty:"No properties with coordinates found in this area.",cheapest:"Cheapest",featured:"Featured",verified:"Verified",detailsBtn:"Details",bookBtn:"Book",perNight:"/ night",emptyMsg:"No matching properties found.",ownerBtn:"Owner",loginBtn:"Sign in",cabinetBtn:"Dashboard",logoutBtn:"Sign out",ownerPanelTitle:"🏠 Owner dashboard",ownerPanelSubtitle:"List your property.",statMine:"My properties",statActive:"Active",statBookings:"Bookings",tabAddOwner:"+ Add",tabMyResorts:"My properties",tabBookings:"Bookings",fName:"Property name",fNamePh:"Charvak Family Dacha",fRegion:"Region",fRegionChoose:"Choose",fLocation:"Location",fLocationPh:"Bostanlik, Charvak",fPrice:"Price per night (UZS)",fImages:"📷 Images (max 10) — first photo is cover",fAddUrl:"+ Add URL",fImagesHelp:"📌 1 to 10 photos.",fRating:"Rating",fLat:"Latitude",fLng:"Longitude",fAmenities:"Amenities",fAmenitiesPh:"Pool, sauna, Wi-Fi, parking",fDesc:"Description",fDescPh:"Detailed info...",fSubmit:"🚀 List property",modalCustomer:"👤 Customer",modalOwner:"🏠 Owner",loginTab:"Sign in",signupTab:"Sign up",authCustomerSubtitle:"Sign in to book.",authOwnerSubtitle:"List your property.",fFirstName:"First name *",fLastName:"Last name *",fPhone:"Phone *",fCustomerName:"Full name",fEmail:"Email *",fPassword:"Password *",fPasswordPh:"At least 6 chars",forgotPass:"Forgot password?",submitLoginCustomer:"👤 Sign in",submitLoginOwner:"🏠 Owner sign in",submitSignupCustomer:"👤 Create account",submitSignupOwner:"🏡 Become owner",bookTitle:"📝 Booking",bCheckIn:"Check-in *",bCheckOut:"Check-out *",bGuests:"Guests *",bPhone:"Phone *",bSubmit:"📤 Send request",detailInfo:"ℹ️ Details",detailAmenities:"🛎 Amenities",detailDesc:"📝 Description",dPrice:"Price",dRating:"Rating",dRegion:"Region",dLocation:"Location",dOwner:"Owner",dPhone:"Phone",dNoInfo:"No data",dNoDesc:"No description.",dMap:"🗺 View on map",dZoom:"🔍 Click to zoom",footer:"© 2026 UzBooking",footerCoop:"For partnership:",stStatus:"Status",stApproved:"Approved",stPending:"Pending",msgWrongCred:"Wrong email or password.",msgEmailUsed:"Email already used.",msgWeakPass:"Password ≥6.",msgBadEmail:"Invalid email.",msgNetErr:"Check connection.",msgPlaced:"Listed successfully.",msgNeedOwner:"Register as owner first.",msgNeedCustomer:"Sign in as customer.",msgResetSent:"Reset email sent.",msgEnterEmail:"Enter email.",msgBookSent:"Request sent.",msgBadDates:"Check-out after check-in.",msgNoResorts:"No properties yet.",msgNoBookings:"No bookings.",msgMaxImages:"Max 10 images.",msgMinImages:"Add at least 1 image.",msgImgProcessing:"Preparing images...",msgFileTooBig:"File too big (max 5MB).",msgFillRequired:"Fill required fields."}
+};
+
+let LANG = "uz", CUR = "UZS";
+let authMode = "customer", authAction = "login";
+let USER = null, USER_ROLE = null;
+let RESORTS = [], BOOKINGS = [];
+let selectedResortId = null;
+let editingResortId = null;
+let editImages = [];
+let imgState = {};
+let map = null, markersLayer = null;
+let viewMode = "list";
+let lbImages = [], lbIndex = 0;
+let bookingResortId = null;
+
+const tr = k => (I18N[LANG] && I18N[LANG][k]) || (I18N.uz[k] || k);
+
+function setLang(l){
+  LANG = l;
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+  $("langFlagImg").src = `https://flagcdn.com/w40/${LANG_FLAG[l] || "uz"}.png`;
+  $("langCode").textContent = l.toUpperCase();
+  document.querySelectorAll("[data-t]").forEach(el => { el.textContent = tr(el.dataset.t); });
+  document.querySelectorAll("[data-t-ph]").forEach(el => { el.placeholder = tr(el.dataset.tPh); });
+  document.querySelectorAll(".flag-dd-item[data-lang]").forEach(el => el.classList.toggle("active", el.dataset.lang === l));
+  renderResorts();
+  document.querySelectorAll(".flag-dd.open").forEach(d => d.classList.remove("open"));
+}
+
+function setCurrency(c){
+  CUR = c;
+  $("curFlagImg").src = `https://flagcdn.com/w40/${CUR_FLAG[c] || "uz"}.png`;
+  $("curCode").textContent = c;
+  document.querySelectorAll(".flag-dd-item[data-cur]").forEach(el => el.classList.toggle("active", el.dataset.cur === c));
+  renderResorts();
+  document.querySelectorAll(".flag-dd.open").forEach(d => d.classList.remove("open"));
+}
+
+function toggleDD(id){
+  const dd = $(id);
+  if(!dd) return;
+  const isOpen = dd.classList.contains("open");
+  document.querySelectorAll(".flag-dd.open").forEach(d => d.classList.remove("open"));
+  if(!isOpen) dd.classList.add("open");
+}
+document.addEventListener("click", e => {
+  if(!e.target.closest(".flag-dd")) document.querySelectorAll(".flag-dd.open").forEach(d => d.classList.remove("open"));
+});
+
+function fmtPrice(uzs){
+  const n = Number(uzs) || 0;
+  if(CUR === "UZS") return n.toLocaleString("uz-UZ") + " so'm";
+  if(CUR === "USD") return "$" + Math.round(n / 12700).toLocaleString("en-US");
+  if(CUR === "EUR") return "€" + Math.round(n / 13800).toLocaleString("en-US");
+  return n + " UZS";
+}
+
+function toastFn(msg, type){ toast(msg, type); }
+
+/* ============ FIREBASE AUTH ============ */
+onAuthStateChanged(auth, async user => {
+  if(user){
+    USER = user;
+    const snap = await get(ref(db, "users/" + user.uid));
+    const data = snap.exists() ? snap.val() : {};
+    USER_ROLE = data.role || "customer";
+    updateAuthUI();
+    if(isOwnerRole(USER_ROLE)) loadOwnerData();
+  } else {
+    USER = null; USER_ROLE = null;
+    updateAuthUI();
+  }
+});
+
+function updateAuthUI(){
+  const loggedIn = !!USER;
+  $("customerLoginBtn").classList.toggle("hidden", loggedIn);
+  $("logoutBtn").classList.toggle("hidden", !loggedIn);
+  $("userBox").style.display = loggedIn ? "flex" : "none";
+  if(loggedIn){
+    const email = USER.email || "";
+    $("avatar").textContent = (email[0] || "U").toUpperCase();
+    $("userName").textContent = email.split("@")[0];
+    const owner = isOwnerRole(USER_ROLE);
+    $("dashboardBtn").classList.toggle("hidden", !owner);
+    $("ownerFab").classList.toggle("show", owner);
+  } else {
+    $("dashboardBtn").classList.add("hidden");
+    $("ownerFab").classList.remove("show");
+  }
+}
+
+function openCustomerAuth(){ authMode = "customer"; setMode("login"); $("authModal").classList.add("show"); updateAuthModal(); }
+function openOwnerAuth(){ authMode = "owner"; setMode("login"); $("authModal").classList.add("show"); updateAuthModal(); }
+function closeAuth(){ $("authModal").classList.remove("show"); clearNotice($("authNotice")); }
+
+function setMode(m){
+  authAction = m;
+  $("loginTab").classList.toggle("active", m === "login");
+  $("signupTab").classList.toggle("active", m === "signup");
+  $("ownerFields").classList.toggle("hidden", !(authMode === "owner" && m === "signup"));
+  $("customerNameField").classList.toggle("hidden", !(authMode === "customer" && m === "signup"));
+  updateAuthModal();
+}
+
+function updateAuthModal(){
+  const isOwner = authMode === "owner";
+  $("modalTitle").textContent = tr(isOwner ? "modalOwner" : "modalCustomer");
+  $("modalSubtitle").textContent = tr(isOwner ? "authOwnerSubtitle" : "authCustomerSubtitle");
+  const key = authAction === "login"
+    ? (isOwner ? "submitLoginOwner" : "submitLoginCustomer")
+    : (isOwner ? "submitSignupOwner" : "submitSignupCustomer");
+  $("submitAuth").textContent = tr(key);
+  $("forgotWrap").style.display = authAction === "login" ? "block" : "none";
+}
+
+$("authForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const n = $("authNotice");
+  clearNotice(n);
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  if(!email) return notice(n, tr("msgEnterEmail"), "err");
+  if(!password || password.length < 6) return notice(n, tr("msgWeakPass"), "err");
+  try {
+    if(authAction === "signup"){
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      const role = authMode === "owner" ? "owner" : "customer";
+      const profile = { email, role, createdAt: Date.now() };
+      if(authMode === "owner"){
+        profile.firstName = $("firstName").value.trim();
+        profile.lastName = $("lastName").value.trim();
+        profile.phone = $("phone").value.trim();
+      } else {
+        profile.name = $("customerName").value.trim();
+      }
+      await set(ref(db, "users/" + cred.user.uid), profile);
+      toast(tr("msgPlaced"), "ok");
+    } else {
+      await signInWithEmailAndPassword(auth, email, password);
+    }
+    closeAuth();
+  } catch(err){
+    const code = err.code || "";
+    if(code.includes("email-already-in-use")) notice(n, tr("msgEmailUsed"), "err");
+    else if(code.includes("invalid-email")) notice(n, tr("msgBadEmail"), "err");
+    else if(code.includes("wrong-password") || code.includes("user-not-found") || code.includes("invalid-credential")) notice(n, tr("msgWrongCred"), "err");
+    else if(code.includes("network")) notice(n, tr("msgNetErr"), "err");
+    else notice(n, err.message || "Xatolik", "err");
+  }
+});
+
+async function resetPassword(){
+  const email = $("email").value.trim();
+  if(!email) return notice($("authNotice"), tr("msgEnterEmail"), "err");
+  try {
+    await sendPasswordResetEmail(auth, email);
+    notice($("authNotice"), tr("msgResetSent"), "ok");
+  } catch(err){
+    notice($("authNotice"), err.message, "err");
+  }
+}
+
+async function logout(){
+  await signOut(auth);
+  toast("Chiqdingiz", "ok");
+}
+
+/* ============ RESORTS ============ */
+onValue(ref(db, "resorts"), snap => {
+  RESORTS = [];
+  if(snap.exists()){
+    snap.forEach(child => {
+      RESORTS.push({ id: child.key, ...child.val() });
+    });
+  }
+  renderResorts();
+  if(viewMode === "map") renderMap();
+  updateStats();
+});
+
+function filteredResorts(){
+  const q = ($("q").value || "").toLowerCase().trim();
+  const region = $("region").value;
+  let list = RESORTS.filter(r => {
+    if(region && r.region !== region) return false;
+    if(q){
+      const hay = ((r.name||"") + " " + (r.location||"") + " " + (r.region||"")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  const mode = document.querySelector(".chip.active")?.dataset?.sort || "popular";
+  return list;
+}
+
+function sortResorts(mode, btn){
+  document.querySelectorAll(".chip[data-sort]").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  btn.dataset.sort = mode;
+  renderResorts();
+}
+
+function searchResorts(){ renderResorts(); toast("Qidiruv bajarildi", "ok"); }
+
+function resortImages(r){
+  if(Array.isArray(r.images) && r.images.length) return r.images;
+  if(r.image) return [r.image];
+  return [DEFAULT_IMG];
+}
+
+function renderResorts(){
+  const grid = $("resortGrid");
+  if(!grid) return;
+  const list = filteredResorts();
+  if(!list.length){
+    grid.innerHTML = `<div class="empty">${esc(tr("emptyMsg"))}</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(r => {
+    const imgs = resortImages(r);
+    const featured = !!r.featured;
+    const first = imgs[0];
+    return `
+    <article class="card${featured ? " is-featured" : ""}" data-id="${esc(r.id)}">
+      <div class="photo">
+        <img src="${esc(first)}" alt="${esc(r.name)}" loading="lazy" onerror="this.src='${DEFAULT_IMG}'">
+        <span class="verified">✔ ${esc(tr("verified"))}</span>
+        ${featured ? `<span class="featured-badge">⭐ ${esc(tr("featured"))}</span>` : ""}
+        <button class="fav" aria-label="Sevimli">♡</button>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <h3>${esc(r.name || "Maskan")}</h3>
+          <span class="rating">⭐ ${esc(String(r.rating || "5"))}</span>
+        </div>
+        <div class="meta">
+          <span>📍 ${esc(r.location || r.region || "")}</span>
+        </div>
+        <p class="desc">${esc(r.description || "")}</p>
+        <div class="price">${esc(fmtPrice(r.price))} <span>${esc(tr("perNight"))}</span></div>
+        <div class="actions">
+          <button class="btn btn-soft" onclick="openDetail('${esc(r.id)}')">${esc(tr("detailsBtn"))}</button>
+          <button class="btn btn-primary" onclick="openBooking('${esc(r.id)}')">${esc(tr("bookBtn"))}</button>
+        </div>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+/* ============ MAP ============ */
+function toggleViewMode(){
+  viewMode = viewMode === "list" ? "map" : "list";
+  $("listView").classList.toggle("hidden", viewMode === "map");
+  $("mapView").classList.toggle("hidden", viewMode === "list");
+  $("viewIcon").textContent = viewMode === "map" ? "📋" : "🗺";
+  $("viewLabel").textContent = tr(viewMode === "map" ? "viewList" : "viewMap");
+  if(viewMode === "map") renderMap();
+}
+
+function renderMap(){
+  if(!map){
+    map = L.map("resortsMap").setView([41.3, 64.5], 6);
+    L.tileLayer(TILE_URL, { attribution: TILE_ATTR, maxZoom: 19 }).addTo(map);
+    markersLayer = L.layerGroup().addTo(map);
+  }
+  markersLayer.clearLayers();
+  const list = filteredResorts().filter(r => r.lat && r.lng);
+  if(!list.length){
+    $("mapEmpty").classList.remove("hidden");
+    return;
+  }
+  $("mapEmpty").classList.add("hidden");
+  list.forEach(r => {
+    const imgs = resortImages(r);
+    const html = `
+      <div class="map-popup">
+        <img src="${esc(imgs[0])}" onerror="this.src='${DEFAULT_IMG}'">
+        <div class="map-popup-body">
+          <h4>${esc(r.name||"")}</h4>
+          <div class="map-popup-meta"><span>📍 ${esc(r.location||"")}</span></div>
+          <div class="map-popup-price">${esc(fmtPrice(r.price))} <span>${esc(tr("perNight"))}</span></div>
+          <div class="map-popup-actions">
+            <button class="btn btn-soft" onclick="openDetail('${esc(r.id)}')">${esc(tr("detailsBtn"))}</button>
+            <button class="btn btn-primary" onclick="openBooking('${esc(r.id)}')">${esc(tr("bookBtn"))}</button>
+          </div>
+        </div>
+      </div>`;
+    L.marker([r.lat, r.lng], {
+      icon: L.divIcon({
+        className: "price-marker-wrapper",
+        html: `<div class="price-pin">${esc(fmtPrice(r.price))}</div>`,
+        iconSize: [0, 0],
+        iconAnchor: [0, 0]
+      })
+    }).bindPopup(html).addTo(markersLayer);
+  });
+  if(list.length){
+    const bounds = L.latLngBounds(list.map(r => [r.lat, r.lng]));
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 12 });
+  }
+}
+
+/* ============ DETAIL MODAL ============ */
+function openDetail(id){
+  const r = RESORTS.find(x => x.id === id);
+  if(!r) return;
+  selectedResortId = id;
+  const imgs = resortImages(r);
+  imgState[id] = 0;
+  $("dName").textContent = r.name || "";
+  $("dMeta").textContent = `${r.region || ""} • ${r.location || ""}`;
+  $("dMain").src = imgs[0];
+  $("dThumbs").innerHTML = imgs.map((u, i) => `<img src="${esc(u)}" onclick="selectDetailImg('${esc(id)}', ${i})" class="${i===0?'active':''}" onerror="this.src='${DEFAULT_IMG}'">`).join("");
+  $("dInfo").innerHTML = `
+    <div class="item"><b>${esc(tr("dPrice"))}</b><span>${esc(fmtPrice(r.price))}</span></div>
+    <div class="item"><b>${esc(tr("dRating"))}</b><span>⭐ ${esc(String(r.rating||"5"))}</span></div>
+    <div class="item"><b>${esc(tr("dRegion"))}</b><span>${esc(r.region||"-")}</span></div>
+    <div class="item"><b>${esc(tr("dLocation"))}</b><span>${esc(r.location||"-")}</span></div>
+  `;
+  const am = (r.amenities || "").split(",").map(s => s.trim()).filter(Boolean);
+  $("dAmenities").innerHTML = am.length ? am.map(a => `<span>${esc(a)}</span>`).join("") : `<span>${esc(tr("dNoInfo"))}</span>`;
+  $("dDesc").textContent = r.description || tr("dNoDesc");
+  if(r.lat && r.lng){
+    $("dMapWrap").innerHTML = `<a class="map-link" href="https://www.openstreetmap.org/?mlat=${r.lat}&mlon=${r.lng}#map=14/${r.lat}/${r.lng}" target="_blank" rel="noopener">${esc(tr("dMap"))}</a>`;
+  } else {
+    $("dMapWrap").innerHTML = "";
+  }
+  $("dBookBtn").onclick = () => { closeDetail(); openBooking(id); };
+  $("dMainWrap").onclick = () => openLightbox(imgs, imgState[id] || 0);
+  $("detailModal").classList.add("show");
+}
+
+function selectDetailImg(id, i){
+  const r = RESORTS.find(x => x.id === id);
+  if(!r) return;
+  const imgs = resortImages(r);
+  imgState[id] = i;
+  $("dMain").src = imgs[i];
+  document.querySelectorAll("#dThumbs img").forEach((el, idx) => el.classList.toggle("active", idx === i));
+}
+
+function closeDetail(){ $("detailModal").classList.remove("show"); }
+
+/* ============ LIGHTBOX ============ */
+function openLightbox(images, idx){
+  lbImages = images; lbIndex = idx || 0;
+  $("lbImg").src = lbImages[lbIndex];
+  $("lbCounter").textContent = `${lbIndex+1} / ${lbImages.length}`;
+  $("lightbox").classList.add("show");
+}
+function closeLightbox(){ $("lightbox").classList.remove("show"); }
+function lbNav(d){
+  lbIndex = (lbIndex + d + lbImages.length) % lbImages.length;
+  $("lbImg").src = lbImages[lbIndex];
+  $("lbCounter").textContent = `${lbIndex+1} / ${lbImages.length}`;
+}
+
+/* ============ BOOKING ============ */
+function openBooking(id){
+  if(!USER){ toast(tr("msgNeedCustomer"), "err"); openCustomerAuth(); return; }
+  const r = RESORTS.find(x => x.id === id);
+  if(!r) return;
+  bookingResortId = id;
+  $("bookingName").textContent = r.name || "";
+  $("bookingModal").classList.add("show");
+  clearNotice($("bookingNotice"));
+}
+function closeBooking(){ $("bookingModal").classList.remove("show"); bookingResortId = null; }
+
+$("bookingForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const n = $("bookingNotice");
+  const cin = $("bIn").value, cout = $("bOut").value;
+  if(!cin || !cout) return notice(n, tr("msgFillRequired"), "err");
+  if(new Date(cout) <= new Date(cin)) return notice(n, tr("msgBadDates"), "err");
+  try {
+    await push(ref(db, "bookings"), {
+      resortId: bookingResortId,
+      userId: USER.uid,
+      userEmail: USER.email,
+      checkIn: cin,
+      checkOut: cout,
+      guests: Number($("bGuests").value || 1),
+      phone: $("bPhone").value.trim(),
+      status: "pending",
+      createdAt: Date.now()
+    });
+    notice(n, tr("msgBookSent"), "ok");
+    setTimeout(closeBooking, 1200);
+  } catch(err){
+    notice(n, err.message, "err");
+  }
+});
+
+/* ============ OWNER PANEL ============ */
+function toggleOwnerPanel(){
+  $("ownerPanel").classList.toggle("show");
+  if($("ownerPanel").classList.contains("show")) loadOwnerData();
+}
+function ownerShowAdd(){
+  $("ownerPanel").classList.add("show");
+  ownerTab("add");
+  $("ownerPanel").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+function ownerTab(t, btn){
+  document.querySelectorAll("#ownerPanel .tab").forEach(b => b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  $("ownerAdd").classList.toggle("hidden", t !== "add");
+  $("ownerList").classList.toggle("hidden", t !== "list");
+  $("ownerBookings").classList.toggle("hidden", t !== "bookings");
+  if(t === "list") renderOwnerList();
+  if(t === "bookings") renderOwnerBookings();
+}
+
+async function loadOwnerData(){
+  if(!USER || !isOwnerRole(USER_ROLE)) return;
+  const snap = await get(ref(db, "bookings"));
+  BOOKINGS = [];
+  if(snap.exists()){
+    snap.forEach(c => BOOKINGS.push({ id: c.key, ...c.val() }));
+  }
+  updateStats();
+  renderOwnerList();
+  renderOwnerBookings();
+}
+
+function updateStats(){
+  const mine = RESORTS.filter(r => r.ownerId === USER?.uid);
+  $("sResorts").textContent = mine.length;
+  $("sApproved").textContent = mine.filter(r => r.status === "approved" || !r.status).length;
+  $("sBookings").textContent = BOOKINGS.filter(b => mine.some(r => r.id === b.resortId)).length;
+}
+
+function renderOwnerList(){
+  const wrap = $("ownerList");
+  const mine = RESORTS.filter(r => r.ownerId === USER?.uid);
+  if(!mine.length){ wrap.innerHTML = `<div class="empty">${esc(tr("msgNoResorts"))}</div>`; return; }
+  wrap.innerHTML = `
+    <div class="table-wrap"><table class="table">
+      <thead><tr><th>${esc(tr("fName"))}</th><th>${esc(tr("fPrice"))}</th><th>${esc(tr("stStatus"))}</th><th></th></tr></thead>
+      <tbody>${mine.map(r => `<tr>
+        <td>${esc(r.name)}</td>
+        <td>${esc(fmtPrice(r.price))}</td>
+        <td>${esc(r.status === "pending" ? tr("stPending") : tr("stApproved"))}</td>
+        <td><button class="btn btn-soft" onclick="openDetail('${esc(r.id)}')">${esc(tr("detailsBtn"))}</button></td>
+      </tr>`).join("")}</tbody>
+    </table></div>`;
+}
+
+function renderOwnerBookings(){
+  const wrap = $("ownerBookings");
+  const mine = RESORTS.filter(r => r.ownerId === USER?.uid).map(r => r.id);
+  const list = BOOKINGS.filter(b => mine.includes(b.resortId));
+  if(!list.length){ wrap.innerHTML = `<div class="empty">${esc(tr("msgNoBookings"))}</div>`; return; }
+  wrap.innerHTML = `
+    <div class="table-wrap"><table class="table">
+      <thead><tr><th>${esc(tr("fName"))}</th><th>${esc(tr("bCheckIn"))}</th><th>${esc(tr("bCheckOut"))}</th><th>${esc(tr("bGuests"))}</th><th>${esc(tr("bPhone"))}</th></tr></thead>
+      <tbody>${list.map(b => {
+        const r = RESORTS.find(x => x.id === b.resortId);
+        return `<tr>
+          <td>${esc(r?.name || "-")}</td>
+          <td>${esc(b.checkIn)}</td>
+          <td>${esc(b.checkOut)}</td>
+          <td>${esc(String(b.guests))}</td>
+          <td>${esc(b.phone || "-")}</td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`;
+}
+
+/* ============ IMAGE MANAGER ============ */
+function renderEditImages(){
+  const wrap = $("rImages");
+  if(!wrap) return;
+  wrap.innerHTML = editImages.map((u, i) => `
+    <div class="thumb">
+      <img src="${esc(u)}" onerror="this.src='${DEFAULT_IMG}'">
+      ${i === 0 ? `<span class="b-cover">Muqova</span>` : ""}
+      <div class="ops">
+        ${i > 0 ? `<button type="button" onclick="moveImg(${i}, -1)">←</button>` : ""}
+        ${i < editImages.length-1 ? `<button type="button" onclick="moveImg(${i}, 1)">→</button>` : ""}
+        <button type="button" onclick="removeImg(${i})">×</button>
+      </div>
+    </div>`).join("");
+}
+function moveImg(i, d){
+  const j = i + d;
+  if(j < 0 || j >= editImages.length) return;
+  [editImages[i], editImages[j]] = [editImages[j], editImages[i]];
+  renderEditImages();
+}
+function removeImg(i){ editImages.splice(i, 1); renderEditImages(); }
+function rAddUrl(){
+  const u = $("rImageUrl").value.trim();
+  if(!u) return;
+  if(editImages.length >= MAX_IMAGES) return toast(tr("msgMaxImages"), "err");
+  editImages.push(u);
+  $("rImageUrl").value = "";
+  renderEditImages();
+}
+
+$("rFiles").addEventListener("change", async e => {
+  const files = Array.from(e.target.files || []);
+  for(const f of files){
+    if(editImages.length >= MAX_IMAGES){ toast(tr("msgMaxImages"), "err"); break; }
+    if(f.size > 5 * 1024 * 1024){ toast(tr("msgFileTooBig"), "err"); continue; }
+    const b64 = await fileToBase64(f);
+    editImages.push(b64);
+  }
+  renderEditImages();
+  e.target.value = "";
+});
+
+function fileToBase64(file){
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+/* ============ RESORT FORM ============ */
+$("resortForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const n = $("ownerNotice");
+  if(!USER || !isOwnerRole(USER_ROLE)) return notice(n, tr("msgNeedOwner"), "err");
+  if(!editImages.length) return notice(n, tr("msgMinImages"), "err");
+  notice(n, tr("msgImgProcessing"), "info");
+  try {
+    const data = {
+      name: $("rName").value.trim(),
+      region: $("rRegion").value,
+      location: $("rLocation").value.trim(),
+      price: Number($("rPrice").value) || 0,
+      rating: Number($("rRating").value) || 5,
+      lat: $("rLat").value ? Number($("rLat").value) : null,
+      lng: $("rLng").value ? Number($("rLng").value) : null,
+      amenities: $("rAmenities").value.trim(),
+      description: $("rDesc").value.trim(),
+      images: editImages.slice(),
+      image: editImages[0],
+      ownerId: USER.uid,
+      ownerEmail: USER.email,
+      status: "approved",
+      createdAt: Date.now()
+    };
+    await push(ref(db, "resorts"), data);
+    notice(n, tr("msgPlaced"), "ok");
+    $("resortForm").reset();
+    editImages = [];
+    renderEditImages();
+    toast(tr("msgPlaced"), "ok");
+  } catch(err){
+    notice(n, err.message, "err");
+  }
+});
+
+/* ============ INIT ============ */
+setLang("uz");
+setCurrency("UZS");
+renderEditImages();
+
+window.openDetail = openDetail;
+window.closeDetail = closeDetail;
+window.openBooking = openBooking;
+window.closeBooking = closeBooking;
+window.selectDetailImg = selectDetailImg;
+window.openLightbox = openLightbox;
+window.closeLightbox = closeLightbox;
+window.lbNav = lbNav;
+window.toggleViewMode = toggleViewMode;
+window.sortResorts = sortResorts;
+window.searchResorts = searchResorts;
+window.ownerShowAdd = ownerShowAdd;
+window.ownerTab = ownerTab;
+window.toggleOwnerPanel = toggleOwnerPanel;
+window.openCustomerAuth = openCustomerAuth;
+window.openOwnerAuth = openOwnerAuth;
+window.closeAuth = closeAuth;
+window.setMode = setMode;
+window.resetPassword = resetPassword;
+window.logout = logout;
+window.setLang = setLang;
+window.setCurrency = setCurrency;
+window.toggleDD = toggleDD;
+window.rAddUrl = rAddUrl;
+window.moveImg = moveImg;
+window.removeImg = removeImg;
+</script>
+</body>
+</html>
