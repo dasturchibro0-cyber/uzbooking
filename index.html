@@ -53,8 +53,17 @@ hild td{border-bottom:0}
 .nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;padding:15px;background:#080f20ee;backdrop-
 filter:blur(14px);border-top:1px solid #9cbaff2b;z-index:10}
 .nav button{border:1px solid #52658a;background:#192947;color:var(--text);padding:11px 20px;border-radius:13px;font-weight:700}.nav button.primary{background:linear-gradient(100deg,#73e7ff,#b7a9ff);color:#071020;border:0;font-weight:900;box-shadow:0 5px 20px #73e7ff24}.nav button:disabled{opacity:.35;cursor:not-allowed}
-.dots{display:flex;gap:5px}.dot{width:7px;height:7px;border-radius:50%;background:#344363}.dot.on{background:var(--cyan);width:20px;border-radius:10px}
+.dots{display:flex;gap:5px}.dot{width:9px;height:9px;border:0;padding:0;border-radius:50%;background:#52658a;cursor:pointer}.dot.on{background:var(--cyan);width:23px;border-radius:
+10px}
 .small{font-size:.94rem;color:#c5d1e8}.bigword{font-size:clamp(2rem,5vw,4rem);font-weight:900;letter-spacing:-.04em}
+@media(min-width:1100px){
+  .slide{width:min(1320px,94vw);min-height:min(820px,calc(100vh - 205px))}
+  h1{font-size:clamp(4rem,6vw,6.7rem)}
+  h2{font-size:clamp(3rem,4vw,4.4rem)}
+  .lead{font-size:clamp(1.4rem,1.8vw,1.8rem)}
+  .card{padding:30px}
+  pre{font-size:1.15rem}
+}
 @media(max-width:700px){.grid{grid-template-columns:1fr}.deck{padding:88px 16px 88px}.slide{min-height:calc(100vh - 176px)}.card{padding:19px}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.nav{gap:7px}.nav button{padding:9px 12px}.dots{display:none}pre{font-size:.87rem;padding:15px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
@@ -65,40 +74,40 @@ filter:blur(14px);border-top:1px solid #9cbaff2b;z-index:10}
   <div class="counter" id="counter">1 / 9</div>
 </header>
 <div class="progress" id="progress"></div>
-<main 
-class="deck">
+<main class="deck">
 
 <section class="slide active">
-  <div class="eyebrow">Аюбджонов Мухаммадмухсин · ОПИА</div>
+  <div class="eyebrow">Аюбджонов Мухаммадмухсин · 
+ОПИА</div>
   <h1><span class="gradient">scanf()</span> va <span class="gradient">printf()</span></h1>
   <p class="lead">C va C++ dasturlash tillarida ma’lumot kiritish hamda ekranga chiqarish usullari.</p>
   <div class="grid">
-    <article class="card"><div class="icon">⌨️</div><span class="tag">KIRITISH</span><h3>scanf()</h3><p>Foydalanuvchidan qiymatni 
-o‘qiydi.</p></article>
-    <article class="card"><div class="icon">🖥️</div><span class="tag" style="color:var(--violet);background:#a99bff18">CHIQARISH</span><h3>printf()</h3><p>Matn yoki qiymatni ekranga chiqaradi.</p></article>
+    <article class="card"><div class="icon">⌨️</div><span class="tag">KIRITISH</span><h3>scanf()</h3><p>Foydalanuvchidan qiymatni o‘qiydi.</p></article>
+    <article class="card"><div class="icon">🖥️</div><span class="tag" 
+style="color:var(--violet);background:#a99bff18">CHIQARISH</span><h3>printf()</h3><p>Matn yoki qiymatni ekranga chiqaradi.</p></article>
   </div>
   <p class="small">Asosiy savol: bu funksiyalar C va C++ da qanday ishlatiladi va C++ ning cin/cout usulidan nimasi bilan farq qiladi?</p>
 </section>
 
 <section class="slide">
   <div class="eyebrow">02 · C tilida</div>
-  <h2>C da scanf() va 
-printf()</h2>
-  <p class="lead">C tilida bu funksiyalar standart kiritish-chiqarish kutubxonasiga tegishli.</p>
+  <h2>C da scanf() va printf()</h2>
+  <p class="lead">C tilida bu funksiyalar standart kiritish-chiqarish kutubxonasiga 
+tegishli.</p>
   <div class="pillrow"><span class="pill">Kutubxona: <code>&lt;stdio.h&gt;</code></span><span class="pill"><code>scanf()</code> — kiritish</span><span class="pill"><code>printf()</code> — chiqarish</span></div>
-  <div class="code"><div class="codehead"><span>C kodi</span><button class="copy" onclick="copyCode(this)">Nusxalash</button></div><pre><code>#include &lt;stdio.h&gt;
+  <div class="code"><div class="codehead"><span>C kodi</span><button class="copy" data-copy-code="true">Nusxalash</button></div><pre><code>#include &lt;stdio.h&gt;
 
 int main(void) {
     int a;
-    printf("Son kiriting: ");
+    printf("Son kiriting: 
+");
     scanf("%d", &amp;a);
     printf("Siz kiritgan son: %d\\n", a);
     return 0;
 }</code></pre></div>
   <div class="grid">
     <div class="card"><h3><code>scanf("%d", &amp;a);</code></h3><p>Klaviaturadan butun sonni oladi. <code>&amp;a</code> — o‘zgaruvchining manzili.</p></div>
-    <div class="card"><h3><code>printf("%d", a);</code></h3><p><code>a</code> o‘zgaruvchisidagi butun sonni 
-ekranga chiqaradi.</p></div>
+    <div class="card"><h3><code>printf("%d", a);</code></h3><p><code>a</code> o‘zgaruvchisidagi butun sonni ekranga chiqaradi.</p></div>
   </div>
 </section>
 
@@ -106,8 +115,8 @@ ekranga chiqaradi.</p></div>
   <div class="eyebrow">03 · C++ tilida</div>
   <h2>C++ da scanf() va printf()</h2>
   <p class="lead">C++ da ham <code>scanf()</code> va <code>printf()</code> dan foydalanish mumkin. Buning uchun odatda <code>&lt;cstdio&gt;</code> kutubxonasi ishlatiladi.</p>
-  <div class="code"><div class="codehead"><span>C++ kodi — C uslubidagi funksiyalar</span><button class="copy" 
-onclick="copyCode(this)">Nusxalash</button></div><pre><code>#include &lt;cstdio&gt;
+  <div class="code"><div class="codehead"><span>C++ kodi — C uslubidagi funksiyalar</span><button class="copy" data-copy-code="true">Nusxalash</button></div><pre><code>#include 
+&lt;cstdio&gt;
 
 int main() {
     int a;
@@ -119,13 +128,14 @@ int main() {
   <div class="callout"><b>Muhim:</b> C++ — C tilining shunchaki boshqa nomi emas. C++ C dan rivojlangan alohida til, lekin unda C uslubidagi <code>scanf()</code> va <code>printf()</code> funksiyalaridan ham foydalanish mumkin.</div>
 </section>
 
-<section class="slide">
+<section 
+class="slide">
   <div class="eyebrow">04 · C++ ning odatiy usuli</div>
   <h2>C++ da cin va cout</h2>
   <p class="lead">C++ dasturlarida ma’lumot kiritish va chiqarish uchun ko‘pincha <code>cin</code> va <code>cout</code> ishlatiladi.</p>
   <div class="pillrow"><span class="pill">Kutubxona: <code>&lt;iostream&gt;</code></span><span class="pill"><code>cin</code> — kiritish</span><span class="pill"><code>cout</code> — chiqarish</span></div>
-  <div class="code"><div 
-class="codehead"><span>C++ kodi — cin/cout usuli</span><button class="copy" onclick="copyCode(this)">Nusxalash</button></div><pre><code>#include &lt;iostream&gt;
+  <div class="code"><div class="codehead"><span>C++ kodi — cin/cout usuli</span><button 
+class="copy" data-copy-code="true">Nusxalash</button></div><pre><code>#include &lt;iostream&gt;
 int main() {
     int a;
     std::cout &lt;&lt; "Son kiriting: ";
@@ -134,9 +144,9 @@ int main() {
     return 0;
 }</code></pre></div>
   <div class="grid">
-    <div class="card"><h3><code>cin &gt;&gt; a;</code></h3><p>Qiymatni kiritadi. <code>&gt;&gt;</code> operatoridan 
-foydalanadi.</p></div>
-    <div class="card"><h3><code>cout &lt;&lt; a;</code></h3><p>Qiymatni chiqaradi. <code>&lt;&lt;</code> operatoridan foydalanadi.</p></div>
+    <div class="card"><h3><code>cin &gt;&gt; a;</code></h3><p>Qiymatni kiritadi. <code>&gt;&gt;</code> operatoridan foydalanadi.</p></div>
+    <div 
+class="card"><h3><code>cout &lt;&lt; a;</code></h3><p>Qiymatni chiqaradi. <code>&lt;&lt;</code> operatoridan foydalanadi.</p></div>
   </div>
 </section>
 
@@ -151,8 +161,8 @@ foydalanadi.</p></div>
       <tr><td>Chiqarish</td><td><code>printf()</code></td><td><code>printf()</code></td><td><code>cout</code></td></tr>
       <tr><td>Kutubxona</td><td><code>&lt;stdio.h&gt;</code></td><td><code>&lt;cstdio&gt;</code></td><td><code>&lt;iostream&gt;</code></td></tr>
       <tr><td>Format belgisi</td><td><code>%d</code>, <code>%f</code></td><td><code>%d</code>, <code>%f</code></td><td>Odatda kerak emas</td></tr>
-      <tr><td>Qiymat kiritish</td><td><code>&amp;a</code> 
-manzili</td><td><code>&amp;a</code> manzili</td><td><code>cin &gt;&gt; a</code></td></tr>
+      <tr><td>Qiymat 
+kiritish</td><td><code>&amp;a</code> manzili</td><td><code>&amp;a</code> manzili</td><td><code>cin &gt;&gt; a</code></td></tr>
     </tbody>
   </table></div>
   <div class="callout good">Qisqa xulosa: <code>scanf/printf</code> C tilidan kelgan funksiyalar; <code>cin/cout</code> esa C++ oqim tizimidir.</div>
@@ -161,30 +171,30 @@ manzili</td><td><code>&amp;a</code> manzili</td><td><code>cin &gt;&gt; a</code><
 <section class="slide">
   <div class="eyebrow">06 · Format belgilar</div>
   <h2>%d, %f va &amp; belgilarining vazifasi</h2>
-  <div class="grid">
-    <article class="card"><div 
-class="bigword gradient">%d</div><h3>Butun son</h3><p><code>int</code> qiymatni o‘qish yoki chiqarish uchun.</p><pre><code>scanf("%d", &amp;a);</code></pre></article>
+  <div 
+class="grid">
+    <article class="card"><div class="bigword gradient">%d</div><h3>Butun son</h3><p><code>int</code> qiymatni o‘qish yoki chiqarish uchun.</p><pre><code>scanf("%d", &amp;a);</code></pre></article>
     <article class="card"><div class="bigword gradient">%f</div><h3>Haqiqiy son</h3><p><code>scanf()</code> da <code>float</code> kiritish uchun, <code>printf()</code> da kasrli qiymatni chiqarish uchun.</p><pre><code>scanf("%f", &amp;x);</code></pre></article>
-    <article class="card"><div class="bigword gradient">&amp;a</div><h3>Manzil</h3><p><code>scanf()</code> 
-qiymatni qaysi o‘zgaruvchiga yozishini bilishi uchun manzil beriladi.</p></article>
+    <article class="card"><div class="bigword 
+gradient">&amp;a</div><h3>Manzil</h3><p><code>scanf()</code> qiymatni qaysi o‘zgaruvchiga yozishini bilishi uchun manzil beriladi.</p></article>
     <article class="card"><div class="bigword gradient">&gt;&gt; / &lt;&lt;</div><h3>C++ operatorlari</h3><p><code>cin &gt;&gt; a</code> kiritadi; <code>cout &lt;&lt; a</code> chiqaradi.</p></article>
   </div>
 </section>
 
 <section class="slide">
   <div class="eyebrow">07 · Misol natijasi</div>
-  <h2>Dastur qanday ishlaydi?</h2>
+  <h2>Dastur qanday 
+ishlaydi?</h2>
   <div class="flow">
-    <div class="flowbox"><div 
-class="icon">⌨️</div><h3>Foydalanuvchi</h3><p class="small">25 sonini kiritadi</p></div>
+    <div class="flowbox"><div class="icon">⌨️</div><h3>Foydalanuvchi</h3><p class="small">25 sonini kiritadi</p></div>
     <div class="arrow">→</div>
     <div class="flowbox"><div class="icon">📥</div><h3>scanf() / cin</h3><p class="small">Sonni o‘zgaruvchiga saqlaydi</p></div>
   </div>
   <div class="flow">
     <div class="flowbox"><div class="icon">🧮</div><h3>Dastur</h3><p class="small">Qiymatni xotirada saqlaydi</p></div>
-    <div class="arrow">→</div>
-    <div class="flowbox"><div class="icon">🖥️</div><h3>printf() / cout</h3><p class="small">Ekranga 
-25 ni chiqaradi</p></div>
+    <div 
+class="arrow">→</div>
+    <div class="flowbox"><div class="icon">🖥️</div><h3>printf() / cout</h3><p class="small">Ekranga 25 ni chiqaradi</p></div>
   </div>
   <div class="code"><div class="codehead"><span>Natija</span></div><pre><code>Son kiriting: 25
 Siz kiritgan son: 25</code></pre></div>
@@ -193,18 +203,18 @@ Siz kiritgan son: 25</code></pre></div>
 <section class="slide">
   <div class="eyebrow">08 · Bilimingizni tekshiring</div>
   <h2>Mini-test</h2>
-  <div class="quiz"><h3>1. C tilida klaviaturadan butun son kiritish uchun nima ishlatiladi?</h3>
-    <button class="option" onclick="answer(this,false)">A) 
-printf("%d", a)</button>
-    <button class="option" onclick="answer(this,true)">B) scanf("%d", &amp;a)</button>
-    <button class="option" onclick="answer(this,false)">C) cout &lt;&lt; a</button>
+  <div class="quiz"><h3>1. C tilida klaviaturadan butun son kiritish 
+uchun nima ishlatiladi?</h3>
+    <button class="option" data-answer="false">A) printf("%d", a)</button>
+    <button class="option" data-answer="true">B) scanf("%d", &amp;a)</button>
+    <button class="option" data-answer="false">C) cout &lt;&lt; a</button>
     <div class="feedback"></div>
   </div>
   <div class="quiz"><h3>2. C++ da odatda ekranga qiymat chiqarish uchun nima ishlatiladi?</h3>
-    <button class="option" onclick="answer(this,false)">A) cin &gt;&gt; a</button>
-    <button class="option" onclick="answer(this,true)">B) cout &lt;&lt; a</button>
-    <button class="option" 
-onclick="answer(this,false)">C) scanf("%d", &amp;a)</button>
+    <button class="option" data-answer="false">A) cin &gt;&gt; a</button>
+    <button class="option" data-answer="true">B) cout &lt;&lt; 
+a</button>
+    <button class="option" data-answer="false">C) scanf("%d", &amp;a)</button>
     <div class="feedback"></div>
   </div>
 </section>
@@ -213,60 +223,128 @@ onclick="answer(this,false)">C) scanf("%d", &amp;a)</button>
   <div class="eyebrow">09 · Xulosa</div>
   <h2>Asosiy fikrlar</h2>
   <div class="card" style="padding:clamp(22px,4vw,38px)">
-    <p style="font-size:clamp(1.1rem,2.3vw,1.45rem);color:var(--text)">C tilida <b>scanf()</b> ma’lumotni kiritadi, <b>printf()</b> esa ekranga chiqaradi. Bu funksiyalar C++ da ham <b>&lt;cstdio&gt;</b> kutubxonasi orqali ishlatilishi 
-mumkin. Biroq C++ da odatda <b>cin</b> kiritish va <b>cout</b> chiqarish uchun ishlatiladi; ular <b>&lt;iostream&gt;</b> kutubxonasiga tegishli. Demak, ikki tilda ham kiritish va chiqarish mumkin, lekin yozilish usuli va kutubxonalari farq qiladi.</p>
+    <p style="font-size:clamp(1.1rem,2.3vw,1.45rem);color:var(--text)">C tilida <b>scanf()</b> ma’lumotni kiritadi, <b>printf()</b> esa ekranga 
+chiqaradi. Bu funksiyalar C++ da ham <b>&lt;cstdio&gt;</b> kutubxonasi orqali ishlatilishi mumkin. Biroq C++ da odatda <b>cin</b> kiritish va <b>cout</b> chiqarish uchun ishlatiladi; ular <b>&lt;iostream&gt;</b> kutubxonasiga tegishli. Demak, ikki tilda ham kiritish va chiqarish mumkin, lekin yozilish usuli va kutubxonalari farq qiladi.</p>
   </div>
   <div class="pillrow"><span class="pill">C: scanf / printf</span><span class="pill">C++: cin / cout</span><span class="pill">C++ da scanf / printf ham mumkin</span></div>
   <p class="lead">Rahmat!</p>
 </section>
 </main>
 <footer class="nav">
-  <button id="prev" onclick="move(-1)" disabled>← Oldingi</button>
+  <button id="prev" disabled>← Oldingi</button>
   <div class="dots" id="dots" aria-label="Slaydlar"></div>
-  <button class="primary" id="next" onclick="move(1)">Keyingi →</button>
+  <button class="primary" id="next">Keyingi →</button>
 </footer>
 <script>
-const slides=[...document.querySelectorAll('.slide')];
-let current=0;
-const counter=document.getElementById('counter');
-const 
-progress=document.getElementById('progress');
-const prev=document.getElementById('prev');
-const next=document.getElementById('next');
-const dots=document.getElementById('dots');
-slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' on':'');dots.appendChild(d)});
-function showSlide(n){
- current=Math.max(0,Math.min(slides.length-1,n));
- 
-slides.forEach((s,i)=>s.classList.toggle('active',i===current));
- [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===current));
- counter.textContent=`${current+1} / ${slides.length}`;
- progress.style.width=`${((current+1)/slides.length)*100}%`;
- prev.disabled=current===0;next.textContent=current===slides.length-1?'Boshidan ↺':'Keyingi →';
- window.scrollTo({top:0,behavior:'smooth'});
-}
-function 
-move(delta){if(current===slides.length-1&&delta===1)showSlide(0);else showSlide(current+delta)}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();move(-1)}});
-function copyCode(btn){
- const code=btn.closest('.code').querySelector('code').innerText;
- if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(code).then(()=>{btn.textContent='Nusxa
-landi ✓';setTimeout(()=>btn.textContent='Nusxalash',1400)}).catch(()=>fallbackCopy(code,btn))}
- else fallbackCopy(code,btn);
-}
-function fallbackCopy(text,btn){
- const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();
- try{document.execCommand('copy');btn.textContent='Nusxalandi ✓'}catch(e){btn.textContent='Matnni belgilang'}
- area.remove();setTimeout(()=>btn.textContent='Nusxalash',1400);
-}
-function answer(btn,correct){
- const quiz=btn.closest('.quiz');quiz.querySelectorAll('.option').forEach(b=>{b.style.borderColor='#2c3b5c';b.style.background='#18233d'});
- const fb=quiz.querySelector('.feedback');
- if(correct){btn.style.borderColor='#7ee0b5';btn.style.background='#7ee0b51a';fb.textContent='To‘g‘ri! Ajoyib.';fb.style.color='#7ee0b5'}
- else{btn.style.borderColor='#ff9b9b';btn.style.background='#ff9b9b14';fb.textContent='Qayta urinib ko‘ring. Vazifani eslang: kiritishmi yoki 
-chiqarishmi?';fb.style.color='#ffb1b1'}
-}
-showSlide(0);
+(function () {
+  const root = document.querySelector('main.deck');
+  if (!root) return;
+  const slides = Array.from(root.querySelectorAll('.slide'));
+  let current = 
+0;
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  const dots = document.getElementById('dots');
+
+  // Build slide indicators once, with no dependency on inline event handlers.
+  if (dots && dots.children.length === 0) {
+    slides.forEach((_, i) => 
+{
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.className = 'dot' + (i === 0 ? ' on' : '');
+      d.setAttribute('aria-label', 'Slayd ' + (i + 1));
+      d.addEventListener('click', () => showSlide(i));
+      dots.appendChild(d);
+    });
+  }
+
+  function showSlide(n) {
+    current = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, i) => {
+      s.classList.toggle('active', i === 
+current);
+      s.setAttribute('aria-hidden', i === current ? 'false' : 'true');
+    });
+    if (dots) Array.from(dots.children).forEach((d, i) => d.classList.toggle('on', i === current));
+    if (counter) counter.textContent = (current + 1) + ' / ' + slides.length;
+    if (progress) progress.style.width = (((current + 1) / slides.length) * 100) + '%';
+    if (prev) prev.disabled = current === 0;
+    if (next) next.textContent = current === slides.length - 1 ? 'Boshidan ↺' : 'Keyingi →';
+  }
+  function move(delta) 
+{
+    if (current === slides.length - 1 && delta === 1) showSlide(0);
+    else showSlide(current + delta);
+  }
+  if (prev) prev.addEventListener('click', () => move(-1));
+  if (next) next.addEventListener('click', () => move(1));
+
+  document.addEventListener('keydown', e => {
+    // Avoid hijacking arrow keys while a user is typing in a form field.
+    if 
+(/INPUT|TEXTAREA|SELECT/.test((e.target && e.target.tagName) || '')) return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); move(1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); move(-1); }
+  });
+
+  function fallbackCopy(text, btn) {
+    const area = document.createElement('textarea');
+    area.value = text; area.setAttribute('readonly', '');
+    area.style.position = 'fixed'; area.style.opacity = '0';
+    
+document.body.appendChild(area); area.select();
+    try { document.execCommand('copy'); btn.textContent = 'Nusxalandi ✓'; }
+    catch (e) { btn.textContent = 'Koddan nusxa olish uchun belgilang'; }
+    area.remove();
+    setTimeout(() => btn.textContent = 'Nusxalash', 1500);
+  }
+  root.querySelectorAll('[data-copy-code]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.closest('.code')?.querySelector('code')?.innerText || '';
+      if (navigator.clipboard && 
+window.isSecureContext) {
+        navigator.clipboard.writeText(code).then(() => {
+          btn.textContent = 'Nusxalandi ✓';
+          setTimeout(() => btn.textContent = 'Nusxalash', 1500);
+        }).catch(() => fallbackCopy(code, btn));
+      } else fallbackCopy(code, btn);
+    });
+  });
+
+  root.querySelectorAll('.quiz').forEach(quiz => {
+    quiz.querySelectorAll('[data-answer]').forEach(btn => 
+{
+      btn.addEventListener('click', () => {
+        quiz.querySelectorAll('[data-answer]').forEach(b => {
+          b.style.borderColor = '#405579'; b.style.background = '#192947';
+        });
+        const feedback = quiz.querySelector('.feedback');
+        const correct = btn.dataset.answer === 'true';
+        if (correct) {
+          btn.style.borderColor = '#8df0c2'; btn.style.background = '#8df0c21a';
+          feedback.textContent = 'To‘g‘ri! Ajoyib.'; feedback.style.color = 
+'#8df0c2';
+        } else {
+          btn.style.borderColor = '#ff9b9b'; btn.style.background = '#ff9b9b14';
+          feedback.textContent = 'Qayta urinib ko‘ring. Kiritishmi yoki chiqarishmi?'; feedback.style.color = '#ffb1b1';
+        }
+      });
+    });
+  });
+
+  // Adapt presentation sizing to both projector/desktop and narrow phone screens.
+  function fitPresentation() {
+    const wide = window.innerWidth >= 
+1100;
+    document.body.classList.toggle('presentation-wide', wide);
+  }
+  window.addEventListener('resize', fitPresentation, { passive: true });
+  fitPresentation();
+  showSlide(0);
+})();
 </script>
 </body>
 </html>
