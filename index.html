@@ -3,1143 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#087653">
-<title>DACH.UZ — Dam olish maskanlarini toping</title>
+<title>scanf() va printf() — Interaktiv taqdimot</title>
 <style>
-:root{--green:#087653;--green2:#0b8b63;--ink:#17251f;--muted:#68766f;--line:#e4ebe7;--soft:#f5f8f6;--white:#fff;--shadow:0 10px 30px rgba(20,55,40,.08)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:#fff}button,input,select,textarea{font:inherit}button{cursor:pointer}.container{width:min(1390px,calc(100% - 48px));margin:auto}
-.topbar{height:76px;background:#fff;border-bottom:1px solid #eef2ef;display:flex;align-items:center;position:sticky;top:0;z-index:20}
-.nav{display:flex;align-items:center;gap:30px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--green);font-weight:850;font-size:25px;letter-spacing:-1px;white-space:nowrap}
-.logo-mark{width:39px;height:35px}
-.navlinks{display:flex;gap:27px;margin-left:14px}
-.navlinks a{font-size:14px;color:#27352f;text-decoration:none;font-weight:600}
-.navlinks a.active,.navlinks a:hover{color:var(--green)}
-.navright{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.iconbtn,.loginbtn{border:0;background:transparent;color:#26352e;display:flex;align-items:center;gap:7px;padding:9px 2px;font-weight:650}
-.primary,.secondary{border:0;border-radius:11px;padding:13px 19px;font-weight:750;transition:.2s}
-.primary{background:var(--green);color:#fff;box-shadow:0 5px 12px #08765320}
-.primary:hover{background:#066347;transform:translateY(-1px)}
-.primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.secondary{background:#eaf5ef;color:var(--green)}
-.menu-toggle{display:none;background:transparent;border:0;font-size:24px}
-.lang{position:relative}
-.langbtn{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 11px;font-weight:700;font-size:13px;color:var(--ink);transition:.18s}
-.langbtn:hover{border-color:#b9dfce;background:#f1faf5}
-.langbtn img{width:21px;height:15px;object-fit:cover;border-radius:2px;display:block;box-shadow:0 0 0 1px #0000000d}
-.langbtn .caret{font-size:9px;color:var(--muted);line-height:1}
-.langmenu{position:absolute;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;min-width:184px;display:none;z-index:50}
-.langmenu.open{display:block}
-.langmenu button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;padding:10px;border-radius:9px;font-size:13px;font-weight:650;color:var(--ink);text-align:left;transition:.15s}
-.langmenu button:hover{background:#f1faf5}
-.langmenu button.active{background:#eaf5ef;color:var(--green)}
-.langmenu img{width:22px;height:15px;object-fit:cover;border-radius:2px;flex-shrink:0}
-.hero{min-height:350px;background:linear-gradient(90deg,rgba(4,29,20,.76),rgba(4,29,20,.35) 52%,rgba(4,29,20,.06)),url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=85') center 54%/cover;display:flex;align-items:center;color:white}
-.hero-inner{padding:44px 0 38px}
-.hero h1{font-size:clamp(30px,3.4vw,47px);line-height:1.12;letter-spacing:-1.5px;max-width:650px;margin:0 0 13px;font-weight:850}
-.hero p{font-size:16px;line-height:1.6;margin:0 0 24px;color:#f0f7f3}
-.searchbox{background:#fff;color:var(--ink);border-radius:16px;padding:8px;display:grid;grid-template-columns:1.15fr 1fr 1fr .9fr auto;gap:2px;max-width:1050px;box-shadow:0 12px 35px #0002}
-.searchfield{display:flex;gap:10px;align-items:center;padding:9px 13px;border-right:1px solid var(--line);min-width:0}
-.searchfield svg{flex-shrink:0;color:#233a30}
-.fieldwrap{min-width:0;flex:1}
-.fieldwrap label{font-size:11px;font-weight:800;display:block;margin-bottom:3px}
-.fieldwrap input,.fieldwrap select{border:0;outline:0;width:100%;color:#6a7771;background:transparent;font-size:13px;min-width:0}
-.search-submit{align-self:stretch;min-width:130px}
-.section{padding:29px 0 4px}
-.category-row{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
-.category{border:1px solid transparent;border-radius:14px;text-align:center;padding:10px 8px 12px;background:white;transition:.2s;color:var(--ink);font-weight:700;font-size:13px}
-.category:hover,.category.selected{border-color:#b9dfce;background:#f1faf5;color:var(--green)}
-.category img{width:100%;height:88px;object-fit:cover;border-radius:10px;display:block;margin-bottom:10px}
-.category .caticon{height:88px;border-radius:10px;background:var(--soft);display:grid;place-items:center;margin-bottom:10px;color:var(--green)}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;padding-top:25px}
-.section-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px;gap:10px}
-.section-heading h2{font-size:20px;margin:0;font-weight:850;letter-spacing:-.4px}
-.section-heading h2:before{content:"";display:inline-block;width:4px;height:22px;background:var(--green);border-radius:4px;margin-right:12px;vertical-align:-4px}
-.textlink{color:var(--green);text-decoration:none;font-size:13px;font-weight:750;white-space:nowrap}
-.listing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.listing{border:1px solid #e0e9e4;border-radius:13px;overflow:hidden;background:#fff;transition:.22s;min-width:0}
-.listing:hover{box-shadow:var(--shadow);transform:translateY(-3px)}
-.listing-photo{height:190px;position:relative;background:#e8efeb}
-.listing-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.tag{position:absolute;left:11px;top:11px;background:var(--green);color:#fff;border-radius:7px;padding:5px 9px;font-size:11px;font-weight:800}
-.tag.premium{background:#7552ce}
-.fav{position:absolute;right:10px;top:10px;width:34px;height:34px;border:0;border-radius:50%;background:#ffffffeb;color:#233a30;font-size:19px;display:grid;place-items:center}
-.fav.active{color:#e34e65}
-.listing-body{padding:13px}
-.price{font-size:18px;font-weight:850;letter-spacing:-.4px}
-.price small{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:0}
-.listing-title{font-size:14px;font-weight:750;margin:6px 0 8px;line-height:1.4}
-.location{font-size:12px;color:var(--muted);display:flex;align-items:flex-start;gap:5px;line-height:1.4}
-.amenities{display:flex;gap:10px;flex-wrap:wrap;border-top:1px solid #edf1ee;margin-top:12px;padding-top:11px;font-size:11px;color:#53635a}
-.amenities span{display:flex;gap:4px;align-items:center}
-.rating{display:flex;gap:6px;align-items:center;font-size:12px;margin-top:12px}
-.star{color:#f5a400;font-size:16px}
-.rating small{color:var(--muted)}
-.sidebar{display:flex;flex-direction:column;gap:15px}
-.sidecard{border:1px solid var(--line);border-radius:14px;padding:17px;background:#fff}
-.sidehead{font-weight:850;display:flex;gap:9px;align-items:center;margin-bottom:13px}
-.sidehead .bubble{width:25px;height:25px;background:#e8f5ee;color:var(--green);border-radius:50%;display:grid;place-items:center}
-.region{display:flex;align-items:center;gap:10px;margin:10px 0;text-decoration:none;color:var(--ink);font-size:12px;font-weight:700}
-.region img{width:47px;height:42px;object-fit:cover;border-radius:8px}
-.region small{display:block;color:var(--muted);font-weight:500;margin-top:4px}
-.step{display:flex;gap:10px;margin:14px 0}
-.stepnum{width:25px;height:25px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:800;flex-shrink:0}
-.step strong{font-size:12px}
-.step p{font-size:11px;line-height:1.5;color:var(--muted);margin:4px 0 0}
-.recent{padding:28px 0 50px}
-.recent-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.empty{display:none;padding:35px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
-.cta{background:#eaf6ef;border-radius:18px;padding:27px;display:flex;justify-content:space-between;align-items:center;gap:20px;margin:8px 0 42px}
-.cta h2{margin:0 0 7px;font-size:22px}
-.cta p{margin:0;color:var(--muted);font-size:14px}
-.footer{background:#102d22;color:#e9f4ee;padding:35px 0 22px}
-.footergrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
-.footer .logo{color:white}
-.footer p,.footer a{color:#c3d5cb;font-size:13px;line-height:1.8}
-.footer a{display:block;text-decoration:none}
-.copyright{border-top:1px solid #ffffff20;margin-top:25px;padding-top:18px;color:#b4c9be;font-size:12px}
-.modalback{position:fixed;inset:0;background:#0b2118a8;z-index:60;display:none;align-items:center;justify-content:center;padding:20px}
-.modalback.show{display:flex}
-.modal{background:white;border-radius:18px;width:min(520px,100%);max-height:90vh;overflow:auto;padding:25px;box-shadow:0 25px 80px #0003}
-.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.modalhead h2{font-size:22px;margin:0}
-.close{border:0;background:var(--soft);width:35px;height:35px;border-radius:10px;font-size:21px}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.formfield{display:flex;flex-direction:column;gap:6px;margin-bottom:13px}
-.formfield.full{grid-column:1/-1}
-.formfield label{font-size:12px;font-weight:800}
-.formfield input,.formfield select,.formfield textarea{width:100%;border:1px solid #dce6e0;border-radius:10px;padding:12px;outline:0;background:white}
-.formfield input:focus,.formfield select:focus,.formfield textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px #08765315}
-.formfield textarea{min-height:85px;resize:vertical}
-.formfield input[type=file]{padding:9px;background:#f8fbf9;cursor:pointer}
-.modal .primary{width:100%}
-.switchline{text-align:center;color:var(--muted);font-size:13px;margin:15px 0 0}
-.switchline button{border:0;background:none;color:var(--green);font-weight:800}
-.notice{font-size:12px;line-height:1.5;color:var(--muted);margin:10px 0}
-.toast{position:fixed;right:20px;bottom:20px;z-index:80;background:#143d2d;color:white;padding:14px 18px;border-radius:12px;box-shadow:var(--shadow);display:none;max-width:360px}
-.toast.show{display:block}
-.user-pill{display:none;align-items:center;gap:7px;color:var(--green);font-size:13px;font-weight:750;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.image-preview{margin-top:8px}
-.image-preview img{max-width:100%;max-height:150px;border-radius:8px;border:1px solid #ddd;display:block}
-.spinner{display:inline-block;width:14px;height:14px;border:2px solid #ffffff60;border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px;margin-right:6px}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:1100px){.nav{gap:17px}.navlinks{gap:16px}.searchbox{grid-template-columns:repeat(2,1fr)}.searchfield:nth-child(2){border-right:0}.search-submit{min-height:48px}.layout{grid-template-columns:1fr}.sidebar{display:grid;grid-template-columns:1fr 1fr}.listing-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.recent-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){.container{width:min(100% - 28px,600px)}.topbar{height:66px}.navlinks{display:none;position:absolute;left:14px;right:14px;top:65px;background:white;padding:18px;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);flex-direction:column;gap:18px;z-index:30}.navlinks.open{display:flex}.menu-toggle{display:block}.logo{font-size:22px}.logo-mark{width:32px}.navright{gap:8px}.iconbtn{display:none}.loginbtn{font-size:13px}.navright>.primary{padding:10px 12px;font-size:12px}.langbtn{padding:8px 9px;gap:5px}.langbtn .lname{display:none}.hero{min-height:440px;background-position:58% center}.hero-inner{padding:36px 0}.hero h1{font-size:34px}.hero p{font-size:14px}.searchbox{grid-template-columns:1fr;gap:0;padding:7px}.searchfield{border-right:0;border-bottom:1px solid var(--line);padding:10px}.search-submit{margin-top:6px}.category-row{grid-template-columns:repeat(3,1fr);gap:8px}.category{font-size:12px;padding:7px 5px}.category img,.category .caticon{height:75px}.section{padding-top:20px}.layout{padding-top:19px;gap:22px}.listing-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.listing-photo{height:145px}.listing-body{padding:10px}.price{font-size:15px}.listing-title{font-size:12px}.amenities{gap:7px;font-size:10px}.sidebar{grid-template-columns:1fr}.recent-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.section-heading h2{font-size:18px}.cta{padding:20px;align-items:flex-start;flex-direction:column}.footergrid{grid-template-columns:1fr 1fr}.footergrid>div:first-child{grid-column:1/-1}.formgrid{grid-template-columns:1fr}.formfield.full{grid-column:auto}}
-@media(max-width:390px){.loginbtn{display:none}.navright>.primary{font-size:11px;padding:9px}.listing-photo{height:125px}.category img,.category .caticon{height:65px}}
+:root{
+  --bg:#080f20;--panel:#111d35;--panel2:#192947;--text:#f7f9ff;--muted:#d0daee;
+  --cyan:#73e7ff;--violet:#b7a9ff;--green:#8df0c2;--orange:#ffd58a;--line:#35486d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 8% 12%,#203d69 0,transparent 35%),radial-gradient(ellipse at 92% 82%,#352b70 0,transparent 32%),linear-gradient(135deg,#080f20,#0d1630 55%,#11112b);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}
+button{font:inherit;cursor:pointer}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 5vw;background:#080f20ee;backdrop-filter:blur(14px);border-bottom:1px solid #9cbaff2b;box-shadow:0 8px 30px 
+#0002}
+.brand{font-weight:800;letter-spacing:.3px}.brand span{color:var(--cyan)}
+.counter{font-size:.9rem;color:var(--muted)}
+.progress{position:fixed;z-index:11;top:57px;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .25s}
+.deck{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:104px 30px 96px}
+.slide{display:none;width:min(1180px,100%);min-height:min(720px,calc(100vh - 195px));animation:appear 
+.35s ease}
+.slide.active{display:flex;flex-direction:column;justify-content:center}
+@keyframes appear{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.eyebrow{color:var(--cyan);font-size:.8rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+h1,h2,h3,p{margin-top:0}h1{font-size:clamp(2.5rem,7vw,5.7rem);line-height:1.02;letter-spacing:-.055em;margin-bottom:24px}h2{font-size:clamp(2rem,4.5vw,3.5rem);line-height:1.1;letter-spacing:-.035em;m
+argin-bottom:22px}h3{font-size:1.15rem;margin-bottom:9px}
+.lead{font-size:clamp(1.2rem,2.15vw,1.55rem);color:var(--muted);max-width:850px}.slide h2{ text-shadow:0 3px 22px #0003 } .slide.active > .eyebrow{display:inline-flex;align-self:flex-start;align-items:center;gap:9px;padding:7px 13px;border:1px solid #73e7ff45;background:#73e7ff0d;border-radius:999px} .slide.active > .eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.gradient{background:linear-gradient(100deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:18px 0}
+.card{background:linear-gradient(145deg,#192b4b,#111d35);border:1px solid #52658a88;border-radius:24px;padding:27px;box-shadow:0 18px 48px #0003}
+.card p{color:var(--muted);margin-bottom:0}.icon{font-size:1.8rem;margin-bottom:12px}
+.tag{display:inline-block;padding:5px 10px;border-radius:999px;background:#65e4ff17;color:var(--cyan);font-size:.82rem;f
+ont-weight:700;margin:0 6px 8px 0}
+.code{background:#070c18;border:1px solid #52658a;border-radius:18px;overflow:hidden;margin:18px 0;box-shadow:0 16px 35px #0003}
+.codehead{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;background:#121c31;color:var(--muted);font-size:.85rem}
+.copy{border:1px solid #3a4c70;background:#1a2945;color:var(--text);padding:5px 10px;border-radius:8px;font-size:.8rem}
+pre{margin:0;padding:23px;overflow:auto;color:#f0f4ff;font-size:1.05rem;line-height:1.8}
+.kw{color:#c4a8ff}.fn{color:#65e4ff}.str{color:#9be6b5}.num{color:#ffc878}.comment{color:#8392b4}
+.pillrow{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.pill{border:1px solid var(--line);background:#121a2f;padding:10px 14px;border-radius:12px;color:var(--muted)}
+.callout{border-left:4px solid var(--orange);background:#ffc87812;padding:16px 18px;border-radius:0 14px 14px 0;color:#f6e8cb;margin:18px 0}
+.good{border-left-color:var(--green);background:#7ee0b512;color:#d7f9eb}
+.flow{display:grid;grid-template-columns:1fr auto 
+1fr;gap:12px;align-items:center;margin:24px 0}
+.flowbox{text-align:center;padding:22px 14px;background:var(--panel);border:1px solid var(--line);border-radius:18px}
+.arrow{font-size:1.8rem;color:var(--cyan)}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:16px;margin:18px 0}
+table{width:100%;border-collapse:collapse;min-width:560px;background:#10182b}th,td{text-align:left;padding:14px 17px;border-bottom:1px solid var(--line)}th{background:#203455;color:var(--cyan);font-size:1rem}td{color:#e0e8f8}tr:last-c
+hild td{border-bottom:0}
+.quiz{background:#111a2e;border:1px solid var(--line);padding:22px;border-radius:20px;margin:16px 0}.option{display:block;width:100%;text-align:left;margin:10px 0;padding:14px 16px;background:#192947;border:1px solid #405579;border-radius:13px;color:var(--text);font-size:1rem}.option:hover{border-color:var(--cyan)}.feedback{margin-top:12px;font-weight:700;min-height:28px}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;padding:15px;background:#080f20ee;backdrop-
+filter:blur(14px);border-top:1px solid #9cbaff2b;z-index:10}
+.nav button{border:1px solid #52658a;background:#192947;color:var(--text);padding:11px 20px;border-radius:13px;font-weight:700}.nav button.primary{background:linear-gradient(100deg,#73e7ff,#b7a9ff);color:#071020;border:0;font-weight:900;box-shadow:0 5px 20px #73e7ff24}.nav button:disabled{opacity:.35;cursor:not-allowed}
+.dots{display:flex;gap:5px}.dot{width:7px;height:7px;border-radius:50%;background:#344363}.dot.on{background:var(--cyan);width:20px;border-radius:10px}
+.small{font-size:.94rem;color:#c5d1e8}.bigword{font-size:clamp(2rem,5vw,4rem);font-weight:900;letter-spacing:-.04em}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.deck{padding:88px 16px 88px}.slide{min-height:calc(100vh - 176px)}.card{padding:19px}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}.nav{gap:7px}.nav button{padding:9px 12px}.dots{display:none}pre{font-size:.87rem;padding:15px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
-
 <header class="topbar">
-  <div class="container nav">
-    <button class="menu-toggle" id="menuToggle" aria-label="Menyu">☰</button>
-    <a class="logo" href="#" aria-label="DACH.UZ">
-      <svg class="logo-mark" viewBox="0 0 48 42" fill="none" aria-hidden="true">
-        <path d="M4 20.5 24 4l20 16.5" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M10 19v18h28V19M20 37V25h9v12" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
-        <path d="m2 28 9-7" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-      </svg>
-      DACH.UZ
-    </a>
-    <nav class="navlinks" id="navLinks">
-      <a class="active" href="#home" data-i18n="nav.home">Bosh sahifa</a>
-      <a href="#listings" data-i18n="nav.listings">E'lonlar</a>
-      <a href="#categories" data-i18n="nav.categories">Kategoriyalar</a>
-      <a href="#regions" data-i18n="nav.regions">Hududlar</a>
-      <a href="#about" data-i18n="nav.about">Haqida</a>
-    </nav>
-    <div class="navright">
-      <button class="iconbtn" type="button" aria-label="Qidirish" onclick="focusSearch()">⌕</button>
-      <button class="iconbtn" type="button" aria-label="Sevimlilar" onclick="showFavorites()">♡</button>
-
-      <div class="lang" id="langWrap">
-        <button class="langbtn" id="langBtn" type="button" aria-haspopup="true" aria-expanded="false">
-          <img id="langCurrentFlag" src="https://flagcdn.com/w40/uz.png" alt="">
-          <span class="lname" id="langCurrentName">O'zbekcha</span>
-          <span class="caret">▾</span>
-        </button>
-        <div class="langmenu" id="langMenu" role="menu"></div>
-      </div>
-
-      <button class="loginbtn" type="button" id="loginOpen" data-i18n="nav.login">♙ Kirish</button>
-      <span class="user-pill" id="userPill"></span>
-      <button class="primary" type="button" id="registerOpen" data-i18n="nav.register">Ro'yxatdan o'tish</button>
-      <button class="secondary" type="button" id="logoutBtn" style="display:none" data-i18n="nav.logout">Chiqish</button>
-      <button class="secondary" type="button" id="addTop" style="display:none" data-i18n="nav.addListing">＋ E'lon berish</button>
-    </div>
-  </div>
+  <div class="brand">CODE<span>·</span>CLASS <span style="color:var(--muted);font-weight:500">/ C dasturlash</span></div>
+  <div class="counter" id="counter">1 / 9</div>
 </header>
+<div class="progress" id="progress"></div>
+<main 
+class="deck">
 
-<main id="home">
-<section class="hero">
- <div class="container hero-inner">
-  <h1 data-i18n-html="hero.title">Turingiz uchun eng yaxshi<br>dam olish maskanlarini toping!</h1>
-  <p data-i18n-html="hero.subtitle">Dachalar, kottejlar va dam olish maskanlari — barchasi bir joyda.<br>Oson qidiruv, qulay narxlar, ishonchli e'lonlar.</p>
-  <form class="searchbox" id="searchForm" autocomplete="off">
-   <div class="searchfield">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-    <div class="fieldwrap"><label for="location" data-i18n="search.location">Joylashuv</label><input id="location" data-i18n-ph="search.locationPh" placeholder="Viloyat, shahar yoki tuman"></div>
-   </div>
-   <div class="searchfield">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
-    <div class="fieldwrap"><label for="checkin" data-i18n="search.checkin">Kelish sanasi</label><input id="checkin" type="date"></div>
-   </div>
-   <div class="searchfield">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
-    <div class="fieldwrap"><label for="checkout" data-i18n="search.checkout">Ketish sanasi</label><input id="checkout" type="date"></div>
-   </div>
-   <div class="searchfield">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"/><path d="M2 21v-2a7 7 0 0 1 14 0v2M19 8v6M22 11h-6"/></svg>
-    <div class="fieldwrap"><label for="guests" data-i18n="search.guests">Mehmonlar soni</label><select id="guests"></select></div>
-   </div>
-   <button class="primary search-submit" type="submit">⌕&nbsp; <span data-i18n="search.button">Qidirish</span></button>
-  </form>
- </div>
+<section class="slide active">
+  <div class="eyebrow">Аюбджонов Мухаммадмухсин · ОПИА</div>
+  <h1><span class="gradient">scanf()</span><br>va <span class="gradient">printf()</span></h1>
+  <p class="lead">Ma’lumot kiritish va ekranga chiqarish funksiyalari. Ularning vazifasi, farqi va C++ da ishlatilishi.</p>
+  <div class="pillrow"><span class="pill">⌨️ scanf() — kiritish</span><span class="pill">🖥️ printf() — chiqarish</span><span class="pill">C / 
+C++</span></div>
+  <p class="small">Taqdimot davomida pastdagi «Keyingi» tugmasini bosing yoki klaviaturadagi ← → tugmalaridan foydalaning.</p>
 </section>
 
-<section class="section container" id="categories">
- <div class="category-row">
-  <button class="category" type="button" data-category="Dachalar"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80" alt=""><span data-i18n="cat.dachas">Dachalar</span></button>
-  <button class="category" type="button" data-category="Kottejlar"><img src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=400&q=80" alt=""><span data-i18n="cat.cottages">Kottejlar</span></button>
-  <button class="category" type="button" data-category="Dam olish maskanlari"><img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=400&q=80" alt=""><span data-i18n="cat.resorts">Dam olish maskanlari</span></button>
-  <button class="category" type="button" data-category="Dala hovlilar"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=400&q=80" alt=""><span data-i18n="cat.farm">Dala hovlilar</span></button>
-  <button class="category" type="button" data-category="Tog' uylari"><img src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=400&q=80" alt=""><span data-i18n="cat.mountain">Tog' uylari</span></button>
-  <button class="category" type="button" data-category="Barchasi"><div class="caticon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></div><span data-i18n="cat.all">Barchasi</span></button>
- </div>
-</section>
-
-<section class="container layout" id="listings">
- <div class="maincol">
-  <div class="section-heading"><h2 id="listingHeading" data-i18n="listings.popular">Mashhur e'lonlar</h2><a href="#allListings" class="textlink" id="showAll" data-i18n="listings.viewAll">Barchasini ko'rish →</a></div>
-  <div class="listing-grid" id="listingGrid"></div>
-  <div class="empty" id="emptyState" data-i18n="empty.text">Bu qidiruv bo'yicha e'lon topilmadi. Boshqa hududni yoki kategoriyani tanlab ko'ring.</div>
- </div>
- <aside class="sidebar">
-  <div class="sidecard" id="regions">
-   <div class="sidehead"><span class="bubble">⌖</span><span data-i18n="sidebar.regions">Mashhur hududlar</span></div>
-   <a class="region" href="#listings" data-region="Chorvoq"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=150&q=75" alt=""><span><span data-i18n="region.chorvoq">Chorvoq</span><small data-i18n="region.chorvoqDesc">Dam olish maskanlari</small></span></a>
-   <a class="region" href="#listings" data-region="Bo'stonliq"><img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=150&q=75" alt=""><span><span data-i18n="region.bostonliq">Bo'stonliq</span><small data-i18n="region.bostonliqDesc">Tog' va tabiat maskanlari</small></span></a>
-   <a class="region" href="#listings" data-region="Toshkent viloyati"><img src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=150&q=75" alt=""><span><span data-i18n="region.toshkent">Toshkent viloyati</span><small data-i18n="region.toshkentDesc">Dachalar va kottejlar</small></span></a>
-   <a class="region" href="#listings" data-region="Qibray"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=150&q=75" alt=""><span><span data-i18n="region.qibray">Qibray</span><small data-i18n="region.qibrayDesc">Shahar yaqinida dam olish</small></span></a>
-   <a class="region" href="#listings" data-region="Chotqol"><img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=150&q=75" alt=""><span><span data-i18n="region.chotqol">Chotqol</span><small data-i18n="region.chotqolDesc">Tog' manzaralari</small></span></a>
+<section class="slide">
+  <div class="eyebrow">02 · Asosiy tushuncha</div>
+  <h2>Ular nima vazifa bajaradi?</h2>
+  <div class="grid">
+    <article class="card"><div class="icon">⌨️</div><span class="tag">INPUT · KIRITISH</span><h3>scanf()</h3><p>Foydalanuvchi klaviaturadan kiritgan qiymatni o‘qib, 
+o‘zgaruvchiga saqlash uchun ishlatiladi.</p></article>
+    <article class="card"><div class="icon">🖥️</div><span class="tag" style="color:var(--violet);background:#a99bff18">OUTPUT · CHIQARISH</span><h3>printf()</h3><p>Matn, son yoki hisoblangan natijani ekranga chiqarish uchun ishlatiladi.</p></article>
   </div>
-  <div class="sidecard" id="about">
-   <div class="sidehead"><span class="bubble">↗</span><span data-i18n="sidebar.how">Qanday ishlaydi?</span></div>
-   <div class="step"><span class="stepnum">1</span><div><strong data-i18n="step1.title">E'lonni toping</strong><p data-i18n="step1.text">Qidiruv orqali o'zingizga mos maskanni tanlang.</p></div></div>
-   <div class="step"><span class="stepnum">2</span><div><strong data-i18n="step2.title">Egasi bilan bog'laning</strong><p data-i18n="step2.text">Telefon orqali yoki mavjud aloqa usullari orqali kelishing.</p></div></div>
-   <div class="step"><span class="stepnum">3</span><div><strong data-i18n="step3.title">Dam oling!</strong><p data-i18n="step3.text">O'zingiz tanlagan maskanda maroqli vaqt o'tkazing.</p></div></div>
+  <div class="callout"><b>Eng muhim farq:</b> <code>scanf()</code> — ma’lumotni oladi; <code>printf()</code> — ma’lumotni ko‘rsatadi.</div>
+</section>
+
+<section 
+class="slide">
+  <div class="eyebrow">03 · Taqqoslash</div>
+  <h2>Farqi nimada?</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Belgisi</th><th>scanf()</th><th>printf()</th></tr></thead>
+    <tbody>
+      <tr><td>Vazifasi</td><td>Ma’lumot kiritish</td><td>Ma’lumot chiqarish</td></tr>
+      <tr><td>Ma’lumot oqimi</td><td>Klaviaturadan dasturga</td><td>Dasturdan ekranga</td></tr>
+      <tr><td>Misol</td><td><code>scanf("%d", &amp;a);</code></td><td><code>printf("%d", a);</code></td></tr>
+      <tr><td>Format 
+belgisi</td><td><code>%d</code>, <code>%f</code>, <code>%c</code></td><td><code>%d</code>, <code>%f</code>, <code>%c</code></td></tr>
+      <tr><td>O‘zgaruvchi</td><td>Odatda manzili: <code>&amp;a</code></td><td>Qiymati: <code>a</code></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Ikkalasi ham C tilidagi standart kiritish-chiqarish funksiyalaridir. C++ da ham ishlatish mumkin.</p>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">04 · Kod 
+misoli</div>
+  <h2>Birgalikda qanday ishlaydi?</h2>
+  <div class="code"><div class="codehead"><span>C / C++ kodi</span><button class="copy" onclick="copyCode(this)">Nusxalash</button></div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main() {
+    int a;
+
+    printf("Son kiriting: ");
+    scanf("%d", &amp;a);
+
+    printf("Siz kiritgan son: %d", a);
+
+    return 
+0;
+}</code></pre></div>
+  <div class="grid">
+    <div class="card"><h3><span style="color:var(--violet)">1.</span> printf()</h3><p>«Son kiriting:» degan xabarni ekranga chiqaradi.</p></div>
+    <div class="card"><h3><span style="color:var(--cyan)">2.</span> scanf()</h3><p>Foydalanuvchi kiritgan sonni o‘qib, <code>a</code> ga saqlaydi.</p></div>
   </div>
- </aside>
+  <div class="good callout"><b>Natija:</b> agar foydalanuvchi 25 kiritsa, ekranda «Siz kiritgan son: 25» chiqadi.</div>
 </section>
 
-<section class="container recent" id="allListings">
- <div class="section-heading"><h2 data-i18n="recent.title">So'nggi e'lonlar</h2><a href="#listings" class="textlink" id="recentAll" data-i18n="listings.viewAll">Barchasini ko'rish →</a></div>
- <div class="recent-grid" id="recentGrid"></div>
+<section class="slide">
+  <div class="eyebrow">05 · Muhim belgilar</div>
+  <h2><code>%d</code> va <code>&amp;</code> nimani anglatadi?</h2>
+  <div class="grid">
+    <article class="card"><div class="bigword gradient">%d</div><h3>Butun son</h3><p><code>int</code> turidagi qiymat uchun format belgisi.</p><pre><code>scanf("%d", &amp;a);</code></pre></article>
+    <article class="card"><div class="bigword gradient">&amp;a</div><h3>O‘zgaruvchining 
+manzili</h3><p><code>scanf()</code> kiritilgan qiymatni qayerga saqlashini bilishi uchun manzil beriladi.</p><pre><code>scanf("%d", &amp;a);</code></pre></article>
+  </div>
+  <div class="card"><h3>Boshqa format belgilari</h3><p><code>%f</code> — <code>float</code> son · <code>%c</code> — bitta belgi · <code>%s</code> — so‘z yoki belgilar ketma-ketligi.</p></div>
+  <p class="small">Eslatma: <code>printf()</code> da <code>int</code> qiymat uchun <code>%d</code>, <code>float</code> qiymatni chiqarishda odatda 
+<code>%f</code> ishlatiladi.</p>
 </section>
 
-<section class="container">
- <div class="cta">
-  <div><h2 data-i18n="cta.title">O'z dacha yoki maskaningiz bormi?</h2><p data-i18n="cta.text">DACH.UZ'da e'lon joylashtiring va ko'proq mijozlarga yetib boring.</p></div>
-  <button class="primary" type="button" id="ctaAdd" data-i18n="cta.button">＋ Bepul e'lon joylashtirish</button>
- </div>
+<section class="slide">
+  <div class="eyebrow">06 · C++ da ishlatish</div>
+  <h2>C++ ning o‘z usuli ham bor</h2>
+  <p class="lead">C++ da ko‘pincha <code>cin</code> va <code>cout</code> ishlatiladi. Ular uchun <code>&lt;iostream&gt;</code> kutubxonasi kerak.</p>
+  <div class="grid">
+    <div class="card"><span class="tag">KIRITISH</span><h3><code>cin</code></h3><pre><code>int a;
+cin &gt;&gt; a;</code></pre><p>Qiymatni kiritadi. 
+<code>&gt;&gt;</code> operatoridan foydalanadi.</p></div>
+    <div class="card"><span class="tag" style="color:var(--violet);background:#a99bff18">CHIQARISH</span><h3><code>cout</code></h3><pre><code>cout &lt;&lt; a;</code></pre><p>Qiymatni ekranga chiqaradi. <code>&lt;&lt;</code> operatoridan foydalanadi.</p></div>
+  </div>
+  <div class="code"><div class="codehead"><span>C++ misoli</span><button class="copy" onclick="copyCode(this)">Nusxalash</button></div><pre><code>#include &lt;iostream&gt;
+using namespace 
+std;
+
+int main() {
+    int a;
+    cout &lt;&lt; "Son kiriting: ";
+    cin &gt;&gt; a;
+    cout &lt;&lt; "Natija: " &lt;&lt; a;
+    return 0;
+}</code></pre></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">07 · Esda saqlang</div>
+  <h2>Oddiy hayotiy o‘xshatish</h2>
+  <div class="flow">
+    <div class="flowbox"><div class="icon">🙋</div><h3>Foydalanuvchi</h3><p 
+class="small">Masalan, 25 sonini yozadi</p></div>
+    <div class="arrow">→</div>
+    <div class="flowbox"><div class="icon">📥</div><h3>scanf()</h3><p class="small">Sonni dasturga qabul qiladi</p></div>
+  </div>
+  <div class="flow">
+    <div class="flowbox"><div class="icon">🧠</div><h3>Dastur</h3><p class="small">Qiymatni saqlaydi yoki hisoblaydi</p></div>
+    <div class="arrow">→</div>
+    <div class="flowbox"><div class="icon">📤</div><h3>printf()</h3><p class="small">Natijani ekranga ko‘rsatadi</p></div>
+  
+</div>
+  <div class="callout good">Yodlash uchun: <b>scanf — qabul qiladi, printf — chop etadi.</b></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">08 · Bilimingizni tekshiring</div>
+  <h2>Mini-test</h2>
+  <div class="quiz"><h3>1. Klaviaturadan son kiritish uchun qaysi funksiya ishlatiladi?</h3>
+    <button class="option" onclick="answer(this,false)">A) printf()</button>
+    <button class="option" onclick="answer(this,true)">B) scanf()</button>
+    <button class="option" 
+onclick="answer(this,false)">C) main()</button>
+    <div class="feedback"></div>
+  </div>
+  <div class="quiz"><h3>2. Ekranga natija chiqarish uchun qaysi funksiya ishlatiladi?</h3>
+    <button class="option" onclick="answer(this,true)">A) printf()</button>
+    <button class="option" onclick="answer(this,false)">B) scanf()</button>
+    <button class="option" onclick="answer(this,false)">C) include()</button>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">09 · Yakun</div>
+  <h2>Xulosa</h2>
+  <div class="card" style="padding:clamp(22px,4vw,38px)">
+    <p style="font-size:clamp(1.1rem,2.3vw,1.45rem);color:var(--text)">«<b>scanf()</b> va <b>printf()</b> — C tilidagi kiritish-chiqarish funksiyalari. scanf() klaviaturadan kiritilgan ma’lumotni o‘qib, o‘zgaruvchiga saqlaydi. printf() esa matn yoki qiymatni ekranga chiqaradi. Masalan, scanf("%d", &amp;a) butun sonni kiritadi, printf("%d", a) esa shu sonni ekranga chiqaradi. 
+C++ da shunga o‘xshash vazifalarni ko‘pincha cin va cout bajaradi.»</p>
+  </div>
+  <div class="pillrow"><span class="pill">scanf() = kiritish</span><span class="pill">printf() = chiqarish</span><span class="pill">cin / cout = C++ usuli</span></div>
+  <p class="lead">Rahmat! Savollar bo‘lsa, misol kodni yana bir bor ko‘rib chiqing.</p>
 </section>
 </main>
-
-<footer class="footer">
- <div class="container">
-  <div class="footergrid">
-   <div>
-    <a class="logo" href="#">
-     <svg class="logo-mark" viewBox="0 0 48 42" fill="none">
-      <path d="M4 20.5 24 4l20 16.5" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M10 19v18h28V19M20 37V25h9v12" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
-     </svg>
-     DACH.UZ
-    </a>
-    <p data-i18n="footer.desc">Dachalar, kottejlar va dam olish maskanlarini topish hamda e'lon joylashtirish uchun qulay platforma.</p>
-   </div>
-   <div>
-    <strong data-i18n="footer.platform">Platforma</strong>
-    <a href="#listings" data-i18n="footer.allListings">Barcha e'lonlar</a>
-    <a href="#categories" data-i18n="footer.categories">Kategoriyalar</a>
-    <a href="#regions" data-i18n="footer.regions">Hududlar</a>
-   </div>
-   <div>
-    <strong data-i18n="footer.users">Foydalanuvchilar uchun</strong>
-    <a href="#" id="footerAdd" data-i18n="footer.add">E'lon joylashtirish</a>
-    <a href="#" id="footerLogin" data-i18n="footer.login">Kirish</a>
-    <a href="#about" data-i18n="footer.how">Qanday ishlaydi?</a>
-   </div>
-  </div>
-  <div class="copyright">© <span id="year"></span> DACH.UZ. <span data-i18n="footer.rights">Barcha huquqlar himoyalangan.</span></div>
- </div>
+<footer class="nav">
+  <button id="prev" onclick="move(-1)" disabled>← 
+Oldingi</button>
+  <div class="dots" id="dots" aria-label="Slaydlar"></div>
+  <button class="primary" id="next" onclick="move(1)">Keyingi →</button>
 </footer>
-
-<!-- AUTH MODAL -->
-<div class="modalback" id="authModal" role="dialog" aria-modal="true">
- <div class="modal">
-  <div class="modalhead"><h2 id="authTitle">DACH.UZ akkauntiga kirish</h2><button class="close" type="button" data-close="authModal" aria-label="Yopish">×</button></div>
-  <form id="authForm">
-   <div class="formfield" id="nameField" style="display:none"><label for="authName" data-i18n="auth.name">Ism va familiya</label><input id="authName" autocomplete="name" placeholder="Ismingiz"></div>
-   <div class="formfield"><label for="authEmail" data-i18n="auth.email">Elektron pochta</label><input id="authEmail" type="email" required autocomplete="email" placeholder="example@gmail.com"></div>
-   <div class="formfield"><label for="authPassword" data-i18n="auth.password">Parol</label><input id="authPassword" type="password" required minlength="6" autocomplete="current-password" placeholder="Kamida 6 ta belgi"></div>
-   <p class="notice" data-i18n="auth.notice">Firebase Authentication orqali xavfsiz kirish. Email tasdiqlash ixtiyoriy.</p>
-   <button class="primary" type="submit" id="authSubmit">Kirish</button>
-   <p class="switchline" id="switchLine"></p>
-  </form>
- </div>
-</div>
-
-<!-- LISTING MODAL -->
-<div class="modalback" id="listingModal" role="dialog" aria-modal="true">
- <div class="modal">
-  <div class="modalhead"><h2 id="listingModalTitle" data-i18n="new.title">Yangi e'lon joylashtirish</h2><button class="close" type="button" data-close="listingModal" aria-label="Yopish">×</button></div>
-  <form id="listingForm">
-   <div class="formgrid">
-    <div class="formfield full"><label for="newTitle" data-i18n="new.name">Maskan nomi *</label><input id="newTitle" required placeholder="Masalan, Basseynli zamonaviy dacha"></div>
-    <div class="formfield"><label for="newCategory" data-i18n="new.category">Kategoriya *</label><select id="newCategory" required></select></div>
-    <div class="formfield"><label for="newPrice" data-i18n="new.price">Narxi (so'm/kun) *</label><input id="newPrice" type="number" min="0" required placeholder="850000"></div>
-    <div class="formfield"><label for="newLocation" data-i18n="new.location">Hudud / manzil *</label><input id="newLocation" required placeholder="Bo'stonliq, Toshkent viloyati"></div>
-    <div class="formfield"><label for="newGuests" data-i18n="new.guests">Mehmonlar soni</label><input id="newGuests" type="number" min="1" value="6"></div>
-    <div class="formfield full">
-      <label for="newImageFile" data-i18n="new.image">Rasm yuklash</label>
-      <input id="newImageFile" type="file" accept="image/*">
-      <div id="imagePreview" class="image-preview"></div>
-      <span class="notice" data-i18n="new.imageNote">Rasm Firebase Storage'ga yuklanadi (maks. 5 MB).</span>
-    </div>
-    <div class="formfield full"><label for="newDescription" data-i18n="new.description">Tavsif</label><textarea id="newDescription" placeholder="Basseyn, yotoqxonalar, qulayliklar va boshqa ma'lumotlar..."></textarea></div>
-    <div class="formfield full"><label for="newPhone" data-i18n="new.phone">Aloqa telefoni</label><input id="newPhone" type="tel" placeholder="+998 90 123 45 67"></div>
-   </div>
-   <button class="primary" type="submit" id="listingSubmit">E'lonni joylashtirish</button>
-  </form>
- </div>
-</div>
-
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script type="module">
-/* ============================================================
-   FIREBASE IMPORTS
-   ============================================================ */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  updateProfile
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy,
-  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import {
-  getStorage,
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-/* ============================================================
-   FIREBASE KONFIGURATSIYA
-   ============================================================ */
-const firebaseConfig = {
-  apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
-  authDomain: "uzbektelegrami.firebaseapp.com",
-  databaseURL: "https://uzbektelegrami-default-rtdb.firebaseio.com",
-  projectId: "uzbektelegrami",
-  storageBucket: "uzbektelegrami.firebasestorage.app",
-  messagingSenderId: "13650278375",
-  appId: "1:13650278375:web:b4b3e06021399c41dc6f42",
-  measurementId: "G-80MM024Q4W"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const storage = getStorage(app);
-
-/* ============================================================
-   I18N
-   ============================================================ */
-const I18N = {
-  uz: {
-    flag:'https://flagcdn.com/w40/uz.png', name:"O'zbekcha",
-    'page.title':"DACH.UZ — Dam olish maskanlarini toping",
-    'nav.home':'Bosh sahifa','nav.listings':"E'lonlar",'nav.categories':'Kategoriyalar','nav.regions':'Hududlar','nav.about':'Haqida','nav.login':'♙ Kirish','nav.register':"Ro'yxatdan o'tish",'nav.logout':'Chiqish','nav.addListing':"＋ E'lon berish",
-    'hero.title':"Turingiz uchun eng yaxshi<br>dam olish maskanlarini toping!",
-    'hero.subtitle':"Dachalar, kottejlar va dam olish maskanlari — barchasi bir joyda.<br>Oson qidiruv, qulay narxlar, ishonchli e'lonlar.",
-    'search.location':'Joylashuv','search.locationPh':'Viloyat, shahar yoki tuman','search.checkin':'Kelish sanasi','search.checkout':'Ketish sanasi','search.guests':'Mehmonlar soni','search.guestsPh':'Tanlang','search.guestsN':'{n} kishi','search.guests10':'10+ kishi','search.button':'Qidirish',
-    'cat.dachas':'Dachalar','cat.cottages':'Kottejlar','cat.resorts':'Dam olish maskanlari','cat.farm':'Dala hovlilar','cat.mountain':"Tog' uylari",'cat.all':'Barchasi',
-    'listings.popular':"Mashhur e'lonlar",'listings.favorites':"Sevimli e'lonlar",'listings.viewAll':"Barchasini ko'rish →",
-    'empty.text':"Bu qidiruv bo'yicha e'lon topilmadi. Boshqa hududni yoki kategoriyani tanlab ko'ring.",
-    'sidebar.regions':'Mashhur hududlar','sidebar.how':'Qanday ishlaydi?',
-    'region.chorvoq':'Chorvoq','region.chorvoqDesc':'Dam olish maskanlari',
-    'region.bostonliq':"Bo'stonliq",'region.bostonliqDesc':"Tog' va tabiat maskanlari",
-    'region.toshkent':'Toshkent viloyati','region.toshkentDesc':'Dachalar va kottejlar',
-    'region.qibray':'Qibray','region.qibrayDesc':'Shahar yaqinida dam olish',
-    'region.chotqol':'Chotqol','region.chotqolDesc':"Tog' manzaralari",
-    'step1.title':"E'lonni toping",'step1.text':"Qidiruv orqali o'zingizga mos maskanni tanlang.",
-    'step2.title':"Egasi bilan bog'laning",'step2.text':'Telefon orqali yoki mavjud aloqa usullari orqali kelishing.',
-    'step3.title':'Dam oling!','step3.text':"O'zingiz tanlagan maskanda maroqli vaqt o'tkazing.",
-    'recent.title':"So'nggi e'lonlar",
-    'cta.title':"O'z dacha yoki maskaningiz bormi?",'cta.text':"DACH.UZ'da e'lon joylashtiring va ko'proq mijozlarga yetib boring.",'cta.button':"＋ Bepul e'lon joylashtirish",
-    'footer.desc':"Dachalar, kottejlar va dam olish maskanlarini topish hamda e'lon joylashtirish uchun qulay platforma.",
-    'footer.platform':'Platforma','footer.allListings':"Barcha e'lonlar",'footer.categories':'Kategoriyalar','footer.regions':'Hududlar','footer.users':'Foydalanuvchilar uchun','footer.add':"E'lon joylashtirish",'footer.login':'Kirish','footer.how':'Qanday ishlaydi?','footer.rights':'Barcha huquqlar himoyalangan.',
-    'auth.titleLogin':'DACH.UZ akkauntiga kirish','auth.titleRegister':"DACH.UZ'da ro'yxatdan o'tish",'auth.name':'Ism va familiya','auth.email':'Elektron pochta','auth.password':'Parol','auth.notice':'Firebase Authentication orqali xavfsiz kirish. Email tasdiqlash ixtiyoriy.','auth.submitLogin':'Kirish','auth.submitRegister':'Akkaunt yaratish','auth.noAccount':"Akkauntingiz yo'qmi?",'auth.hasAccount':'Akkauntingiz bormi?','auth.linkRegister':"Ro'yxatdan o'tish",'auth.linkLogin':'Kirish',
-    'new.title':"Yangi e'lon joylashtirish",'new.name':'Maskan nomi *','new.category':'Kategoriya *','new.price':"Narxi (so'm/kun) *",'new.location':'Hudud / manzil *','new.guests':'Mehmonlar soni','new.image':'Rasm yuklash','new.imageNote':"Rasm Firebase Storage'ga yuklanadi (maks. 5 MB).",'new.description':'Tavsif','new.phone':'Aloqa telefoni','new.submit':"E'lonni joylashtirish",
-    'card.perDay':'/ kun','card.guests':'{n} mehmon','card.rooms':'{n} xona','card.reviews':'({n} ta sharh)','card.new':'Yangi','card.details':"Batafsil ma'lumot",
-    'currency':"so'm",
-    'view.contact':"Aloqa uchun dacha egasi bilan bevosita bog'laning.",
-    'toast.favOn':"Sevimli e'lonlar ko'rsatilmoqda",'toast.favOff':"Barcha e'lonlar ko'rsatilmoqda",'toast.loginNeeded':"E'lon joylashtirish uchun avval akkauntingizga kiring.",'toast.emailExists':"Bu email allaqachon ro'yxatdan o'tgan.",'toast.registered':'Akkaunt yaratildi!','toast.wrongCreds':"Email yoki parol noto'g'ri.",'toast.welcome':'Xush kelibsiz, {name}!','toast.loggedOut':'Tizimdan chiqdingiz.','toast.needLogin':'Avval tizimga kiring.','toast.published':"E'lon muvaffaqiyatli joylashtirildi!",'toast.searchUpdated':'Qidiruv natijalari yangilandi','toast.weakPassword':'Parol juda zaif (kamida 6 belgi).','toast.invalidEmail':"Email formati noto'g'ri.",'toast.tooMany':"Juda ko'p urinish. Keyinroq qayta urinib ko'ring.",'toast.network':'Tarmoq xatosi. Internetni tekshiring.','toast.uploadError':'Rasm yuklashda xatolik.','toast.photoTooBig':"Rasm hajmi 5 MB dan oshmasligi kerak.",'toast.loadingListings':"E'lonlar yuklanmoqda...",'toast.uploading':'Yuklanmoqda...','toast.onlyImages':'Faqat rasm fayllarini yuklang'
-  },
-  ru: {
-    flag:'https://flagcdn.com/w40/ru.png', name:'Русский',
-    'page.title':'DACH.UZ — Найдите места для отдыха',
-    'nav.home':'Главная','nav.listings':'Объявления','nav.categories':'Категории','nav.regions':'Регионы','nav.about':'О нас','nav.login':'♙ Войти','nav.register':'Регистрация','nav.logout':'Выйти','nav.addListing':'＋ Разместить объявление',
-    'hero.title':'Найдите лучшие места<br>для отдыха вашей компании!',
-    'hero.subtitle':'Дачи, коттеджи и зоны отдыха — всё в одном месте.<br>Удобный поиск, выгодные цены, проверенные объявления.',
-    'search.location':'Локация','search.locationPh':'Область, город или район','search.checkin':'Дата заезда','search.checkout':'Дата выезда','search.guests':'Гостей','search.guestsPh':'Выберите','search.guestsN':'{n} человек','search.guests10':'10+ человек','search.button':'Поиск',
-    'cat.dachas':'Дачи','cat.cottages':'Коттеджи','cat.resorts':'Зоны отдыха','cat.farm':'Сельские дома','cat.mountain':'Горные дома','cat.all':'Все',
-    'listings.popular':'Популярные объявления','listings.favorites':'Избранные объявления','listings.viewAll':'Смотреть все →',
-    'empty.text':'По вашему запросу ничего не найдено. Попробуйте выбрать другой регион или категорию.',
-    'sidebar.regions':'Популярные регионы','sidebar.how':'Как это работает?',
-    'region.chorvoq':'Чарвак','region.chorvoqDesc':'Зоны отдыха',
-    'region.bostonliq':'Бостанлык','region.bostonliqDesc':'Горные и природные зоны',
-    'region.toshkent':'Ташкентская область','region.toshkentDesc':'Дачи и коттеджи',
-    'region.qibray':'Кибрай','region.qibrayDesc':'Отдых рядом с городом',
-    'region.chotqol':'Чаткал','region.chotqolDesc':'Горные пейзажи',
-    'step1.title':'Найдите объявление','step1.text':'Выберите подходящее место через поиск.',
-    'step2.title':'Свяжитесь с владельцем','step2.text':'Созвонитесь или напишите удобным для вас способом.',
-    'step3.title':'Отдыхайте!','step3.text':'Приятно проведите время в выбранном месте.',
-    'recent.title':'Последние объявления',
-    'cta.title':'У вас есть дача или место отдыха?','cta.text':'Разместите объявление на DACH.UZ и привлеките больше клиентов.','cta.button':'＋ Бесплатное размещение',
-    'footer.desc':'Удобная платформа для поиска и размещения дач, коттеджей и зон отдыха.',
-    'footer.platform':'Платформа','footer.allListings':'Все объявления','footer.categories':'Категории','footer.regions':'Регионы','footer.users':'Пользователям','footer.add':'Разместить объявление','footer.login':'Войти','footer.how':'Как это работает?','footer.rights':'Все права защищены.',
-    'auth.titleLogin':'Вход в аккаунт DACH.UZ','auth.titleRegister':'Регистрация на DACH.UZ','auth.name':'Имя и фамилия','auth.email':'Электронная почта','auth.password':'Пароль','auth.notice':'Безопасный вход через Firebase Authentication. Подтверждение email необязательно.','auth.submitLogin':'Войти','auth.submitRegister':'Создать аккаунт','auth.noAccount':'Нет аккаунта?','auth.hasAccount':'Уже есть аккаунт?','auth.linkRegister':'Регистрация','auth.linkLogin':'Войти',
-    'new.title':'Разместить новое объявление','new.name':'Название места *','new.category':'Категория *','new.price':'Цена (сум/сутки) *','new.location':'Регион / адрес *','new.guests':'Количество гостей','new.image':'Загрузить изображение','new.imageNote':'Изображение загружается в Firebase Storage (макс. 5 МБ).','new.description':'Описание','new.phone':'Контактный телефон','new.submit':'Опубликовать объявление',
-    'card.perDay':'/ сутки','card.guests':'{n} гостей','card.rooms':'{n} комнаты','card.reviews':'({n} отзывов)','card.new':'Новое','card.details':'Подробнее',
-    'currency':'сум',
-    'view.contact':'Для связи обратитесь напрямую к владельцу дачи.',
-    'toast.favOn':'Показаны избранные объявления','toast.favOff':'Показаны все объявления','toast.loginNeeded':'Чтобы разместить объявление, сначала войдите в аккаунт.','toast.emailExists':'Этот email уже зарегистрирован.','toast.registered':'Аккаунт создан!','toast.wrongCreds':'Неверный email или пароль.','toast.welcome':'Добро пожаловать, {name}!','toast.loggedOut':'Вы вышли из системы.','toast.needLogin':'Сначала войдите в систему.','toast.published':'Объявление успешно опубликовано!','toast.searchUpdated':'Результаты поиска обновлены','toast.weakPassword':'Слишком слабый пароль (мин. 6 символов).','toast.invalidEmail':'Неверный формат email.','toast.tooMany':'Слишком много попыток. Попробуйте позже.','toast.network':'Ошибка сети. Проверьте интернет.','toast.uploadError':'Ошибка загрузки изображения.','toast.photoTooBig':'Размер изображения не должен превышать 5 МБ.','toast.loadingListings':'Загрузка объявлений...','toast.uploading':'Загрузка...','toast.onlyImages':'Загружайте только изображения'
-  },
-  en: {
-    flag:'https://flagcdn.com/w40/gb.png', name:'English',
-    'page.title':'DACH.UZ — Find the best holiday stays',
-    'nav.home':'Home','nav.listings':'Listings','nav.categories':'Categories','nav.regions':'Regions','nav.about':'About','nav.login':'♙ Sign in','nav.register':'Sign up','nav.logout':'Sign out','nav.addListing':'＋ Post a listing',
-    'hero.title':'Find the best holiday<br>stays for your group!',
-    'hero.subtitle':'Dachas, cottages and resorts — all in one place.<br>Easy search, fair prices, trusted listings.',
-    'search.location':'Location','search.locationPh':'Region, city or district','search.checkin':'Check-in date','search.checkout':'Check-out date','search.guests':'Guests','search.guestsPh':'Select','search.guestsN':'{n} guests','search.guests10':'10+ guests','search.button':'Search',
-    'cat.dachas':'Dachas','cat.cottages':'Cottages','cat.resorts':'Resorts','cat.farm':'Farm houses','cat.mountain':'Mountain houses','cat.all':'All',
-    'listings.popular':'Popular listings','listings.favorites':'Favorite listings','listings.viewAll':'View all →',
-    'empty.text':'No listings found for this search. Try another region or category.',
-    'sidebar.regions':'Popular regions','sidebar.how':'How it works?',
-    'region.chorvoq':'Charvak','region.chorvoqDesc':'Resort areas',
-    'region.bostonliq':'Bostanliq','region.bostonliqDesc':'Mountain & nature spots',
-    'region.toshkent':'Tashkent region','region.toshkentDesc':'Dachas and cottages',
-    'region.qibray':'Qibray','region.qibrayDesc':'Leisure near the city',
-    'region.chotqol':'Chatkal','region.chotqolDesc':'Mountain views',
-    'step1.title':'Find a listing','step1.text':'Choose the place that suits you via search.',
-    'step2.title':'Contact the owner','step2.text':'Call or message the owner in any convenient way.',
-    'step3.title':'Enjoy your stay!','step3.text':'Have a great time at the place you chose.',
-    'recent.title':'Latest listings',
-    'cta.title':'Do you own a dacha or a holiday spot?','cta.text':'Post a listing on DACH.UZ and reach more clients.','cta.button':'＋ Free listing',
-    'footer.desc':'A convenient platform to find and post dachas, cottages and holiday spots.',
-    'footer.platform':'Platform','footer.allListings':'All listings','footer.categories':'Categories','footer.regions':'Regions','footer.users':'For users','footer.add':'Post a listing','footer.login':'Sign in','footer.how':'How it works?','footer.rights':'All rights reserved.',
-    'auth.titleLogin':'Sign in to DACH.UZ','auth.titleRegister':'Sign up on DACH.UZ','auth.name':'Full name','auth.email':'Email','auth.password':'Password','auth.notice':'Secure sign-in via Firebase Authentication. Email verification is optional.','auth.submitLogin':'Sign in','auth.submitRegister':'Create account','auth.noAccount':"Don't have an account?",'auth.hasAccount':'Already have an account?','auth.linkRegister':'Sign up','auth.linkLogin':'Sign in',
-    'new.title':'Post a new listing','new.name':'Place name *','new.category':'Category *','new.price':'Price (soʻm/day) *','new.location':'Region / address *','new.guests':'Number of guests','new.image':'Upload image','new.imageNote':'Image is uploaded to Firebase Storage (max 5 MB).','new.description':'Description','new.phone':'Contact phone','new.submit':'Publish listing',
-    'card.perDay':'/ night','card.guests':'{n} guests','card.rooms':'{n} rooms','card.reviews':'({n} reviews)','card.new':'New','card.details':'View details',
-    'currency':'soʻm',
-    'view.contact':'Contact the dacha owner directly to book.',
-    'toast.favOn':'Showing favorite listings','toast.favOff':'Showing all listings','toast.loginNeeded':'Please sign in first to post a listing.','toast.emailExists':'An account with this email already exists.','toast.registered':'Account created!','toast.wrongCreds':'Wrong email or password.','toast.welcome':'Welcome, {name}!','toast.loggedOut':'You have signed out.','toast.needLogin':'Please sign in first.','toast.published':'Listing published successfully!','toast.searchUpdated':'Search results updated','toast.weakPassword':'Password is too weak (min 6 characters).','toast.invalidEmail':'Invalid email format.','toast.tooMany':'Too many attempts. Try again later.','toast.network':'Network error. Check your connection.','toast.uploadError':'Image upload failed.','toast.photoTooBig':'Image size must not exceed 5 MB.','toast.loadingListings':'Loading listings...','toast.uploading':'Uploading...','toast.onlyImages':'Please upload image files only'
-  },
-  zh: {
-    flag:'https://flagcdn.com/w40/cn.png', name:'中文',
-    'page.title':'DACH.UZ — 寻找最佳度假民宿',
-    'nav.home':'首页','nav.listings':'房源','nav.categories':'分类','nav.regions':'地区','nav.about':'关于','nav.login':'♙ 登录','nav.register':'注册','nav.logout':'退出','nav.addListing':'＋ 发布房源',
-    'hero.title':'为您的团队寻找<br>最理想的度假胜地！',
-    'hero.subtitle':'别墅、乡间小屋和度假村 — 尽在一处。<br>搜索便捷，价格实惠，房源可靠。',
-    'search.location':'位置','search.locationPh':'州、城市或区','search.checkin':'入住日期','search.checkout':'退房日期','search.guests':'客人数量','search.guestsPh':'请选择','search.guestsN':'{n} 人','search.guests10':'10+ 人','search.button':'搜索',
-    'cat.dachas':'别墅','cat.cottages':'乡间小屋','cat.resorts':'度假村','cat.farm':'农家院','cat.mountain':'山间小屋','cat.all':'全部',
-    'listings.popular':'热门房源','listings.favorites':'收藏的房源','listings.viewAll':'查看全部 →',
-    'empty.text':'没有找到符合条件的房源。请尝试选择其他地区或分类。',
-    'sidebar.regions':'热门地区','sidebar.how':'如何使用？',
-    'region.chorvoq':'恰尔瓦克','region.chorvoqDesc':'度假区',
-    'region.bostonliq':'博斯坦利克','region.bostonliqDesc':'山地与自然景区',
-    'region.toshkent':'塔什干州','region.toshkentDesc':'别墅与小屋',
-    'region.qibray':'基布赖','region.qibrayDesc':'城市近郊休闲',
-    'region.chotqol':'恰特卡尔','region.chotqolDesc':'山景风光',
-    'step1.title':'找到房源','step1.text':'通过搜索选择适合您的场所。',
-    'step2.title':'联系房东','step2.text':'通过电话或其他便捷方式与房东沟通。',
-    'step3.title':'尽情放松！','step3.text':'在您选择的地方度过愉快的时光。',
-    'recent.title':'最新房源',
-    'cta.title':'您有别墅或度假场所吗？','cta.text':'在 DACH.UZ 发布房源，接触更多客户。','cta.button':'＋ 免费发布房源',
-    'footer.desc':'一个便捷的平台，用于寻找和发布别墅、乡间小屋及度假场所。',
-    'footer.platform':'平台','footer.allListings':'全部房源','footer.categories':'分类','footer.regions':'地区','footer.users':'用户中心','footer.add':'发布房源','footer.login':'登录','footer.how':'如何使用？','footer.rights':'版权所有。',
-    'auth.titleLogin':'登录 DACH.UZ 账户','auth.titleRegister':'注册 DACH.UZ 账户','auth.name':'姓名','auth.email':'电子邮箱','auth.password':'密码','auth.notice':'通过 Firebase Authentication 安全登录。邮箱验证可选。','auth.submitLogin':'登录','auth.submitRegister':'创建账户','auth.noAccount':'还没有账户？','auth.hasAccount':'已有账户？','auth.linkRegister':'注册','auth.linkLogin':'登录',
-    'new.title':'发布新房源','new.name':'场所名称 *','new.category':'分类 *','new.price':'价格（苏姆/天）*','new.location':'地区 / 地址 *','new.guests':'客人数量','new.image':'上传图片','new.imageNote':'图片上传至 Firebase Storage（最大 5 MB）。','new.description':'描述','new.phone':'联系电话','new.submit':'发布房源',
-    'card.perDay':'/ 天','card.guests':'{n} 位客人','card.rooms':'{n} 间房','card.reviews':'（{n} 条评价）','card.new':'新上架','card.details':'查看详情',
-    'currency':'苏姆',
-    'view.contact':'请直接联系房东以预订。',
-    'toast.favOn':'正在显示收藏的房源','toast.favOff':'正在显示全部房源','toast.loginNeeded':'发布房源前请先登录账户。','toast.emailExists':'该邮箱已注册。','toast.registered':'账户已创建！','toast.wrongCreds':'邮箱或密码错误。','toast.welcome':'欢迎，{name}！','toast.loggedOut':'您已退出。','toast.needLogin':'请先登录。','toast.published':'房源已成功发布！','toast.searchUpdated':'搜索结果已更新','toast.weakPassword':'密码太弱（至少 6 个字符）。','toast.invalidEmail':'邮箱格式无效。','toast.tooMany':'尝试次数过多，请稍后再试。','toast.network':'网络错误，请检查连接。','toast.uploadError':'图片上传失败。','toast.photoTooBig':'图片大小不得超过 5 MB。','toast.loadingListings':'正在加载房源...','toast.uploading':'上传中...','toast.onlyImages':'仅允许上传图片文件'
-  }
-};
-
-/* ============================================================
-   STATIK MA'LUMOTLAR
-   ============================================================ */
-const sampleListings = [
-  {id:'s1',title:'Chorvoqdagi zamonaviy dacha',category:'Dachalar',price:1200000,location:"Toshkent viloyati, Bo'stonliq tumani",guests:10,rooms:4,amenities:['Basseyn','Wi-Fi'],rating:'4.8',reviews:24,tag:'TOP',image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=85',description:"Zamonaviy hovli, ochiq basseyn va dam olish uchun qulay sharoitlar."},
-  {id:'s2',title:"Kottej — tabiat bag'rida",category:'Kottejlar',price:850000,location:'Toshkent viloyati, Qibray tumani',guests:8,rooms:3,amenities:['Basseyn','Banya'],rating:'4.7',reviews:18,tag:'Premium',image:'https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=900&q=85',description:"Tabiat qo'ynidagi shinam kottej, oilaviy dam olish uchun mos."},
-  {id:'s3',title:'Luks dacha, hovuzli',category:'Dachalar',price:1500000,location:"Toshkent viloyati, Yangiyo'l tumani",guests:12,rooms:5,amenities:['Basseyn','Wi-Fi'],rating:'4.9',reviews:32,tag:'TOP',image:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=85',description:'Keng hovli, zamonaviy interyer va basseyn.'},
-  {id:'s4',title:"Tog' bag'ridagi dam olish uyi",category:"Tog' uylari",price:700000,location:'Toshkent viloyati, Chotqol tumani',guests:6,rooms:3,amenities:['Bilyard','Wi-Fi'],rating:'4.6',reviews:12,tag:'',image:'https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=900&q=85',description:"Tog' manzarasi va sokin muhitda hordiq chiqarish uchun uy."},
-  {id:'s5',title:"Yashil bog'li dala hovli",category:'Dala hovlilar',price:600000,location:'Toshkent viloyati, Qibray tumani',guests:7,rooms:3,amenities:["Bog'",'Mangal'],rating:'4.5',reviews:9,tag:'',image:'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=900&q=85',description:"Katta bog' va ochiq havoda dam olish uchun shinam hovli."},
-  {id:'s6',title:"Tabiat qo'ynidagi dam olish maskani",category:'Dam olish maskanlari',price:950000,location:"Bo'stonliq, Chorvoq hududi",guests:10,rooms:4,amenities:['Basseyn','Wi-Fi'],rating:'4.8',reviews:21,tag:'Premium',image:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85',description:'Tabiat manzarasi, qulay xonalar va ochiq maydon.'}
-];
-
-const CAT_KEY = {
-  'Dachalar':'cat.dachas',
-  'Kottejlar':'cat.cottages',
-  'Dam olish maskanlari':'cat.resorts',
-  'Dala hovlilar':'cat.farm',
-  "Tog' uylari":'cat.mountain',
-  'Barchasi':'cat.all'
-};
-const FALLBACK_IMG = sampleListings[0].image;
-
-/* ============================================================
-   HOLAT
-   ============================================================ */
-let listings = [...sampleListings];
-let currentUser = null;
-let authMode = 'login';
-let activeCategory = '';
-let searchLocation = '';
-let favoritesOnly = false;
-let favorites = new Set();
-let currentLang = 'uz';
-let newImageFile = null;
-let isSubmitting = false;
-let firestoreLoaded = false;
-
-try { favorites = new Set(JSON.parse(localStorage.getItem('dachuz_favs') || '[]')); } catch (e) { favorites = new Set(); }
-
-/* ============================================================
-   YORDAMCHI FUNKSIYALAR
-   ============================================================ */
-const $ = id => document.getElementById(id);
-
-function t(key, vars) {
-  const pack = I18N[currentLang] || I18N.uz;
-  let s = pack[key];
-  if (s === undefined) s = I18N.uz[key];
-  if (s === undefined) s = key;
-  if (vars) {
-    Object.keys(vars).forEach(k => { s = s.split('{' + k + '}').join(String(vars[k])); });
-  }
-  return s;
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let current=0;
+const counter=document.getElementById('counter');
+const progress=document.getElementById('progress');
+const 
+prev=document.getElementById('prev');
+const next=document.getElementById('next');
+const dots=document.getElementById('dots');
+slides.forEach((_,i)=>{const d=document.createElement('span');d.className='dot'+(i===0?' on':'');dots.appendChild(d)});
+function showSlide(n){
+ current=Math.max(0,Math.min(slides.length-1,n));
+ slides.forEach((s,i)=>s.classList.toggle('active',i===current));
+ 
+[...dots.children].forEach((d,i)=>d.classList.toggle('on',i===current));
+ counter.textContent=`${current+1} / ${slides.length}`;
+ progress.style.width=`${((current+1)/slides.length)*100}%`;
+ prev.disabled=current===0;next.textContent=current===slides.length-1?'Boshidan ↺':'Keyingi →';
+ window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function escapeHtml(s = '') {
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function move(delta){if(current===slides.length-1&&delta===1)showSlide(0);else showSlide(current+delta)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown'){e.preventDefault();move(1)}if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();move(-1)}});
+function copyCode(btn){
+ const code=btn.closest('.code').querySelector('code').innerText;
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(code).then(()=>{btn.textContent='Nusxalandi ✓';setTimeout(()=>btn.textContent='Nusxalash',1400)}).catch(()=>fallbackCopy(code,btn))}
+ else fallbackCopy(code,btn);
 }
-
-function money(n) {
-  let str;
-  const num = Number(n) || 0;
-  try { str = new Intl.NumberFormat('uz-UZ').format(num); }
-  catch (e) { str = String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
-  return str + ' ' + t('currency');
+function fallbackCopy(text,btn){
+ const area=document.createElement('textarea');area.value=text;document.body.appendChild(area);area.select();
+ try{document.execCommand('copy');btn.textContent='Nusxalandi ✓'}catch(e){btn.textContent='Matnni belgilang'}
+ area.remove();setTimeout(()=>btn.textContent='Nusxalash',1400);
 }
-
-let toastTimer = null;
-function toast(msg) {
-  const el = $('toast');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3200);
+function answer(btn,correct){
+ const 
+quiz=btn.closest('.quiz');quiz.querySelectorAll('.option').forEach(b=>{b.style.borderColor='#2c3b5c';b.style.background='#18233d'});
+ const fb=quiz.querySelector('.feedback');
+ if(correct){btn.style.borderColor='#7ee0b5';btn.style.background='#7ee0b51a';fb.textContent='To‘g‘ri! Ajoyib.';fb.style.color='#7ee0b5'}
+ else{btn.style.borderColor='#ff9b9b';btn.style.background='#ff9b9b14';fb.textContent='Qayta urinib ko‘ring. Vazifani eslang: kiritishmi yoki chiqarishmi?';fb.style.color='#ffb1b1'}
 }
-
-/* ============================================================
-   TILNI QO'LLASH
-   ============================================================ */
-function applyLang(lang) {
-  currentLang = I18N[lang] ? lang : 'uz';
-  try { localStorage.setItem('dachuz_lang', currentLang); } catch (e) {}
-
-  document.documentElement.lang = (currentLang === 'zh') ? 'zh-CN' : currentLang;
-  document.title = t('page.title');
-
-  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-  document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
-  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
-
-  buildGuestsSelect();
-  buildCategorySelect();
-  buildLangMenu();
-  setAuthMode(authMode);
-  updateUserUI();
-  render();
-}
-
-function buildGuestsSelect() {
-  const sel = $('guests');
-  if (!sel) return;
-  const prev = sel.value;
-  let html = `<option value="">${escapeHtml(t('search.guestsPh'))}</option>`;
-  [2, 4, 6, 8].forEach(n => { html += `<option value="${n}">${escapeHtml(t('search.guestsN', { n }))}</option>`; });
-  html += `<option value="10">${escapeHtml(t('search.guests10'))}</option>`;
-  sel.innerHTML = html;
-  if (prev && sel.querySelector(`option[value="${prev}"]`)) sel.value = prev;
-}
-
-function buildCategorySelect() {
-  const sel = $('newCategory');
-  if (!sel) return;
-  const prev = sel.value;
-  const cats = ['Dachalar', 'Kottejlar', 'Dam olish maskanlari', 'Dala hovlilar', "Tog' uylari"];
-  sel.innerHTML = cats.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(t(CAT_KEY[c]))}</option>`).join('');
-  if (prev && cats.indexOf(prev) !== -1) sel.value = prev;
-}
-
-function buildLangMenu() {
-  const menu = $('langMenu');
-  if (!menu) return;
-  menu.innerHTML = Object.keys(I18N).map(code =>
-    `<button type="button" role="menuitem" data-lang="${code}" class="${code === currentLang ? 'active' : ''}">
-       <img src="${I18N[code].flag}" alt=""><span>${escapeHtml(I18N[code].name)}</span>
-     </button>`).join('');
-  menu.querySelectorAll('button[data-lang]').forEach(btn => {
-    btn.onclick = () => {
-      applyLang(btn.dataset.lang);
-      menu.classList.remove('open');
-      $('langBtn').setAttribute('aria-expanded', 'false');
-    };
-  });
-  const cur = I18N[currentLang];
-  $('langCurrentFlag').src = cur.flag;
-  $('langCurrentFlag').alt = cur.name;
-  $('langCurrentName').textContent = cur.name;
-}
-
-/* ============================================================
-   KARTALAR
-   ============================================================ */
-function card(item) {
-  const isFav = favorites.has(item.id);
-  const img = item.image || FALLBACK_IMG;
-  const catName = CAT_KEY[item.category] ? t(CAT_KEY[item.category]) : item.category;
-
-  return `<article class="listing">
-    <div class="listing-photo">
-      <img src="${escapeHtml(img)}" alt="${escapeHtml(item.title)}" loading="lazy"
-           onerror="this.onerror=null;this.src='${FALLBACK_IMG}'">
-      ${item.tag ? `<span class="tag ${item.tag === 'Premium' ? 'premium' : ''}">${escapeHtml(item.tag)}</span>` : ''}
-      <button class="fav ${isFav ? 'active' : ''}" type="button"
-              aria-label="${escapeHtml(t('nav.favorites'))}"
-              onclick="window.__toggleFav('${escapeHtml(item.id)}')">${isFav ? '♥' : '♡'}</button>
-    </div>
-    <div class="listing-body">
-      <div class="price">${money(item.price)} <small>${escapeHtml(t('card.perDay'))}</small></div>
-      <div class="listing-title">${escapeHtml(item.title)}</div>
-      <div class="location">⌖ <span>${escapeHtml(item.location)}</span></div>
-      <div class="amenities">
-        <span>♙ ${escapeHtml(t('card.guests', { n: Number(item.guests) || 6 }))}</span>
-        <span>▣ ${escapeHtml(t('card.rooms', { n: Number(item.rooms) || 3 }))}</span>
-        <span>⌂ ${escapeHtml(catName)}</span>
-      </div>
-      <div class="rating">
-        <span class="star">★</span>
-        <b>${escapeHtml(item.rating || t('card.new'))}</b>
-        <small>${escapeHtml(t('card.reviews', { n: Number(item.reviews) || 0 }))}</small>
-      </div>
-      <button class="secondary" type="button" style="width:100%;margin-top:12px;padding:9px"
-              onclick="window.__viewListing('${escapeHtml(item.id)}')">${escapeHtml(t('card.details'))}</button>
-    </div>
-  </article>`;
-}
-
-function render() {
-  let data = [...listings];
-
-  if (activeCategory && activeCategory !== 'Barchasi') {
-    data = data.filter(x => x.category === activeCategory);
-  }
-  if (searchLocation) {
-    const q = searchLocation.toLowerCase();
-    data = data.filter(x => ((x.location || '') + ' ' + (x.title || '')).toLowerCase().indexOf(q) !== -1);
-  }
-  const guestVal = Number($('guests').value || 0);
-  if (guestVal) data = data.filter(x => (Number(x.guests) || 0) >= guestVal);
-  if (favoritesOnly) data = data.filter(x => favorites.has(x.id));
-
-  $('listingGrid').innerHTML = data.slice(0, 6).map(card).join('');
-  $('recentGrid').innerHTML = data.slice(0, 4).map(card).join('');
-  $('emptyState').style.display = data.length ? 'none' : 'block';
-
-  let heading;
-  if (favoritesOnly) heading = t('listings.favorites');
-  else if (activeCategory && activeCategory !== 'Barchasi') heading = t(CAT_KEY[activeCategory] || activeCategory);
-  else heading = t('listings.popular');
-  $('listingHeading').textContent = heading;
-}
-
-/* Global helpers exposed for inline onclick */
-window.__toggleFav = function(id) {
-  if (favorites.has(id)) favorites.delete(id); else favorites.add(id);
-  try { localStorage.setItem('dachuz_favs', JSON.stringify([...favorites])); } catch (e) {}
-  render();
-};
-
-window.__viewListing = function(id) {
-  const x = listings.find(i => i.id === id);
-  if (!x) return;
-  const catName = CAT_KEY[x.category] ? t(CAT_KEY[x.category]) : x.category;
-  alert(
-    x.title + '\n\n' +
-    money(x.price) + ' ' + t('card.perDay') + '\n' +
-    x.location + '\n' +
-    catName + ' · ' + t('card.guests', { n: x.guests || 6 }) + '\n\n' +
-    (x.description || '') + '\n\n' +
-    (x.phone ? 'Tel: ' + x.phone + '\n\n' : '') +
-    t('view.contact')
-  );
-};
-
-/* ============================================================
-   FIRESTORE'DAN YUKLASH
-   ============================================================ */
-async function loadListingsFromFirestore() {
-  try {
-    const q = query(collection(db, 'listings'), orderBy('createdAt', 'desc'));
-    const snap = await getDocs(q);
-    const firestoreListings = [];
-    snap.forEach(d => {
-      const data = d.data();
-      firestoreListings.push({
-        id: d.id,
-        title: data.title || '',
-        category: data.category || 'Dachalar',
-        price: data.price || 0,
-        location: data.location || '',
-        guests: data.guests || 6,
-        rooms: data.rooms || 3,
-        amenities: data.amenities || [],
-        rating: data.rating || 'Yangi',
-        reviews: data.reviews || 0,
-        tag: data.tag || '',
-        image: data.image || FALLBACK_IMG,
-        description: data.description || '',
-        phone: data.phone || '',
-        ownerUid: data.ownerUid || ''
-      });
-    });
-    listings = [...firestoreListings, ...sampleListings];
-    firestoreLoaded = true;
-  } catch (err) {
-    console.warn('Firestore yuklashda xatolik:', err);
-    listings = [...sampleListings];
-  }
-  render();
-}
-
-/* ============================================================
-   UI YANGILASH
-   ============================================================ */
-function updateUserUI() {
-  if (currentUser) {
-    $('userPill').style.display = 'flex';
-    $('userPill').textContent = '♙ ' + currentUser.name;
-    $('loginOpen').style.display = 'none';
-    $('registerOpen').style.display = 'none';
-    $('logoutBtn').style.display = 'inline-block';
-    $('addTop').style.display = 'inline-block';
-  } else {
-    $('userPill').style.display = 'none';
-    $('loginOpen').style.display = 'flex';
-    $('registerOpen').style.display = 'inline-block';
-    $('logoutBtn').style.display = 'none';
-    $('addTop').style.display = 'none';
-  }
-}
-
-function setAuthMode(mode) {
-  authMode = mode;
-  const reg = mode === 'register';
-  $('authTitle').textContent = reg ? t('auth.titleRegister') : t('auth.titleLogin');
-  $('nameField').style.display = reg ? 'flex' : 'none';
-  $('authName').required = reg;
-  $('authPassword').setAttribute('autocomplete', reg ? 'new-password' : 'current-password');
-  $('authSubmit').textContent = reg ? t('auth.submitRegister') : t('auth.submitLogin');
-
-  const linkText = reg ? t('auth.linkLogin') : t('auth.linkRegister');
-  const question = reg ? t('auth.hasAccount') : t('auth.noAccount');
-  $('switchLine').innerHTML = escapeHtml(question) + ' <button type="button" id="switchAuth">' + escapeHtml(linkText) + '</button>';
-  $('switchAuth').onclick = () => setAuthMode(reg ? 'login' : 'register');
-}
-
-function openModal(id) { $(id).classList.add('show'); document.body.style.overflow = 'hidden'; }
-function closeModal(id) {
-  $(id).classList.remove('show');
-  document.body.style.overflow = '';
-  if (id === 'listingModal') {
-    newImageFile = null;
-    $('imagePreview').innerHTML = '';
-    $('newImageFile').value = '';
-  }
-}
-
-function openAuth(mode) { setAuthMode(mode || 'login'); openModal('authModal'); }
-
-function addListing() {
-  if (!currentUser) {
-    toast(t('toast.loginNeeded'));
-    openAuth('login');
-    return;
-  }
-  $('listingForm').reset();
-  newImageFile = null;
-  $('imagePreview').innerHTML = '';
-  $('newImageFile').value = '';
-  openModal('listingModal');
-}
-
-function showFavorites() {
-  favoritesOnly = !favoritesOnly;
-  if (favoritesOnly) { activeCategory = ''; searchLocation = ''; $('location').value = ''; }
-  document.querySelectorAll('.category').forEach(x => x.classList.remove('selected'));
-  render();
-  $('listings').scrollIntoView({ behavior: 'smooth' });
-  toast(favoritesOnly ? t('toast.favOn') : t('toast.favOff'));
-}
-
-function focusSearch() {
-  const el = $('location');
-  el.focus();
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-/* ============================================================
-   FIREBASE: AUTH
-   ============================================================ */
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = {
-      email: user.email,
-      uid: user.uid,
-      name: user.displayName || user.email.split('@')[0]
-    };
-  } else {
-    currentUser = null;
-  }
-  updateUserUI();
-});
-
-async function registerUser(email, password, name) {
-  const cred = await createUserWithEmailAndPassword(auth, email, password);
-  if (name) {
-    try { await updateProfile(cred.user, { displayName: name }); } catch (e) {}
-  }
-  return cred.user;
-}
-
-async function loginUser(email, password) {
-  const cred = await signInWithEmailAndPassword(auth, email, password);
-  return cred.user;
-}
-
-async function logoutUser() {
-  await signOut(auth);
-}
-
-/* ============================================================
-   FIREBASE: STORAGE
-   ============================================================ */
-async function uploadImageToStorage(file, uid) {
-  const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
-  const path = `listings/${uid}/${Date.now()}.${ext}`;
-  const ref = storageRef(storage, path);
-  const snapshot = await uploadBytes(ref, file, { contentType: file.type });
-  const url = await getDownloadURL(snapshot.ref);
-  return { url, path };
-}
-
-/* ============================================================
-   FIREBASE: FIRESTORE
-   ============================================================ */
-async function saveListingToFirestore(item) {
-  const docRef = await addDoc(collection(db, 'listings'), {
-    ...item,
-    createdAt: serverTimestamp(),
-    createdAtISO: new Date().toISOString(),
-    ownerUid: currentUser.uid
-  });
-  return docRef.id;
-}
-
-/* ============================================================
-   XATO XABARLARINI TARJIMA QILISH
-   ============================================================ */
-function firebaseErrorMsg(err) {
-  const code = err && err.code ? err.code : '';
-  switch (code) {
-    case 'auth/email-already-in-use': return t('toast.emailExists');
-    case 'auth/wrong-password':
-    case 'auth/user-not-found':
-    case 'auth/invalid-credential': return t('toast.wrongCreds');
-    case 'auth/weak-password': return t('toast.weakPassword');
-    case 'auth/invalid-email': return t('toast.invalidEmail');
-    case 'auth/too-many-requests': return t('toast.tooMany');
-    case 'auth/network-request-failed': return t('toast.network');
-    default:
-      if (code.startsWith('storage/')) return t('toast.uploadError');
-      return (err && err.message) || 'Xatolik';
-  }
-}
-
-/* ============================================================
-   HODISALAR: AUTH
-   ============================================================ */
-$('loginOpen').onclick = () => openAuth('login');
-$('registerOpen').onclick = () => openAuth('register');
-$('addTop').onclick = addListing;
-$('ctaAdd').onclick = addListing;
-$('footerAdd').onclick = e => { e.preventDefault(); addListing(); };
-$('footerLogin').onclick = e => { e.preventDefault(); openAuth('login'); };
-$('logoutBtn').onclick = async () => {
-  try {
-    await logoutUser();
-    toast(t('toast.loggedOut'));
-  } catch (err) { toast(firebaseErrorMsg(err)); }
-};
-
-document.querySelectorAll('[data-close]').forEach(b => {
-  b.onclick = () => closeModal(b.dataset.close);
-});
-document.querySelectorAll('.modalback').forEach(m => {
-  m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modalback.show').forEach(m => closeModal(m.id));
-    $('langMenu').classList.remove('open');
-    $('langBtn').setAttribute('aria-expanded', 'false');
-  }
-});
-
-/* AUTH FORMASI */
-$('authForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = $('authEmail').value.trim().toLowerCase();
-  const password = $('authPassword').value;
-  const submitBtn = $('authSubmit');
-  const origText = submitBtn.textContent;
-  submitBtn.disabled = true;
-  submitBtn.textContent = t('toast.uploading');
-
-  try {
-    if (authMode === 'register') {
-      const name = $('authName').value.trim() || email.split('@')[0];
-      await registerUser(email, password, name);
-      toast(t('toast.registered'));
-    } else {
-      await loginUser(email, password);
-    }
-    closeModal('authModal');
-    $('authForm').reset();
-    setTimeout(() => toast(t('toast.welcome', { name: (currentUser && currentUser.name) || email })), 400);
-  } catch (err) {
-    console.error(err);
-    toast(firebaseErrorMsg(err));
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = origText;
-  }
-});
-
-/* ============================================================
-   HODISALAR: LANG MENU
-   ============================================================ */
-$('langBtn').onclick = e => {
-  e.stopPropagation();
-  const menu = $('langMenu');
-  const open = menu.classList.toggle('open');
-  $('langBtn').setAttribute('aria-expanded', open ? 'true' : 'false');
-};
-document.addEventListener('click', e => {
-  const wrap = $('langWrap');
-  if (wrap && !wrap.contains(e.target)) {
-    $('langMenu').classList.remove('open');
-    $('langBtn').setAttribute('aria-expanded', 'false');
-  }
-});
-
-/* ============================================================
-   HODISALAR: RASM TANLASH
-   ============================================================ */
-$('newImageFile').addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (!file) {
-    newImageFile = null;
-    $('imagePreview').innerHTML = '';
-    return;
-  }
-  if (!file.type.startsWith('image/')) {
-    toast(t('toast.onlyImages'));
-    e.target.value = '';
-    newImageFile = null;
-    $('imagePreview').innerHTML = '';
-    return;
-  }
-  if (file.size > 5 * 1024 * 1024) {
-    toast(t('toast.photoTooBig'));
-    e.target.value = '';
-    newImageFile = null;
-    $('imagePreview').innerHTML = '';
-    return;
-  }
-  newImageFile = file;
-  const url = URL.createObjectURL(file);
-  $('imagePreview').innerHTML = `<img src="${url}" alt="preview">`;
-});
-
-/* ============================================================
-   HODISALAR: YANGI E'LON
-   ============================================================ */
-$('listingForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  if (!currentUser) { toast(t('toast.needLogin')); return; }
-  if (isSubmitting) return;
-  isSubmitting = true;
-
-  const submitBtn = $('listingSubmit');
-  const origText = submitBtn.textContent;
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = `<span class="spinner"></span>${escapeHtml(t('toast.uploading'))}`;
-
-  try {
-    let imageUrl = FALLBACK_IMG;
-
-    if (newImageFile) {
-      const uploaded = await uploadImageToStorage(newImageFile, currentUser.uid);
-      imageUrl = uploaded.url;
-    }
-
-    const item = {
-      title: $('newTitle').value.trim(),
-      category: $('newCategory').value,
-      price: Number($('newPrice').value) || 0,
-      location: $('newLocation').value.trim(),
-      guests: Number($('newGuests').value) || 6,
-      rooms: 3,
-      amenities: ["Yangi e'lon"],
-      rating: 'Yangi',
-      reviews: 0,
-      tag: '',
-      image: imageUrl,
-      description: $('newDescription').value.trim(),
-      phone: $('newPhone').value.trim()
-    };
-
-    const newId = await saveListingToFirestore(item);
-    listings.unshift({ id: newId, ...item, createdAtISO: new Date().toISOString() });
-
-    closeModal('listingModal');
-    $('listingForm').reset();
-    newImageFile = null;
-    $('imagePreview').innerHTML = '';
-    $('newImageFile').value = '';
-    buildCategorySelect();
-    render();
-    toast(t('toast.published'));
-    $('listings').scrollIntoView({ behavior: 'smooth' });
-  } catch (err) {
-    console.error(err);
-    toast(firebaseErrorMsg(err));
-  } finally {
-    isSubmitting = false;
-    submitBtn.disabled = false;
-    submitBtn.textContent = origText;
-  }
-});
-
-/* ============================================================
-   HODISALAR: QIDIRUV, KATEGORIYA, HUDUD
-   ============================================================ */
-$('searchForm').addEventListener('submit', e => {
-  e.preventDefault();
-  searchLocation = $('location').value.trim();
-  activeCategory = '';
-  favoritesOnly = false;
-  document.querySelectorAll('.category').forEach(x => x.classList.remove('selected'));
-  render();
-  $('listings').scrollIntoView({ behavior: 'smooth' });
-  toast(t('toast.searchUpdated'));
-});
-
-document.querySelectorAll('.category').forEach(b => {
-  b.addEventListener('click', () => {
-    const cat = b.dataset.category;
-    if (cat === 'Barchasi') {
-      activeCategory = '';
-      document.querySelectorAll('.category').forEach(x => x.classList.remove('selected'));
-    } else {
-      activeCategory = cat;
-      document.querySelectorAll('.category').forEach(x => x.classList.toggle('selected', x === b));
-    }
-    favoritesOnly = false;
-    render();
-    $('listings').scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
-document.querySelectorAll('[data-region]').forEach(a => {
-  a.addEventListener('click', () => {
-    searchLocation = a.dataset.region;
-    $('location').value = searchLocation;
-    activeCategory = '';
-    favoritesOnly = false;
-    document.querySelectorAll('.category').forEach(x => x.classList.remove('selected'));
-    render();
-  });
-});
-
-function showAllListings(e) {
-  e.preventDefault();
-  activeCategory = '';
-  searchLocation = '';
-  favoritesOnly = false;
-  $('location').value = '';
-  $('guests').value = '';
-  document.querySelectorAll('.category').forEach(x => x.classList.remove('selected'));
-  render();
-  $('listings').scrollIntoView({ behavior: 'smooth' });
-}
-$('showAll').addEventListener('click', showAllListings);
-$('recentAll').addEventListener('click', showAllListings);
-
-/* Mobil menyu */
-$('menuToggle').onclick = () => $('navLinks').classList.toggle('open');
-$('navLinks').querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => $('navLinks').classList.remove('open'));
-});
-
-/* ============================================================
-   ISHGA TUSHIRISH
-   ============================================================ */
-$('year').textContent = new Date().getFullYear();
-const savedLang = (function () {
-  try { return localStorage.getItem('dachuz_lang') || 'uz'; } catch (e) { return 'uz'; }
-})();
-applyLang(savedLang);
-loadListingsFromFirestore();
+showSlide(0);
 </script>
 </body>
 </html>
