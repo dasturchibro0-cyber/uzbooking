@@ -51,14 +51,55 @@ header { padding: 20px 16px; margin-bottom: 20px; }
   max-width: 1100px; margin: auto; display: flex; align-items: center;
   gap: 15px; padding: 15px 20px; border-radius: 24px;
 }
+
+/* ================== CHIROQLI LOGOTIP ================== */
 .logo {
   width: 54px; height: 54px; border-radius: 14px;
   background: #ffffff;
   display: grid; place-items: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 0 12px rgba(16, 185, 129, 0.9),
+    0 0 24px rgba(16, 185, 129, 0.7),
+    0 0 40px rgba(16, 185, 129, 0.45),
+    0 0 60px rgba(16, 185, 129, 0.25),
+    0 4px 15px rgba(0, 0, 0, 0.3);
   padding: 4px; flex-shrink: 0; overflow: hidden;
+  position: relative;
+  animation: logoGlow 2.8s ease-in-out infinite;
 }
-.logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+.logo::after {
+  content: "";
+  position: absolute; inset: -4px;
+  border-radius: 18px;
+  background: radial-gradient(circle, rgba(16,185,129,0.35) 0%, transparent 70%);
+  z-index: -1;
+  animation: logoPulse 2.8s ease-in-out infinite;
+}
+.logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; position: relative; z-index: 1; }
+
+@keyframes logoGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 12px rgba(16, 185, 129, 0.9),
+      0 0 24px rgba(16, 185, 129, 0.7),
+      0 0 40px rgba(16, 185, 129, 0.45),
+      0 0 60px rgba(16, 185, 129, 0.25),
+      0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 18px rgba(16, 185, 129, 1),
+      0 0 36px rgba(16, 185, 129, 0.9),
+      0 0 56px rgba(16, 185, 129, 0.6),
+      0 0 80px rgba(16, 185, 129, 0.35),
+      0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+}
+@keyframes logoPulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%      { opacity: 0.9; transform: scale(1.15); }
+}
+
 header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
@@ -377,7 +418,6 @@ const treesRef = ref(db, "trees");
   let selectedMarker = null;
   let firstFirebaseLoad = true;
 
-  /* ================== YANGI: SANA VA VAQTNI FORMATLASH ================== */
   function formatDateTime(isoString) {
     if (!isoString) return "Noma'lum";
     const date = new Date(isoString);
@@ -392,7 +432,6 @@ const treesRef = ref(db, "trees");
     return `${day}.${month}.${year} | ${hours}:${minutes}`;
   }
 
-  /* ================== XARITA VA QATLAMLAR ================== */
   const map = L.map("map", { 
     zoomControl: false, 
     attributionControl: false 
@@ -676,8 +715,8 @@ const treesRef = ref(db, "trees");
       name, age, status, extra,
       lat: selectedPoint ? selectedPoint.lat : (existing?.lat ?? null),
       lng: selectedPoint ? selectedPoint.lng : (existing?.lng ?? null),
-      createdAt: existing?.createdAt || new Date().toISOString(), // Kiritilgan vaqt
-      updatedAt: new Date().toISOString() // Tahrirlangan vaqt
+      createdAt: existing?.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     if (isEdit) trees = trees.map(tree => tree.id === editingId ? record : tree);
@@ -696,7 +735,6 @@ const treesRef = ref(db, "trees");
     trees.forEach(tree => {
       if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) {
         const marker = L.marker([tree.lat, tree.lng]).addTo(map);
-        // Xarita oynachasiga ham sana va vaqt qo'shildi
         marker.bindPopup(
           "<b>" + escapeHTML(tree.name) + "</b><br>" +
           "Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") + "<br>" +
@@ -725,7 +763,6 @@ const treesRef = ref(db, "trees");
       return;
     }
 
-    // Ro'yxatga sana va vaqt chiqarildi
     list.innerHTML = filtered.map(tree => `
       <article class="tree-item">
         <div class="tree-icon"><i class="ph-fill ph-tree"></i></div>
@@ -738,8 +775,6 @@ const treesRef = ref(db, "trees");
           </span>
           ${tree.extra ? `<p><i class="ph ph-note-pencil"></i> ${escapeHTML(tree.extra)}</p>` : ""}
           <p><i class="ph ph-map-pin"></i> ${Number.isFinite(tree.lat) && Number.isFinite(tree.lng) ? tree.lat.toFixed(5) + ", " + tree.lng.toFixed(5) : "Joy belgilanmagan"}</p>
-          
-          <!-- YANGI: Sana va vaqt qatori -->
           <p style="color: #10b981; font-weight: 500; margin-top: 6px;">
             <i class="ph ph-clock"></i> Kiritilgan: ${formatDateTime(tree.createdAt)}
           </p>
@@ -790,7 +825,6 @@ const treesRef = ref(db, "trees");
 
   $("exportBtn").addEventListener("click", () => {
     if (!trees.length) { alert("Eksport qilish uchun avval daraxt qo‘shing."); return; }
-    // Excel ga ham sana va vaqt chiroyli formatda chiqadi
     const headers = ["Tartib raqami","Daraxt nomi","Yoshi (yil)","Holati","Izoh","Kenglik","Uzunlik","Kiritilgan sana va vaqt"];
     function csvCell(value) {
       let text = String(value ?? ""); if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
