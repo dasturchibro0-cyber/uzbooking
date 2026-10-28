@@ -50,17 +50,28 @@ body::before {
 }
 
 /* ================== MENYU VA LOGOTIP QATORI ================== */
+.hero-top-wrapper {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
 .hero-top-row {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px; /* Menyu va logotip orasidagi masofa */
   margin-bottom: 15px;
+  min-height: 115px; /* Logotip balandligi bilan moslashtirildi */
 }
 
 /* ================== MENYU TUGMASI ================== */
 .menu-btn {
-  position: relative; /* Absolyutdan relativega o'tkazildi */
+  position: absolute;
+  left: 0; /* Pastdagi qator boshi bilan bir xil tekislikda turadi */
+  top: 50%;
+  transform: translateY(-50%); /* Tepa-pastga tushib ketmasligi uchun markazga mahkamlandi */
   z-index: 10000;
   width: 52px;
   height: 52px;
@@ -80,6 +91,9 @@ body::before {
 .menu-btn:hover {
   background: var(--primary);
   color: white;
+}
+.menu-btn:active {
+  transform: translateY(-50%) scale(0.97); /* Bosilganda joyidan siljimasligi uchun */
 }
 
 /* ================== SIDEBAR (YON PANEL) ================== */
@@ -615,7 +629,7 @@ footer {
 /* ================== MOBIL MOSLASHUV ================== */
 @media (max-width: 768px) {
   .hero-section { padding: 30px 16px 10px; } 
-  .hero-top-row { gap: 10px; }
+  .hero-top-row { min-height: 90px; }
   .menu-btn { width: 46px; height: 46px; font-size: 22px; }
   .hero-logo { width: 90px; height: 90px; }
   .hero-title { font-size: 24px; }
@@ -664,12 +678,13 @@ footer {
 
 <!-- BANNER QISMI -->
 <header class="hero-section" id="top">
-  <!-- MENYU VA LOGOTIP BIR QATORDA -->
-  <div class="hero-top-row">
-    <button id="menuBtn" class="menu-btn" type="button" title="Menyu">
-      <i class="ph ph-list"></i>
-    </button>
-    <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
+  <div class="hero-top-wrapper">
+    <div class="hero-top-row">
+      <button id="menuBtn" class="menu-btn" type="button" title="Menyu">
+        <i class="ph ph-list"></i>
+      </button>
+      <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
+    </div>
   </div>
 
   <div class="org-title-box">
