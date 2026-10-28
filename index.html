@@ -59,7 +59,7 @@ body::before {
   margin-bottom: 10px;
 }
 
-/* ================== OKMK LOGOTIPI (TIK VA CHIROYLI) ================== */
+/* ================== OKMK LOGOTIPI ================== */
 .hero-logo {
   width: 115px;
   height: 115px;
@@ -68,7 +68,7 @@ body::before {
   background: rgba(255, 255, 255, 0.95);
   padding: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(245, 158, 11, 0.6);
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   animation: logoFloat 4s ease-in-out infinite;
   transition: all 0.4s ease;
 }
@@ -81,6 +81,21 @@ body::before {
 @keyframes logoFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
+}
+
+/* YANGI: Chodak Kon boshqarmasi yozuvi uchun oq yacheyka va yashil ramka */
+.org-title-box {
+  background: #FFFFFF;
+  border: 2px solid var(--primary);
+  border-radius: 16px;
+  padding: 10px 24px;
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 800;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .hero-title {
@@ -114,13 +129,13 @@ body::before {
   background: var(--card-bg);
   border-radius: 24px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  border: 2px solid var(--primary); /* Barcha kartochkalar cheti yashil */
+  border: 2px solid var(--primary); 
   padding: 24px;
   transition: box-shadow 0.2s ease;
 }
 
 .card:hover {
-  box-shadow: 0 8px 30px rgba(10, 141, 66, 0.15); /* Hover bo'lganda yashil soya */
+  box-shadow: 0 8px 30px rgba(10, 141, 66, 0.15);
 }
 
 /* ================== STATISTIKA ================== */
@@ -443,6 +458,7 @@ footer {
   .hero-section { padding: 30px 16px 10px; }
   .hero-logo { width: 90px; height: 90px; }
   .hero-title { font-size: 24px; }
+  .org-title-box { font-size: 15px; padding: 8px 16px; }
   
   .layout { grid-template-columns: 1fr; gap: 16px; }
   .stats { grid-template-columns: 1fr; gap: 12px; }
@@ -463,6 +479,12 @@ footer {
 <!-- BANNER QISMI -->
 <header class="hero-section">
   <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
+  
+  <!-- YANGI QO'SHILGAN QISM: Chodak Kon boshqarmasi yozuvi -->
+  <div class="org-title-box">
+    Chodak Kon boshqarmasi
+  </div>
+
   <h1 class="hero-title">Yashil Makon</h1>
   <p class="hero-subtitle">Tabiat uchun bugun harakat qilamiz!</p>
 </header>
