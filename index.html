@@ -29,6 +29,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+html { scroll-behavior: smooth; }
+
 /* ================== FON BUTUN SAHIFA BO'YLAB ================== */
 body {
   font-family: 'Inter', sans-serif;
@@ -47,10 +49,10 @@ body::before {
   z-index: -1;
 }
 
-/* ================== MENYU TUGMASI (CHAP YUQORI) ================== */
+/* ================== MENYU TUGMASI (LOGOTIP BILAN PARALLEL) ================== */
 .menu-btn {
-  position: fixed;
-  top: 20px;
+  position: absolute;
+  top: 45px; /* Logotip bilan bir qatorda turishi uchun */
   left: 20px;
   z-index: 10000;
   width: 52px;
@@ -171,6 +173,7 @@ body::before {
   font-weight: 600;
   font-size: 15px;
   transition: all 0.2s;
+  cursor: pointer;
 }
 .sidebar-nav a i {
   font-size: 22px;
@@ -277,6 +280,7 @@ body::before {
   border: 2px solid var(--primary); 
   padding: 24px;
   transition: box-shadow 0.2s ease;
+  scroll-margin-top: 20px; /* Scroll bo'lganda tepada joy qoldirish uchun */
 }
 
 .card:hover {
@@ -289,6 +293,7 @@ body::before {
   grid-template-columns: repeat(3, 1fr); 
   gap: 16px; 
   margin-bottom: 24px; 
+  scroll-margin-top: 20px;
 }
 
 .stat { 
@@ -474,7 +479,7 @@ select option { background: white; color: var(--text-main); }
 }
 
 /* ================== RO'YXAT ================== */
-.list-panel { margin-top: 20px; }
+.list-panel { margin-top: 20px; scroll-margin-top: 20px; }
 .list-top { 
   display: flex; 
   justify-content: space-between; 
@@ -600,7 +605,8 @@ footer {
 
 /* ================== MOBIL MOSLASHUV ================== */
 @media (max-width: 768px) {
-  .hero-section { padding: 60px 16px 10px; } /* Menyu tugmasi uchun joy */
+  .hero-section { padding: 70px 16px 10px; } /* Menyu tugmasi uchun joy */
+  .menu-btn { top: 20px; left: 16px; width: 46px; height: 46px; font-size: 22px; }
   .hero-logo { width: 90px; height: 90px; }
   .hero-title { font-size: 24px; }
   .org-title-box { font-size: 15px; padding: 8px 16px; }
@@ -621,11 +627,6 @@ footer {
 </head>
 <body>
 
-<!-- MENYU TUGMASI (CHAP YUQORI) -->
-<button id="menuBtn" class="menu-btn" type="button" title="Menyu">
-  <i class="ph ph-list"></i>
-</button>
-
 <!-- SIDEBAR FONI (QORAYTIRILGAN) -->
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
@@ -640,12 +641,10 @@ footer {
   </div>
   
   <nav class="sidebar-nav">
-    <a href="#" class="active"><i class="ph ph-house"></i> Bosh sahifa</a>
-    <a href="#"><i class="ph ph-map-trifold"></i> Xarita</a>
-    <a href="#"><i class="ph ph-chart-pie"></i> Statistika</a>
-    <a href="#"><i class="ph ph-tree"></i> Daraxtlar ro'yxati</a>
-    <a href="#"><i class="ph ph-gear"></i> Sozlamalar</a>
-    <a href="#"><i class="ph ph-info"></i> Dastur haqida</a>
+    <a href="#top" class="active nav-link"><i class="ph ph-house"></i> Bosh sahifa</a>
+    <a href="#stats-section" class="nav-link"><i class="ph ph-chart-pie"></i> Statistika</a>
+    <a href="#map-section" class="nav-link"><i class="ph ph-map-trifold"></i> Xarita</a>
+    <a href="#list-section" class="nav-link"><i class="ph ph-tree"></i> Daraxtlar ro'yxati</a>
   </nav>
   
   <div class="sidebar-footer">
@@ -654,7 +653,12 @@ footer {
 </aside>
 
 <!-- BANNER QISMI -->
-<header class="hero-section">
+<header class="hero-section" id="top">
+  <!-- MENYU TUGMASI LOGOTIP BILAN PARALLEL -->
+  <button id="menuBtn" class="menu-btn" type="button" title="Menyu">
+    <i class="ph ph-list"></i>
+  </button>
+
   <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
   
   <div class="org-title-box">
@@ -668,7 +672,7 @@ footer {
 <main class="container">
   
   <!-- STATISTIKA -->
-  <section class="stats">
+  <section class="stats" id="stats-section">
     <div class="stat card">
       <div class="stat-header">
         <div class="stat-icon green"><i class="ph ph-tree"></i></div>
@@ -693,7 +697,7 @@ footer {
   </section>
 
   <!-- ASOSIY LAYOUT (XARITA VA FORMA) -->
-  <div class="layout">
+  <div class="layout" id="map-section">
     <section class="card panel">
       <h2><i class="ph ph-map-trifold"></i> Xarita</h2>
       <p class="subtitle">Xaritadagi kerakli nuqtani bosing, qidiruv orqali shaharni toping yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
@@ -781,7 +785,7 @@ footer {
   </div>
 
   <!-- RO'YXAT -->
-  <section class="card panel list-panel">
+  <section class="card panel list-panel" id="list-section">
     <div class="list-top">
       <h2><i class="ph ph-list-dashes"></i> Daraxtlar ro‘yxati</h2>
       <input class="search" id="search" placeholder="🔎 Daraxt qidirish...">
@@ -834,6 +838,7 @@ const treesRef = ref(db, "trees");
   const sidebar = $("sidebar");
   const sidebarOverlay = $("sidebarOverlay");
   const closeSidebarBtn = $("closeSidebarBtn");
+  const navLinks = document.querySelectorAll(".nav-link");
 
   function toggleSidebar() {
     sidebar.classList.toggle("open");
@@ -841,8 +846,34 @@ const treesRef = ref(db, "trees");
   }
 
   menuBtn.addEventListener("click", toggleSidebar);
-  sidebarOverlay.addEventListener("click", toggleSidebar); // Tashqarini bossa yopiladi
-  closeSidebarBtn.addEventListener("click", toggleSidebar); // X tugmasi
+  sidebarOverlay.addEventListener("click", toggleSidebar); 
+  closeSidebarBtn.addEventListener("click", toggleSidebar); 
+
+  // Menyudagi havolalarni bosganda o'sha bo'limga o'tish
+  navLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault(); // Standart o'tishni to'xtatish
+      
+      // Sidebarni yopish
+      sidebar.classList.remove("open");
+      sidebarOverlay.classList.remove("open");
+      
+      // Aktiv holatni yangilash
+      navLinks.forEach(l => l.classList.remove("active"));
+      link.classList.add("active");
+
+      const targetId = link.getAttribute("href");
+      
+      if (targetId === "#top") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
+  });
 
   // ================== ASOSIY LOGIKA ==================
   let trees = [];
