@@ -491,11 +491,13 @@ select option { background: white; color: var(--text-main); }
 .search { max-width: 320px; background: white; }
 
 .tree-list { display: grid; gap: 14px; }
+
+/* DARAXTLAR YACHEYKASINING RAMKASI YASHIL RANGA BO'YALDI */
 .tree-item {
   padding: 18px; 
   border-radius: 16px; 
   background: white;
-  border: 1px solid var(--border-color); 
+  border: 2px solid var(--primary); /* O'zgartirildi: 2px qalinlikda va yashil rang */
   display: flex; 
   gap: 16px;
   align-items: flex-start; 
@@ -503,8 +505,8 @@ select option { background: white; color: var(--text-main); }
   transition: all 0.2s ease;
 }
 .tree-item:hover { 
-  border-color: var(--primary-light); 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: var(--primary-hover); /* Hover bo'lganda to'qroq yashil */
+  box-shadow: 0 4px 15px rgba(10, 141, 66, 0.2);
   transform: translateY(-2px); 
 }
 
@@ -605,7 +607,7 @@ footer {
 
 /* ================== MOBIL MOSLASHUV ================== */
 @media (max-width: 768px) {
-  .hero-section { padding: 70px 16px 10px; } /* Menyu tugmasi uchun joy */
+  .hero-section { padding: 70px 16px 10px; } 
   .menu-btn { top: 20px; left: 16px; width: 46px; height: 46px; font-size: 22px; }
   .hero-logo { width: 90px; height: 90px; }
   .hero-title { font-size: 24px; }
@@ -852,13 +854,11 @@ const treesRef = ref(db, "trees");
   // Menyudagi havolalarni bosganda o'sha bo'limga o'tish
   navLinks.forEach(link => {
     link.addEventListener("click", (e) => {
-      e.preventDefault(); // Standart o'tishni to'xtatish
+      e.preventDefault(); 
       
-      // Sidebarni yopish
       sidebar.classList.remove("open");
       sidebarOverlay.classList.remove("open");
       
-      // Aktiv holatni yangilash
       navLinks.forEach(l => l.classList.remove("active"));
       link.classList.add("active");
 
@@ -1262,7 +1262,10 @@ const treesRef = ref(db, "trees");
 
     if (action === "map") {
       if (!Number.isFinite(tree.lat) || !Number.isFinite(tree.lng)) { alert("Bu daraxt uchun joylashuv belgilanmagan."); return; }
-      map.setView([tree.lat, tree.lng], 18); if (markers[tree.id]) markers[tree.id].openPopup();
+      map.setView([tree.lat, tree.lng], 18); 
+      if (markers[tree.id]) markers[tree.id].openPopup();
+      // Sahifani xarita qismiga olib chiqish
+      $("map-section").scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
 
@@ -1274,7 +1277,8 @@ const treesRef = ref(db, "trees");
       $("formTitle").innerHTML = '<i class="ph ph-pencil-simple"></i> Tahrirlash';
       $("saveBtn").innerHTML = '<i class="ph ph-check-circle"></i> O‘zgarishlarni saqlash';
       $("cancelEditBtn").style.display = "flex";
-      $("formPanel").scrollIntoView({ behavior: "smooth" });
+      // Sahifani kiritish (tahrirlash) formasiga olib chiqish
+      $("formPanel").scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
 
