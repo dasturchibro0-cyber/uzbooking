@@ -4,9 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daraxtlar xaritasi</title>
+
+<!-- Xarita CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<!-- Qidiruv (Geocoder) CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css">
+<!-- Zamonaviy shrift va ikonkalar -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
 <style>
 :root {
   --primary: #10b981;
@@ -66,12 +72,32 @@ header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .panel h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .panel h2 i { color: var(--primary); }
 .subtitle { color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
-#map { height: 350px; width: 100%; border-radius: 16px; z-index: 1; border: 1px solid var(--glass-border); }
+#map { height: 380px; width: 100%; border-radius: 16px; z-index: 1; border: 1px solid var(--glass-border); }
 .leaflet-container { background: #000; }
 .leaflet-bar { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
 .leaflet-bar a { background: rgba(0,0,0,0.7) !important; color: white !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; backdrop-filter: blur(4px); }
 .leaflet-bar a:hover { background: rgba(0,0,0,0.9) !important; }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: rgba(20, 30, 25, 0.9) !important; backdrop-filter: blur(8px); border: 1px solid var(--glass-border); color: white !important; }
+
+/* Qidiruv (Geocoder) dizayni */
+.leaflet-control-geocoder {
+  background: rgba(0, 0, 0, 0.7) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+}
+.leaflet-control-geocoder-form input {
+  color: white !important; background: transparent !important; font-family: 'Inter', sans-serif;
+}
+.leaflet-control-geocoder-icon { filter: invert(1); }
+.leaflet-control-geocoder-alternatives {
+  background: rgba(10, 20, 15, 0.95) !important; backdrop-filter: blur(10px); border-radius: 8px; color: white;
+  border: 1px solid var(--glass-border);
+}
+.leaflet-control-geocoder-alternatives li a { color: #ccc !important; }
+.leaflet-control-geocoder-alternatives li a:hover { background: var(--primary) !important; color: white !important; }
+
 button {
   border: none; border-radius: 12px; padding: 12px 16px; font-size: 14px;
   font-weight: 600; font-family: inherit; cursor: pointer; display: inline-flex;
@@ -158,7 +184,6 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 .locate-map-btn:hover { background: rgba(0,0,0,0.9); }
 .locate-map-btn.active { color: #3b82f6; }
 
-/* Toast xabarnoma */
 .toast {
   position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
   background: rgba(16, 185, 129, 0.9); color: white; padding: 12px 24px;
@@ -213,7 +238,7 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
   <div class="layout">
     <section class="panel glass">
       <h2><i class="ph ph-map-trifold"></i> Xarita</h2>
-      <p class="subtitle">Xaritadagi kerakli nuqtani bosing yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
+      <p class="subtitle">Xaritadagi kerakli nuqtani bosing, qidiruv orqali shaharni toping yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
       <div id="map"></div>
       <div class="map-actions">
         <button class="primary" id="locateBtn" type="button">
@@ -224,7 +249,7 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
         </button>
       </div>
       <p class="note">
-        <i class="ph ph-info"></i> Daraxt turgan joyni xaritada bosing. Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin.
+        <i class="ph ph-info"></i> Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin. Qidiruv orqali istalgan shahar yoki ko'chani toping.
       </p>
     </section>
 
@@ -317,7 +342,11 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 <!-- Toast xabarnoma -->
 <div class="toast" id="toast">Joylashuv aniqlandi!</div>
 
+<!-- Xarita JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Qidiruv (Geocoder) JS -->
+<script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
@@ -351,14 +380,36 @@ const treesRef = ref(db, "trees");
   let selectedMarker = null;
   let firstFirebaseLoad = true;
 
-  // Xarita ob'ekti
+  /* ================== XARITA VA QATLAMLAR ================== */
   const map = L.map("map", { zoomControl: false }).setView([41.2995, 69.2401], 12);
   L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+  // 1. Sun'iy yo'ldosh rasmi
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics', maxZoom: 19
   }).addTo(map);
 
-  // Toast ko'rsatish funksiyasi
+  // 2. Shahar va ko'cha nomlari (Shaffof matnlar qatlami)
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd', maxZoom: 20
+  }).addTo(map);
+
+  // 3. Shahar va manzil qidiruvi (Geocoder)
+  L.Control.geocoder({
+    defaultMarkGeocode: false,
+    placeholder: "Shahar yoki manzil qidirish...",
+    errorMessage: "Hech narsa topilmadi."
+  })
+  .on('markgeocode', function(e) {
+    // Qidiruv natijasini tanlaganda nuqta o'rnatish
+    const center = e.geocode.center;
+    setPoint(center.lat, center.lng);
+    showToast("Manzil topildi: " + e.geocode.name);
+  })
+  .addTo(map);
+
+  /* ================== TOAST XABAR ================== */
   function showToast(message, isError = false) {
     const toast = $("toast");
     toast.textContent = message;
@@ -376,31 +427,22 @@ const treesRef = ref(db, "trees");
     }
   } catch (error) {}
 
-  /* ================== IP ORQALI AVTOMATIK ANIQLASH (RUXSATSIZ) ================== */
-  // Bu funksiya sahifa yuklanganda fonda ishlaydi va ruxsat so'ramaydi!
+  /* ================== IP ORQALI AVTOMATIK ANIQLASH ================== */
   async function autoLocateByIP() {
     try {
       const response = await fetch('https://ipapi.co/json/');
       const data = await response.json();
       if (data.latitude && data.longitude) {
-        // Xaritani foydalanuvchi turgan shahar/tumanga suramiz
         map.setView([data.latitude, data.longitude], 12);
-        console.log("IP orqali joylashuv avtomatik aniqlandi:", data.city, data.country_name);
+        console.log("IP joylashuv:", data.city, data.country_name);
       }
     } catch (error) {
-      console.log("IP orqali aniqlab bo'lmadi, Toshkent markazida qoldik.");
+      console.log("IP orqali aniqlab bo'lmadi.");
     }
   }
-  // Sahifa ochilishi bilan darhol ishga tushadi
   autoLocateByIP();
 
-  /* ================== GPS (FAQAT TUGMA BOSILGANDA RUXSAT SO'RAYDI) ================== */
-  let myLocationMarker = null;
-  let myLocationCircle = null;
-  let watchId = null;
-  let firstFix = true;
-  let locateMapBtnEl = null;
-
+  /* ================== GPS (TUGMA BOSILGANDA) ================== */
   function locateMe() {
     $("locateBtn").disabled = true;
     $("locateBtn").innerHTML = '<i class="ph ph-spinner-gap"></i> Aniqlanmoqda...';
@@ -413,15 +455,12 @@ const treesRef = ref(db, "trees");
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        setPoint(lat, lng);
-        map.setView([lat, lng], 18);
+        setPoint(position.coords.latitude, position.coords.longitude);
+        map.setView([position.coords.latitude, position.coords.longitude], 18);
         showToast("Aniq joylashuv topildi! ✅");
         resetLocateBtn();
       },
       (error) => {
-        // Agar ruxsat bermasa yoki GPS ishlamasa, jimgina IP joylashuvga qaytamiz
         showToast("GPS aniqlanmadi. Taxminiy (IP) joylashuv ishlatilmoqda.", true);
         autoLocateByIP();
         resetLocateBtn();
@@ -436,6 +475,12 @@ const treesRef = ref(db, "trees");
   }
 
   // Jonli kuzatish (Live Location)
+  let myLocationMarker = null;
+  let myLocationCircle = null;
+  let watchId = null;
+  let firstFix = true;
+  let locateMapBtnEl = null;
+
   function startLiveLocation() {
     if (!navigator.geolocation) return;
     if (locateMapBtnEl) locateMapBtnEl.classList.add("active");
@@ -495,7 +540,7 @@ const treesRef = ref(db, "trees");
     else startLiveLocation();
   }
 
-  // Xarita o'ng burchagidagi tugma
+  // Xarita o'ng burchagidagi jonli kuzatuv tugmasi
   const LocateControl = L.Control.extend({
     options: { position: "topright" },
     onAdd: function () {
@@ -514,7 +559,7 @@ const treesRef = ref(db, "trees");
   });
   new LocateControl().addTo(map);
 
-  /* ================== QOLGAN FUNKSIYALAR ================== */
+  /* ================== QOLGAN YORDAMCHI FUNKSIYALAR ================== */
   function saveStorage() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); return true; }
     catch (error) { alert("Saqlash amalga oshmadi."); return false; }
