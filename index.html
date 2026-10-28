@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daraxtlar xaritasi</title>
+<title>Chodak Kon boshqarmasi</title>
 
 <!-- Xarita CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -51,11 +51,21 @@ header { padding: 20px 16px; margin-bottom: 20px; }
   max-width: 1100px; margin: auto; display: flex; align-items: center;
   gap: 15px; padding: 15px 20px; border-radius: 24px;
 }
+/* OKMK Logotipi uchun maxsus shisha dizayn */
 .logo {
-  width: 50px; height: 50px; border-radius: 14px;
-  background: linear-gradient(135deg, var(--primary), #047857);
-  display: grid; place-items: center; font-size: 28px; color: white;
-  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+  width: 54px; height: 54px; border-radius: 14px;
+  background: #ffffff;
+  display: grid; place-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 4px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
 }
 header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
@@ -198,8 +208,9 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
   .stats { grid-template-columns: 1fr; gap: 12px; }
   .stat { padding: 16px; flex-direction: row; align-items: center; justify-content: space-between; }
   .stat strong { font-size: 24px; }
-  .header-inner { padding: 12px; border-radius: 16px; }
-  .header-inner h1 { font-size: 18px; }
+  .header-inner { padding: 12px; border-radius: 16px; gap: 10px; }
+  .header-inner h1 { font-size: 17px; }
+  .logo { width: 46px; height: 46px; }
   .search { max-width: 100%; }
   .tree-item { flex-direction: column; }
   .item-actions { flex-direction: row; width: 100%; }
@@ -211,10 +222,15 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 
 <header>
   <div class="header-inner glass">
-    <div class="logo"><i class="ph-fill ph-tree-evergreen"></i></div>
+    <!-- OKMK Logotipi -->
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/OKMK_logo.png/240px-OKMK_logo.png" 
+           alt="OKMK" 
+           onerror="this.outerHTML='<div style=\'color: #064e3b; font-weight: 900; font-size: 15px; font-family: Arial;\'>OKMK</div>'">
+    </div>
     <div>
-      <h1>Daraxtlar xaritasi</h1>
-      <p>Tabiatni asraylik va raqamlashtiraylik</p>
+      <h1>Chodak Kon boshqarmasi</h1>
+      <p>Daraxtlarni raqamlashtirish va monitoring qilish tizimi</p>
     </div>
   </div>
 </header>
@@ -337,7 +353,7 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
   </section>
 </main>
 
-<footer><i class="ph ph-leaf"></i> Daraxtlar xaritasi · Tabiatni asraylik</footer>
+<footer><i class="ph ph-leaf"></i> Chodak Kon boshqarmasi · Tabiatni asraylik</footer>
 
 <!-- Toast xabarnoma -->
 <div class="toast" id="toast">Joylashuv aniqlandi!</div>
@@ -381,20 +397,19 @@ const treesRef = ref(db, "trees");
   let firstFirebaseLoad = true;
 
   /* ================== XARITA VA QATLAMLAR ================== */
-  // attributionControl: false qilingani xaritadagi yozuvlarni (bayroq va matnlarni) o'chiradi
   const map = L.map("map", { 
     zoomControl: false, 
-    attributionControl: false 
+    attributionControl: false // Pastdagi yozuvlar o'chirilgan
   }).setView([41.2995, 69.2401], 12);
   
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  // 1. Sun'iy yo'ldosh rasmi (Attribution matni olib tashlandi)
+  // 1. Sun'iy yo'ldosh rasmi
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
     maxZoom: 19
   }).addTo(map);
 
-  // 2. Shahar va ko'cha nomlari (Attribution matni olib tashlandi)
+  // 2. Shahar va ko'cha nomlari
   L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png", {
     subdomains: 'abcd', maxZoom: 20
   }).addTo(map);
@@ -437,15 +452,12 @@ const treesRef = ref(db, "trees");
       const data = await response.json();
       if (data.latitude && data.longitude) {
         map.setView([data.latitude, data.longitude], 12);
-        console.log("IP joylashuv:", data.city, data.country_name);
       }
-    } catch (error) {
-      console.log("IP orqali aniqlab bo'lmadi.");
-    }
+    } catch (error) {}
   }
   autoLocateByIP();
 
-  /* ================== GPS (TUGMA BOSILGANDA) ================== */
+  /* ================== GPS ================== */
   function locateMe() {
     $("locateBtn").disabled = true;
     $("locateBtn").innerHTML = '<i class="ph ph-spinner-gap"></i> Aniqlanmoqda...';
@@ -477,7 +489,7 @@ const treesRef = ref(db, "trees");
     $("locateBtn").innerHTML = '<i class="ph ph-crosshair"></i> Mening joylashuvim';
   }
 
-  // Jonli kuzatish (Live Location)
+  // Jonli kuzatish
   let myLocationMarker = null;
   let myLocationCircle = null;
   let watchId = null;
@@ -543,7 +555,6 @@ const treesRef = ref(db, "trees");
     else startLiveLocation();
   }
 
-  // Xarita o'ng burchagidagi jonli kuzatuv tugmasi
   const LocateControl = L.Control.extend({
     options: { position: "topright" },
     onAdd: function () {
@@ -562,7 +573,7 @@ const treesRef = ref(db, "trees");
   });
   new LocateControl().addTo(map);
 
-  /* ================== QOLGAN YORDAMCHI FUNKSIYALAR ================== */
+  /* ================== YORDAMCHI FUNKSIYALAR ================== */
   function saveStorage() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); return true; }
     catch (error) { alert("Saqlash amalga oshmadi."); return false; }
