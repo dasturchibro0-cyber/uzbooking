@@ -1,1436 +1,825 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TreeMap Uzbekistan — Daraxtlar hisobi va monitoringi</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        emerald: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            500: '#10b981',
-                            600: '#059669',
-                            700: '#047857',
-                            800: '#065f46',
-                            900: '#064e3b',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Leaflet CSS & JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    
-    <!-- Leaflet MarkerCluster -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
-    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
-    
-    <!-- SheetJS (xlsx.full.min.js) for Excel export -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    
-    <!-- Inter Font -->
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        #map { height: calc(100vh - 64px); width: 100%; z-index: 10; }
-        @media (max-width: 768px) {
-            #map { height: calc(100vh - 120px); }
-        }
-        /* Custom map markers */
-        .tree-marker-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            border: 2px solid white;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-            color: white;
-            font-weight: bold;
-        }
-        .status-soglom { background-color: #10b981; }
-        .status-qoniqarli { background-color: #84cc16; }
-        .status-qurib-borayotgan { background-color: #eab308; }
-        .status-qurigan { background-color: #ef4444; }
-        .status-zararlangan { background-color: #f97316; }
-        .status-kasallangan { background-color: #d97706; }
-        .status-tekshirish-kerak { background-color: #a855f7; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daraxtlar xaritasi</title>
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #059669; }
-    </style>
+<link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<style>
+:root {
+  --green: #168653;
+  --dark: #123c2b;
+  --light: #f1f7f2;
+  --border: #e1eae3;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f8f5;
+  color: #20352a;
+}
+header {
+  background: linear-gradient(120deg, #0e6842, #24a267);
+  color: white;
+  padding: 22px 16px;
+}
+.header-inner {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  background: #ffffff25;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+header h1 { font-size: 22px; margin: 0 0 5px; }
+header p { margin: 0; font-size: 13px; opacity: .9; }
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 14px 30px;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.stat, .panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 17px;
+}
+.stat span { font-size: 13px; color: #64776b; }
+.stat strong {
+  display: block;
+  font-size: 27px;
+  margin-top: 8px;
+  color: var(--dark);
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.panel { min-width: 0; }
+.panel h2 {
+  margin: 0 0 7px;
+  font-size: 19px;
+}
+.subtitle {
+  color: #748078;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+#map {
+  height: 330px;
+  width: 100%;
+  border-radius: 12px;
+  z-index: 1;
+}
+.map-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.primary { background: var(--green); color: white; }
+.secondary { background: #eaf5ed; color: #17633e; }
+.danger { background: #fff0ee; color: #b83d31; }
+button:active { transform: scale(.98); }
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+input, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dce5de;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 15px;
+  outline: none;
+  color: #24372b;
+}
+input:focus, select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px #16865315;
+}
+.field { margin-bottom: 14px; }
+.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.coords {
+  background: var(--light);
+  padding: 11px;
+  border-radius: 10px;
+  color: #486454;
+  font-size: 12px;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  overflow-wrap: anywhere;
+}
+.full { width: 100%; }
+.list-panel { margin-top: 16px; }
+.list-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.list-top h2 { margin: 0; }
+.search { max-width: 300px; }
+.tree-list {
+  display: grid;
+  gap: 10px;
+}
+.tree-item {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.tree-icon {
+  background: #eaf5ed;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 22px;
+}
+.tree-info { flex: 1; min-width: 0; }
+.tree-info h3 { margin: 2px 0 7px; font-size: 16px; }
+.tree-info p {
+  margin: 4px 0;
+  color: #68766d;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.status {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+.good { background: #e2f6e8; color: #167441; }
+.medium { background: #fff3d7; color: #916000; }
+.bad { background: #ffebe8; color: #b33429; }
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.small-btn { padding: 8px 10px; font-size: 12px; }
+.empty {
+  text-align: center;
+  padding: 30px 10px;
+  color: #78877d;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.note {
+  margin-top: 15px;
+  color: #6b7c70;
+  font-size: 12px;
+  line-height: 1.6;
+}
+footer {
+  text-align: center;
+  padding: 18px;
+  color: #859188;
+  font-size: 12px;
+}
+@media (max-width: 720px) {
+  .layout { grid-template-columns: 1fr; }
+  .stats { gap: 8px; }
+  .stat { padding: 12px; }
+  .stat strong { font-size: 23px; }
+  .stat span { font-size: 11px; }
+  #map { height: 300px; }
+  header h1 { font-size: 19px; }
+  .search { max-width: none; width: 100%; }
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 flex flex-col h-screen overflow-hidden">
+<body>
 
-    <!-- TOP HEADER -->
-    <header class="bg-emerald-800 text-white h-16 px-4 flex items-center justify-between shadow-md z-30">
-        <div class="flex items-center space-x-3">
-            <div class="bg-white text-emerald-800 p-2 rounded-lg font-bold shadow-inner flex items-center justify-center w-10 h-10">
-                <i class="fa-solid me-0.5 fa-tree text-xl"></i>
-            </div>
-            <div>
-                <h1 class="font-bold text-base md:text-lg leading-tight tracking-wide">TreeMap Uzbekistan</h1>
-                <p class="text-xs text-emerald-200 hidden sm:block">Daraxtlar elektron hisobi va GIS monitoringi</p>
-            </div>
-        </div>
-
-        <div class="flex items-center space-x-2 md:space-x-3">
-            <!-- Global Add Tree Button -->
-            <button onclick="openTreeModal()" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs md:text-sm px-3 py-2 rounded-lg font-medium shadow flex items-center transition">
-                <i class="fa-solid fa-plus me-1.5"></i>
-                <span class="hidden sm:inline" data-i18n="addTree">Daraxt qo‘shish</span>
-                <span class="sm:hidden" data-i18n="add">Qo‘shish</span>
-            </button>
-
-            <!-- Quick Excel Export -->
-            <button onclick="exportToExcel()" class="bg-emerald-700 hover:bg-emerald-600 border border-emerald-500 text-white text-xs md:text-sm px-3 py-2 rounded-lg font-medium shadow flex items-center transition" title="Excel faylida yuklab olish">
-                <i class="fa-solid fa-file-excel text-green-300 me-1.5 text-base"></i>
-                <span class="hidden md:inline" data-i18n="excelExport">Excel ga eksport</span>
-            </button>
-
-            <!-- Sync Indicator -->
-            <div id="syncBadge" onclick="showFirebaseSettings()" class="bg-emerald-900/60 hover:bg-emerald-900 text-emerald-200 text-xs px-2.5 py-1.5 rounded-full flex items-center cursor-pointer transition border border-emerald-700" title="Bulut va Offline holati">
-                <span id="syncDot" class="w-2 h-2 rounded-full bg-yellow-400 me-1.5 animate-pulse"></span>
-                <span id="syncText" class="text-xs hidden lg:inline">Offline (Local)</span>
-            </div>
-
-            <!-- Language Switcher -->
-            <button onclick="toggleLanguage()" class="bg-emerald-900 hover:bg-emerald-700 text-xs text-emerald-100 px-2.5 py-1.5 rounded-md border border-emerald-700 transition">
-                <span id="langLabel" class="font-bold">UZB</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- MAIN WRAPPER -->
-    <div class="flex flex-1 overflow-hidden relative">
-
-        <!-- DESKTOP SIDEBAR NAVIGATION -->
-        <aside class="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col z-20 shadow-sm">
-            <div class="p-4 border-b border-slate-100 bg-slate-50">
-                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2" data-i18n="quickStats">Tezkor statistika</div>
-                <div class="grid grid-cols-2 gap-2">
-                    <div class="bg-white p-2.5 rounded-lg border border-slate-200 text-center shadow-2xs">
-                        <span class="text-xs text-slate-500 block" data-i18n="total">Jami</span>
-                        <span id="sidebarTotalCount" class="text-lg font-bold text-emerald-700">0</span>
-                    </div>
-                    <div class="bg-white p-2.5 rounded-lg border border-slate-200 text-center shadow-2xs">
-                        <span class="text-xs text-slate-500 block" data-i18n="healthy">Sog‘lom</span>
-                        <span id="sidebarHealthyCount" class="text-lg font-bold text-emerald-500">0</span>
-                    </div>
-                </div>
-            </div>
-
-            <nav class="flex-1 p-3 space-y-1">
-                <button onclick="switchTab('map')" id="nav-map" class="nav-btn w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-emerald-800 bg-emerald-50 border border-emerald-200">
-                    <i class="fa-solid fa-map-location-dot w-6 text-emerald-600"></i>
-                    <span data-i18n="navMap">Xarita va GIS</span>
-                </button>
-                <button onclick="switchTab('list')" id="nav-list" class="nav-btn w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-100">
-                    <i class="fa-solid fa-list-check w-6 text-slate-500"></i>
-                    <span data-i18n="navList">Daraxtlar ro‘yxati</span>
-                </button>
-                <button onclick="switchTab('stats')" id="nav-stats" class="nav-btn w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-100">
-                    <i class="fa-solid fa-chart-pie w-6 text-slate-500"></i>
-                    <span data-i18n="navStats">Statistika va Tahlil</span>
-                </button>
-                <button onclick="switchTab('export')" id="nav-export" class="nav-btn w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-100">
-                    <i class="fa-solid fa-file-export w-6 text-slate-500"></i>
-                    <span data-i18n="navExport">Eksport va Zaxira</span>
-                </button>
-                <button onclick="switchTab('guide')" id="nav-guide" class="nav-btn w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-100">
-                    <i class="fa-solid fa-circle-question w-6 text-slate-500"></i>
-                    <span data-i18n="navGuide">Qo‘llanma va Sozlash</span>
-                </button>
-            </nav>
-
-            <div class="p-3 border-t border-slate-100">
-                <button onclick="showFirebaseSettings()" class="w-full py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-lg flex items-center justify-center transition">
-                    <i class="fa-solid fa-gear me-2"></i>
-                    <span data-i18n="cloudSettings">Firebase va Baza Sozlamalari</span>
-                </button>
-            </div>
-        </aside>
-
-        <!-- CONTENT VIEWPORT -->
-        <main class="flex-1 relative bg-slate-100 overflow-hidden flex flex-col">
-
-            <!-- TAB 1: MAP VIEW -->
-            <section id="tab-map-view" class="tab-content h-full relative flex-1">
-                <!-- Map Container -->
-                <div id="map"></div>
-
-                <!-- Floating Map Controls -->
-                <div class="absolute top-4 right-4 z-[400] flex flex-col space-y-2">
-                    <button onclick="locateUser()" class="bg-white text-slate-700 hover:text-emerald-700 p-3 rounded-xl shadow-lg border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center" title="Mening joylashuvim">
-                        <i class="fa-solid fa-crosshairs text-lg"></i>
-                    </button>
-                    <button onclick="enableAddTreeOnMapMode()" id="mapAddPinBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-xl shadow-lg transition flex items-center justify-center" title="Xaritadan nuqta tanlab daraxt qo‘shish">
-                        <i class="fa-solid fa-map-pin text-lg"></i>
-                    </button>
-                </div>
-
-                <!-- Mode Alert Bar (When Pin Mode Active) -->
-                <div id="pinModeBanner" class="hidden absolute top-4 left-1/2 transform -translate-x-1/2 z-[400] bg-emerald-800 text-white px-4 py-2 rounded-full shadow-xl flex items-center space-x-3 text-xs md:text-sm border border-emerald-600">
-                    <i class="fa-solid fa-hand-pointer animate-bounce"></i>
-                    <span data-i18n="clickMapInstruction">Xaritaning kerakli nuqtasini bosing!</span>
-                    <button onclick="disableAddTreeOnMapMode()" class="bg-emerald-900 hover:bg-emerald-950 px-2 py-1 rounded-full text-xs font-bold ms-2">✕ Bekor qilish</button>
-                </div>
-
-                <!-- Map Legend Overlay -->
-                <div class="absolute bottom-6 left-4 z-[400] bg-white/95 backdrop-blur-xs p-3 rounded-xl shadow-lg border border-slate-200 text-xs hidden sm:block max-w-xs">
-                    <div class="font-bold text-slate-700 mb-2 border-b pb-1" data-i18n="healthStatusLegend">Daraxtlar holati bo‘yicha ranglar:</div>
-                    <div class="grid grid-cols-2 gap-x-3 gap-y-1">
-                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-emerald-500 me-1.5"></span><span data-i18n="statusHealthy">Sog‘lom</span></div>
-                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-lime-500 me-1.5"></span><span data-i18n="statusSatisfactory">Qoniqarli</span></div>
-                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-yellow-500 me-1.5"></span><span data-i18n="statusDrying">Qurib borayotgan</span></div>
-                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-red-500 me-1.5"></span><span data-i18n="statusDried">Qurigan</span></div>
-                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-orange-500 me-1.5"></span><span data-i18n="statusDamaged">Zararlangan</span></div>
-                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-amber-600 me-1.5"></span><span data-i18n="statusDiseased">Kasallangan</span></div>
-                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-purple-500 me-1.5"></span><span data-i18n="statusInspect">Tekshirish kerak</span></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 2: LIST VIEW -->
-            <section id="tab-list-view" class="tab-content hidden h-full overflow-y-auto p-4 md:p-6 bg-slate-50">
-                <div class="max-w-7xl mx-auto space-y-4">
-                    <!-- Filters & Search Bar -->
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-3">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                            <div class="relative flex-1">
-                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                                <input type="text" id="searchInput" oninput="renderTreeTable()" placeholder="ID, Daraxt nomi, Turi yoki Manzil bo‘yicha qidiruv..." class="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:outline-hidden focus:border-emerald-500">
-                            </div>
-                            <div class="flex flex-wrap items-center gap-2">
-                                <select id="filterSpecies" onchange="renderTreeTable()" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-hidden focus:border-emerald-500">
-                                    <option value="" data-i18n="allSpecies">Barcha turlar</option>
-                                </select>
-                                <select id="filterStatus" onchange="renderTreeTable()" class="border border-slate-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-hidden focus:border-emerald-500">
-                                    <option value="" data-i18n="allStatuses">Barcha holatlar</option>
-                                    <option value="Sog‘lom">Sog‘lom</option>
-                                    <option value="Qoniqarli">Qoniqarli</option>
-                                    <option value="Qurib borayotgan">Qurib borayotgan</option>
-                                    <option value="Qurigan">Qurigan</option>
-                                    <option value="Zararlangan">Zararlangan</option>
-                                    <option value="Kasallangan">Kasallangan</option>
-                                    <option value="Tekshirish kerak">Tekshirish kerak</option>
-                                </select>
-                                <button onclick="resetFilters()" class="px-3 py-2 text-sm text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg transition" data-i18n="reset">Tozalash</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tree Table -->
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                        <div class="px-4 py-3 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                <span data-i18n="treesList">Daraxtlar yozuvi</span> (<span id="filteredTreeCount">0</span>)
-                            </span>
-                            <button onclick="exportToExcel()" class="text-emerald-700 hover:text-emerald-800 text-xs font-semibold flex items-center">
-                                <i class="fa-solid fa-file-excel me-1 text-base"></i> Excelga yuklash
-                            </button>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-xs md:text-sm border-collapse">
-                                <thead>
-                                    <tr class="bg-slate-100/70 border-b border-slate-200 text-slate-600 font-semibold">
-                                        <th class="p-3">ID</th>
-                                        <th class="p-3">Foto</th>
-                                        <th class="p-3">Nomi va Turi</th>
-                                        <th class="p-3">Holati</th>
-                                        <th class="p-3">O‘lchamlari</th>
-                                        <th class="p-3">Manzil</th>
-                                        <th class="p-3">Sana</th>
-                                        <th class="p-3 text-right">Amallar</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="treeTableBody" class="divide-y divide-slate-100">
-                                    <!-- Table Rows populated via JS -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 3: STATISTICS & ANALYTICS -->
-            <section id="tab-stats-view" class="tab-content hidden h-full overflow-y-auto p-4 md:p-6 bg-slate-50">
-                <div class="max-w-6xl mx-auto space-y-6">
-                    <h2 class="text-xl font-bold text-slate-800" data-i18n="statsTitle">Daraxtlar statistikasi va Monitoring tahlili</h2>
-
-                    <!-- Dynamic Stat Cards -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500">
-                            <div class="text-xs text-slate-500 uppercase font-semibold" data-i18n="totalRegistered">Jami ro‘yxatga olingan</div>
-                            <div id="statTotal" class="text-2xl font-bold text-slate-800 mt-1">0</div>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-500">
-                            <div class="text-xs text-slate-500 uppercase font-semibold" data-i18n="healthyTrees">Sog‘lom daraxtlar</div>
-                            <div id="statHealthy" class="text-2xl font-bold text-emerald-600 mt-1">0</div>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-amber-500">
-                            <div class="text-xs text-slate-500 uppercase font-semibold" data-i18n="damagedOrDiseased">Zararlangan / Kasallangan</div>
-                            <div id="statDamaged" class="text-2xl font-bold text-amber-600 mt-1">0</div>
-                        </div>
-                        <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-500">
-                            <div class="text-xs text-slate-500 uppercase font-semibold" data-i18n="driedTrees">Qurigan daraxtlar</div>
-                            <div id="statDried" class="text-2xl font-bold text-red-600 mt-1">0</div>
-                        </div>
-                    </div>
-
-                    <!-- Species Breakdown Bar Chart Representation -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                            <h3 class="font-bold text-slate-700 border-b pb-2 mb-3 text-sm" data-i18n="speciesBreakdown">Daraxt turlari bo‘yicha ulush</h3>
-                            <div id="speciesBreakdownList" class="space-y-3 text-xs md:text-sm">
-                                <!-- Populated dynamically -->
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200">
-                            <h3 class="font-bold text-slate-700 border-b pb-2 mb-3 text-sm" data-i18n="careBreakdown">Parvarish zarurati taqsimoti</h3>
-                            <div id="careBreakdownList" class="space-y-3 text-xs md:text-sm">
-                                <!-- Populated dynamically -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 4: EXPORT & BACKUP -->
-            <section id="tab-export-view" class="tab-content hidden h-full overflow-y-auto p-4 md:p-6 bg-slate-50">
-                <div class="max-w-4xl mx-auto space-y-6">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4">
-                        <div class="flex items-center space-x-3 text-emerald-700">
-                            <i class="fa-solid fa-file-excel text-3xl"></i>
-                            <div>
-                                <h2 class="text-lg font-bold" data-i18n="excelExportTitle">Rasmiy Excel (.xlsx) Hisobot Tayyorlash</h2>
-                                <p class="text-xs text-slate-500">Barcha saqlangan daraxtlar koordinata va parametrlarini O‘zbekistonga moslangan formatda yuklab olish.</p>
-                            </div>
-                        </div>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            Aksariyat GIS va monitoring tizimlari kabi, mazkur ilova barcha kiritilgan yozuvlarni birinchi qator sarlavhalari qalinlashtirilgan, o‘zbekcha maxsus belgilari (o‘, g‘, sh, ch) saqlangan va filtlar yoqilgan haqiqiy Excel (.xlsx) fayli ko‘rinishida shakllantiradi.
-                        </p>
-                        <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition flex items-center">
-                            <i class="fa-solid fa-download me-2"></i> Excel (.xlsx) faylini yuklab olish
-                        </button>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4">
-                        <div class="flex items-center space-x-3 text-slate-700">
-                            <i class="fa-solid fa-database text-3xl"></i>
-                            <div>
-                                <h2 class="text-lg font-bold" data-i18n="jsonBackupTitle">JSON Zaxira (Backup) va Qayta Tiklash</h2>
-                                <p class="text-xs text-slate-500">Ma’lumotlarni faylga saqlab qo‘yish va boshqa qurilmaga ko‘chirish.</p>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-3">
-                            <button onclick="exportJSONBackup()" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center">
-                                <i class="fa-solid fa-file-code me-2"></i> JSON Zaxira eksport
-                            </button>
-                            <label class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 px-4 py-2 rounded-lg text-sm font-medium transition flex items-center cursor-pointer">
-                                <i class="fa-solid fa-upload me-2"></i> JSON Faylidan Import
-                                <input type="file" id="importJsonInput" accept=".json" onchange="importJSONBackup(event)" class="hidden">
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 5: GUIDE & SETTINGS -->
-            <section id="tab-guide-view" class="tab-content hidden h-full overflow-y-auto p-4 md:p-6 bg-slate-50">
-                <div class="max-w-4xl mx-auto space-y-6">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-4">
-                        <h2 class="text-lg font-bold text-slate-800 border-b pb-2">Firebase Cloud Firestore Integratsiya Yo‘riqnomasi</h2>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            Ilova boshlang‘ich holatda ma’lumotlarni brauzerning xavfsiz **IndexedDB / LocalStorage** xotirasida doimiy saqlaydi. Agar ma’lumotlarni ko‘plab xodimlar va telefonlar o‘rtasida real-vaqtda sinxronlashni xohlasangiz, bepul Firebase loyihangiz konfiguratsiyasini kiriting.
-                        </p>
-                        <ol class="list-decimal list-inside text-xs text-slate-700 space-y-2">
-                            <li><a href="https://console.firebase.google.com/" target="_blank" class="text-emerald-600 underline font-bold">Firebase Console</a> ga kiring va yangi loyiha yarating.</li>
-                            <li><strong>Firestore Database</strong> bo‘limini oching va test rejimida yarating.</li>
-                            <li>Loyiha sozlamalaridan Web App qo‘shing va `firebaseConfig` obyekt kalitlarini oling.</li>
-                            <li>Ilovadagi <strong>"Firebase Sozlamalari"</strong> oynasiga konfiguratsiyani kiriting.</li>
-                        </ol>
-                        <button onclick="showFirebaseSettings()" class="bg-emerald-600 text-white text-xs px-4 py-2 rounded-lg font-medium hover:bg-emerald-700">Firebase Konfiguratsiyasini Kiritish</button>
-                    </div>
-                </div>
-            </section>
-
-        </main>
+<header>
+  <div class="header-inner">
+    <div class="logo">🌳</div>
+    <div>
+      <h1>Daraxtlar xaritasi</h1>
+      <p>Daraxtlarni belgilang, ma’lumotlarini saqlang</p>
     </div>
+  </div>
+</header>
 
-    <!-- MOBILE BOTTOM NAVIGATION BAR -->
-    <nav class="md:hidden bg-white border-t border-slate-200 h-14 flex items-center justify-around z-30">
-        <button onclick="switchTab('map')" id="mob-nav-map" class="flex flex-col items-center justify-center w-full h-full text-emerald-700 font-bold">
-            <i class="fa-solid fa-map-location-dot text-base"></i>
-            <span class="text-[10px] mt-0.5" data-i18n="navMap">Xarita</span>
+<main class="container">
+
+  <section class="stats">
+    <div class="stat">
+      <span>Jami daraxtlar</span>
+      <strong id="total">0</strong>
+    </div>
+    <div class="stat">
+      <span>Sog‘lom daraxtlar</span>
+      <strong id="healthy">0</strong>
+    </div>
+    <div class="stat">
+      <span>Belgilangan joylar</span>
+      <strong id="located">0</strong>
+    </div>
+  </section>
+
+  <div class="layout">
+
+    <section class="panel">
+      <h2>📍 Daraxtlar xaritasi</h2>
+      <p class="subtitle">
+        Xaritadagi kerakli nuqtani bosing yoki joylashuvingizni aniqlang.
+      </p>
+
+      <div id="map"></div>
+
+      <div class="map-actions">
+        <button class="primary" id="locateBtn" type="button">
+          ◎ Mening joylashuvim
         </button>
-        <button onclick="switchTab('list')" id="mob-nav-list" class="flex flex-col items-center justify-center w-full h-full text-slate-500">
-            <i class="fa-solid fa-list-check text-base"></i>
-            <span class="text-[10px] mt-0.5" data-i18n="navList">Ro‘yxat</span>
+        <button class="secondary" id="resetPointBtn" type="button">
+          Nuqtani bekor qilish
         </button>
-        <button onclick="switchTab('stats')" id="mob-nav-stats" class="flex flex-col items-center justify-center w-full h-full text-slate-500">
-            <i class="fa-solid fa-chart-pie text-base"></i>
-            <span class="text-[10px] mt-0.5" data-i18n="navStats">Statistika</span>
+      </div>
+
+      <p class="note">
+        💡 Daraxt turgan joyni xaritada bosing. So‘ng ma’lumotlarini
+        kiriting va saqlang.
+      </p>
+    </section>
+
+    <section class="panel" id="formPanel">
+      <h2 id="formTitle">🌱 Daraxt qo‘shish</h2>
+      <p class="subtitle">
+        Faqat kerakli ma’lumotlarni kiriting. Maydonlarni to‘ldirish oson.
+      </p>
+
+      <form id="treeForm">
+        <div class="field">
+          <label for="name">Daraxt nomi yoki turi *</label>
+          <input id="name" required maxlength="100"
+            placeholder="Masalan: Chinor, terak, olma">
+        </div>
+
+        <div class="two-cols">
+          <div class="field">
+            <label for="age">Yoshi (yil)</label>
+            <input id="age" type="number" min="0" max="10000"
+              placeholder="Masalan: 12">
+          </div>
+          <div class="field">
+            <label for="status">Holati *</label>
+            <select id="status" required>
+              <option value="Sog‘lom">🟢 Sog‘lom</option>
+              <option value="O‘rtacha">🟡 O‘rtacha</option>
+              <option value="Qurigan">🔴 Qurigan</option>
+              <option value="Kasallangan">🟠 Kasallangan</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="extra">Izoh (ixtiyoriy)</label>
+          <input id="extra" maxlength="250"
+            placeholder="Masalan: barglari sarg‘aygan">
+        </div>
+
+        <div class="coords" id="coords">
+          📍 Hali joy tanlanmagan. Xaritani bosing.
+        </div>
+
+        <button class="primary full" type="submit" id="saveBtn">
+          ✓ Daraxtni saqlash
         </button>
-        <button onclick="switchTab('export')" id="mob-nav-export" class="flex flex-col items-center justify-center w-full h-full text-slate-500">
-            <i class="fa-solid fa-file-export text-base"></i>
-            <span class="text-[10px] mt-0.5" data-i18n="navExport">Eksport</span>
+        <button class="secondary full" type="button"
+          id="cancelEditBtn" style="display:none; margin-top:8px">
+          Tahrirlashni bekor qilish
         </button>
-    </nav>
+      </form>
 
-    <!-- TREE FORM MODAL (ADD / EDIT) -->
-    <div id="treeModal" class="hidden fixed inset-0 z-[500] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[92vh] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-150">
-            
-            <!-- Modal Header -->
-            <div class="bg-emerald-800 text-white px-5 py-4 flex items-center justify-between border-b border-emerald-700">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-tree text-emerald-300 text-lg"></i>
-                    <h3 id="modalTitle" class="font-bold text-base md:text-lg">Yangi daraxt biriktirish</h3>
-                </div>
-                <button onclick="closeTreeModal()" class="text-emerald-200 hover:text-white text-xl p-1 font-bold">✕</button>
-            </div>
+      <p class="note">
+        💾 Yozuvlar ushbu qurilmaning brauzerida va Firebase serverida
+        avtomatik saqlanadi.
+      </p>
+    </section>
+  </div>
 
-            <!-- Modal Form Scrollable Body -->
-            <form id="treeForm" onsubmit="handleTreeFormSubmit(event)" class="p-4 md:p-6 overflow-y-auto space-y-4 text-xs md:text-sm">
-                <input type="hidden" id="treeFormEditId">
+  <section class="panel list-panel">
+    <div class="list-top">
+      <h2>📋 Daraxtlar ro‘yxati</h2>
+      <input class="search" id="search"
+        placeholder="🔎 Daraxt qidirish...">
+    </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Tree ID (Auto generated) -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="treeId">Daraxt ID</label>
-                        <input type="text" id="treeId" readonly class="w-full bg-slate-100 border border-slate-300 rounded-lg px-3 py-2 text-slate-600 font-mono font-bold">
-                    </div>
+    <div class="map-actions" style="margin-bottom:15px">
+      <button class="primary" id="exportBtn" type="button">
+        ⬇ Excel uchun yuklab olish
+      </button>
+      <button class="secondary" id="backupBtn" type="button">
+        💾 Zaxira nusxa
+      </button>
+      <button class="secondary" id="importBtn" type="button">
+        📂 Zaxira yuklash
+      </button>
+      <input id="importFile" type="file" accept=".json"
+        style="display:none">
+    </div>
 
-                    <!-- Tree Name / Local Name -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="treeName">Daraxt nomi / Mahalliy nomi</label>
-                        <input type="text" id="treeName" required placeholder="Masalan: Qadimiy Chinor" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
-                    </div>
+    <div id="treeList" class="tree-list"></div>
 
-                    <!-- Tree Species Dropdown -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="treeType">Daraxt turi</label>
-                        <select id="treeSpecies" onchange="toggleCustomSpeciesInput()" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white">
-                            <option value="Chinor">Chinor (Platanus)</option>
-                            <option value="Eman">Eman (Quercus)</option>
-                            <option value="Kashtan">Kashtan (Aesculus)</option>
-                            <option value="Qarag‘ay">Qarag‘ay (Pinus)</option>
-                            <option value="Terak">Terak (Populus)</option>
-                            <option value="Majnuntol">Majnuntol (Salix)</option>
-                            <option value="Archa">Archa (Juniperus)</option>
-                            <option value="Yong‘oq">Yong‘oq (Juglans)</option>
-                            <option value="Tut">Tut (Morus)</option>
-                            <option value="Olmali / Mevali">Mevali daraxt</option>
-                            <option value="Boshqa">Boshqa tur...</option>
-                        </select>
-                    </div>
+    <p class="note">
+      Excel tugmasi barcha daraxtlarni CSV formatida yuklab beradi.
+      Zaxira nusxa esa ma’lumotlarni JSON formatida saqlaydi.
+    </p>
+  </section>
 
-                    <!-- Custom Species Input -->
-                    <div id="customSpeciesWrapper" class="hidden">
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="customType">Boshqa tur nomi</label>
-                        <input type="text" id="customSpecies" placeholder="Tur nomini kiritishingiz mumkin" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
-                    </div>
+</main>
 
-                    <!-- Tree Quantity Count -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="treeCount">Daraxtlar soni</label>
-                        <input type="number" id="treeCount" min="1" value="1" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
-                    </div>
+<footer>
+  Daraxtlar xaritasi · Tabiatni asraylik 🌿
+</footer>
 
-                    <!-- Tree Age (years) -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="treeAge">Yoshi (yil, ixtiyoriy)</label>
-                        <input type="number" id="treeAge" placeholder="Bo‘sh qolishi mumkin" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
-                    </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-                    <!-- Height (m) -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="treeHeight">Balandligi (m, ixtiyoriy)</label>
-                        <input type="number" step="0.1" id="treeHeight" placeholder="Bo‘sh qolishi mumkin" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
-                    </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+import {
+  getDatabase, ref, set as fbSet, remove as fbRemove,
+  update as fbUpdate, onValue
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-                    <!-- Trunk Diameter (cm) -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="treeDiameter">Tana diametri (sm, ixtiyoriy)</label>
-                        <input type="number" step="0.1" id="treeDiameter" placeholder="Bo‘sh qolishi mumkin" min="0" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden">
-                    </div>
+/* ===== Firebase konfiguratsiyasi ===== */
+const firebaseConfig = {
+  apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
+  authDomain: "uzbektelegrami.firebaseapp.com",
+  databaseURL: "https://uzbektelegrami-default-rtdb.firebaseio.com",
+  projectId: "uzbektelegrami",
+  storageBucket: "uzbektelegrami.firebasestorage.app",
+  messagingSenderId: "13650278375",
+  appId: "1:13650278375:web:b4b3e06021399c41dc6f42",
+  measurementId: "G-80MM024Q4W"
+};
 
-                    <!-- General Health Status -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="healthStatus">Umumiy holati *</label>
-                        <select id="healthStatus" required class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white font-medium">
-                            <option value="Sog‘lom">🟢 Sog‘lom</option>
-                            <option value="Qoniqarli">🟡 Qoniqarli</option>
-                            <option value="Qurib borayotgan">🟠 Qurib borayotgan</option>
-                            <option value="Qurigan">🔴 Qurigan</option>
-                            <option value="Zararlangan">🟧 Zararlangan</option>
-                            <option value="Kasallangan">🟤 Kasallangan</option>
-                            <option value="Tekshirish kerak">🟣 Tekshirish kerak</option>
-                        </select>
-                    </div>
+const firebaseApp = initializeApp(firebaseConfig);
+try { getAnalytics(firebaseApp); } catch (e) { console.warn("Analytics:", e); }
+const db = getDatabase(firebaseApp);
+const treesRef = ref(db, "trees");
 
-                    <!-- Leaf Condition -->
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="leafStatus">Barglar holati</label>
-                        <select id="leafCondition" class="w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-hidden bg-white">
-                            <option value="Yaxshi">Yaxshi</option>
-                            <option value="Sarg‘aygan">Sarg‘aygan</option>
-                            <option value="To‘kilgan">To‘kilgan</option>
-                            <option value="Barg chiqarmagan">Barg chiqarmagan</option>
-                            <option value="Mavsumiy holat">Mavsumiy holat</option>
-                            <option value="Noma’lum">Noma’lum</option>
-                        </select>
-                    </div>
-                </div>
+/* ===== Asosiy dastur ===== */
+(() => {
+  "use strict";
 
-                <!-- Care Requirements Checkboxes -->
-                <div>
-                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="careNeeds">Parvarish zarurati</label>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" value="Sug‘orish kerak" class="careCheck rounded text-emerald-600 focus:ring-emerald-500">
-                            <span>Sug‘orish</span>
-                        </label>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" value="Kesish kerak" class="careCheck rounded text-emerald-600 focus:ring-emerald-500">
-                            <span>Kesish</span>
-                        </label>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" value="Davolash kerak" class="careCheck rounded text-emerald-600 focus:ring-emerald-500">
-                            <span>Davolash</span>
-                        </label>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" value="Qo‘shimcha tekshiruv kerak" class="careCheck rounded text-emerald-600 focus:ring-emerald-500">
-                            <span>Tekshiruv</span>
-                        </label>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" value="Zarurat yo‘q" class="careCheck rounded text-emerald-600 focus:ring-emerald-500">
-                            <span>Zarurat yo‘q</span>
-                        </label>
-                    </div>
-                </div>
+  const STORAGE_KEY = "daraxtlar_xaritasi_v1";
+  const $ = id => document.getElementById(id);
 
-                <!-- Coordinates & Address -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1">Latitude (Kenglik)</label>
-                        <input type="number" step="any" id="latitude" required class="w-full border border-slate-300 rounded-lg px-3 py-2 font-mono">
-                    </div>
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1">Longitude (Uzunlik)</label>
-                        <input type="number" step="any" id="longitude" required class="w-full border border-slate-300 rounded-lg px-3 py-2 font-mono">
-                    </div>
-                </div>
+  let trees = [];
+  let selectedPoint = null;
+  let editingId = null;
+  let markers = {};
+  let selectedMarker = null;
+  let firstFirebaseLoad = true;
 
-                <div>
-                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="address">Manzil / Hudud nomi</label>
-                    <input type="text" id="address" placeholder="Toshkent sh., Chilonzor tuman, 5-mavze..." class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                </div>
+  // LocalStorage'dan yuklash
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) trees = parsed;
+    }
+  } catch (error) {
+    alert("Saqlangan ma’lumotlarni o‘qib bo‘lmadi.");
+  }
 
-                <!-- Inspector Name, Dates, Notes -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="inspector">Kiritgan shaxs (ixtiyoriy)</label>
-                        <input type="text" id="inspectorName" placeholder="Ism Familiya" class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
-                    <div>
-                        <label class="block font-semibold text-slate-700 mb-1" data-i18n="lastInspection">Oxirgi tekshiruv sanasi</label>
-                        <input type="date" id="lastInspectionDate" class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
-                </div>
+  // Xarita (ESRI SUN'IY YO'LDOSH)
+  const map = L.map("map").setView([41.2995, 69.2401], 12);
+  
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics',
+    maxZoom: 19
+  }).addTo(map);
 
-                <!-- Diseases / Notes -->
-                <div>
-                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="diseaseNotes">Kasalliklar, zararkunandalar yoki izoh</label>
-                    <textarea id="diseaseNotes" rows="2" placeholder="Daraxt holati haqida qo‘shimcha ma’lumot..." class="w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
-                </div>
+  // LocalStorage
+  function saveStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(trees));
+      return true;
+    } catch (error) {
+      alert("Saqlash amalga oshmadi. Brauzer xotirasini tekshiring.");
+      return false;
+    }
+  }
 
-                <!-- Image Upload Preview -->
-                <div>
-                    <label class="block font-semibold text-slate-700 mb-1" data-i18n="photo">Daraxt fotosurati</label>
-                    <input type="file" id="treePhotoInput" accept="image/*" onchange="previewTreePhoto(event)" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
-                    <div id="photoPreviewContainer" class="mt-2 hidden">
-                        <img id="photoPreview" class="h-28 w-auto rounded-lg object-cover border border-slate-300">
-                    </div>
-                </div>
+  // Firebase yordamchilari
+  function fbSaveTree(tree) {
+    fbSet(ref(db, "trees/" + tree.id), tree)
+      .catch(err => console.error("Firebase save:", err));
+  }
+  function fbDeleteTree(id) {
+    fbRemove(ref(db, "trees/" + id))
+      .catch(err => console.error("Firebase delete:", err));
+  }
+  function fbReplaceAll(list) {
+    const obj = {};
+    list.forEach(t => { obj[t.id] = t; });
+    fbSet(treesRef, obj).catch(err => console.error("Firebase replace:", err));
+  }
 
-                <!-- Modal Footer Buttons -->
-                <div class="pt-3 border-t border-slate-200 flex items-center justify-end space-x-3">
-                    <button type="button" onclick="closeTreeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg font-medium transition" data-i18n="cancel">Bekor qilish</button>
-                    <button type="submit" class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg shadow-md transition flex items-center">
-                        <i class="fa-solid fa-floppy-disk me-2"></i>
-                        <span data-i18n="saveTree">Daraxtni saqlash</span>
-                    </button>
-                </div>
-            </form>
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    })[char]);
+  }
 
+  function statusClass(status) {
+    if (status === "Sog‘lom") return "good";
+    if (status === "O‘rtacha") return "medium";
+    return "bad";
+  }
+
+  function updateCoords() {
+    if (!selectedPoint) {
+      $("coords").textContent = "📍 Hali joy tanlanmagan. Xaritani bosing.";
+      return;
+    }
+    $("coords").innerHTML =
+      "📍 <b>Tanlangan joy:</b><br>" +
+      "Kenglik: " + selectedPoint.lat.toFixed(6) + "<br>" +
+      "Uzunlik: " + selectedPoint.lng.toFixed(6);
+  }
+
+  function setPoint(lat, lng, zoom = true) {
+    selectedPoint = { lat, lng };
+    updateCoords();
+    if (selectedMarker) map.removeLayer(selectedMarker);
+    selectedMarker = L.marker([lat, lng]).addTo(map)
+      .bindPopup("Tanlangan joy").openPopup();
+    if (zoom) map.setView([lat, lng], 17);
+  }
+
+  map.on("click", event => setPoint(event.latlng.lat, event.latlng.lng, false));
+
+  // Geolokatsiya
+  $("locateBtn").addEventListener("click", () => {
+    if (!navigator.geolocation) {
+      alert("Bu brauzer joylashuvni aniqlashni qo‘llamaydi.");
+      return;
+    }
+    $("locateBtn").disabled = true;
+    $("locateBtn").textContent = "Aniqlanmoqda...";
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        setPoint(position.coords.latitude, position.coords.longitude);
+        $("locateBtn").disabled = false;
+        $("locateBtn").textContent = "◎ Mening joylashuvim";
+      },
+      error => {
+        let message = "Joylashuv aniqlanmadi.";
+        if (error.code === 1) message = "Joylashuvga ruxsat bering va qayta urinib ko‘ring.";
+        else if (error.code === 2) message = "Joylashuv aniqlanmadi. GPS yoki internetni tekshiring.";
+        else if (error.code === 3) message = "Joylashuvni aniqlash vaqti tugadi. Qayta urinib ko‘ring.";
+        alert(message);
+        $("locateBtn").disabled = false;
+        $("locateBtn").textContent = "◎ Mening joylashuvim";
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
+  });
+
+  $("resetPointBtn").addEventListener("click", () => {
+    selectedPoint = null;
+    if (selectedMarker) map.removeLayer(selectedMarker);
+    selectedMarker = null;
+    updateCoords();
+  });
+
+  function clearForm() {
+    $("treeForm").reset();
+    editingId = null;
+    $("formTitle").textContent = "🌱 Daraxt qo‘shish";
+    $("saveBtn").textContent = "✓ Daraxtni saqlash";
+    $("cancelEditBtn").style.display = "none";
+  }
+
+  $("cancelEditBtn").addEventListener("click", clearForm);
+
+  // Saqlash (localStorage + Firebase)
+  $("treeForm").addEventListener("submit", event => {
+    event.preventDefault();
+
+    const name = $("name").value.trim();
+    const ageText = $("age").value.trim();
+    const age = ageText === "" ? "" : Number(ageText);
+    const status = $("status").value;
+    const extra = $("extra").value.trim();
+
+    if (!name) { alert("Daraxt nomini kiriting."); return; }
+    if (ageText !== "" && (!Number.isFinite(age) || age < 0 || age > 10000)) {
+      alert("Daraxt yoshini to‘g‘ri kiriting."); return;
+    }
+
+    const existing = trees.find(tree => tree.id === editingId);
+    const isEdit = Boolean(editingId);
+
+    const record = {
+      id: editingId || (
+        window.crypto && crypto.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now()) + Math.random().toString(16).slice(2)
+      ),
+      name, age, status, extra,
+      lat: selectedPoint ? selectedPoint.lat : (existing?.lat ?? null),
+      lng: selectedPoint ? selectedPoint.lng : (existing?.lng ?? null),
+      createdAt: existing?.createdAt || new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    if (isEdit) {
+      trees = trees.map(tree => tree.id === editingId ? record : tree);
+    } else {
+      trees.unshift(record);
+    }
+
+    if (!saveStorage()) return;
+    fbSaveTree(record);
+
+    render();
+    clearForm();
+
+    if (record.lat !== null && record.lng !== null) {
+      setPoint(record.lat, record.lng);
+    } else {
+      selectedPoint = null;
+      if (selectedMarker) map.removeLayer(selectedMarker);
+      selectedMarker = null;
+      updateCoords();
+    }
+
+    alert(isEdit ? "Ma’lumot yangilandi!" : "Daraxt saqlandi!");
+  });
+
+  function renderMarkers() {
+    Object.values(markers).forEach(marker => map.removeLayer(marker));
+    markers = {};
+    trees.forEach(tree => {
+      if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) {
+        const marker = L.marker([tree.lat, tree.lng]).addTo(map);
+        marker.bindPopup(
+          "<b>" + escapeHTML(tree.name) + "</b><br>" +
+          "Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") +
+          "<br>Holati: " + escapeHTML(tree.status)
+        );
+        markers[tree.id] = marker;
+      }
+    });
+  }
+
+  function render() {
+    $("total").textContent = trees.length;
+    $("healthy").textContent = trees.filter(t => t.status === "Sog‘lom").length;
+    $("located").textContent = trees.filter(t =>
+      Number.isFinite(t.lat) && Number.isFinite(t.lng)).length;
+
+    renderMarkers();
+
+    const query = $("search").value.trim().toLocaleLowerCase("uz");
+    const filtered = trees.filter(tree =>
+      [tree.name, tree.status, tree.extra, tree.age]
+        .some(v => String(v ?? "").toLocaleLowerCase("uz").includes(query)));
+
+    const list = $("treeList");
+
+    if (!filtered.length) {
+      list.innerHTML = trees.length
+        ? '<div class="empty">🔎 Mos daraxt topilmadi.</div>'
+        : '<div class="empty">🌱 Hozircha daraxtlar yo‘q.<br>Xaritadan joy tanlab, birinchi daraxtni qo‘shing.</div>';
+      return;
+    }
+
+    list.innerHTML = filtered.map(tree => `
+      <article class="tree-item">
+        <div class="tree-icon">🌳</div>
+        <div class="tree-info">
+          <h3>${escapeHTML(tree.name)}</h3>
+          <p>🎂 Yoshi: ${tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil"}</p>
+          <span class="status ${statusClass(tree.status)}">${escapeHTML(tree.status)}</span>
+          ${tree.extra ? `<p>📝 ${escapeHTML(tree.extra)}</p>` : ""}
+          <p>📍 ${Number.isFinite(tree.lat) && Number.isFinite(tree.lng)
+            ? tree.lat.toFixed(5) + ", " + tree.lng.toFixed(5)
+            : "Joy belgilanmagan"}</p>
         </div>
-    </div>
-
-    <!-- TREE DETAILS DRAWER MODAL -->
-    <div id="treeDetailsModal" class="hidden fixed inset-0 z-[550] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-3">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
-            <div class="bg-slate-800 text-white px-5 py-3 flex justify-between items-center">
-                <h3 class="font-bold text-base" id="detailTitle">Daraxt Pasporti</h3>
-                <button onclick="closeDetailsModal()" class="text-slate-300 hover:text-white font-bold text-lg">✕</button>
-            </div>
-            <div id="detailContent" class="p-5 overflow-y-auto space-y-4 text-xs md:text-sm">
-                <!-- Populated dynamically via JavaScript -->
-            </div>
-            <div class="p-3 bg-slate-50 border-t border-slate-200 flex justify-between">
-                <button id="detailDeleteBtn" class="bg-red-50 hover:bg-red-100 text-red-600 px-3 py-1.5 rounded-lg font-medium border border-red-200 text-xs">
-                    <i class="fa-solid fa-trash me-1"></i> O‘chirish
-                </button>
-                <button id="detailEditBtn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-lg font-medium text-xs shadow-xs">
-                    <i class="fa-solid fa-pen-to-square me-1"></i> Tahrirlash
-                </button>
-            </div>
+        <div class="item-actions">
+          <button class="secondary small-btn" data-action="map" data-id="${escapeHTML(tree.id)}">Xarita</button>
+          <button class="secondary small-btn" data-action="edit" data-id="${escapeHTML(tree.id)}">Tahrir</button>
+          <button class="danger small-btn" data-action="delete" data-id="${escapeHTML(tree.id)}">O‘chirish</button>
         </div>
-    </div>
+      </article>
+    `).join("");
+  }
+
+  $("treeList").addEventListener("click", event => {
+    const button = event.target.closest("button[data-action]");
+    if (!button) return;
+
+    const tree = trees.find(item => item.id === button.dataset.id);
+    if (!tree) return;
+
+    const action = button.dataset.action;
+
+    if (action === "map") {
+      if (!Number.isFinite(tree.lat) || !Number.isFinite(tree.lng)) {
+        alert("Bu daraxt uchun joylashuv belgilanmagan."); return;
+      }
+      map.setView([tree.lat, tree.lng], 18);
+      if (markers[tree.id]) markers[tree.id].openPopup();
+      return;
+    }
+
+    if (action === "edit") {
+      editingId = tree.id;
+      $("name").value = tree.name;
+      $("age").value = tree.age;
+      $("status").value = tree.status;
+      $("extra").value = tree.extra || "";
+
+      if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) {
+        setPoint(tree.lat, tree.lng);
+      } else {
+        selectedPoint = null;
+        updateCoords();
+      }
+
+      $("formTitle").textContent = "✏️ Daraxtni tahrirlash";
+      $("saveBtn").textContent = "✓ O‘zgarishlarni saqlash";
+      $("cancelEditBtn").style.display = "block";
+      $("formPanel").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+
+    if (action === "delete") {
+      if (!confirm('"' + tree.name + '" daraxtini o‘chirmoqchimisiz?')) return;
+      trees = trees.filter(item => item.id !== tree.id);
+      if (editingId === tree.id) clearForm();
+      if (!saveStorage()) return;
+      fbDeleteTree(tree.id);
+      render();
+    }
+  });
+
+  $("search").addEventListener("input", render);
+
+  // CSV eksport
+  $("exportBtn").addEventListener("click", () => {
+    if (!trees.length) {
+      alert("Eksport qilish uchun avval daraxt qo‘shing.");
+      return;
+    }
+    const headers = ["Tartib raqami","Daraxt nomi","Yoshi (yil)","Holati",
+      "Izoh","Kenglik","Uzunlik","Kiritilgan sana"];
+
+    function csvCell(value) {
+      let text = String(value ?? "");
+      if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
+      return '"' + text.replace(/"/g, '""') + '"';
+    }
+
+    const rows = trees.map((tree, index) => [
+      index + 1, tree.name, tree.age === "" ? "" : tree.age, tree.status,
+      tree.extra || "",
+      Number.isFinite(tree.lat) ? tree.lat : "",
+      Number.isFinite(tree.lng) ? tree.lng : "",
+      tree.createdAt ? new Date(tree.createdAt).toLocaleString("uz-UZ") : ""
+    ]);
+
+    const csv = "\uFEFF" + [headers, ...rows]
+      .map(row => row.map(csvCell).join(";")).join("\r\n");
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "daraxtlar_royxati.csv";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  // JSON zaxira
+  $("backupBtn").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(trees, null, 2)],
+      { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "daraxtlar_zaxira.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  $("importBtn").addEventListener("click", () => $("importFile").click());
+
+  $("importFile").addEventListener("change", async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      const imported = JSON.parse(await file.text());
+      if (!Array.isArray(imported)) throw new Error("Format noto‘g‘ri");
+      const valid = imported.every(tree =>
+        tree && typeof tree.name === "string" &&
+        typeof tree.status === "string" && tree.id !== undefined
+      );
+      if (!valid) throw new Error("Daraxt ma’lumotlari noto‘g‘ri");
+
+      if (!confirm("Zaxira nusxasidagi ma’lumotlar joriy ro‘yxat o‘rniga yuklansinmi?")) {
+        event.target.value = "";
+        return;
+      }
+
+      trees = imported;
+      if (!saveStorage()) return;
+      fbReplaceAll(trees);
+      clearForm();
+      render();
+      alert("Zaxira nusxasi yuklandi!");
+    } catch (error) {
+      alert("Faylni o‘qib bo‘lmadi. To‘g‘ri JSON zaxira faylini tanlang.");
+    }
+    event.target.value = "";
+  });
+
+  render();
+  updateCoords();
+
+  // Firebase real-time sinxronizatsiya
+  onValue(treesRef, snapshot => {
+    const val = snapshot.val();
+    const remoteTrees = val ? Object.values(val) : [];
+
+    if (firstFirebaseLoad) {
+      firstFirebaseLoad = false;
+      const remoteIds = new Set(remoteTrees.map(t => t.id));
+      const localOnly = trees.filter(t => !remoteIds.has(t.id));
+      if (localOnly.length > 0) {
+        const updates = {};
+        localOnly.forEach(t => { updates[t.id] = t; });
+        fbUpdate(treesRef, updates).catch(err => console.error("Firebase merge:", err));
+        return;
+      }
+    }
+
+    trees = remoteTrees;
+    saveStorage();
+    render();
+  }, error => {
+    console.error("Firebase read error:", error);
+    console.warn("⚠️ Firebase bilan aloqa yo‘q. Ma’lumotlar faqat qurilmada saqlanadi.");
+  });
+
+})();
+</script>
 
-    <!-- FIREBASE SETTINGS MODAL -->
-    <div id="firebaseModal" class="hidden fixed inset-0 z-[600] bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-5 space-y-4">
-            <div class="flex justify-between items-center border-b pb-2">
-                <h3 class="font-bold text-slate-800 text-base">Firebase Firestore Sozlamalari</h3>
-                <button onclick="closeFirebaseSettings()" class="text-slate-400 hover:text-slate-600 font-bold">✕</button>
-            </div>
-            <p class="text-xs text-slate-600">Bulutli ma’lumotlar bazangizni ulash uchun obyekt kodingizni kiriting:</p>
-            <textarea id="firebaseConfigInput" rows="6" placeholder='{ "apiKey": "...", "authDomain": "...", "projectId": "..." }' class="w-full font-mono text-xs border border-slate-300 rounded-lg p-3 bg-slate-50 focus:outline-hidden focus:border-emerald-500"></textarea>
-            <div class="flex justify-end space-x-2 pt-2">
-                <button onclick="closeFirebaseSettings()" class="px-3 py-1.5 text-xs bg-slate-100 text-slate-600 rounded-lg">Yopish</button>
-                <button onclick="saveFirebaseConfig()" class="px-4 py-1.5 text-xs bg-emerald-600 text-white rounded-lg font-bold">Saqlash & Ulash</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- NOTIFICATION TOAST -->
-    <div id="toast" class="fixed bottom-16 right-4 z-[999] hidden bg-slate-800 text-white px-4 py-3 rounded-xl shadow-2xl text-xs md:text-sm flex items-center space-x-3 border-l-4 border-emerald-500">
-        <span id="toastMsg">Xabar matni</span>
-    </div>
-
-    <!-- LOGIC APPLICATION CODE -->
-    <script>
-        // Global State & Core Variables
-        let map = null;
-        let markersCluster = null;
-        let treeData = [];
-        let isAddPinMode = false;
-        let tempMarker = null;
-        let currentPhotoBase64 = '';
-        let currentLang = 'uz';
-
-        // Firebase State
-        let firebaseApp = null;
-        let firestoreDb = null;
-
-        // Translation Dictionary
-        const i18n = {
-            uz: {
-                addTree: "Daraxt qo‘shish",
-                add: "Qo‘shish",
-                excelExport: "Excel ga eksport",
-                quickStats: "Tezkor statistika",
-                total: "Jami",
-                healthy: "Sog‘lom",
-                navMap: "Xarita va GIS",
-                navList: "Daraxtlar ro‘yxati",
-                navStats: "Statistika va Tahlil",
-                navExport: "Eksport va Zaxira",
-                navGuide: "Qo‘llanma va Sozlash",
-                clickMapInstruction: "Xaritaning kerakli nuqtasini bosing!",
-                saveTree: "Daraxtni saqlash",
-                reset: "Tozalash"
-            },
-            ru: {
-                addTree: "Добавить дерево",
-                add: "Добавить",
-                excelExport: "Экспорт в Excel",
-                quickStats: "Быстрая статистика",
-                total: "Всего",
-                healthy: "Здоровые",
-                navMap: "Карта и ГИС",
-                navList: "Список деревьев",
-                navStats: "Статистика",
-                navExport: "Экспорт и Бекап",
-                navGuide: "Инструкция",
-                clickMapInstruction: "Нажмите на нужную точку на карте!",
-                saveTree: "Сохранить дерево",
-                reset: "Сбросить"
-            }
-        };
-
-        // Window Load Initialization
-        window.onload = function() {
-            initMap();
-            loadStoredTreeData();
-            populateSpeciesFilters();
-            setupFirebaseIfConfigured();
-            renderAllViews();
-        };
-
-        // Initialize Leaflet Map
-        function initMap() {
-            // Default center on Uzbekistan (Tashkent)
-            const defaultCoords = [41.311081, 69.240562];
-            map = L.map('map', { zoomControl: false }).setView(defaultCoords, 13);
-
-            // Add standard OpenStreetMap Tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; OpenStreetMap contributors | TreeMap Uzbekistan'
-            }).addTo(map);
-
-            // Add Leaflet Zoom Control to Top-Left
-            L.control.zoom({ position: 'topleft' }).addTo(map);
-
-            // Setup Marker Cluster Group
-            markersCluster = L.markerClusterGroup({
-                chunkedLoading: true,
-                maxClusterRadius: 40
-            });
-            map.addLayer(markersCluster);
-
-            // Map Click Event for Pin Mode or Direct Click
-            map.on('click', function(e) {
-                if (isAddPinMode) {
-                    openTreeModalWithCoords(e.latlng.lat, e.latlng.lng);
-                    disableAddTreeOnMapMode();
-                }
-            });
-        }
-
-        // Locate User via GPS
-        function locateUser() {
-            if ("geolocation" in navigator) {
-                showToast("GPS joylashuvingiz aniqlanmoqda...");
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    map.flyTo([lat, lng], 17);
-                    
-                    // Drop a blue pulse marker for user location
-                    L.circleMarker([lat, lng], {
-                        radius: 8,
-                        fillColor: "#3b82f6",
-                        color: "#ffffff",
-                        weight: 3,
-                        opacity: 1,
-                        fillOpacity: 0.9
-                    }).addTo(map).bindPopup("Sizning joriy joylashuvingiz").openPopup();
-
-                    showToast("Joylashuv aniqlandi!");
-                }, function(err) {
-                    showToast("Geolokatsiyani aniqlashda xatolik: " + err.message);
-                }, { enableHighAccuracy: true });
-            } else {
-                showToast("Geolokatsiya funksiyasi brauzeringizda qo‘llab-quvvatlanmaydi");
-            }
-        }
-
-        // Data Storage & Synchronization Logic (IndexedDB / LocalStorage Fallback)
-        function loadStoredTreeData() {
-            const localData = localStorage.getItem('treemap_data_v1');
-            if (localData) {
-                try {
-                    treeData = JSON.parse(localData);
-                } catch(e) {
-                    treeData = [];
-                }
-            } else {
-                // Pre-populate with realistic mock tree in Tashkent for instant preview
-                treeData = [{
-                    id: "UZB-TREE-10001",
-                    name: "Markaziy Chinor",
-                    species: "Chinor",
-                    count: 1,
-                    age: 85,
-                    height: 18,
-                    diameter: 95,
-                    healthStatus: "Sog‘lom",
-                    leafCondition: "Yaxshi",
-                    careNeeds: ["Zarurat yo‘q"],
-                    lat: 41.311081,
-                    lng: 69.240562,
-                    address: "Toshkent sh., Amir Temur xiyoboni",
-                    inspectorName: "M. Karimov",
-                    lastInspectionDate: "2026-10-15",
-                    diseaseNotes: "Tana baquvvat, doimiy nazoratda.",
-                    photo: "",
-                    createdDate: "2026-10-15 10:00:00"
-                }];
-                saveTreeDataLocally();
-            }
-        }
-
-        function saveTreeDataLocally() {
-            localStorage.setItem('treemap_data_v1', JSON.stringify(treeData));
-            renderAllViews();
-        }
-
-        // Render Everything Across Views
-        function renderAllViews() {
-            renderMapMarkers();
-            renderTreeTable();
-            renderStatsView();
-            updateSidebarStats();
-        }
-
-        // Render Markers on Map
-        function renderMapMarkers() {
-            if (!markersCluster) return;
-            markersCluster.clearLayers();
-
-            treeData.forEach(tree => {
-                const colorClass = getStatusColorClass(tree.healthStatus);
-                
-                // HTML Custom Icon
-                const customIcon = L.divIcon({
-                    className: 'custom-div-icon',
-                    html: `<div class="tree-marker-icon ${colorClass} w-8 h-8 rounded-full border-2 border-white shadow-lg flex items-center justify-center text-xs">
-                             <i class="fa-solid fa-tree"></i>
-                           </div>`,
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 16]
-                });
-
-                const marker = L.marker([tree.lat, tree.lng], { icon: customIcon });
-
-                // Popup HTML
-                const popupContent = `
-                    <div class="p-1 text-xs">
-                        <strong class="text-sm font-bold block text-slate-800">${escapeHtml(tree.name)}</strong>
-                        <span class="text-slate-500">${escapeHtml(tree.species)}</span>
-                        <div class="mt-1 font-semibold text-emerald-700">Holati: ${escapeHtml(tree.healthStatus)}</div>
-                        <div class="mt-2 text-right">
-                            <button onclick="openTreeDetails('${tree.id}')" class="bg-emerald-600 text-white px-2.5 py-1 rounded-md font-medium hover:bg-emerald-700">Pasportni ko‘rish</button>
-                        </div>
-                    </div>
-                `;
-
-                marker.bindPopup(popupContent);
-                markersCluster.addLayer(marker);
-            });
-        }
-
-        function getStatusColorClass(status) {
-            switch(status) {
-                case 'Sog‘lom': return 'status-soglom';
-                case 'Qoniqarli': return 'status-qoniqarli';
-                case 'Qurib borayotgan': return 'status-qurib-borayotgan';
-                case 'Qurigan': return 'status-qurigan';
-                case 'Zararlangan': return 'status-zararlangan';
-                case 'Kasallangan': return 'status-kasallangan';
-                case 'Tekshirish kerak': return 'status-tekshirish-kerak';
-                default: return 'status-soglom';
-            }
-        }
-
-        // Map Pin Placement Mode Trigger
-        function enableAddTreeOnMapMode() {
-            isAddPinMode = true;
-            document.getElementById('pinModeBanner').classList.remove('hidden');
-        }
-
-        function disableAddTreeOnMapMode() {
-            isAddPinMode = false;
-            document.getElementById('pinModeBanner').classList.add('hidden');
-        }
-
-        // Open Add Modal
-        function openTreeModal() {
-            // Default center if available
-            const center = map.getCenter();
-            openTreeModalWithCoords(center.lat, center.lng);
-        }
-
-        function openTreeModalWithCoords(lat, lng) {
-            document.getElementById('treeForm').reset();
-            document.getElementById('treeFormEditId').value = '';
-            document.getElementById('treeId').value = 'UZB-TREE-' + Math.floor(10000 + Math.random() * 90000);
-            document.getElementById('latitude').value = lat.toFixed(6);
-            document.getElementById('longitude').value = lng.toFixed(6);
-            document.getElementById('lastInspectionDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('modalTitle').innerText = "Yangi daraxt biriktirish";
-            document.getElementById('photoPreviewContainer').classList.add('hidden');
-            currentPhotoBase64 = '';
-
-            // Checkbox reset
-            document.querySelectorAll('.careCheck').forEach(cb => cb.checked = false);
-
-            document.getElementById('treeModal').classList.remove('hidden');
-        }
-
-        function closeTreeModal() {
-            document.getElementById('treeModal').classList.add('hidden');
-        }
-
-        function toggleCustomSpeciesInput() {
-            const select = document.getElementById('treeSpecies');
-            const wrapper = document.getElementById('customSpeciesWrapper');
-            if (select.value === 'Boshqa') {
-                wrapper.classList.remove('hidden');
-            } else {
-                wrapper.classList.add('hidden');
-            }
-        }
-
-        // Handle Form Submit (Add / Edit)
-        function handleTreeFormSubmit(e) {
-            e.preventDefault();
-
-            const editId = document.getElementById('treeFormEditId').value;
-            const treeId = document.getElementById('treeId').value;
-            const name = document.getElementById('treeName').value.trim();
-            
-            let species = document.getElementById('treeSpecies').value;
-            if (species === 'Boshqa') {
-                species = document.getElementById('customSpecies').value.trim() || 'Boshqa';
-            }
-
-            const count = parseInt(document.getElementById('treeCount').value) || 1;
-            const age = document.getElementById('treeAge').value ? parseInt(document.getElementById('treeAge').value) : null;
-            const height = document.getElementById('treeHeight').value ? parseFloat(document.getElementById('treeHeight').value) : null;
-            const diameter = document.getElementById('treeDiameter').value ? parseFloat(document.getElementById('treeDiameter').value) : null;
-
-            const healthStatus = document.getElementById('healthStatus').value;
-            const leafCondition = document.getElementById('leafCondition').value;
-
-            const careNeeds = [];
-            document.querySelectorAll('.careCheck:checked').forEach(cb => careNeeds.push(cb.value));
-
-            const lat = parseFloat(document.getElementById('latitude').value);
-            const lng = parseFloat(document.getElementById('longitude').value);
-            const address = document.getElementById('address').value.trim();
-            const inspectorName = document.getElementById('inspectorName').value.trim();
-            const lastInspectionDate = document.getElementById('lastInspectionDate').value;
-            const diseaseNotes = document.getElementById('diseaseNotes').value.trim();
-
-            const record = {
-                id: treeId,
-                name: name,
-                species: species,
-                count: count,
-                age: age,
-                height: height,
-                diameter: diameter,
-                healthStatus: healthStatus,
-                leafCondition: leafCondition,
-                careNeeds: careNeeds,
-                lat: lat,
-                lng: lng,
-                address: address,
-                inspectorName: inspectorName,
-                lastInspectionDate: lastInspectionDate,
-                diseaseNotes: diseaseNotes,
-                photo: currentPhotoBase64,
-                updatedDate: new Date().toISOString().replace('T', ' ').substring(0, 19)
-            };
-
-            if (editId) {
-                // Update Existing
-                const index = treeData.findIndex(t => t.id === editId);
-                if (index !== -1) {
-                    record.createdDate = treeData[index].createdDate || record.updatedDate;
-                    treeData[index] = record;
-                    showToast("Daraxt ma’lumotlari yangilandi!");
-                }
-            } else {
-                // Add New Record
-                record.createdDate = record.updatedDate;
-                treeData.push(record);
-                showToast("Yangi daraxt muvaffaqiyatli saqlandi!");
-            }
-
-            saveTreeDataLocally();
-            syncRecordToFirestore(record);
-            closeTreeModal();
-        }
-
-        // Photo Preview Base64 Encoder
-        function previewTreePhoto(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    currentPhotoBase64 = e.target.result;
-                    document.getElementById('photoPreview').src = currentPhotoBase64;
-                    document.getElementById('photoPreviewContainer').classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Open Tree Details Passport Drawer
-        function openTreeDetails(id) {
-            const tree = treeData.find(t => t.id === id);
-            if (!tree) return;
-
-            const container = document.getElementById('detailContent');
-            container.innerHTML = `
-                ${tree.photo ? `<img src="${tree.photo}" class="w-full h-44 object-cover rounded-xl mb-3 border border-slate-200">` : ''}
-                <div class="space-y-2">
-                    <div class="flex justify-between items-center border-b pb-1">
-                        <span class="text-slate-500">ID:</span>
-                        <span class="font-mono font-bold text-slate-800">${escapeHtml(tree.id)}</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b pb-1">
-                        <span class="text-slate-500">Daraxt nomi:</span>
-                        <span class="font-bold text-slate-800">${escapeHtml(tree.name)}</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b pb-1">
-                        <span class="text-slate-500">Turi:</span>
-                        <span class="font-medium text-slate-800">${escapeHtml(tree.species)}</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b pb-1">
-                        <span class="text-slate-500">Umumiy holat:</span>
-                        <span class="px-2 py-0.5 rounded text-xs font-bold ${getStatusColorClass(tree.healthStatus)} text-white">${escapeHtml(tree.healthStatus)}</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b pb-1">
-                        <span class="text-slate-500">O‘lchamlar:</span>
-                        <span>${tree.height ? tree.height + 'm balandlik' : '—'}, ${tree.diameter ? tree.diameter + 'sm diametr' : '—'}</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b pb-1">
-                        <span class="text-slate-500">Yoshi:</span>
-                        <span>${tree.age ? tree.age + ' yosh' : 'Ma’lumot yo‘q'}</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b pb-1">
-                        <span class="text-slate-500">Koordinatalar:</span>
-                        <span class="font-mono text-xs">${tree.lat.toFixed(5)}, ${tree.lng.toFixed(5)}</span>
-                    </div>
-                    <div class="border-b pb-1">
-                        <span class="text-slate-500 block mb-0.5">Manzil:</span>
-                        <span class="font-medium">${escapeHtml(tree.address || 'Kiritilmagan')}</span>
-                    </div>
-                    <div class="border-b pb-1">
-                        <span class="text-slate-500 block mb-0.5">Parvarish zarurati:</span>
-                        <span class="font-medium text-emerald-700">${tree.careNeeds.length > 0 ? tree.careNeeds.join(', ') : 'Zarurat yo‘q'}</span>
-                    </div>
-                    ${tree.diseaseNotes ? `
-                    <div class="bg-amber-50 border border-amber-200 p-2.5 rounded-lg text-amber-900 mt-2">
-                        <strong>Izoh / Kasallik:</strong> ${escapeHtml(tree.diseaseNotes)}
-                    </div>` : ''}
-                </div>
-            `;
-
-            document.getElementById('detailEditBtn').onclick = function() {
-                closeDetailsModal();
-                editTree(tree.id);
-            };
-
-            document.getElementById('detailDeleteBtn').onclick = function() {
-                deleteTree(tree.id);
-            };
-
-            document.getElementById('treeDetailsModal').classList.remove('hidden');
-        }
-
-        function closeDetailsModal() {
-            document.getElementById('treeDetailsModal').classList.add('hidden');
-        }
-
-        // Edit Tree Action
-        function editTree(id) {
-            const tree = treeData.find(t => t.id === id);
-            if (!tree) return;
-
-            openTreeModal();
-            document.getElementById('treeFormEditId').value = tree.id;
-            document.getElementById('treeId').value = tree.id;
-            document.getElementById('treeName').value = tree.name;
-
-            const speciesSelect = document.getElementById('treeSpecies');
-            if ([...speciesSelect.options].some(o => o.value === tree.species)) {
-                speciesSelect.value = tree.species;
-                document.getElementById('customSpeciesWrapper').classList.add('hidden');
-            } else {
-                speciesSelect.value = 'Boshqa';
-                document.getElementById('customSpeciesWrapper').classList.remove('hidden');
-                document.getElementById('customSpecies').value = tree.species;
-            }
-
-            document.getElementById('treeCount').value = tree.count || 1;
-            document.getElementById('treeAge').value = tree.age || '';
-            document.getElementById('treeHeight').value = tree.height || '';
-            document.getElementById('treeDiameter').value = tree.diameter || '';
-            document.getElementById('healthStatus').value = tree.healthStatus;
-            document.getElementById('leafCondition').value = tree.leafCondition || 'Yaxshi';
-
-            // Checkboxes
-            document.querySelectorAll('.careCheck').forEach(cb => {
-                cb.checked = tree.careNeeds ? tree.careNeeds.includes(cb.value) : false;
-            });
-
-            document.getElementById('latitude').value = tree.lat;
-            document.getElementById('longitude').value = tree.lng;
-            document.getElementById('address').value = tree.address || '';
-            document.getElementById('inspectorName').value = tree.inspectorName || '';
-            document.getElementById('lastInspectionDate').value = tree.lastInspectionDate || '';
-            document.getElementById('diseaseNotes').value = tree.diseaseNotes || '';
-
-            if (tree.photo) {
-                currentPhotoBase64 = tree.photo;
-                document.getElementById('photoPreview').src = tree.photo;
-                document.getElementById('photoPreviewContainer').classList.remove('hidden');
-            }
-
-            document.getElementById('modalTitle').innerText = "Daraxt ma’lumotlarini tahrirlash";
-        }
-
-        // Delete Tree Action
-        function deleteTree(id) {
-            if (confirm("Haqiqatan ham ushbu daraxt yozuvini o‘chirmoqchimisiz?")) {
-                treeData = treeData.filter(t => t.id !== id);
-                saveTreeDataLocally();
-                closeDetailsModal();
-                showToast("Daraxt muvaffaqiyatli o‘chirildi.");
-            }
-        }
-
-        // Render Tree List Table with Search and Filters
-        function renderTreeTable() {
-            const tbody = document.getElementById('treeTableBody');
-            if (!tbody) return;
-
-            const searchTerm = (document.getElementById('searchInput')?.value || '').toLowerCase();
-            const filterSpecies = document.getElementById('filterSpecies')?.value || '';
-            const filterStatus = document.getElementById('filterStatus')?.value || '';
-
-            const filtered = treeData.filter(tree => {
-                const matchesSearch = (tree.id.toLowerCase().includes(searchTerm) ||
-                                       tree.name.toLowerCase().includes(searchTerm) ||
-                                       (tree.address && tree.address.toLowerCase().includes(searchTerm)));
-                const matchesSpecies = filterSpecies ? tree.species === filterSpecies : true;
-                const matchesStatus = filterStatus ? tree.healthStatus === filterStatus : true;
-                return matchesSearch && matchesSpecies && matchesStatus;
-            });
-
-            document.getElementById('filteredTreeCount').innerText = filtered.length;
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center p-8 text-slate-400">Hech qanday daraxt yozuvi topilmadi.</td></tr>`;
-                return;
-            }
-
-            tbody.innerHTML = filtered.map(tree => `
-                <tr class="hover:bg-slate-50 transition border-b border-slate-100">
-                    <td class="p-3 font-mono font-bold text-slate-700">${escapeHtml(tree.id)}</td>
-                    <td class="p-3">
-                        ${tree.photo ? `<img src="${tree.photo}" class="w-9 h-9 object-cover rounded-lg border">` : `<div class="w-9 h-9 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400"><i class="fa-solid fa-tree"></i></div>`}
-                    </td>
-                    <td class="p-3">
-                        <div class="font-bold text-slate-800">${escapeHtml(tree.name)}</div>
-                        <div class="text-xs text-slate-500">${escapeHtml(tree.species)}</div>
-                    </td>
-                    <td class="p-3">
-                        <span class="px-2 py-1 rounded-full text-xs font-bold ${getStatusColorClass(tree.healthStatus)} text-white">${escapeHtml(tree.healthStatus)}</span>
-                    </td>
-                    <td class="p-3 text-xs text-slate-600">
-                        H: ${tree.height ? tree.height + 'm' : '—'}, D: ${tree.diameter ? tree.diameter + 'sm' : '—'}
-                    </td>
-                    <td class="p-3 text-xs text-slate-600 max-w-xs truncate">${escapeHtml(tree.address || '—')}</td>
-                    <td class="p-3 text-xs text-slate-500">${escapeHtml(tree.lastInspectionDate || '—')}</td>
-                    <td class="p-3 text-right space-x-1">
-                        <button onclick="zoomToTree('${tree.id}')" class="p-1.5 text-slate-600 hover:text-emerald-600 rounded-md hover:bg-slate-100" title="Xaritada ko‘rish"><i class="fa-solid fa-location-dot"></i></button>
-                        <button onclick="openTreeDetails('${tree.id}')" class="p-1.5 text-slate-600 hover:text-emerald-600 rounded-md hover:bg-slate-100" title="Batafsil"><i class="fa-solid fa-eye"></i></button>
-                        <button onclick="editTree('${tree.id}')" class="p-1.5 text-slate-600 hover:text-blue-600 rounded-md hover:bg-slate-100" title="Tahrirlash"><i class="fa-solid fa-pen"></i></button>
-                        <button onclick="deleteTree('${tree.id}')" class="p-1.5 text-slate-600 hover:text-red-600 rounded-md hover:bg-slate-100" title="O‘chirish"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function zoomToTree(id) {
-            const tree = treeData.find(t => t.id === id);
-            if (tree) {
-                switchTab('map');
-                map.flyTo([tree.lat, tree.lng], 18);
-            }
-        }
-
-        function populateSpeciesFilters() {
-            const speciesSelect = document.getElementById('filterSpecies');
-            if (!speciesSelect) return;
-
-            const speciesList = [...new Set(treeData.map(t => t.species))];
-            speciesSelect.innerHTML = `<option value="">Barcha turlar</option>` +
-                speciesList.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
-        }
-
-        function resetFilters() {
-            document.getElementById('searchInput').value = '';
-            document.getElementById('filterSpecies').value = '';
-            document.getElementById('filterStatus').value = '';
-            renderTreeTable();
-        }
-
-        // Render Analytics Dashboard View
-        function renderStatsView() {
-            const total = treeData.reduce((acc, curr) => acc + (curr.count || 1), 0);
-            const healthy = treeData.filter(t => t.healthStatus === 'Sog‘lom').length;
-            const damaged = treeData.filter(t => ['Zararlangan', 'Kasallangan', 'Qurib borayotgan'].includes(t.healthStatus)).length;
-            const dried = treeData.filter(t => t.healthStatus === 'Qurigan').length;
-
-            document.getElementById('statTotal').innerText = total;
-            document.getElementById('statHealthy').innerText = healthy;
-            document.getElementById('statDamaged').innerText = damaged;
-            document.getElementById('statDried').innerText = dried;
-
-            // Species Distribution
-            const speciesCounts = {};
-            treeData.forEach(t => {
-                speciesCounts[t.species] = (speciesCounts[t.species] || 0) + (t.count || 1);
-            });
-
-            const speciesContainer = document.getElementById('speciesBreakdownList');
-            if (speciesContainer) {
-                speciesContainer.innerHTML = Object.entries(speciesCounts).map(([sp, cnt]) => {
-                    const pct = total > 0 ? Math.round((cnt / total) * 100) : 0;
-                    return `
-                        <div>
-                            <div class="flex justify-between font-semibold mb-1">
-                                <span>${escapeHtml(sp)}</span>
-                                <span>${cnt} ta (${pct}%)</span>
-                            </div>
-                            <div class="w-full bg-slate-100 rounded-full h-2">
-                                <div class="bg-emerald-600 h-2 rounded-full" style="width: ${pct}%"></div>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-        }
-
-        function updateSidebarStats() {
-            const total = treeData.length;
-            const healthy = treeData.filter(t => t.healthStatus === 'Sog‘lom').length;
-            document.getElementById('sidebarTotalCount').innerText = total;
-            document.getElementById('sidebarHealthyCount').innerText = healthy;
-        }
-
-        // True SheetJS Excel (.xlsx) Export Implementation
-        function exportToExcel() {
-            if (treeData.length === 0) {
-                showToast("Eksport qilish uchun daraxtlar mavjud emas.");
-                return;
-            }
-
-            // Prepare Uzbek Header Formatted Data Array
-            const excelRows = treeData.map((t, index) => ({
-                "№": index + 1,
-                "Daraxt ID": t.id || "",
-                "Daraxt nomi": t.name || "",
-                "Daraxt turi": t.species || "",
-                "Daraxtlar soni": t.count || 1,
-                "Yoshi (yil)": t.age !== null && t.age !== undefined ? t.age : "Ma’lumot yo‘q",
-                "Balandligi (m)": t.height !== null && t.height !== undefined ? t.height : "Ma’lumot yo‘q",
-                "Tana diametri (sm)": t.diameter !== null && t.diameter !== undefined ? t.diameter : "Ma’lumot yo‘q",
-                "Umumiy holati": t.healthStatus || "",
-                "Barglar holati": t.leafCondition || "",
-                "Parvarish zarurati": t.careNeeds ? t.careNeeds.join(", ") : "",
-                "Latitude (Kenglik)": t.lat,
-                "Longitude (Uzunlik)": t.lng,
-                "Manzil / Hudud": t.address || "",
-                "Kiritgan shaxs": t.inspectorName || "",
-                "Oxirgi tekshiruv sanasi": t.lastInspectionDate || "",
-                "Kasallik yoki Izoh": t.diseaseNotes || "",
-                "Yaratilgan vaqti": t.createdDate || ""
-            }));
-
-            // Create SheetJS Worksheet
-            const worksheet = XLSX.utils.json_to_sheet(excelRows);
-
-            // Enable Freeze Top Header Row
-            worksheet['!views'] = [{ state: 'frozen', xSplit: 0, ySplit: 1 }];
-
-            // Auto-fit Column Widths
-            const colWidths = Object.keys(excelRows[0]).map(key => ({
-                wch: Math.max(key.length + 5, 15)
-            }));
-            worksheet['!cols'] = colWidths;
-
-            // Create Workbook
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Daraxtlar_Hisobi");
-
-            // Write File with standard UTF-8 character encoding support
-            const fileName = `TreeMap_Uzbekistan_${new Date().toISOString().split('T')[0]}.xlsx`;
-            XLSX.writeFile(workbook, fileName);
-
-            showToast("Excel (.xlsx) fayli muvaffaqiyatli shakllantirildi!");
-        }
-
-        // JSON Data Backup & Import
-        function exportJSONBackup() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(treeData, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `TreeMap_Backup_${new Date().toISOString().split('T')[0]}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-
-        function importJSONBackup(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    if (Array.isArray(importedData)) {
-                        treeData = importedData;
-                        saveTreeDataLocally();
-                        showToast("JSON Zaxira ma’lumotlari muvaffaqiyatli yuklandi!");
-                    } else {
-                        alert("Noto‘g‘ri JSON formati!");
-                    }
-                } catch(err) {
-                    alert("JSON faylini o‘qishda xatolik yuz berdi: " + err.message);
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // Firebase Integration Logic
-        function showFirebaseSettings() {
-            document.getElementById('firebaseModal').classList.remove('hidden');
-        }
-
-        function closeFirebaseSettings() {
-            document.getElementById('firebaseModal').classList.add('hidden');
-        }
-
-        function saveFirebaseConfig() {
-            const rawConfig = document.getElementById('firebaseConfigInput').value.trim();
-            try {
-                const parsed = JSON.parse(rawConfig);
-                localStorage.setItem('treemap_firebase_config', JSON.stringify(parsed));
-                closeFirebaseSettings();
-                showToast("Firebase sozlamalari saqlandi. Qayta yuklanmoqda...");
-                setTimeout(() => location.reload(), 1000);
-            } catch(e) {
-                alert("Xato: Noto‘g‘ri JSON konfiguratsiya kiritildi.");
-            }
-        }
-
-        function setupFirebaseIfConfigured() {
-            const storedConfig = localStorage.getItem('treemap_firebase_config');
-            if (storedConfig) {
-                try {
-                    const config = JSON.parse(storedConfig);
-                    // Load Firebase SDK dynamically
-                    const script1 = document.createElement('script');
-                    script1.src = "https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js";
-                    script1.onload = () => {
-                        const script2 = document.createElement('script');
-                        script2.src = "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js";
-                        script2.onload = () => {
-                            firebase.initializeApp(config);
-                            firestoreDb = firebase.firestore();
-                            
-                            document.getElementById('syncDot').className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
-                            document.getElementById('syncText').innerText = "Cloud Firestore Online";
-
-                            // Sync data from Cloud
-                            firestoreDb.collection('trees').onSnapshot(snapshot => {
-                                const cloudTrees = [];
-                                snapshot.forEach(doc => cloudTrees.push(doc.data()));
-                                if (cloudTrees.length > 0) {
-                                    treeData = cloudTrees;
-                                    saveTreeDataLocally();
-                                }
-                            });
-                        };
-                        document.head.appendChild(script2);
-                    };
-                    document.head.appendChild(script1);
-                } catch(e) {
-                    console.error("Firebase Initialization Failed", e);
-                }
-            }
-        }
-
-        function syncRecordToFirestore(record) {
-            if (firestoreDb) {
-                firestoreDb.collection('trees').doc(record.id).set(record)
-                    .then(() => console.log("Cloud synced"))
-                    .catch(err => console.error("Cloud sync err", err));
-            }
-        }
-
-        // Navigation Tabs Controller
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`tab-${tabName}-view`).classList.remove('hidden');
-
-            // Style buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = "nav-btn w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-slate-600 hover:bg-slate-100";
-            });
-
-            const activeDesktop = document.getElementById(`nav-${tabName}`);
-            if (activeDesktop) {
-                activeDesktop.className = "nav-btn w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-emerald-800 bg-emerald-50 border border-emerald-200 font-bold";
-            }
-
-            if (tabName === 'map' && map) {
-                setTimeout(() => map.invalidateSize(), 200);
-            }
-        }
-
-        // Language Switcher
-        function toggleLanguage() {
-            currentLang = currentLang === 'uz' ? 'ru' : 'uz';
-            document.getElementById('langLabel').innerText = currentLang.toUpperCase();
-
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (i18n[currentLang][key]) {
-                    el.innerText = i18n[currentLang][key];
-                }
-            });
-        }
-
-        // Toast Helper
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3500);
-        }
-
-        // Utility: HTML Escaper
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-    </script>
 </body>
 </html>
-```
