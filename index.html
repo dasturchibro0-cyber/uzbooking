@@ -3,203 +3,386 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chodak Kon boshqarmasi</title>
+<title>Chodak Kon boshqarmasi — Yashil Makon</title>
 
 <!-- Xarita CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <!-- Qidiruv (Geocoder) CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css">
 <!-- Zamonaviy shrift va ikonkalar -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
 <style>
 :root {
-  --primary: #10b981;
-  --primary-hover: #059669;
-  --danger: #ef4444;
-  --bg-color: #022c22;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  color-scheme: dark;
+  --primary: #0A8D42; /* Rasmdagi to'q yashil */
+  --primary-light: #10b981;
+  --primary-hover: #086b32;
+  --bg-color: #F3F4F6; /* Toza fon */
+  --card-bg: #FFFFFF;
+  --text-main: #1F2937;
+  --text-muted: #6B7280;
+  --border-color: #E5E7EB;
+  --gold: #F59E0B;
+  color-scheme: light;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
-  background-image: 
-    radial-gradient(at 0% 0%, hsla(161, 80%, 16%, 1) 0, transparent 50%), 
-    radial-gradient(at 100% 100%, hsla(161, 90%, 10%, 1) 0, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(200, 70%, 15%, 1) 0, transparent 50%);
-  background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
   padding-bottom: 30px;
 }
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
-}
-header { padding: 20px 16px; margin-bottom: 20px; }
-.header-inner {
-  max-width: 1100px; margin: auto; display: flex; align-items: center;
-  gap: 15px; padding: 15px 20px; border-radius: 24px;
+
+/* ================== BANNER (1-RASMDAGIDEK) ================== */
+.hero-section {
+  position: relative;
+  background: linear-gradient(180deg, rgba(6, 78, 59, 0.8) 0%, rgba(2, 44, 34, 0.95) 100%), 
+              url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=2000&auto=format&fit=crop') center/cover;
+  padding: 40px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  margin-bottom: -40px; /* Kartochkalar ustiga chiqishi uchun */
+  z-index: 0;
 }
 
-/* ================== CHIROQLI LOGOTIP ================== */
-.logo {
-  width: 54px; height: 54px; border-radius: 14px;
-  background: #ffffff;
-  display: grid; place-items: center;
-  box-shadow:
-    0 0 12px rgba(16, 185, 129, 0.9),
-    0 0 24px rgba(16, 185, 129, 0.7),
-    0 0 40px rgba(16, 185, 129, 0.45),
-    0 0 60px rgba(16, 185, 129, 0.25),
-    0 4px 15px rgba(0, 0, 0, 0.3);
-  padding: 4px; flex-shrink: 0; overflow: hidden;
-  position: relative;
-  animation: logoGlow 2.8s ease-in-out infinite;
+.hero-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.6)); /* Oltinrang chiroq */
+  margin-bottom: 15px;
+  animation: logoGlow 3s ease-in-out infinite;
 }
-.logo::after {
-  content: "";
-  position: absolute; inset: -4px;
-  border-radius: 18px;
-  background: radial-gradient(circle, rgba(16,185,129,0.35) 0%, transparent 70%);
-  z-index: -1;
-  animation: logoPulse 2.8s ease-in-out infinite;
-}
-.logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; position: relative; z-index: 1; }
 
 @keyframes logoGlow {
-  0%, 100% {
-    box-shadow:
-      0 0 12px rgba(16, 185, 129, 0.9),
-      0 0 24px rgba(16, 185, 129, 0.7),
-      0 0 40px rgba(16, 185, 129, 0.45),
-      0 0 60px rgba(16, 185, 129, 0.25),
-      0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-  50% {
-    box-shadow:
-      0 0 18px rgba(16, 185, 129, 1),
-      0 0 36px rgba(16, 185, 129, 0.9),
-      0 0 56px rgba(16, 185, 129, 0.6),
-      0 0 80px rgba(16, 185, 129, 0.35),
-      0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-}
-@keyframes logoPulse {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50%      { opacity: 0.9; transform: scale(1.15); }
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5)); transform: scale(1); }
+  50% { filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.9)); transform: scale(1.05); }
 }
 
-header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
-.stat { padding: 20px; display: flex; flex-direction: column; transition: transform 0.2s ease; }
-.stat:hover { transform: translateY(-2px); }
-.stat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-.stat span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
-.stat i { font-size: 24px; color: var(--primary); opacity: 0.8; }
-.stat strong { font-size: 32px; font-weight: 700; }
-.layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
-.panel { padding: 24px; min-width: 0; }
-.panel h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.hero-title {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+  font-size: 14px;
+  color: #A7F3D0;
+  text-align: center;
+  max-width: 300px;
+  line-height: 1.4;
+}
+
+/* ================== ASOSIY KONTEYNER ================== */
+.container { 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  padding: 0 16px; 
+  position: relative;
+  z-index: 1;
+}
+
+/* Oq kartochkalar */
+.card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0,0,0,0.03);
+  padding: 24px;
+}
+
+/* ================== STATISTIKA ================== */
+.stats { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 16px; 
+  margin-bottom: 24px; 
+}
+
+.stat { 
+  display: flex; 
+  flex-direction: column; 
+  padding: 20px;
+  transition: transform 0.2s ease;
+}
+.stat:hover { transform: translateY(-4px); }
+
+.stat-header { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  margin-bottom: 12px; 
+}
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+}
+.stat-icon.green { background: #D1FAE5; color: var(--primary); }
+.stat-icon.blue { background: #DBEAFE; color: #2563EB; }
+.stat-icon.orange { background: #FEF3C7; color: #D97706; }
+
+.stat span { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+.stat strong { font-size: 28px; font-weight: 800; color: var(--text-main); }
+
+/* ================== LAYOUT ================== */
+.layout { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 24px; 
+  align-items: start; 
+  margin-bottom: 24px;
+}
+
+.panel h2 { 
+  font-size: 18px; 
+  font-weight: 700; 
+  margin-bottom: 8px; 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  color: var(--text-main);
+}
 .panel h2 i { color: var(--primary); }
-.subtitle { color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
-#map { height: 380px; width: 100%; border-radius: 16px; z-index: 1; border: 1px solid var(--glass-border); }
-.leaflet-container { background: #000; }
-.leaflet-bar { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
-.leaflet-bar a { background: rgba(0,0,0,0.7) !important; color: white !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; backdrop-filter: blur(4px); }
-.leaflet-bar a:hover { background: rgba(0,0,0,0.9) !important; }
-.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: rgba(20, 30, 25, 0.9) !important; backdrop-filter: blur(8px); border: 1px solid var(--glass-border); color: white !important; }
+.subtitle { 
+  color: var(--text-muted); 
+  font-size: 13px; 
+  line-height: 1.5; 
+  margin-bottom: 20px; 
+}
+
+/* ================== XARITA ================== */
+#map { 
+  height: 380px; 
+  width: 100%; 
+  border-radius: 16px; 
+  z-index: 1; 
+  border: 1px solid var(--border-color); 
+}
+.leaflet-container { background: #f8f9fa; }
+.leaflet-bar { border: none !important; box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important; border-radius: 8px !important; overflow: hidden; }
+.leaflet-bar a { background: white !important; color: #333 !important; border-bottom: 1px solid #eee !important; }
+.leaflet-bar a:hover { background: #f1f1f1 !important; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { 
+  background: white !important; 
+  border: 1px solid var(--border-color); 
+  color: var(--text-main) !important; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+  border-radius: 12px !important;
+}
 
 .leaflet-control-geocoder {
-  background: rgba(0, 0, 0, 0.7) !important; backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border) !important; border-radius: 12px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+  background: white !important; 
+  border: 1px solid var(--border-color) !important; 
+  border-radius: 12px !important; 
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
 }
-.leaflet-control-geocoder-form input { color: white !important; background: transparent !important; font-family: 'Inter', sans-serif; }
-.leaflet-control-geocoder-icon { filter: invert(1); }
+.leaflet-control-geocoder-form input { color: var(--text-main) !important; font-family: 'Inter', sans-serif; }
+.leaflet-control-geocoder-icon { filter: invert(0); }
 .leaflet-control-geocoder-alternatives {
-  background: rgba(10, 20, 15, 0.95) !important; backdrop-filter: blur(10px); border-radius: 8px; color: white; border: 1px solid var(--glass-border);
+  background: white !important; 
+  border-radius: 8px; 
+  color: var(--text-main); 
+  border: 1px solid var(--border-color);
 }
-.leaflet-control-geocoder-alternatives li a { color: #ccc !important; }
+.leaflet-control-geocoder-alternatives li a { color: var(--text-main) !important; }
 .leaflet-control-geocoder-alternatives li a:hover { background: var(--primary) !important; color: white !important; }
 
+/* ================== FORMA VA TUGMALAR ================== */
 button {
-  border: none; border-radius: 12px; padding: 12px 16px; font-size: 14px;
-  font-weight: 600; font-family: inherit; cursor: pointer; display: inline-flex;
-  align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;
+  border: none; 
+  border-radius: 14px; 
+  padding: 14px 20px; 
+  font-size: 14px;
+  font-weight: 600; 
+  font-family: inherit; 
+  cursor: pointer; 
+  display: inline-flex;
+  align-items: center; 
+  justify-content: center; 
+  gap: 8px; 
+  transition: all 0.2s ease;
 }
-.primary { background: var(--primary); color: #022c22; }
-.primary:hover { background: var(--primary-hover); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
-.secondary { background: rgba(255, 255, 255, 0.1); color: var(--text-main); border: 1px solid var(--glass-border); }
-.secondary:hover { background: rgba(255, 255, 255, 0.2); }
-.danger { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
-.danger:hover { background: rgba(239, 68, 68, 0.4); color: white; }
+
+.primary { background: var(--primary); color: white; }
+.primary:hover { background: var(--primary-hover); box-shadow: 0 4px 12px rgba(10, 141, 66, 0.3); }
+
+.secondary { 
+  background: #F3F4F6; 
+  color: var(--text-main); 
+  border: 1px solid var(--border-color); 
+}
+.secondary:hover { background: #E5E7EB; }
+
+.danger { background: #FEE2E2; color: #DC2626; border: 1px solid #FCA5A5; }
+.danger:hover { background: #FECACA; color: #B91C1C; }
+
 button:active { transform: scale(0.97); }
 .map-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--text-muted); }
-input, select {
-  width: 100%; padding: 14px 16px; border: 1px solid var(--glass-border);
-  border-radius: 12px; background: rgba(0, 0, 0, 0.2); font-size: 15px;
-  font-family: inherit; color: white; outline: none; transition: all 0.2s ease;
+
+label { 
+  display: block; 
+  font-size: 13px; 
+  font-weight: 600; 
+  margin-bottom: 8px; 
+  color: var(--text-main); 
 }
-input:focus, select:focus { border-color: var(--primary); background: rgba(0, 0, 0, 0.4); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
-select option { background: #064e3b; color: white; }
+
+input, select {
+  width: 100%; 
+  padding: 14px 16px; 
+  border: 1px solid var(--border-color);
+  border-radius: 12px; 
+  background: #F9FAFB; 
+  font-size: 15px;
+  font-family: inherit; 
+  color: var(--text-main); 
+  outline: none; 
+  transition: all 0.2s ease;
+}
+input:focus, select:focus { 
+  border-color: var(--primary); 
+  background: white; 
+  box-shadow: 0 0 0 3px rgba(10, 141, 66, 0.15); 
+}
+select option { background: white; color: var(--text-main); }
+
 .field { margin-bottom: 16px; }
 .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
 .coords {
-  background: rgba(16, 185, 129, 0.1); padding: 14px; border-radius: 12px;
-  border: 1px solid rgba(16, 185, 129, 0.2); color: #a7f3d0;
-  font-size: 13px; line-height: 1.6; margin-bottom: 16px;
+  background: #ECFDF5; 
+  padding: 14px; 
+  border-radius: 12px;
+  border: 1px solid #A7F3D0; 
+  color: #065F46;
+  font-size: 13px; 
+  line-height: 1.6; 
+  margin-bottom: 16px;
 }
 .full { width: 100%; }
 .name-row { display: flex; gap: 10px; align-items: stretch; }
 .name-row select { flex: 1; }
 .add-name-btn { min-width: 50px; padding: 0; font-size: 24px; }
+
 .note {
-  margin-top: 20px; color: var(--text-muted); font-size: 12px; line-height: 1.6;
-  background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 10px;
+  margin-top: 20px; 
+  color: var(--text-muted); 
+  font-size: 12px; 
+  line-height: 1.6;
+  background: #F9FAFB; 
+  padding: 12px; 
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
 }
+
+/* ================== RO'YXAT ================== */
 .list-panel { margin-top: 20px; }
-.list-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
-.search { max-width: 320px; }
+.list-top { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  flex-wrap: wrap; 
+  gap: 16px; 
+  margin-bottom: 20px; 
+}
+.search { max-width: 320px; background: white; }
+
 .tree-list { display: grid; gap: 14px; }
 .tree-item {
-  padding: 18px; border-radius: 16px; background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border); display: flex; gap: 16px;
-  align-items: flex-start; justify-content: space-between; transition: all 0.2s ease;
+  padding: 18px; 
+  border-radius: 16px; 
+  background: white;
+  border: 1px solid var(--border-color); 
+  display: flex; 
+  gap: 16px;
+  align-items: flex-start; 
+  justify-content: space-between; 
+  transition: all 0.2s ease;
 }
-.tree-item:hover { background: rgba(255, 255, 255, 0.06); transform: translateX(4px); }
+.tree-item:hover { 
+  border-color: var(--primary-light); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateY(-2px); 
+}
+
 .tree-icon {
-  background: rgba(16, 185, 129, 0.15); color: var(--primary);
-  border-radius: 12px; width: 48px; height: 48px; display: grid;
-  place-items: center; font-size: 24px; flex-shrink: 0;
+  background: #ECFDF5; 
+  color: var(--primary);
+  border-radius: 14px; 
+  width: 54px; 
+  height: 54px; 
+  display: grid;
+  place-items: center; 
+  font-size: 26px; 
+  flex-shrink: 0;
 }
+
 .tree-info { flex: 1; min-width: 0; }
-.tree-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: white; }
-.tree-info p { color: var(--text-muted); font-size: 13px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; overflow-wrap: anywhere; }
-.status { display: inline-flex; align-items: center; gap: 4px; border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 600; margin-top: 8px; }
-.good { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
-.medium { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-.bad { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+.tree-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; color: var(--text-main); }
+.tree-info p { 
+  color: var(--text-muted); 
+  font-size: 13px; 
+  margin-bottom: 6px; 
+  display: flex; 
+  align-items: center; 
+  gap: 6px; 
+  overflow-wrap: anywhere; 
+}
+
+.status { 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 4px; 
+  border-radius: 20px; 
+  padding: 6px 12px; 
+  font-size: 12px; 
+  font-weight: 600; 
+  margin-top: 8px; 
+}
+.good { background: #D1FAE5; color: #065F46; }
+.medium { background: #FEF3C7; color: #92400E; }
+.bad { background: #FEE2E2; color: #991B1B; }
+
 .item-actions { display: flex; flex-direction: column; gap: 8px; }
 .small-btn { padding: 8px 12px; font-size: 13px; border-radius: 10px; }
+
 .empty {
-  text-align: center; padding: 40px 20px; color: var(--text-muted);
-  font-size: 14px; line-height: 1.8; background: rgba(255, 255, 255, 0.02);
-  border-radius: 16px; border: 1px dashed var(--glass-border);
+  text-align: center; 
+  padding: 40px 20px; 
+  color: var(--text-muted);
+  font-size: 14px; 
+  line-height: 1.8; 
+  background: #F9FAFB;
+  border-radius: 16px; 
+  border: 1px dashed var(--border-color);
 }
-footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+footer { 
+  text-align: center; 
+  padding: 30px 20px; 
+  color: var(--text-muted); 
+  font-size: 13px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 6px; 
+}
+
+/* ================== GEOLOKATSIYA ================== */
 .my-location-marker { background: transparent; border: none; }
 .my-location-dot {
   width: 20px; height: 20px; background: #3b82f6; border: 3px solid #ffffff;
@@ -213,30 +396,36 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 }
 .locate-map-btn {
   width: 36px; height: 36px; display: flex; align-items: center;
-  justify-content: center; font-size: 22px; color: white;
-  background: rgba(0, 0, 0, 0.7); text-decoration: none;
+  justify-content: center; font-size: 22px; color: #333;
+  background: white; text-decoration: none;
   cursor: pointer; transition: all 0.2s;
 }
-.locate-map-btn:hover { background: rgba(0,0,0,0.9); }
+.locate-map-btn:hover { background: #f1f1f1; }
 .locate-map-btn.active { color: #3b82f6; }
 
+/* ================== TOAST ================== */
 .toast {
-  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-  background: rgba(16, 185, 129, 0.9); color: white; padding: 12px 24px;
-  border-radius: 30px; font-size: 14px; font-weight: 500;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3); backdrop-filter: blur(8px);
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+  background: var(--primary); color: white; padding: 14px 28px;
+  border-radius: 30px; font-size: 14px; font-weight: 600;
+  box-shadow: 0 8px 25px rgba(10, 141, 66, 0.3); 
   z-index: 10000; opacity: 0; transition: opacity 0.3s; pointer-events: none;
 }
 .toast.show { opacity: 1; }
 
+/* ================== MOBIL MOSLASHUV ================== */
 @media (max-width: 768px) {
-  .layout { grid-template-columns: 1fr; }
+  .hero-section { padding: 30px 16px 50px; }
+  .hero-logo { width: 70px; height: 70px; }
+  .hero-title { font-size: 22px; }
+  
+  .layout { grid-template-columns: 1fr; gap: 16px; }
   .stats { grid-template-columns: 1fr; gap: 12px; }
-  .stat { padding: 16px; flex-direction: row; align-items: center; justify-content: space-between; }
+  
+  .stat { flex-direction: row; align-items: center; justify-content: space-between; padding: 16px; }
+  .stat-header { margin-bottom: 0; }
   .stat strong { font-size: 24px; }
-  .header-inner { padding: 12px; border-radius: 16px; gap: 10px; }
-  .header-inner h1 { font-size: 17px; }
-  .logo { width: 46px; height: 46px; }
+  
   .search { max-width: 100%; }
   .tree-item { flex-direction: column; }
   .item-actions { flex-direction: row; width: 100%; }
@@ -246,36 +435,43 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 </head>
 <body>
 
-<header>
-  <div class="header-inner glass">
-    <div class="logo">
-      <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="Logotip">
-    </div>
-    <div>
-      <h1>Chodak Kon boshqarmasi</h1>
-      <p>Daraxtlarni raqamlashtirish va monitoring qilish tizimi</p>
-    </div>
-  </div>
+<!-- 1-RASMDAGI KABI BANNER -->
+<header class="hero-section">
+  <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
+  <h1 class="hero-title">Yashil Makon</h1>
+  <p class="hero-subtitle">Tabiat uchun bugun harakat qilamiz!</p>
 </header>
 
 <main class="container">
+  
+  <!-- STATISTIKA -->
   <section class="stats">
-    <div class="stat glass">
-      <div class="stat-header"><span>Jami daraxtlar</span><i class="ph ph-tree"></i></div>
+    <div class="stat card">
+      <div class="stat-header">
+        <div class="stat-icon green"><i class="ph ph-tree"></i></div>
+        <span>Jami daraxtlar</span>
+      </div>
       <strong id="total">0</strong>
     </div>
-    <div class="stat glass">
-      <div class="stat-header"><span>Sog‘lom daraxtlar</span><i class="ph ph-heart-straight"></i></div>
+    <div class="stat card">
+      <div class="stat-header">
+        <div class="stat-icon blue"><i class="ph ph-heart-straight"></i></div>
+        <span>Sog‘lom daraxtlar</span>
+      </div>
       <strong id="healthy">0</strong>
     </div>
-    <div class="stat glass">
-      <div class="stat-header"><span>Belgilangan joylar</span><i class="ph ph-map-pin"></i></div>
+    <div class="stat card">
+      <div class="stat-header">
+        <div class="stat-icon orange"><i class="ph ph-map-pin"></i></div>
+        <span>Belgilangan joylar</span>
+      </div>
       <strong id="located">0</strong>
     </div>
   </section>
 
+  <!-- ASOSIY LAYOUT (XARITA VA FORMA) -->
   <div class="layout">
-    <section class="panel glass">
+    <section class="card panel">
       <h2><i class="ph ph-map-trifold"></i> Xarita</h2>
       <p class="subtitle">Xaritadagi kerakli nuqtani bosing, qidiruv orqali shaharni toping yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
       <div id="map"></div>
@@ -292,7 +488,7 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
       </p>
     </section>
 
-    <section class="panel glass" id="formPanel">
+    <section class="card panel" id="formPanel">
       <h2 id="formTitle"><i class="ph ph-plant"></i> Daraxt qo‘shish</h2>
       <p class="subtitle">Faqat kerakli ma’lumotlarni kiriting. Maydonlarni to‘ldirish oson.</p>
       <form id="treeForm">
@@ -361,7 +557,8 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
     </section>
   </div>
 
-  <section class="panel glass list-panel">
+  <!-- RO'YXAT -->
+  <section class="card panel list-panel">
     <div class="list-top">
       <h2><i class="ph ph-list-dashes"></i> Daraxtlar ro‘yxati</h2>
       <input class="search" id="search" placeholder="🔎 Daraxt qidirish...">
@@ -376,7 +573,7 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
   </section>
 </main>
 
-<footer><i class="ph ph-leaf"></i> Chodak Kon boshqarmasi · Tabiatni asraylik</footer>
+<footer><i class="ph ph-leaf"></i> Chodak Kon boshqarmasi · Yashil Makon</footer>
 
 <div class="toast" id="toast">Joylashuv aniqlandi!</div>
 
@@ -460,7 +657,7 @@ const treesRef = ref(db, "trees");
   function showToast(message, isError = false) {
     const toast = $("toast");
     toast.textContent = message;
-    toast.style.background = isError ? "rgba(239, 68, 68, 0.9)" : "rgba(16, 185, 129, 0.9)";
+    toast.style.background = isError ? "#EF4444" : "#0A8D42";
     toast.classList.add("show");
     setTimeout(() => toast.classList.remove("show"), 3500);
   }
@@ -737,7 +934,7 @@ const treesRef = ref(db, "trees");
           "<b>" + escapeHTML(tree.name) + "</b><br>" +
           "Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") + "<br>" +
           "Holati: " + escapeHTML(tree.status) + "<br>" +
-          "<span style='font-size:11px; color:#94a3b8; margin-top:4px; display:block;'><i class='ph ph-clock'></i> " + formatDateTime(tree.createdAt) + "</span>"
+          "<span style='font-size:11px; color:#6B7280; margin-top:4px; display:block;'><i class='ph ph-clock'></i> " + formatDateTime(tree.createdAt) + "</span>"
         );
         markers[tree.id] = marker;
       }
@@ -773,7 +970,7 @@ const treesRef = ref(db, "trees");
           </span>
           ${tree.extra ? `<p><i class="ph ph-note-pencil"></i> ${escapeHTML(tree.extra)}</p>` : ""}
           <p><i class="ph ph-map-pin"></i> ${Number.isFinite(tree.lat) && Number.isFinite(tree.lng) ? tree.lat.toFixed(5) + ", " + tree.lng.toFixed(5) : "Joy belgilanmagan"}</p>
-          <p style="color: #10b981; font-weight: 500; margin-top: 6px;">
+          <p style="color: var(--primary); font-weight: 600; margin-top: 6px;">
             <i class="ph ph-clock"></i> Kiritilgan: ${formatDateTime(tree.createdAt)}
           </p>
         </div>
