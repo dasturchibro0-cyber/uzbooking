@@ -113,7 +113,7 @@ body {
 }
 .eye-btn:hover { color: white; }
 
-.login-box button[type="submit"] {
+#authSubmitBtn {
   width: 100%;
   padding: 14px;
   font-size: 16px;
@@ -327,20 +327,19 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 
     <div class="login-error" id="loginError"></div>
 
-    <form id="loginForm">
-      <div class="input-wrap">
-        <input type="email" id="authEmail" placeholder="Email manzilingiz" autocomplete="email" required>
-      </div>
-      
-      <div class="input-wrap">
-        <input type="password" id="authPassword" placeholder="Parolingiz" autocomplete="current-password" required>
-        <button type="button" class="eye-btn" id="togglePassword" title="Parolni ko'rish">
-          <i class="ph ph-eye"></i>
-        </button>
-      </div>
+    <!-- FORMA OLIB TASHLANDI -->
+    <div class="input-wrap">
+      <input type="email" id="authEmail" placeholder="Email manzilingiz" autocomplete="email">
+    </div>
+    
+    <div class="input-wrap">
+      <input type="password" id="authPassword" placeholder="Parolingiz" autocomplete="current-password">
+      <button type="button" class="eye-btn" id="togglePassword" title="Parolni ko'rish">
+        <i class="ph ph-eye"></i>
+      </button>
+    </div>
 
-      <button class="primary" id="authSubmitBtn" type="submit">Kirish</button>
-    </form>
+    <button class="primary" id="authSubmitBtn" type="button">Kirish</button>
   </div>
 </div>
 
@@ -536,7 +535,6 @@ const treesRef = ref(db, "trees");
   let mapInitialized = false;
 
   // ================== SET PERSISTENCE (ESLAB QOLISH) ==================
-  // Foydalanuvchi brauzerni yopib qayta ochganda ham tizimda qolishi uchun
   setPersistence(auth, browserLocalPersistence).catch((error) => {
     console.error("Persistence xatosi:", error);
   });
@@ -549,10 +547,9 @@ const treesRef = ref(db, "trees");
       case 'auth/user-not-found': return "Bunday foydalanuvchi topilmadi.";
       case 'auth/wrong-password': return "Parol noto'g'ri. Qayta tekshiring.";
       case 'auth/invalid-credential': return "Email yoki parol noto'g'ri.";
-      case 'auth/too-many-requests': return "Juda ko'p noto'g'ri urinish. Iltimos, birozdan so'ng qayta urinib ko'ring.";
-      case 'auth/network-request-failed': return "Internet aloqasi yo'q yoki Firebase bloklangan. VPN yoki internetni tekshiring.";
-      case 'auth/operation-not-allowed': return "Firebase'da Email/Parol orqali kirish yoqilmagan. Konsol sozlamalarini tekshiring.";
-      case 'auth/invalid-api-key': return "Firebase API kaliti xato.";
+      case 'auth/too-many-requests': return "Juda ko'p noto'g'ri urinish. Birozdan so'ng qayta urinib ko'ring.";
+      case 'auth/network-request-failed': return "Internet aloqasi yo'q yoki Firebase bloklangan.";
+      case 'auth/operation-not-allowed': return "Firebase'da Email/Parol orqali kirish yoqilmagan.";
       default: return "Xatolik yuz berdi: " + code;
     }
   }
@@ -570,7 +567,17 @@ const treesRef = ref(db, "trees");
     }
   });
 
-  // ================== LOGIN (FORM SUBMIT) ==================
+  // Enter tugmasini bosganda ham kirish ishlashi uchun
+  function handleEnter(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      $("authSubmitBtn").click();
+    }
+  }
+  $("authEmail").addEventListener("keypress", handleEnter);
+  $("authPassword").addEventListener("keypress", handleEnter);
+
+  // ================== LOGIN (TUGMA BOSILGANDA) ==================
   const loginScreen = $("loginScreen");
   const appContainer = $("appContainer");
   const authSubmitBtn = $("authSubmitBtn");
@@ -585,9 +592,7 @@ const treesRef = ref(db, "trees");
     loginError.style.display = "none";
   }
 
-  $("loginForm").addEventListener("submit", async (e) => {
-    e.preventDefault(); // Formani yangilanishini to'xtatish
-
+  authSubmitBtn.addEventListener("click", async () => {
     const email = $("authEmail").value.trim();
     const password = $("authPassword").value;
 
@@ -621,23 +626,31 @@ const treesRef = ref(db, "trees");
       $("userEmailDisplay").textContent = user.email;
 
       if (!mapInitialized) {
-        initializeAppUI();
         mapInitialized = true;
+        // DOM to'liq ochilishini kutib, keyin xaritani yuklaymiz
+        setTimeout(() => {
+          try {
+            initializeAppUI();
+          } catch (err) {
+            console.error("App init error:", err);
+            alert("Ilovani yuklashda xatolik: " + err.message);
+          }
+        }, 100);
       }
     } else {
       // Tizimdan chiqdi yoki kirmagan
       loginScreen.style.display = "flex";
       appContainer.style.display = "none";
       
-      // Ma'lumotlarni tozalash
       trees = [];
       if (selectedMarker && map) { map.removeLayer(selectedMarker); selectedMarker = null; }
       selectedPoint = null;
       Object.values(markers).forEach(m => { if (map) map.removeLayer(m); });
       markers = {};
       firstFirebaseLoad = true;
-      $("authPassword").value = "";
       hideLoginError();
+      // DIQQAT: Parol va emailni avtomatik o'chirmaymiz! 
+      // Foydalanuvchi o'zi qayta yozishi shart emas.
     }
   });
 
@@ -645,6 +658,8 @@ const treesRef = ref(db, "trees");
   $("logoutBtn").addEventListener("click", async () => {
     if (confirm("Tizimdan chiqmoqchimisiz?")) {
       await signOut(auth);
+      // Chiqqanda tozalash
+      $("authPassword").value = "";
     }
   });
 
@@ -669,6 +684,9 @@ const treesRef = ref(db, "trees");
 
     // Xarita
     map = L.map("map", { zoomControl: false, attributionControl: false }).setView([41.2995, 69.2401], 12);
+    // Kichik kechikish bilan xarita o'lchamini yangilash (buzilib qolmasligi uchun)
+    setTimeout(() => map.invalidateSize(), 200);
+
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
