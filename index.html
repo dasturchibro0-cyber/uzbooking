@@ -49,11 +49,18 @@ body::before {
   z-index: -1;
 }
 
-/* ================== MENYU TUGMASI (LOGOTIP BILAN PARALLEL) ================== */
+/* ================== MENYU VA LOGOTIP QATORI ================== */
+.hero-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* Menyu va logotip orasidagi masofa */
+  margin-bottom: 15px;
+}
+
+/* ================== MENYU TUGMASI ================== */
 .menu-btn {
-  position: absolute;
-  top: 45px; /* Logotip bilan bir qatorda turishi uchun */
-  left: 20px;
+  position: relative; /* Absolyutdan relativega o'tkazildi */
   z-index: 10000;
   width: 52px;
   height: 52px;
@@ -68,6 +75,7 @@ body::before {
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
   cursor: pointer;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 .menu-btn:hover {
   background: var(--primary);
@@ -216,7 +224,6 @@ body::before {
   background: rgba(255, 255, 255, 0.95);
   padding: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 25px rgba(245, 158, 11, 0.6);
-  margin-bottom: 15px;
   animation: logoFloat 4s ease-in-out infinite;
   transition: all 0.4s ease;
 }
@@ -280,7 +287,7 @@ body::before {
   border: 2px solid var(--primary); 
   padding: 24px;
   transition: box-shadow 0.2s ease;
-  scroll-margin-top: 20px; /* Scroll bo'lganda tepada joy qoldirish uchun */
+  scroll-margin-top: 20px;
 }
 
 .card:hover {
@@ -497,7 +504,7 @@ select option { background: white; color: var(--text-main); }
   padding: 18px; 
   border-radius: 16px; 
   background: white;
-  border: 2px solid var(--primary); /* O'zgartirildi: 2px qalinlikda va yashil rang */
+  border: 2px solid var(--primary);
   display: flex; 
   gap: 16px;
   align-items: flex-start; 
@@ -505,7 +512,7 @@ select option { background: white; color: var(--text-main); }
   transition: all 0.2s ease;
 }
 .tree-item:hover { 
-  border-color: var(--primary-hover); /* Hover bo'lganda to'qroq yashil */
+  border-color: var(--primary-hover);
   box-shadow: 0 4px 15px rgba(10, 141, 66, 0.2);
   transform: translateY(-2px); 
 }
@@ -607,8 +614,9 @@ footer {
 
 /* ================== MOBIL MOSLASHUV ================== */
 @media (max-width: 768px) {
-  .hero-section { padding: 70px 16px 10px; } 
-  .menu-btn { top: 20px; left: 16px; width: 46px; height: 46px; font-size: 22px; }
+  .hero-section { padding: 30px 16px 10px; } 
+  .hero-top-row { gap: 10px; }
+  .menu-btn { width: 46px; height: 46px; font-size: 22px; }
   .hero-logo { width: 90px; height: 90px; }
   .hero-title { font-size: 24px; }
   .org-title-box { font-size: 15px; padding: 8px 16px; }
@@ -656,13 +664,14 @@ footer {
 
 <!-- BANNER QISMI -->
 <header class="hero-section" id="top">
-  <!-- MENYU TUGMASI LOGOTIP BILAN PARALLEL -->
-  <button id="menuBtn" class="menu-btn" type="button" title="Menyu">
-    <i class="ph ph-list"></i>
-  </button>
+  <!-- MENYU VA LOGOTIP BIR QATORDA -->
+  <div class="hero-top-row">
+    <button id="menuBtn" class="menu-btn" type="button" title="Menyu">
+      <i class="ph ph-list"></i>
+    </button>
+    <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
+  </div>
 
-  <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
-  
   <div class="org-title-box">
     Chodak Kon boshqarmasi
   </div>
@@ -1264,7 +1273,6 @@ const treesRef = ref(db, "trees");
       if (!Number.isFinite(tree.lat) || !Number.isFinite(tree.lng)) { alert("Bu daraxt uchun joylashuv belgilanmagan."); return; }
       map.setView([tree.lat, tree.lng], 18); 
       if (markers[tree.id]) markers[tree.id].openPopup();
-      // Sahifani xarita qismiga olib chiqish
       $("map-section").scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
@@ -1277,7 +1285,6 @@ const treesRef = ref(db, "trees");
       $("formTitle").innerHTML = '<i class="ph ph-pencil-simple"></i> Tahrirlash';
       $("saveBtn").innerHTML = '<i class="ph ph-check-circle"></i> O‘zgarishlarni saqlash';
       $("cancelEditBtn").style.display = "flex";
-      // Sahifani kiritish (tahrirlash) formasiga olib chiqish
       $("formPanel").scrollIntoView({ behavior: "smooth", block: "start" });
       return;
     }
