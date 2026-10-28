@@ -381,17 +381,21 @@ const treesRef = ref(db, "trees");
   let firstFirebaseLoad = true;
 
   /* ================== XARITA VA QATLAMLAR ================== */
-  const map = L.map("map", { zoomControl: false }).setView([41.2995, 69.2401], 12);
+  // attributionControl: false qilingani xaritadagi yozuvlarni (bayroq va matnlarni) o'chiradi
+  const map = L.map("map", { 
+    zoomControl: false, 
+    attributionControl: false 
+  }).setView([41.2995, 69.2401], 12);
+  
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  // 1. Sun'iy yo'ldosh rasmi
+  // 1. Sun'iy yo'ldosh rasmi (Attribution matni olib tashlandi)
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics', maxZoom: 19
+    maxZoom: 19
   }).addTo(map);
 
-  // 2. Shahar va ko'cha nomlari (Shaffof matnlar qatlami)
+  // 2. Shahar va ko'cha nomlari (Attribution matni olib tashlandi)
   L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png", {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd', maxZoom: 20
   }).addTo(map);
 
@@ -402,7 +406,6 @@ const treesRef = ref(db, "trees");
     errorMessage: "Hech narsa topilmadi."
   })
   .on('markgeocode', function(e) {
-    // Qidiruv natijasini tanlaganda nuqta o'rnatish
     const center = e.geocode.center;
     setPoint(center.lat, center.lng);
     showToast("Manzil topildi: " + e.geocode.name);
