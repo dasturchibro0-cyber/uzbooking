@@ -72,10 +72,16 @@ body {
 .login-box .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 14px; }
 .login-box h2 { font-size: 24px; margin-bottom: 8px; }
 .login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
-.login-box input {
+
+/* Input wrapper for password eye */
+.input-wrap {
+  position: relative;
+  margin-bottom: 15px;
+}
+.input-wrap input {
   width: 100%;
   padding: 14px 16px;
-  margin-bottom: 15px;
+  padding-right: 45px; /* Eye icon uchun joy */
   border: 1px solid var(--glass-border);
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.2);
@@ -85,22 +91,45 @@ body {
   outline: none;
   transition: all 0.2s;
 }
-.login-box input:focus {
+.input-wrap input:focus {
   border-color: var(--primary);
   background: rgba(0, 0, 0, 0.4);
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
 }
-.login-box .btn-login {
+.eye-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.eye-btn:hover { color: white; }
+
+.login-box button[type="submit"] {
   width: 100%;
   padding: 14px;
   font-size: 16px;
   margin-bottom: 15px;
 }
 .login-error {
-  color: #f87171;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 10px;
   font-size: 13px;
   margin-bottom: 15px;
   display: none;
+  text-align: left;
+  line-height: 1.4;
 }
 
 /* ================== ASOSIY ILOVA ================== */
@@ -298,10 +327,20 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 
     <div class="login-error" id="loginError"></div>
 
-    <input type="email" id="authEmail" placeholder="Email manzilingiz" autocomplete="email">
-    <input type="password" id="authPassword" placeholder="Parolingiz" autocomplete="current-password">
+    <form id="loginForm">
+      <div class="input-wrap">
+        <input type="email" id="authEmail" placeholder="Email manzilingiz" autocomplete="email" required>
+      </div>
+      
+      <div class="input-wrap">
+        <input type="password" id="authPassword" placeholder="Parolingiz" autocomplete="current-password" required>
+        <button type="button" class="eye-btn" id="togglePassword" title="Parolni ko'rish">
+          <i class="ph ph-eye"></i>
+        </button>
+      </div>
 
-    <button class="primary btn-login" id="authSubmitBtn" type="button">Kirish</button>
+      <button class="primary" id="authSubmitBtn" type="submit">Kirish</button>
+    </form>
   </div>
 </div>
 
@@ -461,7 +500,9 @@ import {
   getAuth, 
   signInWithEmailAndPassword, 
   signOut, 
-  onAuthStateChanged 
+  onAuthStateChanged,
+  setPersistence,
+  browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -494,6 +535,12 @@ const treesRef = ref(db, "trees");
   let firstFirebaseLoad = true;
   let mapInitialized = false;
 
+  // ================== SET PERSISTENCE (ESLAB QOLISH) ==================
+  // Foydalanuvchi brauzerni yopib qayta ochganda ham tizimda qolishi uchun
+  setPersistence(auth, browserLocalPersistence).catch((error) => {
+    console.error("Persistence xatosi:", error);
+  });
+
   // ================== XATOLIKLARNI O'GIRISH ==================
   function getAuthErrorMessage(code) {
     switch (code) {
@@ -502,12 +549,28 @@ const treesRef = ref(db, "trees");
       case 'auth/user-not-found': return "Bunday foydalanuvchi topilmadi.";
       case 'auth/wrong-password': return "Parol noto'g'ri. Qayta tekshiring.";
       case 'auth/invalid-credential': return "Email yoki parol noto'g'ri.";
-      case 'auth/too-many-requests': return "Juda ko'p urinish. Birozdan so'ng qayta urinib ko'ring.";
+      case 'auth/too-many-requests': return "Juda ko'p noto'g'ri urinish. Iltimos, birozdan so'ng qayta urinib ko'ring.";
+      case 'auth/network-request-failed': return "Internet aloqasi yo'q yoki Firebase bloklangan. VPN yoki internetni tekshiring.";
+      case 'auth/operation-not-allowed': return "Firebase'da Email/Parol orqali kirish yoqilmagan. Konsol sozlamalarini tekshiring.";
+      case 'auth/invalid-api-key': return "Firebase API kaliti xato.";
       default: return "Xatolik yuz berdi: " + code;
     }
   }
 
-  // ================== FAQAT LOGIN (KIRISH) ==================
+  // ================== PAROLNI KO'RSHISH ==================
+  $("togglePassword").addEventListener("click", () => {
+    const passInput = $("authPassword");
+    const icon = $("togglePassword").querySelector("i");
+    if (passInput.type === "password") {
+      passInput.type = "text";
+      icon.className = "ph ph-eye-slash";
+    } else {
+      passInput.type = "password";
+      icon.className = "ph ph-eye";
+    }
+  });
+
+  // ================== LOGIN (FORM SUBMIT) ==================
   const loginScreen = $("loginScreen");
   const appContainer = $("appContainer");
   const authSubmitBtn = $("authSubmitBtn");
@@ -522,7 +585,9 @@ const treesRef = ref(db, "trees");
     loginError.style.display = "none";
   }
 
-  authSubmitBtn.addEventListener("click", async () => {
+  $("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault(); // Formani yangilanishini to'xtatish
+
     const email = $("authEmail").value.trim();
     const password = $("authPassword").value;
 
@@ -533,12 +598,13 @@ const treesRef = ref(db, "trees");
 
     hideLoginError();
     authSubmitBtn.disabled = true;
-    authSubmitBtn.textContent = "Tekshirilmoqda...";
+    authSubmitBtn.innerHTML = '<i class="ph ph-spinner-gap"></i> Tekshirilmoqda...';
 
     try {
-      // Faqat tizimga kirish
       await signInWithEmailAndPassword(auth, email, password);
+      // Muvaffaqiyatli kirganda onAuthStateChanged o'zi ishlaydi
     } catch (error) {
+      console.error("Login xatosi:", error.code, error.message);
       showLoginError(getAuthErrorMessage(error.code));
     } finally {
       authSubmitBtn.disabled = false;
@@ -549,6 +615,7 @@ const treesRef = ref(db, "trees");
   // ================== AUTENTIFIKATSIYA HOLATINI KUZATISH ==================
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      // Tizimga kirdi
       loginScreen.style.display = "none";
       appContainer.style.display = "block";
       $("userEmailDisplay").textContent = user.email;
@@ -558,8 +625,10 @@ const treesRef = ref(db, "trees");
         mapInitialized = true;
       }
     } else {
+      // Tizimdan chiqdi yoki kirmagan
       loginScreen.style.display = "flex";
       appContainer.style.display = "none";
+      
       // Ma'lumotlarni tozalash
       trees = [];
       if (selectedMarker && map) { map.removeLayer(selectedMarker); selectedMarker = null; }
@@ -567,8 +636,8 @@ const treesRef = ref(db, "trees");
       Object.values(markers).forEach(m => { if (map) map.removeLayer(m); });
       markers = {};
       firstFirebaseLoad = true;
-      $("authEmail").value = "";
       $("authPassword").value = "";
+      hideLoginError();
     }
   });
 
