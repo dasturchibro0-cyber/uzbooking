@@ -2,14 +2,11 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Chodak Kon boshqarmasi</title>
 
-<!-- Xarita CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<!-- Qidiruv CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.css">
-<!-- Shrift va Ikonkalar -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -47,7 +44,21 @@ body {
   border-radius: 20px;
 }
 
-/* Header */
+/* Xatolik haqida ogohlantirish (Tepa qismda chiqadi) */
+#errorBanner {
+  display: none;
+  background: #ef4444;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
 header { padding: 20px 16px; margin-bottom: 20px; }
 .header-inner {
   max-width: 1100px; margin: auto; display: flex; align-items: center;
@@ -63,8 +74,6 @@ header { padding: 20px 16px; margin-bottom: 20px; }
 .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
 header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-
-/* Layout */
 .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
 .stat { padding: 20px; display: flex; flex-direction: column; transition: transform 0.2s ease; }
@@ -79,15 +88,18 @@ header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .panel h2 i { color: var(--primary); }
 .subtitle { color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
 
-/* Xarita sozlamalari */
+/* XARITA UCHUN MAJBURIY O'LCHAMLAR */
 #map { 
-  height: 380px; 
-  width: 100%; 
+  height: 400px !important; 
+  width: 100% !important; 
+  min-height: 400px !important;
   border-radius: 16px; 
   z-index: 1; 
   border: 1px solid var(--glass-border);
-  background: #111; /* Xarita yuklanguncha qorong'i fon */
+  background: #1e293b; 
+  position: relative;
 }
+
 .leaflet-container { background: #000; font-family: 'Inter', sans-serif; }
 .leaflet-bar { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
 .leaflet-bar a { background: rgba(0,0,0,0.7) !important; color: white !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; backdrop-filter: blur(4px); }
@@ -100,7 +112,6 @@ header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .leaflet-control-geocoder-alternatives li a { color: #ccc !important; }
 .leaflet-control-geocoder-alternatives li a:hover { background: var(--primary) !important; color: white !important; }
 
-/* Tugmalar va Formalar */
 button {
   border: none; border-radius: 12px; padding: 12px 16px; font-size: 14px;
   font-weight: 600; font-family: inherit; cursor: pointer; display: inline-flex;
@@ -130,8 +141,6 @@ select option { background: #064e3b; color: white; }
 .name-row select { flex: 1; }
 .add-name-btn { min-width: 50px; padding: 0; font-size: 24px; }
 .note { margin-top: 20px; color: var(--text-muted); font-size: 12px; line-height: 1.6; background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 10px; }
-
-/* Ro'yxat */
 .list-panel { margin-top: 20px; }
 .list-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
 .search { max-width: 320px; }
@@ -149,21 +158,16 @@ select option { background: #064e3b; color: white; }
 .item-actions { display: flex; flex-direction: column; gap: 8px; }
 .small-btn { padding: 8px 12px; font-size: 13px; border-radius: 10px; }
 .empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 14px; line-height: 1.8; background: rgba(255, 255, 255, 0.02); border-radius: 16px; border: 1px dashed var(--glass-border); }
-
 footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
-
-/* Jonli lokatsiya belgisi */
 .my-location-marker { background: transparent; border: none; }
 .my-location-dot { width: 20px; height: 20px; background: #3b82f6; border: 3px solid #ffffff; border-radius: 50%; animation: pulse-loc 2s infinite; }
 @keyframes pulse-loc { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
 .locate-map-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; background: rgba(0, 0, 0, 0.7); text-decoration: none; cursor: pointer; transition: all 0.2s; }
 .locate-map-btn:hover { background: rgba(0,0,0,0.9); }
 .locate-map-btn.active { color: #3b82f6; }
-
 .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(16, 185, 129, 0.9); color: white; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.3); backdrop-filter: blur(8px); z-index: 10000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
 .toast.show { opacity: 1; }
 
-/* Mobil moslashuv */
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
   .stats { grid-template-columns: 1fr; gap: 12px; }
@@ -176,12 +180,15 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
   .tree-item { flex-direction: column; }
   .item-actions { flex-direction: row; width: 100%; }
   .item-actions button { flex: 1; }
+  #map { height: 300px !important; min-height: 300px !important; }
 }
 </style>
 </head>
 <body>
 
-<!-- Header -->
+<!-- Qizil ogohlantirish (Agar Firebase'ga ulanmasa shu yerdan chiqadi) -->
+<div id="errorBanner">Diqqat: Serverga ulanmadi! Internet yoki Firebase sozlamalarini tekshiring.</div>
+
 <header>
   <div class="header-inner glass">
     <div class="logo">
@@ -197,7 +204,6 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 </header>
 
 <main class="container">
-  <!-- Statistika -->
   <section class="stats">
     <div class="stat glass">
       <div class="stat-header"><span>Jami daraxtlar</span><i class="ph ph-tree"></i></div>
@@ -213,13 +219,12 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
     </div>
   </section>
 
-  <!-- Asosiy qism -->
   <div class="layout">
-    <!-- Xarita paneli -->
     <section class="panel glass">
       <h2><i class="ph ph-map-trifold"></i> Xarita</h2>
       <p class="subtitle">Xaritadagi kerakli nuqtani bosing, qidiruv orqali shaharni toping yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
       
+      <!-- Xarita oynasi -->
       <div id="map"></div>
       
       <div class="map-actions">
@@ -233,11 +238,9 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
       <p class="note"><i class="ph ph-info"></i> Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin.</p>
     </section>
 
-    <!-- Forma paneli -->
     <section class="panel glass" id="formPanel">
       <h2 id="formTitle"><i class="ph ph-plant"></i> Daraxt qo'shish</h2>
-      <p class="subtitle">Faqat kerakli ma'lumotlarni kiriting. Maydonlarni to'ldirish oson.</p>
-      
+      <p class="subtitle">Faqat kerakli ma'lumotlarni kiriting.</p>
       <form id="treeForm">
         <div class="field">
           <label for="nameSelect">Daraxt nomi yoki turi *</label>
@@ -271,7 +274,6 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
           </div>
           <input id="name" style="display:none; margin-top:12px;" maxlength="100" placeholder="Daraxt nomini kiriting...">
         </div>
-
         <div class="two-cols">
           <div class="field">
             <label for="age">Yoshi (yil)</label>
@@ -287,16 +289,13 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
             </select>
           </div>
         </div>
-
         <div class="field">
           <label for="extra">Izoh (ixtiyoriy)</label>
           <input id="extra" maxlength="250" placeholder="Masalan: barglari sarg'aygan">
         </div>
-
         <div class="coords" id="coords">
           <i class="ph ph-map-pin-line"></i> Hali joy tanlanmagan. Xaritani bosing.
         </div>
-
         <button class="primary full" type="submit" id="saveBtn">
           <i class="ph ph-check-circle"></i> Daraxtni saqlash
         </button>
@@ -308,7 +307,6 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
     </section>
   </div>
 
-  <!-- Ro'yxat paneli -->
   <section class="panel glass list-panel">
     <div class="list-top">
       <h2><i class="ph ph-list-dashes"></i> Daraxtlar ro'yxati</h2>
@@ -327,7 +325,6 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 <footer><i class="ph ph-leaf"></i> Chodak Kon boshqarmasi · Tabiatni asraylik</footer>
 <div class="toast" id="toast">Xabar</div>
 
-<!-- Skriptlar -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
 
@@ -347,7 +344,6 @@ const firebaseConfig = {
   measurementId: "G-80MM024Q4W"
 };
 
-// Firebase ishga tushirish
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const treesRef = ref(db, "trees");
@@ -362,7 +358,6 @@ let map = null;
 let isFirstFirebaseLoad = true;
 const STORAGE_KEY = "daraxtlar_xaritasi_v1";
 
-// Yordamchi funksiyalar
 const $ = id => document.getElementById(id);
 
 function showToast(msg, isError = false) {
@@ -390,29 +385,31 @@ function statusClass(s) {
   return "bad";
 }
 
-// Xaritani ishga tushirish
+// ================= XARITANI ISHGA TUSHIRISH =================
 function initMap() {
-  if (map) return; // Agar allaqachon ochilgan bo'lsa qayta ochmaydi
+  if (map) return;
 
-  // Xarita markazi (Olmaliq shahri)
+  // Olmaliq shahri markazi
   map = L.map("map", { zoomControl: false, attributionControl: false }).setView([40.8444, 69.5983], 13);
   
-  // Xarita o'lchamini yangilash (CSS muammolarini hal qiladi)
-  setTimeout(() => map.invalidateSize(), 400);
+  // Xarita yuklanishida o'lcham xatoligi bo'lmasligi uchun bir necha bor tekshiramiz
+  setTimeout(() => { if(map) map.invalidateSize(); }, 100);
+  setTimeout(() => { if(map) map.invalidateSize(); }, 500);
+  setTimeout(() => { if(map) map.invalidateSize(); }, 1500);
 
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  // Sun'iy yo'ldosh qatlami
+  // 1. Sun'iy yo'ldosh qatlami
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
     maxZoom: 19
   }).addTo(map);
 
-  // Shahar va ko'cha nomlari qatlami
+  // 2. Matnlar (shahar/ko'cha nomlari) qatlami
   L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png", {
     subdomains: 'abcd', maxZoom: 20
   }).addTo(map);
 
-  // Qidiruv (Geocoder)
+  // Qidiruv
   L.Control.geocoder({
     defaultMarkGeocode: false,
     placeholder: "Manzil qidirish...",
@@ -422,10 +419,9 @@ function initMap() {
     showToast("Manzil topildi");
   }).addTo(map);
 
-  // Xaritani bosganda nuqta qo'yish
   map.on("click", e => setPoint(e.latlng.lat, e.latlng.lng, false));
 
-  // Jonli lokatsiya tugmasi
+  // Jonli lokatsiya
   let myLocMarker = null, myLocCircle = null, watchId = null, firstFix = true;
   
   const LocateControl = L.Control.extend({
@@ -440,7 +436,6 @@ function initMap() {
       L.DomEvent.on(btn, "click", e => {
         e.preventDefault();
         if (watchId !== null) {
-          // O'chirish
           navigator.geolocation.clearWatch(watchId);
           watchId = null;
           if (myLocMarker) map.removeLayer(myLocMarker);
@@ -448,7 +443,6 @@ function initMap() {
           myLocMarker = null; myLocCircle = null;
           btn.classList.remove("active");
         } else {
-          // Yoqish
           if (!navigator.geolocation) return alert("GPS yo'q");
           btn.classList.add("active");
           watchId = navigator.geolocation.watchPosition(
@@ -477,7 +471,7 @@ function initMap() {
   new LocateControl().addTo(map);
 }
 
-// Nuqta tanlash
+// ================= NUQTA VA RENDER =================
 function setPoint(lat, lng, zoom = true) {
   selectedPoint = { lat, lng };
   $("coords").innerHTML = `<i class="ph ph-map-pin"></i> <b>Tanlangan joy:</b><br>Lat: ${lat.toFixed(6)}<br>Lng: ${lng.toFixed(6)}`;
@@ -486,14 +480,11 @@ function setPoint(lat, lng, zoom = true) {
   if (zoom && map) map.setView([lat, lng], 17);
 }
 
-// Render qilish (Ma'lumotlarni ekranga chiqarish)
 function render() {
-  // 1. Statistikani yangilash
   $("total").textContent = trees.length;
   $("healthy").textContent = trees.filter(t => t.status === "Sog'lom").length;
   $("located").textContent = trees.filter(t => Number.isFinite(t.lat) && Number.isFinite(t.lng)).length;
 
-  // 2. Xaritadagi markerlarni yangilash
   if (map) {
     Object.values(markers).forEach(m => map.removeLayer(m));
     markers = {};
@@ -509,7 +500,6 @@ function render() {
     });
   }
 
-  // 3. Ro'yxatni yangilash
   const q = $("search").value.trim().toLowerCase();
   const filtered = trees.filter(t => [t.name, t.status, t.extra, t.age].some(v => String(v||"").toLowerCase().includes(q)));
   const list = $("treeList");
@@ -541,12 +531,12 @@ function render() {
   `).join("");
 }
 
-// Boshlang'ich yuklash
+// ================= BOSHLANG'ICH YUKLASH =================
 function init() {
   // 1. Xaritani yuklash
   initMap();
 
-  // 2. LocalStorage'dan tezkor yuklash (internet sekin bo'lsa ilova bo'sh turmasligi uchun)
+  // 2. LocalStorage'dan yuklash (internet yo'q bo'lsa ham ilova bo'sh qolmasligi uchun)
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -560,6 +550,9 @@ function init() {
 
   // 3. Firebase'dan real vaqtda ma'lumotlarni yuklash
   onValue(treesRef, (snapshot) => {
+    // Muvaffaqiyatli ulanish (Qizil xabarni yashirish)
+    $("errorBanner").style.display = "none";
+
     const val = snapshot.val();
     const remoteTrees = val ? Object.values(val) : [];
 
@@ -570,24 +563,33 @@ function init() {
         const obj = {};
         trees.forEach(t => { obj[t.id] = t; });
         update(treesRef, obj).catch(err => console.error("Initial sync error:", err));
-        return; // onValue yana ishga tushadi
+        return; 
       }
     }
 
     // Firebase'dagi ma'lumotlarni asosiy manba qilib olamiz
     trees = remoteTrees;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); // Localni yangilaymiz
-    render(); // Ekranga chiqaramiz
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); 
+    render(); 
   }, (error) => {
-    console.error("Firebase error:", error);
-    showToast("Serverga ulanmadi. Faqat qurilmada ishlaydi.", true);
+    // ================= XATOLIK YUZ BERGANDA =================
+    console.error("Firebase Error:", error);
+    
+    // Qizil ogohlantirishni ko'rsatish
+    const banner = $("errorBanner");
+    banner.style.display = "block";
+    
+    if (error.message.includes("permission_denied")) {
+      banner.innerHTML = "XATO: Ruxsat berilmagan. Firebase Rules bo'limida '.read': true va '.write': true qiling!";
+    } else {
+      banner.innerHTML = "XATO: Serverga ulanmadi. Internet aloqasini tekshiring.";
+    }
   });
 }
 
-// Formani yuborish (Saqlash)
+// ================= FORMA VA TUGMALAR =================
 $("treeForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  
   const nameSel = $("nameSelect").value;
   const nameInp = $("name").value.trim();
   const name = nameSel === "__custom__" || (!nameSel && nameInp) ? nameInp : nameSel;
@@ -601,32 +603,30 @@ $("treeForm").addEventListener("submit", (e) => {
   const existing = trees.find(t => t.id === editingId);
   const isEdit = Boolean(editingId);
 
-  // Yangi yozuv yaratish
   const record = {
     id: editingId || (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)),
     name, age, status, extra,
     lat: selectedPoint ? selectedPoint.lat : (existing?.lat ?? null),
     lng: selectedPoint ? selectedPoint.lng : (existing?.lng ?? null),
-    createdAt: existing?.createdAt || new Date().toISOString(), // Yaratilgan vaqt
+    createdAt: existing?.createdAt || new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
 
-  // Firebase'ga yuborish
+  // Firebase'ga saqlash
   set(ref(db, "trees/" + record.id), record)
     .then(() => showToast(isEdit ? "Yangilandi!" : "Saqlandi!"))
     .catch(err => {
       console.error(err);
-      showToast("Serverga yozishda xato!", true);
+      showToast("Serverga yozishda xato! (Ruxsatlarni tekshiring)", true);
     });
 
-  // Mahalliy massivni yangilash
+  // Mahalliy yangilash
   if (isEdit) {
     trees = trees.map(t => t.id === editingId ? record : t);
   } else {
     trees.unshift(record);
   }
   
-  // LocalStorage'ga yozish
   localStorage.setItem(STORAGE_KEY, JSON.stringify(trees));
   
   // Formani tozalash
@@ -638,7 +638,6 @@ $("treeForm").addEventListener("submit", (e) => {
   $("saveBtn").innerHTML = '<i class="ph ph-check-circle"></i> Daraxtni saqlash';
   $("cancelEditBtn").style.display = "none";
   
-  // Nuqtani tozalash
   if (record.lat && record.lng) {
     setPoint(record.lat, record.lng);
   } else {
@@ -651,7 +650,6 @@ $("treeForm").addEventListener("submit", (e) => {
   render();
 });
 
-// Boshqa tugmalar va hodisalar
 $("nameSelect").addEventListener("change", (e) => {
   if (e.target.value === "__custom__") {
     $("name").style.display = "block";
@@ -729,7 +727,6 @@ $("treeList").addEventListener("click", (e) => {
   } else if (act === "edit") {
     editingId = tree.id;
     $("nameSelect").value = tree.name;
-    // Agar nom ro'yxatda bo'lmasa, customga o'tkazamiz
     if ($("nameSelect").value !== tree.name) {
       $("nameSelect").value = "__custom__";
       $("name").value = tree.name;
@@ -756,21 +753,15 @@ $("treeList").addEventListener("click", (e) => {
     $("formPanel").scrollIntoView({ behavior: "smooth" });
   } else if (act === "delete") {
     if (!confirm("O'chirmoqchimisiz?")) return;
-    
-    // Firebase'dan o'chirish
     remove(ref(db, "trees/" + tree.id)).catch(err => console.error(err));
-    
-    // Mahalliy massivdan o'chirish
     trees = trees.filter(t => t.id !== tree.id);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(trees));
-    
     if (editingId === tree.id) $("cancelEditBtn").click();
     render();
     showToast("O'chirildi", true);
   }
 });
 
-// Eksport (CSV)
 $("exportBtn").addEventListener("click", () => {
   if (!trees.length) return alert("Daraxtlar yo'q!");
   const headers = ["T/r", "Nomi", "Yoshi", "Holati", "Izoh", "Lat", "Lng", "Sana"];
@@ -784,7 +775,6 @@ $("exportBtn").addEventListener("click", () => {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 });
 
-// Zaxira (JSON)
 $("backupBtn").addEventListener("click", () => {
   const url = URL.createObjectURL(new Blob([JSON.stringify(trees, null, 2)], { type: "application/json" }));
   const a = document.createElement("a");
@@ -805,7 +795,6 @@ $("importFile").addEventListener("change", async (e) => {
     trees = imported;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(trees));
     
-    // Firebase'ni yangilash
     const obj = {}; trees.forEach(t => obj[t.id] = t);
     set(treesRef, obj).catch(err => console.error(err));
     
@@ -817,7 +806,7 @@ $("importFile").addEventListener("change", async (e) => {
   e.target.value = "";
 });
 
-// Ilovani ishga tushirish
+// Ishga tushirish
 init();
 </script>
 </body>
