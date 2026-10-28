@@ -4,20 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Daraxtlar xaritasi</title>
-
-<!-- Xarita CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<!-- Zamonaviy shrift -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- Zamonaviy ikonkalar (Phosphor Icons) -->
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
 <style>
 :root {
   --primary: #10b981;
   --primary-hover: #059669;
   --danger: #ef4444;
-  --danger-hover: #dc2626;
   --bg-color: #022c22;
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.15);
@@ -25,13 +19,7 @@
   --text-muted: #94a3b8;
   color-scheme: dark;
 }
-
-* { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0;
-}
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Inter', sans-serif;
   background-color: var(--bg-color);
@@ -44,8 +32,6 @@ body {
   min-height: 100vh;
   padding-bottom: 30px;
 }
-
-/* Glass Effect Class */
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
@@ -54,311 +40,108 @@ body {
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
   border-radius: 20px;
 }
-
-header {
-  padding: 20px 16px;
-  margin-bottom: 20px;
-}
-
+header { padding: 20px 16px; margin-bottom: 20px; }
 .header-inner {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px 20px;
-  border-radius: 24px;
+  max-width: 1100px; margin: auto; display: flex; align-items: center;
+  gap: 15px; padding: 15px 20px; border-radius: 24px;
 }
-
 .logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
+  width: 50px; height: 50px; border-radius: 14px;
   background: linear-gradient(135deg, var(--primary), #047857);
-  display: grid;
-  place-items: center;
-  font-size: 28px;
-  color: white;
+  display: grid; place-items: center; font-size: 28px; color: white;
   box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
 }
-
 header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-/* Stats */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.stat {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease;
-}
-
+.container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat { padding: 20px; display: flex; flex-direction: column; transition: transform 0.2s ease; }
 .stat:hover { transform: translateY(-2px); }
 .stat-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .stat span { font-size: 14px; font-weight: 500; color: var(--text-muted); }
 .stat i { font-size: 24px; color: var(--primary); opacity: 0.8; }
 .stat strong { font-size: 32px; font-weight: 700; }
-
-/* Layout */
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: start;
-}
-
-.panel {
-  padding: 24px;
-  min-width: 0;
-}
-
-.panel h2 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
+.layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.panel { padding: 24px; min-width: 0; }
+.panel h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
 .panel h2 i { color: var(--primary); }
-
-.subtitle {
-  color: var(--text-muted);
-  font-size: 13px;
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-
-/* Map */
-#map {
-  height: 350px;
-  width: 100%;
-  border-radius: 16px;
-  z-index: 1;
-  border: 1px solid var(--glass-border);
-}
-
-/* Leaflet Customization for Dark Theme */
+.subtitle { color: var(--text-muted); font-size: 13px; line-height: 1.5; margin-bottom: 20px; }
+#map { height: 350px; width: 100%; border-radius: 16px; z-index: 1; border: 1px solid var(--glass-border); }
 .leaflet-container { background: #000; }
 .leaflet-bar { border: none !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
 .leaflet-bar a { background: rgba(0,0,0,0.7) !important; color: white !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; backdrop-filter: blur(4px); }
 .leaflet-bar a:hover { background: rgba(0,0,0,0.9) !important; }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: rgba(20, 30, 25, 0.9) !important; backdrop-filter: blur(8px); border: 1px solid var(--glass-border); color: white !important; }
-
-/* Buttons */
 button {
-  border: none;
-  border-radius: 12px;
-  padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: inherit;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.2s ease;
+  border: none; border-radius: 12px; padding: 12px 16px; font-size: 14px;
+  font-weight: 600; font-family: inherit; cursor: pointer; display: inline-flex;
+  align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;
 }
-
 .primary { background: var(--primary); color: #022c22; }
 .primary:hover { background: var(--primary-hover); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
-
 .secondary { background: rgba(255, 255, 255, 0.1); color: var(--text-main); border: 1px solid var(--glass-border); }
 .secondary:hover { background: rgba(255, 255, 255, 0.2); }
-
 .danger { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.3); }
 .danger:hover { background: rgba(239, 68, 68, 0.4); color: white; }
-
 button:active { transform: scale(0.97); }
-
-.map-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 16px;
-}
-
-/* Inputs */
-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  margin-bottom: 8px;
-  color: var(--text-muted);
-}
-
+.map-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px; color: var(--text-muted); }
 input, select {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid var(--glass-border);
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.2);
-  font-size: 15px;
-  font-family: inherit;
-  color: white;
-  outline: none;
-  transition: all 0.2s ease;
+  width: 100%; padding: 14px 16px; border: 1px solid var(--glass-border);
+  border-radius: 12px; background: rgba(0, 0, 0, 0.2); font-size: 15px;
+  font-family: inherit; color: white; outline: none; transition: all 0.2s ease;
 }
-
-input:focus, select:focus {
-  border-color: var(--primary);
-  background: rgba(0, 0, 0, 0.4);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-}
-
+input:focus, select:focus { border-color: var(--primary); background: rgba(0, 0, 0, 0.4); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
 select option { background: #064e3b; color: white; }
 .field { margin-bottom: 16px; }
 .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
 .coords {
-  background: rgba(16, 185, 129, 0.1);
-  padding: 14px;
-  border-radius: 12px;
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  color: #a7f3d0;
-  font-size: 13px;
-  line-height: 1.6;
-  margin-bottom: 16px;
+  background: rgba(16, 185, 129, 0.1); padding: 14px; border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.2); color: #a7f3d0;
+  font-size: 13px; line-height: 1.6; margin-bottom: 16px;
 }
-
 .full { width: 100%; }
-
-/* Name field with + button */
 .name-row { display: flex; gap: 10px; align-items: stretch; }
 .name-row select { flex: 1; }
-.add-name-btn {
-  min-width: 50px;
-  padding: 0;
-  font-size: 24px;
-}
-
-/* Notes */
+.add-name-btn { min-width: 50px; padding: 0; font-size: 24px; }
 .note {
-  margin-top: 20px;
-  color: var(--text-muted);
-  font-size: 12px;
-  line-height: 1.6;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 12px;
-  border-radius: 10px;
+  margin-top: 20px; color: var(--text-muted); font-size: 12px; line-height: 1.6;
+  background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 10px;
 }
-
-/* List Panel */
 .list-panel { margin-top: 20px; }
-.list-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
-}
+.list-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
 .search { max-width: 320px; }
-
 .tree-list { display: grid; gap: 14px; }
-
 .tree-item {
-  padding: 18px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--glass-border);
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  justify-content: space-between;
-  transition: all 0.2s ease;
+  padding: 18px; border-radius: 16px; background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border); display: flex; gap: 16px;
+  align-items: flex-start; justify-content: space-between; transition: all 0.2s ease;
 }
-
 .tree-item:hover { background: rgba(255, 255, 255, 0.06); transform: translateX(4px); }
-
 .tree-icon {
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--primary);
-  border-radius: 12px;
-  width: 48px;
-  height: 48px;
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-  flex-shrink: 0;
+  background: rgba(16, 185, 129, 0.15); color: var(--primary);
+  border-radius: 12px; width: 48px; height: 48px; display: grid;
+  place-items: center; font-size: 24px; flex-shrink: 0;
 }
-
 .tree-info { flex: 1; min-width: 0; }
 .tree-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: white; }
-.tree-info p {
-  color: var(--text-muted);
-  font-size: 13px;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  overflow-wrap: anywhere;
-}
-
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border-radius: 8px;
-  padding: 6px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-top: 8px;
-}
-
+.tree-info p { color: var(--text-muted); font-size: 13px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; overflow-wrap: anywhere; }
+.status { display: inline-flex; align-items: center; gap: 4px; border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 600; margin-top: 8px; }
 .good { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
 .medium { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
 .bad { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
-
 .item-actions { display: flex; flex-direction: column; gap: 8px; }
 .small-btn { padding: 8px 12px; font-size: 13px; border-radius: 10px; }
-
 .empty {
-  text-align: center;
-  padding: 40px 20px;
-  color: var(--text-muted);
-  font-size: 14px;
-  line-height: 1.8;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 16px;
-  border: 1px dashed var(--glass-border);
+  text-align: center; padding: 40px 20px; color: var(--text-muted);
+  font-size: 14px; line-height: 1.8; background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px; border: 1px dashed var(--glass-border);
 }
-
-footer {
-  text-align: center;
-  padding: 30px 20px;
-  color: var(--text-muted);
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-/* Real-time Location Dot */
+footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .my-location-marker { background: transparent; border: none; }
 .my-location-dot {
-  width: 20px;
-  height: 20px;
-  background: #3b82f6;
-  border: 3px solid #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 0 0 rgba(59, 130, 246, 0.6);
+  width: 20px; height: 20px; background: #3b82f6; border: 3px solid #ffffff;
+  border-radius: 50%; box-shadow: 0 0 0 rgba(59, 130, 246, 0.6);
   animation: pulse-loc 2s infinite;
 }
 @keyframes pulse-loc {
@@ -366,22 +149,32 @@ footer {
   70%  { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
   100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
 }
-
 .locate-map-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  color: white;
-  background: rgba(0, 0, 0, 0.7);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s;
+  width: 36px; height: 36px; display: flex; align-items: center;
+  justify-content: center; font-size: 22px; color: white;
+  background: rgba(0, 0, 0, 0.7); text-decoration: none;
+  cursor: pointer; transition: all 0.2s;
 }
 .locate-map-btn:hover { background: rgba(0,0,0,0.9); }
 .locate-map-btn.active { color: #3b82f6; }
+
+/* Modal oyna uslubi */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center;
+  z-index: 9999; padding: 20px;
+}
+.modal-content {
+  max-width: 400px; width: 100%; padding: 24px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  border-radius: 20px; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  text-align: center;
+}
+.modal-content h3 { margin-bottom: 12px; font-size: 18px; }
+.modal-content p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 20px; }
+.modal-buttons { display: flex; gap: 10px; }
+.modal-buttons button { flex: 1; }
 
 @media (max-width: 768px) {
   .layout { grid-template-columns: 1fr; }
@@ -401,9 +194,7 @@ footer {
 
 <header>
   <div class="header-inner glass">
-    <div class="logo">
-      <i class="ph-fill ph-tree-evergreen"></i>
-    </div>
+    <div class="logo"><i class="ph-fill ph-tree-evergreen"></i></div>
     <div>
       <h1>Daraxtlar xaritasi</h1>
       <p>Tabiatni asraylik va raqamlashtiraylik</p>
@@ -412,39 +203,26 @@ footer {
 </header>
 
 <main class="container">
-
   <section class="stats">
     <div class="stat glass">
-      <div class="stat-header">
-        <span>Jami daraxtlar</span>
-        <i class="ph ph-tree"></i>
-      </div>
+      <div class="stat-header"><span>Jami daraxtlar</span><i class="ph ph-tree"></i></div>
       <strong id="total">0</strong>
     </div>
     <div class="stat glass">
-      <div class="stat-header">
-        <span>Sog‘lom daraxtlar</span>
-        <i class="ph ph-heart-straight"></i>
-      </div>
+      <div class="stat-header"><span>Sog‘lom daraxtlar</span><i class="ph ph-heart-straight"></i></div>
       <strong id="healthy">0</strong>
     </div>
     <div class="stat glass">
-      <div class="stat-header">
-        <span>Belgilangan joylar</span>
-        <i class="ph ph-map-pin"></i>
-      </div>
+      <div class="stat-header"><span>Belgilangan joylar</span><i class="ph ph-map-pin"></i></div>
       <strong id="located">0</strong>
     </div>
   </section>
 
   <div class="layout">
-
     <section class="panel glass">
       <h2><i class="ph ph-map-trifold"></i> Xarita</h2>
       <p class="subtitle">Xaritadagi kerakli nuqtani bosing yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
-
       <div id="map"></div>
-
       <div class="map-actions">
         <button class="primary" id="locateBtn" type="button">
           <i class="ph ph-crosshair"></i> Mening joylashuvim
@@ -453,7 +231,6 @@ footer {
           <i class="ph ph-x-circle"></i> Nuqtani bekor qilish
         </button>
       </div>
-
       <p class="note">
         <i class="ph ph-info"></i> Daraxt turgan joyni xaritada bosing. Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin.
       </p>
@@ -462,7 +239,6 @@ footer {
     <section class="panel glass" id="formPanel">
       <h2 id="formTitle"><i class="ph ph-plant"></i> Daraxt qo‘shish</h2>
       <p class="subtitle">Faqat kerakli ma’lumotlarni kiriting. Maydonlarni to‘ldirish oson.</p>
-
       <form id="treeForm">
         <div class="field">
           <label for="nameSelect">Daraxt nomi yoki turi *</label>
@@ -496,7 +272,6 @@ footer {
           </div>
           <input id="name" style="display:none; margin-top:12px;" maxlength="100" placeholder="Daraxt nomini kiriting...">
         </div>
-
         <div class="two-cols">
           <div class="field">
             <label for="age">Yoshi (yil)</label>
@@ -512,16 +287,13 @@ footer {
             </select>
           </div>
         </div>
-
         <div class="field">
           <label for="extra">Izoh (ixtiyoriy)</label>
           <input id="extra" maxlength="250" placeholder="Masalan: barglari sarg‘aygan">
         </div>
-
         <div class="coords" id="coords">
           <i class="ph ph-map-pin-line"></i> Hali joy tanlanmagan. Xaritani bosing.
         </div>
-
         <button class="primary full" type="submit" id="saveBtn">
           <i class="ph ph-check-circle"></i> Daraxtni saqlash
         </button>
@@ -529,10 +301,7 @@ footer {
           <i class="ph ph-x"></i> Tahrirlashni bekor qilish
         </button>
       </form>
-
-      <p class="note">
-        <i class="ph ph-cloud-check"></i> Yozuvlar brauzerda va Firebase serverida avtomatik saqlanadi.
-      </p>
+      <p class="note"><i class="ph ph-cloud-check"></i> Yozuvlar brauzerda va Firebase serverida avtomatik saqlanadi.</p>
     </section>
   </div>
 
@@ -541,41 +310,37 @@ footer {
       <h2><i class="ph ph-list-dashes"></i> Daraxtlar ro‘yxati</h2>
       <input class="search" id="search" placeholder="🔎 Daraxt qidirish...">
     </div>
-
     <div class="map-actions" style="margin-bottom:24px">
-      <button class="secondary" id="exportBtn" type="button">
-        <i class="ph ph-microsoft-excel-logo"></i> Excel (CSV)
-      </button>
-      <button class="secondary" id="backupBtn" type="button">
-        <i class="ph ph-download-simple"></i> Zaxira nusxa
-      </button>
-      <button class="secondary" id="importBtn" type="button">
-        <i class="ph ph-upload-simple"></i> Zaxira yuklash
-      </button>
+      <button class="secondary" id="exportBtn" type="button"><i class="ph ph-microsoft-excel-logo"></i> Excel (CSV)</button>
+      <button class="secondary" id="backupBtn" type="button"><i class="ph ph-download-simple"></i> Zaxira nusxa</button>
+      <button class="secondary" id="importBtn" type="button"><i class="ph ph-upload-simple"></i> Zaxira yuklash</button>
       <input id="importFile" type="file" accept=".json" style="display:none">
     </div>
-
     <div id="treeList" class="tree-list"></div>
   </section>
-
 </main>
 
-<footer>
-  <i class="ph ph-leaf"></i> Daraxtlar xaritasi · Tabiatni asraylik
-</footer>
+<footer><i class="ph ph-leaf"></i> Daraxtlar xaritasi · Tabiatni asraylik</footer>
 
-<!-- Xarita JS -->
+<!-- Xatolik oynasi (Modal) -->
+<div class="modal-overlay" id="locationErrorModal">
+  <div class="modal-content glass">
+    <i class="ph ph-warning-circle" style="font-size: 48px; color: #fbbf24; margin-bottom: 16px;"></i>
+    <h3>Joylashuv aniqlanmadi</h3>
+    <p id="locationErrorText">GPS yoki internet aloqasida muammo bor. Iltimos, qurilmangiz sozlamalaridan joylashuvni yoqing va ruxsat bering.</p>
+    <div class="modal-buttons">
+      <button class="secondary" onclick="document.getElementById('locationErrorModal').style.display='none'">Yopish</button>
+      <button class="primary" onclick="retryLocation()">Qayta urinish</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-import {
-  getDatabase, ref, set as fbSet, remove as fbRemove,
-  update as fbUpdate, onValue
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getDatabase, ref, set as fbSet, remove as fbRemove, update as fbUpdate, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-/* ===== Firebase konfiguratsiyasi ===== */
 const firebaseConfig = {
   apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
   authDomain: "uzbektelegrami.firebaseapp.com",
@@ -592,10 +357,8 @@ try { getAnalytics(firebaseApp); } catch (e) { console.warn("Analytics:", e); }
 const db = getDatabase(firebaseApp);
 const treesRef = ref(db, "trees");
 
-/* ===== Asosiy dastur ===== */
 (() => {
   "use strict";
-
   const STORAGE_KEY = "daraxtlar_xaritasi_v1";
   const $ = id => document.getElementById(id);
 
@@ -606,42 +369,119 @@ const treesRef = ref(db, "trees");
   let selectedMarker = null;
   let firstFirebaseLoad = true;
 
-  // LocalStorage'dan yuklash
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed)) trees = parsed;
     }
-  } catch (error) {
-    console.warn("Saqlangan ma’lumotlarni o‘qib bo‘lmadi.", error);
-  }
+  } catch (error) {}
 
-  /* ================== XARITA ================== */
   const map = L.map("map", { zoomControl: false }).setView([41.2995, 69.2401], 12);
   L.control.zoom({ position: 'bottomright' }).addTo(map);
-
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
-    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics',
-    maxZoom: 19
+    attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics', maxZoom: 19
   }).addTo(map);
 
-  /* ================== JOYLASHUV (REAL-TIME) ================== */
+  /* ================== YANGILANGAN GEOLOKATSIYA QISMI ================== */
   let myLocationMarker = null;
   let myLocationCircle = null;
   let watchId = null;
   let firstFix = true;
   let locateMapBtnEl = null;
+  let retryMode = false;
+
+  function showLocationError(msg) {
+    $("locationErrorText").textContent = msg;
+    $("locationErrorModal").style.display = "flex";
+    stopLiveLocation();
+    $("locateBtn").disabled = false;
+    $("locateBtn").innerHTML = '<i class="ph ph-crosshair"></i> Mening joylashuvim';
+  }
+
+  async function getLocationWithFallback() {
+    if (!window.isSecureContext) {
+      return { error: "Iltimos, saytni HTTPS orqali oching (http:// emas). Brauzerlar HTTP da joylashuvni bloklaydi." };
+    }
+
+    if (!navigator.geolocation) {
+      return { error: "Brauzeringiz geolokatsiyani qo'llab-quvvatlamaydi." };
+    }
+
+    try {
+      if (navigator.permissions) {
+        const permission = await navigator.permissions.query({ name: 'geolocation' });
+        if (permission.state === 'denied') {
+          return { error: "Joylashuvga ruxsat berilmagan. Brauzer manzil qatoridagi qulf belgisini bosib, ruxsat bering." };
+        }
+      }
+    } catch (e) {}
+
+    return new Promise((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: pos.coords.accuracy }),
+        async (err) => {
+          console.warn("GPS xatosi:", err);
+          if (err.code === 1) {
+            resolve({ error: "Joylashuvga ruxsat rad etildi. Brauzer sozlamalaridan ruxsat bering." });
+          } else if (err.code === 2) {
+            try {
+              const resp = await fetch('https://ipapi.co/json/');
+              const data = await resp.json();
+              if (data.latitude && data.longitude) {
+                resolve({ lat: data.latitude, lng: data.longitude, accuracy: 5000, isFallback: true });
+              } else {
+                resolve({ error: "GPS mavjud emas va IP orqali aniqlab bo'lmadi. Internetni tekshiring." });
+              }
+            } catch (e) {
+              resolve({ error: "GPS o'chirilgan yoki signal yo'q. Iltimos, qurilma sozlamalaridan joylashuvni (GPS) yoqing." });
+            }
+          } else if (err.code === 3) {
+            resolve({ error: "Joylashuvni aniqlash vaqti tugadi. Ochiq joyga chiqib, qayta urinib ko'ring." });
+          } else {
+            resolve({ error: "Noma'lum xatolik yuz berdi. Sahifani yangilab, qayta urinib ko'ring." });
+          }
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      );
+    });
+  }
+
+  async function locateMe() {
+    $("locateBtn").disabled = true;
+    $("locateBtn").innerHTML = '<i class="ph ph-spinner-gap"></i> Aniqlanmoqda...';
+    const result = await getLocationWithFallback();
+    
+    if (result.error) {
+      showLocationError(result.error);
+      return;
+    }
+
+    const { lat, lng, accuracy, isFallback } = result;
+    setPoint(lat, lng);
+    if (isFallback) {
+      map.setView([lat, lng], 12);
+      alert("⚠️ GPS aniqlanmadi. Taxminiy joylashuv IP manzil orqali aniqlandi (xato 5 km gacha bo'lishi mumkin). Iltimos, GPS yoqilganligini tekshiring.");
+    } else {
+      map.setView([lat, lng], 17);
+    }
+    $("locateBtn").disabled = false;
+    $("locateBtn").innerHTML = '<i class="ph ph-crosshair"></i> Mening joylashuvim';
+  }
+
+  window.retryLocation = () => {
+    $("locationErrorModal").style.display = "none";
+    locateMe();
+  };
 
   function startLiveLocation() {
-    if (!navigator.geolocation) {
-      alert("Bu brauzer joylashuvni aniqlashni qo‘llamaydi.");
+    if (!window.isSecureContext || !navigator.geolocation) {
+      alert("Jonli joylashuvni kuzatish uchun HTTPS va ruxsat talab qilinadi.");
       return;
     }
     if (locateMapBtnEl) locateMapBtnEl.classList.add("active");
-
     watchId = navigator.geolocation.watchPosition(
-      position => {
+      (position) => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const acc = position.coords.accuracy;
@@ -651,8 +491,7 @@ const treesRef = ref(db, "trees");
             icon: L.divIcon({
               className: "my-location-marker",
               html: '<div class="my-location-dot"></div>',
-              iconSize: [24, 24],
-              iconAnchor: [12, 12]
+              iconSize: [24, 24], iconAnchor: [12, 12]
             }),
             zIndexOffset: 1000
           }).addTo(map).bindPopup("📍 Sizning joylashuvingiz");
@@ -662,11 +501,7 @@ const treesRef = ref(db, "trees");
 
         if (!myLocationCircle) {
           myLocationCircle = L.circle([lat, lng], {
-            radius: acc,
-            color: "#3b82f6",
-            fillColor: "#3b82f6",
-            fillOpacity: 0.15,
-            weight: 1
+            radius: acc, color: "#3b82f6", fillColor: "#3b82f6", fillOpacity: 0.15, weight: 1
           }).addTo(map);
         } else {
           myLocationCircle.setLatLng([lat, lng]).setRadius(acc);
@@ -677,13 +512,11 @@ const treesRef = ref(db, "trees");
           firstFix = false;
         }
       },
-      error => {
-        let message = "Joylashuv aniqlanmadi.";
-        if (error.code === 1) message = "Joylashuvga ruxsat bering va qayta urining.";
-        else if (error.code === 2) message = "GPS yoki internetni tekshiring.";
-        else if (error.code === 3) message = "Joylashuvni aniqlash vaqti tugadi.";
-        alert(message);
-        stopLiveLocation();
+      (error) => {
+        let msg = "Jonli joylashuvni aniqlab bo'lmadi.";
+        if (error.code === 1) msg = "Jonli kuzatish uchun ruxsat berilmagan.";
+        else if (error.code === 2) msg = "GPS o'chirilgan yoki signal mavjud emas. Sozlamalardan yoqing.";
+        showLocationError(msg);
       },
       { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 }
     );
@@ -710,48 +543,32 @@ const treesRef = ref(db, "trees");
     onAdd: function () {
       const container = L.DomUtil.create("div", "leaflet-bar leaflet-control");
       const btn = L.DomUtil.create("a", "locate-map-btn", container);
-      btn.href = "#";
-      btn.title = "Mening joylashuvim (real vaqt)";
+      btn.href = "#"; btn.title = "Mening joylashuvim (real vaqt)";
       btn.innerHTML = '<i class="ph ph-crosshair"></i>';
       locateMapBtnEl = btn;
-
       L.DomEvent.disableClickPropagation(container);
       L.DomEvent.disableScrollPropagation(container);
       L.DomEvent.on(btn, "click", e => {
-        L.DomEvent.preventDefault(e);
-        L.DomEvent.stopPropagation(e);
-        toggleLiveLocation();
+        L.DomEvent.preventDefault(e); L.DomEvent.stopPropagation(e); toggleLiveLocation();
       });
       return container;
     }
   });
   new LocateControl().addTo(map);
 
-  /* ================== LOCALSTORAGE ================== */
+  /* ================== QOLGAN FUNKSIYALAR ================== */
   function saveStorage() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(trees));
-      return true;
-    } catch (error) {
-      alert("Saqlash amalga oshmadi. Brauzer xotirasini tekshiring.");
-      return false;
-    }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); return true; }
+    catch (error) { alert("Saqlash amalga oshmadi."); return false; }
   }
 
-  /* ================== FIREBASE ================== */
-  function fbSaveTree(tree) {
-    fbSet(ref(db, "trees/" + tree.id), tree).catch(err => console.error("Firebase save:", err));
-  }
-  function fbDeleteTree(id) {
-    fbRemove(ref(db, "trees/" + id)).catch(err => console.error("Firebase delete:", err));
-  }
+  function fbSaveTree(tree) { fbSet(ref(db, "trees/" + tree.id), tree).catch(err => console.error("Firebase save:", err)); }
+  function fbDeleteTree(id) { fbRemove(ref(db, "trees/" + id)).catch(err => console.error("Firebase delete:", err)); }
   function fbReplaceAll(list) {
-    const obj = {};
-    list.forEach(t => { obj[t.id] = t; });
+    const obj = {}; list.forEach(t => { obj[t.id] = t; });
     fbSet(treesRef, obj).catch(err => console.error("Firebase replace:", err));
   }
 
-  /* ================== YORDAMCHI ================== */
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -764,14 +581,11 @@ const treesRef = ref(db, "trees");
     return "bad";
   }
 
-  /* ================== NOM MAYDONI ================== */
   function showCustomNameInput(focus = true) {
-    $("name").style.display = "block";
-    if (focus) $("name").focus();
+    $("name").style.display = "block"; if (focus) $("name").focus();
   }
   function hideCustomNameInput() {
-    $("name").style.display = "none";
-    $("name").value = "";
+    $("name").style.display = "none"; $("name").value = "";
   }
   function getTreeName() {
     const sel = $("nameSelect").value;
@@ -781,19 +595,12 @@ const treesRef = ref(db, "trees");
   }
   function setNameField(name) {
     const value = String(name ?? "").trim();
-    if (!value) {
-      $("nameSelect").value = "";
-      hideCustomNameInput();
-      return;
-    }
+    if (!value) { $("nameSelect").value = ""; hideCustomNameInput(); return; }
     const options = Array.from($("nameSelect").options).map(o => o.value);
     if (options.includes(value) && value !== "__custom__" && value !== "") {
-      $("nameSelect").value = value;
-      hideCustomNameInput();
+      $("nameSelect").value = value; hideCustomNameInput();
     } else {
-      $("nameSelect").value = "__custom__";
-      $("name").value = value;
-      $("name").style.display = "block";
+      $("nameSelect").value = "__custom__"; $("name").value = value; $("name").style.display = "block";
     }
   }
 
@@ -803,73 +610,36 @@ const treesRef = ref(db, "trees");
   });
 
   $("addNameBtn").addEventListener("click", () => {
-    $("nameSelect").value = "__custom__";
-    showCustomNameInput();
+    $("nameSelect").value = "__custom__"; showCustomNameInput();
   });
 
-  /* ================== NUQTA TANLASH ================== */
   function updateCoords() {
     if (!selectedPoint) {
       $("coords").innerHTML = '<i class="ph ph-map-pin-line"></i> Hali joy tanlanmagan. Xaritani bosing.';
       return;
     }
-    $("coords").innerHTML =
-      '<i class="ph ph-map-pin"></i> <b>Tanlangan joy:</b><br>' +
-      "Kenglik: " + selectedPoint.lat.toFixed(6) + "<br>" +
-      "Uzunlik: " + selectedPoint.lng.toFixed(6);
+    $("coords").innerHTML = '<i class="ph ph-map-pin"></i> <b>Tanlangan joy:</b><br>Kenglik: ' + selectedPoint.lat.toFixed(6) + '<br>Uzunlik: ' + selectedPoint.lng.toFixed(6);
   }
 
   function setPoint(lat, lng, zoom = true) {
     selectedPoint = { lat, lng };
     updateCoords();
     if (selectedMarker) map.removeLayer(selectedMarker);
-    selectedMarker = L.marker([lat, lng]).addTo(map)
-      .bindPopup("Tanlangan joy").openPopup();
+    selectedMarker = L.marker([lat, lng]).addTo(map).bindPopup("Tanlangan joy").openPopup();
     if (zoom) map.setView([lat, lng], 17);
   }
 
   map.on("click", event => setPoint(event.latlng.lat, event.latlng.lng, false));
 
-  $("locateBtn").addEventListener("click", () => {
-    if (!navigator.geolocation) {
-      alert("Bu brauzer joylashuvni aniqlashni qo‘llamaydi.");
-      return;
-    }
-    $("locateBtn").disabled = true;
-    $("locateBtn").innerHTML = '<i class="ph ph-spinner-gap"></i> Aniqlanmoqda...';
-    
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        setPoint(position.coords.latitude, position.coords.longitude);
-        $("locateBtn").disabled = false;
-        $("locateBtn").innerHTML = '<i class="ph ph-crosshair"></i> Mening joylashuvim';
-      },
-      error => {
-        let message = "Joylashuv aniqlanmadi.";
-        if (error.code === 1) message = "Joylashuvga ruxsat bering va qayta urinib ko‘ring.";
-        else if (error.code === 2) message = "Joylashuv aniqlanmadi. GPS yoki internetni tekshiring.";
-        else if (error.code === 3) message = "Joylashuvni aniqlash vaqti tugadi. Qayta urinib ko‘ring.";
-        alert(message);
-        $("locateBtn").disabled = false;
-        $("locateBtn").innerHTML = '<i class="ph ph-crosshair"></i> Mening joylashuvim';
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-    );
-  });
+  $("locateBtn").addEventListener("click", locateMe);
 
   $("resetPointBtn").addEventListener("click", () => {
-    selectedPoint = null;
-    if (selectedMarker) map.removeLayer(selectedMarker);
-    selectedMarker = null;
-    updateCoords();
+    selectedPoint = null; if (selectedMarker) map.removeLayer(selectedMarker);
+    selectedMarker = null; updateCoords();
   });
 
-  /* ================== FORMA ================== */
   function clearForm() {
-    $("treeForm").reset();
-    $("nameSelect").value = "";
-    hideCustomNameInput();
-    editingId = null;
+    $("treeForm").reset(); $("nameSelect").value = ""; hideCustomNameInput(); editingId = null;
     $("formTitle").innerHTML = '<i class="ph ph-plant"></i> Daraxt qo‘shish';
     $("saveBtn").innerHTML = '<i class="ph ph-check-circle"></i> Daraxtni saqlash';
     $("cancelEditBtn").style.display = "none";
@@ -879,7 +649,6 @@ const treesRef = ref(db, "trees");
 
   $("treeForm").addEventListener("submit", event => {
     event.preventDefault();
-
     const name = getTreeName().trim();
     const ageText = $("age").value.trim();
     const age = ageText === "" ? "" : Number(ageText);
@@ -888,24 +657,18 @@ const treesRef = ref(db, "trees");
 
     if (!name) {
       alert("Daraxt nomini tanlang yoki qo‘lda kiriting.");
-      if ($("nameSelect").value === "__custom__") $("name").focus();
-      else $("nameSelect").focus();
+      if ($("nameSelect").value === "__custom__") $("name").focus(); else $("nameSelect").focus();
       return;
     }
     if (ageText !== "" && (!Number.isFinite(age) || age < 0 || age > 10000)) {
-      alert("Daraxt yoshini to‘g‘ri kiriting.");
-      return;
+      alert("Daraxt yoshini to‘g‘ri kiriting."); return;
     }
 
     const existing = trees.find(tree => tree.id === editingId);
     const isEdit = Boolean(editingId);
 
     const record = {
-      id: editingId || (
-        window.crypto && crypto.randomUUID
-          ? crypto.randomUUID()
-          : String(Date.now()) + Math.random().toString(16).slice(2)
-      ),
+      id: editingId || (window.crypto && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2)),
       name, age, status, extra,
       lat: selectedPoint ? selectedPoint.lat : (existing?.lat ?? null),
       lng: selectedPoint ? selectedPoint.lng : (existing?.lng ?? null),
@@ -913,40 +676,23 @@ const treesRef = ref(db, "trees");
       updatedAt: new Date().toISOString()
     };
 
-    if (isEdit) {
-      trees = trees.map(tree => tree.id === editingId ? record : tree);
-    } else {
-      trees.unshift(record);
-    }
+    if (isEdit) trees = trees.map(tree => tree.id === editingId ? record : tree);
+    else trees.unshift(record);
 
     if (!saveStorage()) return;
     fbSaveTree(record);
+    render(); clearForm();
 
-    render();
-    clearForm();
-
-    if (record.lat !== null && record.lng !== null) {
-      setPoint(record.lat, record.lng);
-    } else {
-      selectedPoint = null;
-      if (selectedMarker) map.removeLayer(selectedMarker);
-      selectedMarker = null;
-      updateCoords();
-    }
+    if (record.lat !== null && record.lng !== null) setPoint(record.lat, record.lng);
+    else { selectedPoint = null; if (selectedMarker) map.removeLayer(selectedMarker); selectedMarker = null; updateCoords(); }
   });
 
-  /* ================== RENDER ================== */
   function renderMarkers() {
-    Object.values(markers).forEach(marker => map.removeLayer(marker));
-    markers = {};
+    Object.values(markers).forEach(marker => map.removeLayer(marker)); markers = {};
     trees.forEach(tree => {
       if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) {
         const marker = L.marker([tree.lat, tree.lng]).addTo(map);
-        marker.bindPopup(
-          "<b>" + escapeHTML(tree.name) + "</b><br>" +
-          "Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") +
-          "<br>Holati: " + escapeHTML(tree.status)
-        );
+        marker.bindPopup("<b>" + escapeHTML(tree.name) + "</b><br>Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") + "<br>Holati: " + escapeHTML(tree.status));
         markers[tree.id] = marker;
       }
     });
@@ -955,16 +701,11 @@ const treesRef = ref(db, "trees");
   function render() {
     $("total").textContent = trees.length;
     $("healthy").textContent = trees.filter(t => t.status === "Sog‘lom").length;
-    $("located").textContent = trees.filter(t =>
-      Number.isFinite(t.lat) && Number.isFinite(t.lng)).length;
-
+    $("located").textContent = trees.filter(t => Number.isFinite(t.lat) && Number.isFinite(t.lng)).length;
     renderMarkers();
 
     const query = $("search").value.trim().toLocaleLowerCase("uz");
-    const filtered = trees.filter(tree =>
-      [tree.name, tree.status, tree.extra, tree.age]
-        .some(v => String(v ?? "").toLocaleLowerCase("uz").includes(query)));
-
+    const filtered = trees.filter(tree => [tree.name, tree.status, tree.extra, tree.age].some(v => String(v ?? "").toLocaleLowerCase("uz").includes(query)));
     const list = $("treeList");
 
     if (!filtered.length) {
@@ -985,9 +726,7 @@ const treesRef = ref(db, "trees");
             ${escapeHTML(tree.status)}
           </span>
           ${tree.extra ? `<p><i class="ph ph-note-pencil"></i> ${escapeHTML(tree.extra)}</p>` : ""}
-          <p><i class="ph ph-map-pin"></i> ${Number.isFinite(tree.lat) && Number.isFinite(tree.lng)
-            ? tree.lat.toFixed(5) + ", " + tree.lng.toFixed(5)
-            : "Joy belgilanmagan"}</p>
+          <p><i class="ph ph-map-pin"></i> ${Number.isFinite(tree.lat) && Number.isFinite(tree.lng) ? tree.lat.toFixed(5) + ", " + tree.lng.toFixed(5) : "Joy belgilanmagan"}</p>
         </div>
         <div class="item-actions">
           <button class="secondary small-btn" data-action="map" data-id="${escapeHTML(tree.id)}"><i class="ph ph-map-trifold"></i> Xarita</button>
@@ -1001,35 +740,21 @@ const treesRef = ref(db, "trees");
   $("treeList").addEventListener("click", event => {
     const button = event.target.closest("button[data-action]");
     if (!button) return;
-
     const tree = trees.find(item => item.id === button.dataset.id);
     if (!tree) return;
-
     const action = button.dataset.action;
 
     if (action === "map") {
-      if (!Number.isFinite(tree.lat) || !Number.isFinite(tree.lng)) {
-        alert("Bu daraxt uchun joylashuv belgilanmagan."); return;
-      }
-      map.setView([tree.lat, tree.lng], 18);
-      if (markers[tree.id]) markers[tree.id].openPopup();
+      if (!Number.isFinite(tree.lat) || !Number.isFinite(tree.lng)) { alert("Bu daraxt uchun joylashuv belgilanmagan."); return; }
+      map.setView([tree.lat, tree.lng], 18); if (markers[tree.id]) markers[tree.id].openPopup();
       return;
     }
 
     if (action === "edit") {
-      editingId = tree.id;
-      setNameField(tree.name);
-      $("age").value = tree.age;
-      $("status").value = tree.status;
-      $("extra").value = tree.extra || "";
-
-      if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) {
-        setPoint(tree.lat, tree.lng);
-      } else {
-        selectedPoint = null;
-        updateCoords();
-      }
-
+      editingId = tree.id; setNameField(tree.name);
+      $("age").value = tree.age; $("status").value = tree.status; $("extra").value = tree.extra || "";
+      if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) setPoint(tree.lat, tree.lng);
+      else { selectedPoint = null; updateCoords(); }
       $("formTitle").innerHTML = '<i class="ph ph-pencil-simple"></i> Tahrirlash';
       $("saveBtn").innerHTML = '<i class="ph ph-check-circle"></i> O‘zgarishlarni saqlash';
       $("cancelEditBtn").style.display = "flex";
@@ -1041,44 +766,31 @@ const treesRef = ref(db, "trees");
       if (!confirm('"' + tree.name + '" daraxtini o‘chirmoqchimisiz?')) return;
       trees = trees.filter(item => item.id !== tree.id);
       if (editingId === tree.id) clearForm();
-      if (!saveStorage()) return;
-      fbDeleteTree(tree.id);
-      render();
+      if (!saveStorage()) return; fbDeleteTree(tree.id); render();
     }
   });
 
   $("search").addEventListener("input", render);
 
-  /* ================== CSV EKSPORT ================== */
   $("exportBtn").addEventListener("click", () => {
     if (!trees.length) { alert("Eksport qilish uchun avval daraxt qo‘shing."); return; }
     const headers = ["Tartib raqami","Daraxt nomi","Yoshi (yil)","Holati","Izoh","Kenglik","Uzunlik","Kiritilgan sana"];
     function csvCell(value) {
-      let text = String(value ?? "");
-      if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
+      let text = String(value ?? ""); if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
       return '"' + text.replace(/"/g, '""') + '"';
     }
-    const rows = trees.map((tree, index) => [
-      index + 1, tree.name, tree.age === "" ? "" : tree.age, tree.status,
-      tree.extra || "",
-      Number.isFinite(tree.lat) ? tree.lat : "",
-      Number.isFinite(tree.lng) ? tree.lng : "",
-      tree.createdAt ? new Date(tree.createdAt).toLocaleString("uz-UZ") : ""
-    ]);
+    const rows = trees.map((tree, index) => [index + 1, tree.name, tree.age === "" ? "" : tree.age, tree.status, tree.extra || "", Number.isFinite(tree.lat) ? tree.lat : "", Number.isFinite(tree.lng) ? tree.lng : "", tree.createdAt ? new Date(tree.createdAt).toLocaleString("uz-UZ") : ""]);
     const csv = "\uFEFF" + [headers, ...rows].map(row => row.map(csvCell).join(";")).join("\r\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob); const link = document.createElement("a");
     link.href = url; link.download = "daraxtlar_royxati.csv";
     document.body.appendChild(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
 
-  /* ================== JSON ZAXIRA ================== */
   $("backupBtn").addEventListener("click", () => {
     const blob = new Blob([JSON.stringify(trees, null, 2)], { type: "application/json;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob); const link = document.createElement("a");
     link.href = url; link.download = "daraxtlar_zaxira.json";
     document.body.appendChild(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -1087,57 +799,41 @@ const treesRef = ref(db, "trees");
   $("importBtn").addEventListener("click", () => $("importFile").click());
 
   $("importFile").addEventListener("change", async event => {
-    const file = event.target.files[0];
-    if (!file) return;
+    const file = event.target.files[0]; if (!file) return;
     try {
       const imported = JSON.parse(await file.text());
       if (!Array.isArray(imported)) throw new Error("Format noto‘g‘ri");
       const valid = imported.every(tree => tree && typeof tree.name === "string" && typeof tree.status === "string" && tree.id !== undefined);
       if (!valid) throw new Error("Daraxt ma’lumotlari noto‘g‘ri");
       if (!confirm("Zaxira nusxasidagi ma’lumotlar joriy ro‘yxat o‘rniga yuklansinmi?")) { event.target.value = ""; return; }
-      trees = imported;
-      if (!saveStorage()) return;
-      fbReplaceAll(trees);
-      clearForm();
-      render();
+      trees = imported; if (!saveStorage()) return; fbReplaceAll(trees); clearForm(); render();
       alert("Zaxira nusxasi yuklandi!");
-    } catch (error) {
-      alert("Faylni o‘qib bo‘lmadi. To‘g‘ri JSON zaxira faylini tanlang.");
-    }
+    } catch (error) { alert("Faylni o‘qib bo‘lmadi."); }
     event.target.value = "";
   });
 
-  /* ================== BOSHLANG'ICH ================== */
-  render();
-  updateCoords();
+  render(); updateCoords();
 
-  /* ================== FIREBASE REAL-TIME ================== */
   onValue(treesRef, snapshot => {
     const val = snapshot.val();
     const remoteTrees = val ? Object.values(val) : [];
-
     if (firstFirebaseLoad) {
       firstFirebaseLoad = false;
-      const remoteIds = new Set(remoteTrees.map(t => t.id));
+      const remoteIds = new Set(remoteTree => remoteTree.id);
       const localOnly = trees.filter(t => !remoteIds.has(t.id));
       if (localOnly.length > 0) {
-        const updates = {};
-        localOnly.forEach(t => { updates[t.id] = t; });
+        const updates = {}; localOnly.forEach(t => { updates[t.id] = t; });
         fbUpdate(treesRef, updates).catch(err => console.error("Firebase merge:", err));
         return;
       }
     }
-
-    trees = remoteTrees;
-    saveStorage();
-    render();
+    trees = remoteTrees; saveStorage(); render();
   }, error => {
     console.error("Firebase read error:", error);
-    console.warn("⚠️ Firebase bilan aloqa yo‘q. Ma’lumotlar faqat qurilmada saqlanadi.");
+    console.warn("⚠️ Firebase bilan aloqa yo‘q.");
   });
 
 })();
 </script>
-
 </body>
 </html>
