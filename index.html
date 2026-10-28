@@ -44,98 +44,21 @@ body {
   border-radius: 20px;
 }
 
-#loginScreen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-.login-box {
-  width: 100%;
-  max-width: 420px;
-  padding: 40px 30px;
-  text-align: center;
-}
-.login-box .logo {
-  width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 20px;
-  background: #ffffff; display: grid; place-items: center; padding: 6px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-.login-box .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 14px; }
-.login-box h2 { font-size: 24px; margin-bottom: 8px; }
-.login-box p { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
-
-.input-wrap { position: relative; margin-bottom: 15px; }
-.input-wrap input {
-  width: 100%; padding: 14px 16px; padding-right: 45px;
-  border: 1px solid var(--glass-border); border-radius: 12px;
-  background: rgba(0, 0, 0, 0.2); font-size: 15px;
-  font-family: inherit; color: white; outline: none; transition: all 0.2s;
-}
-.input-wrap input:focus { border-color: var(--primary); background: rgba(0, 0, 0, 0.4); box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2); }
-.eye-btn {
-  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  background: none; border: none; color: var(--text-muted);
-  font-size: 20px; cursor: pointer; padding: 4px;
-}
-.eye-btn:hover { color: white; }
-
-#authSubmitBtn { width: 100%; padding: 14px; font-size: 16px; margin-bottom: 15px; }
-
-/* DIQQAT: Debug panel (xato bo'lsa chiqadi) */
-.login-debug {
-  background: rgba(30, 41, 59, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 12px;
-  color: #cbd5e1;
-  text-align: left;
-  font-family: 'Courier New', monospace;
-  margin-top: 15px;
-  display: none;
-  max-height: 200px;
-  overflow-y: auto;
-  line-height: 1.6;
-}
-.login-debug.show { display: block; }
-.login-debug .ok { color: #4ade80; }
-.login-debug .err { color: #f87171; }
-.login-debug .warn { color: #fbbf24; }
-.login-debug .info { color: #60a5fa; }
-
-.login-error {
-  background: rgba(239, 68, 68, 0.2);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #fca5a5; padding: 12px; border-radius: 10px;
-  font-size: 13px; margin-bottom: 15px; display: none;
-  text-align: left; line-height: 1.5;
-}
-
-/* ASOSIY ILOVA */
-#appContainer { display: none; }
 header { padding: 20px 16px; margin-bottom: 20px; }
 .header-inner {
   max-width: 1100px; margin: auto; display: flex; align-items: center;
   gap: 15px; padding: 15px 20px; border-radius: 24px;
 }
 .logo {
-  width: 54px; height: 54px; border-radius: 14px; background: #ffffff;
-  display: grid; place-items: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 54px; height: 54px; border-radius: 14px;
+  background: #ffffff;
+  display: grid; place-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   padding: 4px; flex-shrink: 0; overflow: hidden;
 }
 .logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
 header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
-
-.user-info { margin-left: auto; display: flex; align-items: center; gap: 15px; }
-.user-email { font-size: 13px; color: var(--text-muted); }
-.logout-btn {
-  background: rgba(239, 68, 68, 0.2); color: #fca5a5;
-  border: 1px solid rgba(239, 68, 68, 0.3); padding: 10px 14px; font-size: 13px;
-}
-.logout-btn:hover { background: rgba(239, 68, 68, 0.4); color: white; }
 
 .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
@@ -156,10 +79,16 @@ header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .leaflet-bar a { background: rgba(0,0,0,0.7) !important; color: white !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; backdrop-filter: blur(4px); }
 .leaflet-bar a:hover { background: rgba(0,0,0,0.9) !important; }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: rgba(20, 30, 25, 0.9) !important; backdrop-filter: blur(8px); border: 1px solid var(--glass-border); color: white !important; }
-.leaflet-control-geocoder { background: rgba(0, 0, 0, 0.7) !important; backdrop-filter: blur(8px); border: 1px solid var(--glass-border) !important; border-radius: 12px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important; }
+
+.leaflet-control-geocoder {
+  background: rgba(0, 0, 0, 0.7) !important; backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border) !important; border-radius: 12px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+}
 .leaflet-control-geocoder-form input { color: white !important; background: transparent !important; font-family: 'Inter', sans-serif; }
 .leaflet-control-geocoder-icon { filter: invert(1); }
-.leaflet-control-geocoder-alternatives { background: rgba(10, 20, 15, 0.95) !important; backdrop-filter: blur(10px); border-radius: 8px; color: white; border: 1px solid var(--glass-border); }
+.leaflet-control-geocoder-alternatives {
+  background: rgba(10, 20, 15, 0.95) !important; backdrop-filter: blur(10px); border-radius: 8px; color: white; border: 1px solid var(--glass-border);
+}
 .leaflet-control-geocoder-alternatives li a { color: #ccc !important; }
 .leaflet-control-geocoder-alternatives li a:hover { background: var(--primary) !important; color: white !important; }
 
@@ -186,19 +115,34 @@ input:focus, select:focus { border-color: var(--primary); background: rgba(0, 0,
 select option { background: #064e3b; color: white; }
 .field { margin-bottom: 16px; }
 .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.coords { background: rgba(16, 185, 129, 0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2); color: #a7f3d0; font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+.coords {
+  background: rgba(16, 185, 129, 0.1); padding: 14px; border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.2); color: #a7f3d0;
+  font-size: 13px; line-height: 1.6; margin-bottom: 16px;
+}
 .full { width: 100%; }
 .name-row { display: flex; gap: 10px; align-items: stretch; }
 .name-row select { flex: 1; }
 .add-name-btn { min-width: 50px; padding: 0; font-size: 24px; }
-.note { margin-top: 20px; color: var(--text-muted); font-size: 12px; line-height: 1.6; background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 10px; }
+.note {
+  margin-top: 20px; color: var(--text-muted); font-size: 12px; line-height: 1.6;
+  background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 10px;
+}
 .list-panel { margin-top: 20px; }
 .list-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; }
 .search { max-width: 320px; }
 .tree-list { display: grid; gap: 14px; }
-.tree-item { padding: 18px; border-radius: 16px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; transition: all 0.2s ease; }
+.tree-item {
+  padding: 18px; border-radius: 16px; background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border); display: flex; gap: 16px;
+  align-items: flex-start; justify-content: space-between; transition: all 0.2s ease;
+}
 .tree-item:hover { background: rgba(255, 255, 255, 0.06); transform: translateX(4px); }
-.tree-icon { background: rgba(16, 185, 129, 0.15); color: var(--primary); border-radius: 12px; width: 48px; height: 48px; display: grid; place-items: center; font-size: 24px; flex-shrink: 0; }
+.tree-icon {
+  background: rgba(16, 185, 129, 0.15); color: var(--primary);
+  border-radius: 12px; width: 48px; height: 48px; display: grid;
+  place-items: center; font-size: 24px; flex-shrink: 0;
+}
 .tree-info { flex: 1; min-width: 0; }
 .tree-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: white; }
 .tree-info p { color: var(--text-muted); font-size: 13px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; overflow-wrap: anywhere; }
@@ -208,15 +152,39 @@ select option { background: #064e3b; color: white; }
 .bad { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
 .item-actions { display: flex; flex-direction: column; gap: 8px; }
 .small-btn { padding: 8px 12px; font-size: 13px; border-radius: 10px; }
-.empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 14px; line-height: 1.8; background: rgba(255, 255, 255, 0.02); border-radius: 16px; border: 1px dashed var(--glass-border); }
+.empty {
+  text-align: center; padding: 40px 20px; color: var(--text-muted);
+  font-size: 14px; line-height: 1.8; background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px; border: 1px dashed var(--glass-border);
+}
 footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .my-location-marker { background: transparent; border: none; }
-.my-location-dot { width: 20px; height: 20px; background: #3b82f6; border: 3px solid #ffffff; border-radius: 50%; animation: pulse-loc 2s infinite; }
-@keyframes pulse-loc { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
-.locate-map-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; background: rgba(0, 0, 0, 0.7); text-decoration: none; cursor: pointer; transition: all 0.2s; }
+.my-location-dot {
+  width: 20px; height: 20px; background: #3b82f6; border: 3px solid #ffffff;
+  border-radius: 50%; box-shadow: 0 0 0 rgba(59, 130, 246, 0.6);
+  animation: pulse-loc 2s infinite;
+}
+@keyframes pulse-loc {
+  0%   { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+  70%  { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+.locate-map-btn {
+  width: 36px; height: 36px; display: flex; align-items: center;
+  justify-content: center; font-size: 22px; color: white;
+  background: rgba(0, 0, 0, 0.7); text-decoration: none;
+  cursor: pointer; transition: all 0.2s;
+}
 .locate-map-btn:hover { background: rgba(0,0,0,0.9); }
 .locate-map-btn.active { color: #3b82f6; }
-.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(16, 185, 129, 0.9); color: white; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 500; box-shadow: 0 4px 12px rgba(0,0,0,0.3); backdrop-filter: blur(8px); z-index: 10000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: rgba(16, 185, 129, 0.9); color: white; padding: 12px 24px;
+  border-radius: 30px; font-size: 14px; font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); backdrop-filter: blur(8px);
+  z-index: 10000; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
 .toast.show { opacity: 1; }
 
 @media (max-width: 768px) {
@@ -231,41 +199,12 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
   .tree-item { flex-direction: column; }
   .item-actions { flex-direction: row; width: 100%; }
   .item-actions button { flex: 1; }
-  .user-info { margin-left: 0; width: 100%; justify-content: space-between; margin-top: 10px; }
 }
 </style>
 </head>
 <body>
 
-<div id="loginScreen">
-  <div class="login-box glass">
-    <div class="logo">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/OKMK_logo.png/240px-OKMK_logo.png" 
-           alt="OKMK" 
-           onerror="this.outerHTML='<div style=\'color: #064e3b; font-weight: 900; font-size: 20px; font-family: Arial;\'>OKMK</div>'">
-    </div>
-    <h2>Tizimga kirish</h2>
-    <p>Faqat ruxsat berilgan xodimlar uchun</p>
-
-    <div class="login-error" id="loginError"></div>
-    
-    <div class="login-debug" id="loginDebug"></div>
-
-    <div class="input-wrap">
-      <input type="email" id="authEmail" placeholder="Email manzilingiz" autocomplete="email">
-    </div>
-    
-    <div class="input-wrap">
-      <input type="password" id="authPassword" placeholder="Parolingiz" autocomplete="current-password">
-      <button type="button" class="eye-btn" id="togglePassword" title="Parolni ko'rish">
-        <i class="ph ph-eye"></i>
-      </button>
-    </div>
-
-    <button class="primary" id="authSubmitBtn" type="button">Kirish</button>
-  </div>
-</div>
-
+<!-- ================== ASOSIY ILOVA ================== -->
 <div id="appContainer">
   <header>
     <div class="header-inner glass">
@@ -278,37 +217,46 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
         <h1>Chodak Kon boshqarmasi</h1>
         <p>Daraxtlarni raqamlashtirish va monitoring qilish tizimi</p>
       </div>
-      <div class="user-info">
-        <span class="user-email" id="userEmailDisplay"></span>
-        <button class="logout-btn" id="logoutBtn" type="button">
-          <i class="ph ph-sign-out"></i> Chiqish
-        </button>
-      </div>
     </div>
   </header>
 
   <main class="container">
     <section class="stats">
-      <div class="stat glass"><div class="stat-header"><span>Jami daraxtlar</span><i class="ph ph-tree"></i></div><strong id="total">0</strong></div>
-      <div class="stat glass"><div class="stat-header"><span>Sog'lom daraxtlar</span><i class="ph ph-heart-straight"></i></div><strong id="healthy">0</strong></div>
-      <div class="stat glass"><div class="stat-header"><span>Belgilangan joylar</span><i class="ph ph-map-pin"></i></div><strong id="located">0</strong></div>
+      <div class="stat glass">
+        <div class="stat-header"><span>Jami daraxtlar</span><i class="ph ph-tree"></i></div>
+        <strong id="total">0</strong>
+      </div>
+      <div class="stat glass">
+        <div class="stat-header"><span>Sog'lom daraxtlar</span><i class="ph ph-heart-straight"></i></div>
+        <strong id="healthy">0</strong>
+      </div>
+      <div class="stat glass">
+        <div class="stat-header"><span>Belgilangan joylar</span><i class="ph ph-map-pin"></i></div>
+        <strong id="located">0</strong>
+      </div>
     </section>
 
     <div class="layout">
       <section class="panel glass">
         <h2><i class="ph ph-map-trifold"></i> Xarita</h2>
-        <p class="subtitle">Xaritadagi kerakli nuqtani bosing yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
+        <p class="subtitle">Xaritadagi kerakli nuqtani bosing, qidiruv orqali shaharni toping yoki pastdagi tugma orqali joylashuvingizni aniqlang.</p>
         <div id="map"></div>
         <div class="map-actions">
-          <button class="primary" id="locateBtn" type="button"><i class="ph ph-crosshair"></i> Mening joylashuvim</button>
-          <button class="secondary" id="resetPointBtn" type="button"><i class="ph ph-x-circle"></i> Nuqtani bekor qilish</button>
+          <button class="primary" id="locateBtn" type="button">
+            <i class="ph ph-crosshair"></i> Mening joylashuvim
+          </button>
+          <button class="secondary" id="resetPointBtn" type="button">
+            <i class="ph ph-x-circle"></i> Nuqtani bekor qilish
+          </button>
         </div>
-        <p class="note"><i class="ph ph-info"></i> Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin.</p>
+        <p class="note">
+          <i class="ph ph-info"></i> Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin.
+        </p>
       </section>
 
       <section class="panel glass" id="formPanel">
         <h2 id="formTitle"><i class="ph ph-plant"></i> Daraxt qo'shish</h2>
-        <p class="subtitle">Faqat kerakli ma'lumotlarni kiriting.</p>
+        <p class="subtitle">Faqat kerakli ma'lumotlarni kiriting. Maydonlarni to'ldirish oson.</p>
         <form id="treeForm">
           <div class="field">
             <label for="nameSelect">Daraxt nomi yoki turi *</label>
@@ -336,7 +284,9 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
                 <option value="Akatsiya">Akatsiya</option>
                 <option value="__custom__">➕ Boshqa (qo'lda kiritish)</option>
               </select>
-              <button type="button" id="addNameBtn" class="primary add-name-btn"><i class="ph ph-plus"></i></button>
+              <button type="button" id="addNameBtn" class="primary add-name-btn" title="Qo'lda daraxt nomi kiritish">
+                <i class="ph ph-plus"></i>
+              </button>
             </div>
             <input id="name" style="display:none; margin-top:12px;" maxlength="100" placeholder="Daraxt nomini kiriting...">
           </div>
@@ -359,10 +309,17 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
             <label for="extra">Izoh (ixtiyoriy)</label>
             <input id="extra" maxlength="250" placeholder="Masalan: barglari sarg'aygan">
           </div>
-          <div class="coords" id="coords"><i class="ph ph-map-pin-line"></i> Hali joy tanlanmagan. Xaritani bosing.</div>
-          <button class="primary full" type="submit" id="saveBtn"><i class="ph ph-check-circle"></i> Daraxtni saqlash</button>
-          <button class="secondary full" type="button" id="cancelEditBtn" style="display:none; margin-top:12px"><i class="ph ph-x"></i> Tahrirlashni bekor qilish</button>
+          <div class="coords" id="coords">
+            <i class="ph ph-map-pin-line"></i> Hali joy tanlanmagan. Xaritani bosing.
+          </div>
+          <button class="primary full" type="submit" id="saveBtn">
+            <i class="ph ph-check-circle"></i> Daraxtni saqlash
+          </button>
+          <button class="secondary full" type="button" id="cancelEditBtn" style="display:none; margin-top:12px">
+            <i class="ph ph-x"></i> Tahrirlashni bekor qilish
+          </button>
         </form>
+        <p class="note"><i class="ph ph-cloud-check"></i> Yozuvlar brauzerda va Firebase serverida avtomatik saqlanadi.</p>
       </section>
     </div>
 
@@ -390,237 +347,38 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
 
 <script type="module">
-// ================== DIAGNOSTIKA PANELI ==================
-const debugEl = document.getElementById("loginDebug");
-const debugLog = [];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+import { getDatabase, ref, set as fbSet, remove as fbRemove, update as fbUpdate, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-function dbg(msg, type = "info") {
-  const time = new Date().toLocaleTimeString();
-  const line = `[${time}] ${msg}`;
-  console.log(`[DEBUG ${type.toUpperCase()}]`, msg);
-  debugLog.push({ line, type });
-  if (debugEl) {
-    debugEl.classList.add("show");
-    debugEl.innerHTML = debugLog.map(d => `<div class="${d.type}">${d.line}</div>`).join("");
-    debugEl.scrollTop = debugEl.scrollHeight;
-  }
-}
+const firebaseConfig = {
+  apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
+  authDomain: "uzbektelegrami.firebaseapp.com",
+  databaseURL: "https://uzbektelegrami-default-rtdb.firebaseio.com",
+  projectId: "uzbektelegrami",
+  storageBucket: "uzbektelegrami.firebasestorage.app",
+  messagingSenderId: "13650278375",
+  appId: "1:13650278375:web:b4b3e06021399c41dc6f42",
+  measurementId: "G-80MM024Q4W"
+};
 
-// Global xato ushlagich
-window.addEventListener("error", (e) => {
-  dbg("XATO: " + e.message, "err");
-});
-window.addEventListener("unhandledrejection", (e) => {
-  dbg("Promise xatosi: " + (e.reason?.message || e.reason), "err");
-});
+const firebaseApp = initializeApp(firebaseConfig);
+try { getAnalytics(firebaseApp); } catch (e) { console.warn("Analytics:", e); }
+const db = getDatabase(firebaseApp);
+const treesRef = ref(db, "trees");
 
-dbg("Modul yuklanmoqda...", "info");
+(() => {
+  "use strict";
+  const STORAGE_KEY = "daraxtlar_xaritasi_v1";
+  const $ = id => document.getElementById(id);
 
-let firebaseApp, db, auth, treesRef;
-let fbSet, fbRemove, fbUpdate, onValue;
-let signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence;
+  let trees = [];
+  let selectedPoint = null;
+  let editingId = null;
+  let markers = {};
+  let selectedMarker = null;
+  let firstFirebaseLoad = true;
 
-try {
-  dbg("Firebase SDK yuklanmoqda...", "info");
-  
-  const appMod = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
-  const analyticsMod = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js");
-  const dbMod = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js");
-  const authMod = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
-  
-  dbg("Firebase SDK yuklandi ✅", "ok");
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBy-fGIhPFuhTumfwTqKCtO10_kJaB-ef0",
-    authDomain: "uzbektelegrami.firebaseapp.com",
-    databaseURL: "https://uzbektelegrami-default-rtdb.firebaseio.com",
-    projectId: "uzbektelegrami",
-    storageBucket: "uzbektelegrami.firebasestorage.app",
-    messagingSenderId: "13650278375",
-    appId: "1:13650278375:web:b4b3e06021399c41dc6f42",
-    measurementId: "G-80MM024Q4W"
-  };
-
-  firebaseApp = appMod.initializeApp(firebaseConfig);
-  dbg("Firebase App ishga tushdi ✅", "ok");
-  
-  try { analyticsMod.getAnalytics(firebaseApp); } catch (e) { dbg("Analytics xato: " + e.message, "warn"); }
-  
-  db = dbMod.getDatabase(firebaseApp);
-  auth = authMod.getAuth(firebaseApp);
-  treesRef = dbMod.ref(db, "trees");
-  
-  fbSet = dbMod.set;
-  fbRemove = dbMod.remove;
-  fbUpdate = dbMod.update;
-  onValue = dbMod.onValue;
-  
-  signInWithEmailAndPassword = authMod.signInWithEmailAndPassword;
-  signOut = authMod.signOut;
-  onAuthStateChanged = authMod.onAuthStateChanged;
-  setPersistence = authMod.setPersistence;
-  browserLocalPersistence = authMod.browserLocalPersistence;
-  
-  dbg("Firebase Database va Auth tayyor ✅", "ok");
-
-  // Persistence
-  try {
-    await setPersistence(auth, browserLocalPersistence);
-    dbg("Eslab qolish rejimi yoqildi ✅", "ok");
-  } catch (e) {
-    dbg("Persistence xatosi: " + e.message, "warn");
-  }
-
-} catch (err) {
-  dbg("Firebase yuklashda XATO: " + err.message, "err");
-  throw err;
-}
-
-// ================== UI LOGIKA ==================
-const $ = id => document.getElementById(id);
-const loginScreen = $("loginScreen");
-const appContainer = $("appContainer");
-const authSubmitBtn = $("authSubmitBtn");
-const loginError = $("loginError");
-
-let mapInitialized = false;
-let trees = [];
-let selectedPoint = null;
-let editingId = null;
-let markers = {};
-let selectedMarker = null;
-let firstFirebaseLoad = true;
-let map;
-
-function showLoginError(msg) {
-  loginError.textContent = "❌ " + msg;
-  loginError.style.display = "block";
-}
-function hideLoginError() {
-  loginError.style.display = "none";
-}
-
-function getAuthErrorMessage(code) {
-  const messages = {
-    'auth/invalid-email': "Email manzili noto'g'ri.",
-    'auth/user-disabled': "Bu foydalanuvchi bloklangan.",
-    'auth/user-not-found': "Bunday foydalanuvchi topilmadi. Firebase Console da foydalanuvchi yaratilganini tekshiring.",
-    'auth/wrong-password': "Parol noto'g'ri.",
-    'auth/invalid-credential': "Email yoki parol noto'g'ri. Ikkalasini ham qayta tekshiring.",
-    'auth/too-many-requests': "Juda ko'p xato urinish. 5-10 daqiqa kuting.",
-    'auth/network-request-failed': "Internet aloqasi yo'q yoki Firebase bloklangan. VPN/Internetni tekshiring.",
-    'auth/operation-not-allowed': "⚠️ FIREBASE CONSOL: Email/Parol usuli YOQILMAGAN! Quyidagi ko'rsatmani bajaring.",
-    'auth/unauthorized-domain': "⚠️ Bu domen (sayt) Firebase'da ruxsat berilmagan! Console'da qo'shishingiz kerak.",
-    'auth/invalid-api-key': "API kaliti xato.",
-    'auth/internal-error': "Ichki xatolik. Sahifani yangilang."
-  };
-  return messages[code] || ("Xatolik: " + code);
-}
-
-// Parolni ko'rish
-$("togglePassword").addEventListener("click", () => {
-  const passInput = $("authPassword");
-  const icon = $("togglePassword").querySelector("i");
-  if (passInput.type === "password") {
-    passInput.type = "text";
-    icon.className = "ph ph-eye-slash";
-  } else {
-    passInput.type = "password";
-    icon.className = "ph ph-eye";
-  }
-});
-
-// Enter bilan kirish
-function handleEnter(e) {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    authSubmitBtn.click();
-  }
-}
-$("authEmail").addEventListener("keypress", handleEnter);
-$("authPassword").addEventListener("keypress", handleEnter);
-
-// LOGIN
-authSubmitBtn.addEventListener("click", async () => {
-  dbg("Kirish tugmasi bosildi", "info");
-  
-  const email = $("authEmail").value.trim();
-  const password = $("authPassword").value;
-
-  dbg("Email: " + (email || "(bo'sh)"), "info");
-  dbg("Parol uzunligi: " + password.length, "info");
-
-  if (!email || !password) {
-    dbg("Email yoki parol bo'sh!", "err");
-    showLoginError("Iltimos, email va parolni kiriting.");
-    return;
-  }
-
-  hideLoginError();
-  authSubmitBtn.disabled = true;
-  authSubmitBtn.innerHTML = '<i class="ph ph-spinner-gap"></i> Tekshirilmoqda...';
-  dbg("Firebase'ga so'rov yuborilmoqda...", "info");
-
-  try {
-    const userCred = await signInWithEmailAndPassword(auth, email, password);
-    dbg("✅ KIRISH MUVAFFAQIYATLI! UID: " + userCred.user.uid, "ok");
-    dbg("Email: " + userCred.user.email, "ok");
-    // onAuthStateChanged avtomatik ishlaydi
-  } catch (error) {
-    dbg("❌ Xato code: " + error.code, "err");
-    dbg("❌ Xato message: " + error.message, "err");
-    showLoginError(getAuthErrorMessage(error.code));
-  } finally {
-    authSubmitBtn.disabled = false;
-    authSubmitBtn.textContent = "Kirish";
-  }
-});
-
-// AUTH STATE
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    dbg("onAuthStateChanged: Foydalanuvchi kirdi ✅", "ok");
-    loginScreen.style.display = "none";
-    appContainer.style.display = "block";
-    $("userEmailDisplay").textContent = user.email;
-
-    if (!mapInitialized) {
-      mapInitialized = true;
-      dbg("Ilova UI ishga tushirilmoqda...", "info");
-      setTimeout(() => {
-        try {
-          initializeAppUI();
-          dbg("Ilova UI ishga tushdi ✅", "ok");
-        } catch (err) {
-          dbg("UI ishga tushirishda xato: " + err.message, "err");
-        }
-      }, 150);
-    }
-  } else {
-    dbg("onAuthStateChanged: Foydalanuvchi YO'Q (chiqilgan)", "info");
-    loginScreen.style.display = "flex";
-    appContainer.style.display = "none";
-    trees = [];
-    if (selectedMarker && map) { map.removeLayer(selectedMarker); selectedMarker = null; }
-    selectedPoint = null;
-    Object.values(markers).forEach(m => { if (map) map.removeLayer(m); });
-    markers = {};
-    firstFirebaseLoad = true;
-    hideLoginError();
-  }
-});
-
-// LOGOUT
-$("logoutBtn").addEventListener("click", async () => {
-  if (confirm("Tizimdan chiqmoqchimisiz?")) {
-    dbg("Chiqish...", "info");
-    await signOut(auth);
-    $("authPassword").value = "";
-  }
-});
-
-// ================== ASOSIY UI ==================
-function initializeAppUI() {
   function formatDateTime(isoString) {
     if (!isoString) return "Noma'lum";
     const date = new Date(isoString);
@@ -633,25 +391,28 @@ function initializeAppUI() {
     return `${day}.${month}.${year} | ${hours}:${minutes}`;
   }
 
-  try {
-    map = L.map("map", { zoomControl: false, attributionControl: false }).setView([41.2995, 69.2401], 12);
-    setTimeout(() => map.invalidateSize(), 200);
-    L.control.zoom({ position: 'bottomright' }).addTo(map);
-    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxZoom: 19 }).addTo(map);
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png", { subdomains: 'abcd', maxZoom: 20 }).addTo(map);
+  // Xarita
+  const map = L.map("map", { zoomControl: false, attributionControl: false }).setView([41.2995, 69.2401], 12);
+  setTimeout(() => map.invalidateSize(), 200);
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    L.Control.geocoder({
-      defaultMarkGeocode: false,
-      placeholder: "Shahar yoki manzil qidirish...",
-      errorMessage: "Hech narsa topilmadi."
-    }).on('markgeocode', function(e) {
-      setPoint(e.geocode.center.lat, e.geocode.center.lng);
-      showToast("Manzil topildi");
-    }).addTo(map);
-  } catch (e) {
-    console.error("Xarita yuklashda xato:", e);
-    showToast("Xarita yuklanmadi: " + e.message, true);
-  }
+  L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+    maxZoom: 19
+  }).addTo(map);
+
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png", {
+    subdomains: 'abcd', maxZoom: 20
+  }).addTo(map);
+
+  L.Control.geocoder({
+    defaultMarkGeocode: false,
+    placeholder: "Shahar yoki manzil qidirish...",
+    errorMessage: "Hech narsa topilmadi."
+  }).on('markgeocode', function(e) {
+    const center = e.geocode.center;
+    setPoint(center.lat, center.lng);
+    showToast("Manzil topildi: " + e.geocode.name);
+  }).addTo(map);
 
   function showToast(message, isError = false) {
     const toast = $("toast");
@@ -661,45 +422,110 @@ function initializeAppUI() {
     setTimeout(() => toast.classList.remove("show"), 3500);
   }
 
+  async function autoLocateByIP() {
+    try {
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      if (data.latitude && data.longitude) map.setView([data.latitude, data.longitude], 12);
+    } catch (error) {}
+  }
+  autoLocateByIP();
+
   function locateMe() {
     $("locateBtn").disabled = true;
     $("locateBtn").innerHTML = '<i class="ph ph-spinner-gap"></i> Aniqlanmoqda...';
-    if (!navigator.geolocation) { showToast("GPS qo'llab-quvvatlanmaydi", true); resetLocateBtn(); return; }
+    if (!navigator.geolocation) {
+      showToast("Brauzeringiz GPS'ni qo'llab-quvvatlamaydi", true);
+      resetLocateBtn();
+      return;
+    }
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setPoint(pos.coords.latitude, pos.coords.longitude);
-        map.setView([pos.coords.latitude, pos.coords.longitude], 18);
-        showToast("Joylashuv topildi ✅");
+      (position) => {
+        setPoint(position.coords.latitude, position.coords.longitude);
+        map.setView([position.coords.latitude, position.coords.longitude], 18);
+        showToast("Aniq joylashuv topildi! ✅");
         resetLocateBtn();
       },
-      () => { showToast("GPS aniqlanmadi", true); resetLocateBtn(); },
+      (error) => {
+        showToast("GPS aniqlanmadi. Taxminiy (IP) joylashuv ishlatilmoqda.", true);
+        autoLocateByIP();
+        resetLocateBtn();
+      },
       { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
     );
   }
+
   function resetLocateBtn() {
     $("locateBtn").disabled = false;
     $("locateBtn").innerHTML = '<i class="ph ph-crosshair"></i> Mening joylashuvim';
   }
 
-  function saveStorage() {
-    try { localStorage.setItem("daraxtlar_xaritasi_v1", JSON.stringify(trees)); return true; }
-    catch { return false; }
+  let myLocationMarker = null, myLocationCircle = null, watchId = null, firstFix = true, locateMapBtnEl = null;
+
+  function startLiveLocation() {
+    if (!navigator.geolocation) return;
+    if (locateMapBtnEl) locateMapBtnEl.classList.add("active");
+    watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        const lat = position.coords.latitude, lng = position.coords.longitude, acc = position.coords.accuracy;
+        if (!myLocationMarker) {
+          myLocationMarker = L.marker([lat, lng], {
+            icon: L.divIcon({ className: "my-location-marker", html: '<div class="my-location-dot"></div>', iconSize: [24, 24], iconAnchor: [12, 12] }),
+            zIndexOffset: 1000
+          }).addTo(map).bindPopup("📍 Sizning joylashuvingiz");
+        } else myLocationMarker.setLatLng([lat, lng]);
+        if (!myLocationCircle) {
+          myLocationCircle = L.circle([lat, lng], { radius: acc, color: "#3b82f6", fillColor: "#3b82f6", fillOpacity: 0.15, weight: 1 }).addTo(map);
+        } else myLocationCircle.setLatLng([lat, lng]).setRadius(acc);
+        if (firstFix) { map.setView([lat, lng], Math.max(map.getZoom(), 17)); firstFix = false; }
+      },
+      (error) => { showToast("Jonli kuzatish uchun ruxsat kerak", true); stopLiveLocation(); },
+      { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 }
+    );
   }
 
-  function fbSaveTree(tree) { fbSet(dbMod.ref ? dbMod.ref(db, "trees/" + tree.id) : fbSet, tree).catch(err => console.error(err)); }
-  // Yo'q, to'g'riroq yozaylik:
-  // fbSaveTree:
-  const saveTreeFB = (tree) => {
-    const treeRef = window._ref(db, "trees/" + tree.id);
-    fbSet(treeRef, tree).catch(err => console.error("FB save:", err));
-  };
+  function stopLiveLocation() {
+    if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
+    if (myLocationMarker) { map.removeLayer(myLocationMarker); myLocationMarker = null; }
+    if (myLocationCircle) { map.removeLayer(myLocationCircle); myLocationCircle = null; }
+    if (locateMapBtnEl) locateMapBtnEl.classList.remove("active");
+    firstFix = true;
+  }
 
-  // Bu yo'l bilan ishlamaydi, o'rniga:
-  // (pastda to'g'ri versiya)
-  
+  function toggleLiveLocation() { if (watchId !== null) stopLiveLocation(); else startLiveLocation(); }
+
+  const LocateControl = L.Control.extend({
+    options: { position: "topright" },
+    onAdd: function () {
+      const container = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+      const btn = L.DomUtil.create("a", "locate-map-btn", container);
+      btn.href = "#"; btn.title = "Mening joylashuvim (real vaqt)";
+      btn.innerHTML = '<i class="ph ph-crosshair"></i>';
+      locateMapBtnEl = btn;
+      L.DomEvent.disableClickPropagation(container);
+      L.DomEvent.disableScrollPropagation(container);
+      L.DomEvent.on(btn, "click", e => { L.DomEvent.preventDefault(e); L.DomEvent.stopPropagation(e); toggleLiveLocation(); });
+      return container;
+    }
+  });
+  new LocateControl().addTo(map);
+
+  function saveStorage() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); return true; }
+    catch (error) { alert("Saqlash amalga oshmadi."); return false; }
+  }
+
+  function fbSaveTree(tree) { fbSet(ref(db, "trees/" + tree.id), tree).catch(err => console.error("Firebase save:", err)); }
+  function fbDeleteTree(id) { fbRemove(ref(db, "trees/" + id)).catch(err => console.error("Firebase delete:", err)); }
+  function fbReplaceAll(list) {
+    const obj = {}; list.forEach(t => { obj[t.id] = t; });
+    fbSet(treesRef, obj).catch(err => console.error("Firebase replace:", err));
+  }
+
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
   }
+
   function statusClass(status) {
     if (status === "Sog'lom") return "good";
     if (status === "O'rtacha") return "medium";
@@ -732,7 +558,7 @@ function initializeAppUI() {
   $("addNameBtn").addEventListener("click", () => { $("nameSelect").value = "__custom__"; showCustomNameInput(); });
 
   function updateCoords() {
-    if (!selectedPoint) { $("coords").innerHTML = '<i class="ph ph-map-pin-line"></i> Hali joy tanlanmagan.'; return; }
+    if (!selectedPoint) { $("coords").innerHTML = '<i class="ph ph-map-pin-line"></i> Hali joy tanlanmagan. Xaritani bosing.'; return; }
     $("coords").innerHTML = '<i class="ph ph-map-pin"></i> <b>Tanlangan joy:</b><br>Kenglik: ' + selectedPoint.lat.toFixed(6) + '<br>Uzunlik: ' + selectedPoint.lng.toFixed(6);
   }
 
@@ -757,6 +583,7 @@ function initializeAppUI() {
     $("saveBtn").innerHTML = '<i class="ph ph-check-circle"></i> Daraxtni saqlash';
     $("cancelEditBtn").style.display = "none";
   }
+
   $("cancelEditBtn").addEventListener("click", clearForm);
 
   $("treeForm").addEventListener("submit", event => {
@@ -767,8 +594,12 @@ function initializeAppUI() {
     const status = $("status").value;
     const extra = $("extra").value.trim();
 
-    if (!name) { alert("Daraxt nomini kiriting."); return; }
-    if (ageText !== "" && (!Number.isFinite(age) || age < 0 || age > 10000)) { alert("Yosh xato."); return; }
+    if (!name) {
+      alert("Daraxt nomini tanlang yoki qo'lda kiriting.");
+      if ($("nameSelect").value === "__custom__") $("name").focus(); else $("nameSelect").focus();
+      return;
+    }
+    if (ageText !== "" && (!Number.isFinite(age) || age < 0 || age > 10000)) { alert("Daraxt yoshini to'g'ri kiriting."); return; }
 
     const existing = trees.find(tree => tree.id === editingId);
     const isEdit = Boolean(editingId);
@@ -785,12 +616,8 @@ function initializeAppUI() {
     if (isEdit) trees = trees.map(tree => tree.id === editingId ? record : tree);
     else trees.unshift(record);
 
-    saveStorage();
-    
-    // Firebase'ga saqlash
-    const treeRef = window._ref(db, "trees/" + record.id);
-    fbSet(treeRef, record).catch(err => console.error("FB save:", err));
-    
+    if (!saveStorage()) return;
+    fbSaveTree(record);
     render(); clearForm();
 
     if (record.lat !== null && record.lng !== null) setPoint(record.lat, record.lng);
@@ -806,7 +633,7 @@ function initializeAppUI() {
           "<b>" + escapeHTML(tree.name) + "</b><br>" +
           "Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") + "<br>" +
           "Holati: " + escapeHTML(tree.status) + "<br>" +
-          "<span style='font-size:11px; color:#94a3b8;'><i class='ph ph-clock'></i> " + formatDateTime(tree.createdAt) + "</span>"
+          "<span style='font-size:11px; color:#94a3b8; margin-top:4px; display:block;'><i class='ph ph-clock'></i> " + formatDateTime(tree.createdAt) + "</span>"
         );
         markers[tree.id] = marker;
       }
@@ -825,8 +652,8 @@ function initializeAppUI() {
 
     if (!filtered.length) {
       list.innerHTML = trees.length
-        ? '<div class="empty">🔎 Mos daraxt topilmadi.</div>'
-        : '<div class="empty">🌱 Hozircha daraxtlar yo\'q.</div>';
+        ? '<div class="empty"><i class="ph ph-magnifying-glass"></i><br>Mos daraxt topilmadi.</div>'
+        : '<div class="empty"><i class="ph ph-plant" style="font-size:32px; margin-bottom:8px; display:inline-block;"></i><br>Hozircha daraxtlar yo\'q.<br>Xaritadan joy tanlab, birinchi daraxtni qo\'shing.</div>';
       return;
     }
 
@@ -845,8 +672,8 @@ function initializeAppUI() {
           <p style="color: #10b981; font-weight: 500; margin-top: 6px;"><i class="ph ph-clock"></i> Kiritilgan: ${formatDateTime(tree.createdAt)}</p>
         </div>
         <div class="item-actions">
-          <button class="secondary small-btn" data-action="map" data-id="${escapeHTML(tree.id)}">Xarita</button>
-          <button class="secondary small-btn" data-action="edit" data-id="${escapeHTML(tree.id)}">Tahrir</button>
+          <button class="secondary small-btn" data-action="map" data-id="${escapeHTML(tree.id)}"><i class="ph ph-map-trifold"></i> Xarita</button>
+          <button class="secondary small-btn" data-action="edit" data-id="${escapeHTML(tree.id)}"><i class="ph ph-pencil-simple"></i> Tahrir</button>
           <button class="danger small-btn" data-action="delete" data-id="${escapeHTML(tree.id)}"><i class="ph ph-trash"></i></button>
         </div>
       </article>
@@ -861,46 +688,48 @@ function initializeAppUI() {
     const action = button.dataset.action;
 
     if (action === "map") {
-      if (!Number.isFinite(tree.lat) || !Number.isFinite(tree.lng)) { alert("Joy belgilanmagan."); return; }
+      if (!Number.isFinite(tree.lat) || !Number.isFinite(tree.lng)) { alert("Bu daraxt uchun joylashuv belgilanmagan."); return; }
       map.setView([tree.lat, tree.lng], 18); if (markers[tree.id]) markers[tree.id].openPopup();
       return;
     }
+
     if (action === "edit") {
       editingId = tree.id; setNameField(tree.name);
       $("age").value = tree.age; $("status").value = tree.status; $("extra").value = tree.extra || "";
       if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) setPoint(tree.lat, tree.lng);
       else { selectedPoint = null; updateCoords(); }
-      $("formTitle").innerHTML = '✏️ Tahrirlash';
-      $("saveBtn").innerHTML = '✓ O\'zgarishlarni saqlash';
+      $("formTitle").innerHTML = '<i class="ph ph-pencil-simple"></i> Tahrirlash';
+      $("saveBtn").innerHTML = '<i class="ph ph-check-circle"></i> O\'zgarishlarni saqlash';
       $("cancelEditBtn").style.display = "flex";
       $("formPanel").scrollIntoView({ behavior: "smooth" });
       return;
     }
+
     if (action === "delete") {
-      if (!confirm('O\'chirmoqchimisiz?')) return;
+      if (!confirm('"' + tree.name + '" daraxtini o\'chirmoqchimisiz?')) return;
       trees = trees.filter(item => item.id !== tree.id);
       if (editingId === tree.id) clearForm();
-      saveStorage();
-      const treeRef = window._ref(db, "trees/" + tree.id);
-      fbRemove(treeRef).catch(err => console.error("FB delete:", err));
-      render();
+      if (!saveStorage()) return; fbDeleteTree(tree.id); render();
     }
   });
 
   $("search").addEventListener("input", render);
 
   $("exportBtn").addEventListener("click", () => {
-    if (!trees.length) { alert("Daraxt yo'q."); return; }
-    const headers = ["№","Nomi","Yoshi","Holati","Izoh","Kenglik","Uzunlik","Sana"];
+    if (!trees.length) { alert("Eksport qilish uchun avval daraxt qo'shing."); return; }
+    const headers = ["Tartib raqami", "Daraxt nomi", "Yoshi (yil)", "Holati", "Izoh", "Kenglik", "Uzunlik", "Kiritilgan sana va vaqt"];
     function csvCell(value) {
       let text = String(value ?? ""); if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
       return '"' + text.replace(/"/g, '""') + '"';
     }
-    const rows = trees.map((t, i) => [i+1, t.name, t.age, t.status, t.extra||"", t.lat||"", t.lng||"", formatDateTime(t.createdAt)]);
+    const rows = trees.map((tree, index) => [
+      index + 1, tree.name, tree.age === "" ? "" : tree.age, tree.status, tree.extra || "",
+      Number.isFinite(tree.lat) ? tree.lat : "", Number.isFinite(tree.lng) ? tree.lng : "", formatDateTime(tree.createdAt)
+    ]);
     const csv = "\uFEFF" + [headers, ...rows].map(row => row.map(csvCell).join(";")).join("\r\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob); const link = document.createElement("a");
-    link.href = url; link.download = "daraxtlar.csv";
+    link.href = url; link.download = "daraxtlar_royxati.csv";
     document.body.appendChild(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
@@ -920,29 +749,27 @@ function initializeAppUI() {
     try {
       const imported = JSON.parse(await file.text());
       if (!Array.isArray(imported)) throw new Error("Format noto'g'ri");
-      if (!confirm("Yuklansinmi?")) { event.target.value = ""; return; }
-      trees = imported;
-      saveStorage();
-      const obj = {}; trees.forEach(t => { obj[t.id] = t; });
-      fbSet(window._ref(db, "trees"), obj).catch(err => console.error(err));
-      clearForm(); render();
-      alert("Yuklandi!");
-    } catch (err) { alert("Fayl xato."); }
+      const valid = imported.every(tree => tree && typeof tree.name === "string" && typeof tree.status === "string" && tree.id !== undefined);
+      if (!valid) throw new Error("Daraxt ma'lumotlari noto'g'ri");
+      if (!confirm("Zaxira nusxasidagi ma'lumotlar joriy ro'yxat o'rniga yuklansinmi?")) { event.target.value = ""; return; }
+      trees = imported; if (!saveStorage()) return; fbReplaceAll(trees); clearForm(); render();
+      alert("Zaxira nusxasi yuklandi!");
+    } catch (error) { alert("Faylni o'qib bo'lmadi."); }
     event.target.value = "";
   });
 
-  // LocalStorage'dan yuklash
   try {
-    const saved = localStorage.getItem("daraxtlar_xaritasi_v1");
-    if (saved) { const parsed = JSON.parse(saved); if (Array.isArray(parsed)) trees = parsed; }
-  } catch {}
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) trees = parsed;
+    }
+  } catch (error) {}
 
   render();
   updateCoords();
 
-  // Firebase real-time
   onValue(treesRef, snapshot => {
-    if (!auth.currentUser) return;
     const val = snapshot.val();
     const remoteTrees = val ? Object.values(val) : [];
 
@@ -951,28 +778,20 @@ function initializeAppUI() {
       const remoteIds = new Set(remoteTrees.map(t => t.id));
       const localOnly = trees.filter(t => !remoteIds.has(t.id));
       if (localOnly.length > 0) {
-        const updates = {};
-        localOnly.forEach(t => { updates[t.id] = t; });
-        fbUpdate(treesRef, updates).catch(err => console.error("FB merge:", err));
+        const updates = {}; localOnly.forEach(t => { updates[t.id] = t; });
+        fbUpdate(treesRef, updates).catch(err => console.error("Firebase merge:", err));
         return;
       }
     }
+
     trees = remoteTrees;
     saveStorage();
     render();
   }, error => {
     console.error("Firebase read error:", error);
-    showToast("Firebase aloqa yo'q: " + error.message, true);
+    showToast("Firebase bilan aloqa yo'q. Ma'lumotlar faqat qurilmada saqlanadi.", true);
   });
-}
-
-// `_ref` funksiyasini globalga chiqaramiz
-import("https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js").then(m => {
-  window._ref = m.ref;
-  dbg("Database ref funksiyasi tayyor ✅", "ok");
-});
-
-dbg("Barcha modullar tayyor. Kirishni bosishingiz mumkin.", "ok");
+})();
 </script>
 </body>
 </html>
