@@ -37,7 +37,7 @@ body {
   color: var(--text-main);
   min-height: 100vh;
   padding-bottom: 30px;
-  background: url('https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?q=80&w=2000&auto=format&fit=crop') center/cover fixed no-repeat;
+  background: url('https://i.ibb.co/bgYGVCtX/4e6e2114984fa365dc3efb76af0b2ce0.jpg') center/cover fixed no-repeat;
   background-color: #022c22; 
 }
 
@@ -63,15 +63,15 @@ body::before {
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  min-height: 115px; /* Logotip balandligi bilan moslashtirildi */
+  min-height: 115px;
 }
 
 /* ================== MENYU TUGMASI ================== */
 .menu-btn {
   position: absolute;
-  left: 0; /* Pastdagi qator boshi bilan bir xil tekislikda turadi */
+  left: 0;
   top: 50%;
-  transform: translateY(-50%); /* Tepa-pastga tushib ketmasligi uchun markazga mahkamlandi */
+  transform: translateY(-50%);
   z-index: 10000;
   width: 52px;
   height: 52px;
@@ -93,7 +93,7 @@ body::before {
   color: white;
 }
 .menu-btn:active {
-  transform: translateY(-50%) scale(0.97); /* Bosilganda joyidan siljimasligi uchun */
+  transform: translateY(-50%) scale(0.97);
 }
 
 /* ================== SIDEBAR (YON PANEL) ================== */
@@ -252,7 +252,6 @@ body::before {
   50% { transform: translateY(-12px); }
 }
 
-/* Chodak Kon boshqarmasi yozuvi uchun oq yacheyka va yashil ramka */
 .org-title-box {
   background: #FFFFFF;
   border: 2px solid var(--primary);
@@ -293,7 +292,6 @@ body::before {
   z-index: 1;
 }
 
-/* BARCHA YACHEYKALAR UCHUN YASHIL RAMKA */
 .card {
   background: var(--card-bg);
   border-radius: 24px;
@@ -513,7 +511,6 @@ select option { background: white; color: var(--text-main); }
 
 .tree-list { display: grid; gap: 14px; }
 
-/* DARAXTLAR YACHEYKASINING RAMKASI YASHIL RANGA BO'YALDI */
 .tree-item {
   padding: 18px; 
   border-radius: 16px; 
@@ -875,7 +872,6 @@ const treesRef = ref(db, "trees");
   sidebarOverlay.addEventListener("click", toggleSidebar); 
   closeSidebarBtn.addEventListener("click", toggleSidebar); 
 
-  // Menyudagi havolalarni bosganda o'sha bo'limga o'tish
   navLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault(); 
