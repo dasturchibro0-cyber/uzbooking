@@ -222,6 +222,59 @@ footer {
   color: #859188;
   font-size: 12px;
 }
+
+/* ===== YANGI: nom tanlash qatori ===== */
+.name-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+.name-row select { flex: 1; }
+.add-name-btn {
+  min-width: 48px;
+  padding: 0;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ===== YANGI: xaritadagi joylashuv markeri ===== */
+.my-location-marker { background: transparent; border: none; }
+.my-location-dot {
+  width: 18px;
+  height: 18px;
+  background: #1a73e8;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(26, 115, 232, 0.5);
+  animation: pulse-loc 2s infinite;
+}
+@keyframes pulse-loc {
+  0%   { box-shadow: 0 0 0 0 rgba(26, 115, 232, 0.55); }
+  70%  { box-shadow: 0 0 0 15px rgba(26, 115, 232, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(26, 115, 232, 0); }
+}
+
+/* Xarita burchagidagi joylashuv tugmasi */
+.locate-map-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #168653;
+  background: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .15s;
+}
+.locate-map-btn:hover { background: #f1f7f2; }
+.locate-map-btn.active { color: #1a73e8; }
+
 @media (max-width: 720px) {
   .layout { grid-template-columns: 1fr; }
   .stats { gap: 8px; }
@@ -284,7 +337,9 @@ footer {
 
       <p class="note">
         💡 Daraxt turgan joyni xaritada bosing. So‘ng ma’lumotlarini
-        kiriting va saqlang.
+        kiriting va saqlang.<br>
+        🔵 Xarita burchagidagi <b>◎</b> tugmasi — haqiqiy joylashuvingizni
+        real vaqtda ko‘rsatadi.
       </p>
     </section>
 
@@ -296,9 +351,36 @@ footer {
 
       <form id="treeForm">
         <div class="field">
-          <label for="name">Daraxt nomi yoki turi *</label>
-          <input id="name" required maxlength="100"
-            placeholder="Masalan: Chinor, terak, olma">
+          <label for="nameSelect">Daraxt nomi yoki turi *</label>
+          <div class="name-row">
+            <select id="nameSelect">
+              <option value="">— Turni tanlang —</option>
+              <option value="Terak">🌳 Terak</option>
+              <option value="O'rik">🌳 O‘rik</option>
+              <option value="Olma">🌳 Olma</option>
+              <option value="Nok">🌳 Nok</option>
+              <option value="Chinor">🌳 Chinor</option>
+              <option value="Tol">🌳 Tol</option>
+              <option value="Qayrag‘och">🌳 Qayrag‘och</option>
+              <option value="Majnuntol">🌳 Majnuntol</option>
+              <option value="Qarag‘ay">🌲 Qarag‘ay</option>
+              <option value="Archa">🌲 Archa</option>
+              <option value="Yong‘oq">🌳 Yong‘oq</option>
+              <option value="Tut">🌳 Tut</option>
+              <option value="Anor">🌳 Anor</option>
+              <option value="Shaftoli">🌳 Shaftoli</option>
+              <option value="Olcha">🌳 Olcha</option>
+              <option value="Gilos">🌳 Gilos</option>
+              <option value="Bodom">🌳 Bodom</option>
+              <option value="Zarang">🌳 Zarang</option>
+              <option value="Akatsiya">🌳 Akatsiya</option>
+              <option value="__custom__">➕ Boshqa (qo‘lda kiritish)</option>
+            </select>
+            <button type="button" id="addNameBtn" class="primary add-name-btn"
+              title="Qo‘lda daraxt nomi kiritish">+</button>
+          </div>
+          <input id="name" style="display:none; margin-top:8px;"
+            maxlength="100" placeholder="Daraxt nomini kiriting...">
         </div>
 
         <div class="two-cols">
@@ -431,15 +513,120 @@ const treesRef = ref(db, "trees");
     alert("Saqlangan ma’lumotlarni o‘qib bo‘lmadi.");
   }
 
-  // Xarita (ESRI SUN'IY YO'LDOSH)
+  /* ================== XARITA ================== */
   const map = L.map("map").setView([41.2995, 69.2401], 12);
-  
+
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
     attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics',
     maxZoom: 19
   }).addTo(map);
 
-  // LocalStorage
+  /* ================== JOYLASHUV (REAL-TIME) ================== */
+  let myLocationMarker = null;
+  let myLocationCircle = null;
+  let watchId = null;
+  let firstFix = true;
+  let locateMapBtnEl = null;
+
+  function startLiveLocation() {
+    if (!navigator.geolocation) {
+      alert("Bu brauzer joylashuvni aniqlashni qo‘llamaydi.");
+      return;
+    }
+
+    if (locateMapBtnEl) locateMapBtnEl.classList.add("active");
+
+    watchId = navigator.geolocation.watchPosition(
+      position => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        const acc = position.coords.accuracy;
+
+        if (!myLocationMarker) {
+          myLocationMarker = L.marker([lat, lng], {
+            icon: L.divIcon({
+              className: "my-location-marker",
+              html: '<div class="my-location-dot"></div>',
+              iconSize: [24, 24],
+              iconAnchor: [12, 12]
+            }),
+            zIndexOffset: 1000
+          }).addTo(map).bindPopup("📍 Sizning joylashuvingiz");
+        } else {
+          myLocationMarker.setLatLng([lat, lng]);
+        }
+
+        if (!myLocationCircle) {
+          myLocationCircle = L.circle([lat, lng], {
+            radius: acc,
+            color: "#1a73e8",
+            fillColor: "#1a73e8",
+            fillOpacity: 0.12,
+            weight: 1
+          }).addTo(map);
+        } else {
+          myLocationCircle.setLatLng([lat, lng]).setRadius(acc);
+        }
+
+        if (firstFix) {
+          map.setView([lat, lng], Math.max(map.getZoom(), 17));
+          firstFix = false;
+        }
+      },
+      error => {
+        let message = "Joylashuv aniqlanmadi.";
+        if (error.code === 1) message = "Joylashuvga ruxsat bering va qayta urining.";
+        else if (error.code === 2) message = "GPS yoki internetni tekshiring.";
+        else if (error.code === 3) message = "Joylashuvni aniqlash vaqti tugadi.";
+        alert(message);
+        stopLiveLocation();
+      },
+      { enableHighAccuracy: true, maximumAge: 2000, timeout: 20000 }
+    );
+  }
+
+  function stopLiveLocation() {
+    if (watchId !== null) {
+      navigator.geolocation.clearWatch(watchId);
+      watchId = null;
+    }
+    if (myLocationMarker) { map.removeLayer(myLocationMarker); myLocationMarker = null; }
+    if (myLocationCircle) { map.removeLayer(myLocationCircle); myLocationCircle = null; }
+    if (locateMapBtnEl) locateMapBtnEl.classList.remove("active");
+    firstFix = true;
+  }
+
+  function toggleLiveLocation() {
+    if (watchId !== null) stopLiveLocation();
+    else startLiveLocation();
+  }
+
+  // Xarita burchagidagi maxsus tugma (Leaflet control)
+  const LocateControl = L.Control.extend({
+    options: { position: "topright" },
+    onAdd: function () {
+      const container = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+      const btn = L.DomUtil.create("a", "locate-map-btn", container);
+      btn.href = "#";
+      btn.title = "Mening joylashuvim (real vaqt)";
+      btn.innerHTML = "◎";
+
+      locateMapBtnEl = btn;
+
+      L.DomEvent.disableClickPropagation(container);
+      L.DomEvent.disableScrollPropagation(container);
+      L.DomEvent.on(btn, "click", e => {
+        L.DomEvent.preventDefault(e);
+        L.DomEvent.stopPropagation(e);
+        toggleLiveLocation();
+      });
+
+      return container;
+    }
+  });
+  new LocateControl().addTo(map);
+
+  /* ================== LOCALSTORAGE ================== */
   function saveStorage() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(trees));
@@ -450,7 +637,7 @@ const treesRef = ref(db, "trees");
     }
   }
 
-  // Firebase yordamchilari
+  /* ================== FIREBASE ================== */
   function fbSaveTree(tree) {
     fbSet(ref(db, "trees/" + tree.id), tree)
       .catch(err => console.error("Firebase save:", err));
@@ -465,6 +652,7 @@ const treesRef = ref(db, "trees");
     fbSet(treesRef, obj).catch(err => console.error("Firebase replace:", err));
   }
 
+  /* ================== YORDAMCHI ================== */
   function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({
       "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
@@ -477,6 +665,58 @@ const treesRef = ref(db, "trees");
     return "bad";
   }
 
+  /* ================== NOM MAYDONI (YANGI) ================== */
+  function showCustomNameInput(focus = true) {
+    $("name").style.display = "block";
+    if (focus) $("name").focus();
+  }
+
+  function hideCustomNameInput() {
+    $("name").style.display = "none";
+    $("name").value = "";
+  }
+
+  function getTreeName() {
+    const sel = $("nameSelect").value;
+    const inp = $("name").value.trim();
+    if (sel === "__custom__" || (!sel && inp)) return inp;
+    return sel || inp;
+  }
+
+  function setNameField(name) {
+    const value = String(name ?? "").trim();
+    if (!value) {
+      $("nameSelect").value = "";
+      hideCustomNameInput();
+      return;
+    }
+    const options = Array.from($("nameSelect").options).map(o => o.value);
+    if (options.includes(value) && value !== "__custom__" && value !== "") {
+      $("nameSelect").value = value;
+      hideCustomNameInput();
+    } else {
+      $("nameSelect").value = "__custom__";
+      $("name").value = value;
+      $("name").style.display = "block";
+    }
+  }
+
+  // Select o'zgarganda
+  $("nameSelect").addEventListener("change", () => {
+    if ($("nameSelect").value === "__custom__") {
+      showCustomNameInput();
+    } else {
+      hideCustomNameInput();
+    }
+  });
+
+  // "+" tugmasi
+  $("addNameBtn").addEventListener("click", () => {
+    $("nameSelect").value = "__custom__";
+    showCustomNameInput();
+  });
+
+  /* ================== NUQTA TANLASH ================== */
   function updateCoords() {
     if (!selectedPoint) {
       $("coords").textContent = "📍 Hali joy tanlanmagan. Xaritani bosing.";
@@ -499,7 +739,7 @@ const treesRef = ref(db, "trees");
 
   map.on("click", event => setPoint(event.latlng.lat, event.latlng.lng, false));
 
-  // Geolokatsiya
+  /* ================== JOYLASHUVNI TANLASH (pastdagi tugma) ================== */
   $("locateBtn").addEventListener("click", () => {
     if (!navigator.geolocation) {
       alert("Bu brauzer joylashuvni aniqlashni qo‘llamaydi.");
@@ -533,8 +773,11 @@ const treesRef = ref(db, "trees");
     updateCoords();
   });
 
+  /* ================== FORMA ================== */
   function clearForm() {
     $("treeForm").reset();
+    $("nameSelect").value = "";
+    hideCustomNameInput();
     editingId = null;
     $("formTitle").textContent = "🌱 Daraxt qo‘shish";
     $("saveBtn").textContent = "✓ Daraxtni saqlash";
@@ -543,19 +786,24 @@ const treesRef = ref(db, "trees");
 
   $("cancelEditBtn").addEventListener("click", clearForm);
 
-  // Saqlash (localStorage + Firebase)
   $("treeForm").addEventListener("submit", event => {
     event.preventDefault();
 
-    const name = $("name").value.trim();
+    const name = getTreeName().trim();
     const ageText = $("age").value.trim();
     const age = ageText === "" ? "" : Number(ageText);
     const status = $("status").value;
     const extra = $("extra").value.trim();
 
-    if (!name) { alert("Daraxt nomini kiriting."); return; }
+    if (!name) {
+      alert("Daraxt nomini tanlang yoki qo‘lda kiriting.");
+      if ($("nameSelect").value === "__custom__") $("name").focus();
+      else $("nameSelect").focus();
+      return;
+    }
     if (ageText !== "" && (!Number.isFinite(age) || age < 0 || age > 10000)) {
-      alert("Daraxt yoshini to‘g‘ri kiriting."); return;
+      alert("Daraxt yoshini to‘g‘ri kiriting.");
+      return;
     }
 
     const existing = trees.find(tree => tree.id === editingId);
@@ -598,6 +846,7 @@ const treesRef = ref(db, "trees");
     alert(isEdit ? "Ma’lumot yangilandi!" : "Daraxt saqlandi!");
   });
 
+  /* ================== RENDER ================== */
   function renderMarkers() {
     Object.values(markers).forEach(marker => map.removeLayer(marker));
     markers = {};
@@ -677,7 +926,7 @@ const treesRef = ref(db, "trees");
 
     if (action === "edit") {
       editingId = tree.id;
-      $("name").value = tree.name;
+      setNameField(tree.name);
       $("age").value = tree.age;
       $("status").value = tree.status;
       $("extra").value = tree.extra || "";
@@ -708,7 +957,7 @@ const treesRef = ref(db, "trees");
 
   $("search").addEventListener("input", render);
 
-  // CSV eksport
+  /* ================== CSV EKSPORT ================== */
   $("exportBtn").addEventListener("click", () => {
     if (!trees.length) {
       alert("Eksport qilish uchun avval daraxt qo‘shing.");
@@ -745,7 +994,7 @@ const treesRef = ref(db, "trees");
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
 
-  // JSON zaxira
+  /* ================== JSON ZAXIRA ================== */
   $("backupBtn").addEventListener("click", () => {
     const blob = new Blob([JSON.stringify(trees, null, 2)],
       { type: "application/json;charset=utf-8" });
@@ -790,10 +1039,11 @@ const treesRef = ref(db, "trees");
     event.target.value = "";
   });
 
+  /* ================== BOSHLANG'ICH ================== */
   render();
   updateCoords();
 
-  // Firebase real-time sinxronizatsiya
+  /* ================== FIREBASE REAL-TIME ================== */
   onValue(treesRef, snapshot => {
     const val = snapshot.val();
     const remoteTrees = val ? Object.values(val) : [];
