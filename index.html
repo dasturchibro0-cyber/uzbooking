@@ -51,22 +51,14 @@ header { padding: 20px 16px; margin-bottom: 20px; }
   max-width: 1100px; margin: auto; display: flex; align-items: center;
   gap: 15px; padding: 15px 20px; border-radius: 24px;
 }
-/* OKMK Logotipi uchun maxsus shisha dizayn */
 .logo {
   width: 54px; height: 54px; border-radius: 14px;
   background: #ffffff;
   display: grid; place-items: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  padding: 4px;
-  flex-shrink: 0;
-  overflow: hidden;
+  padding: 4px; flex-shrink: 0; overflow: hidden;
 }
-.logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 10px;
-}
+.logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
 header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
@@ -89,21 +81,14 @@ header p { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
 .leaflet-bar a:hover { background: rgba(0,0,0,0.9) !important; }
 .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: rgba(20, 30, 25, 0.9) !important; backdrop-filter: blur(8px); border: 1px solid var(--glass-border); color: white !important; }
 
-/* Qidiruv (Geocoder) dizayni */
 .leaflet-control-geocoder {
-  background: rgba(0, 0, 0, 0.7) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+  background: rgba(0, 0, 0, 0.7) !important; backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border) !important; border-radius: 12px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
 }
-.leaflet-control-geocoder-form input {
-  color: white !important; background: transparent !important; font-family: 'Inter', sans-serif;
-}
+.leaflet-control-geocoder-form input { color: white !important; background: transparent !important; font-family: 'Inter', sans-serif; }
 .leaflet-control-geocoder-icon { filter: invert(1); }
 .leaflet-control-geocoder-alternatives {
-  background: rgba(10, 20, 15, 0.95) !important; backdrop-filter: blur(10px); border-radius: 8px; color: white;
-  border: 1px solid var(--glass-border);
+  background: rgba(10, 20, 15, 0.95) !important; backdrop-filter: blur(10px); border-radius: 8px; color: white; border: 1px solid var(--glass-border);
 }
 .leaflet-control-geocoder-alternatives li a { color: #ccc !important; }
 .leaflet-control-geocoder-alternatives li a:hover { background: var(--primary) !important; color: white !important; }
@@ -222,7 +207,6 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 
 <header>
   <div class="header-inner glass">
-    <!-- OKMK Logotipi -->
     <div class="logo">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/OKMK_logo.png/240px-OKMK_logo.png" 
            alt="OKMK" 
@@ -265,7 +249,7 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
         </button>
       </div>
       <p class="note">
-        <i class="ph ph-info"></i> Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin. Qidiruv orqali istalgan shahar yoki ko'chani toping.
+        <i class="ph ph-info"></i> Xarita o'ng burchagidagi <b>◎</b> belgisi orqali haqiqiy joylashuvingizni real vaqtda kuzatishingiz mumkin.
       </p>
     </section>
 
@@ -355,12 +339,9 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
 
 <footer><i class="ph ph-leaf"></i> Chodak Kon boshqarmasi · Tabiatni asraylik</footer>
 
-<!-- Toast xabarnoma -->
 <div class="toast" id="toast">Joylashuv aniqlandi!</div>
 
-<!-- Xarita JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<!-- Qidiruv (Geocoder) JS -->
 <script src="https://unpkg.com/leaflet-control-geocoder@2.4.0/dist/Control.Geocoder.js"></script>
 
 <script type="module">
@@ -396,25 +377,37 @@ const treesRef = ref(db, "trees");
   let selectedMarker = null;
   let firstFirebaseLoad = true;
 
+  /* ================== YANGI: SANA VA VAQTNI FORMATLASH ================== */
+  function formatDateTime(isoString) {
+    if (!isoString) return "Noma'lum";
+    const date = new Date(isoString);
+    if (isNaN(date.getTime())) return "Xato sana";
+    
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    
+    return `${day}.${month}.${year} | ${hours}:${minutes}`;
+  }
+
   /* ================== XARITA VA QATLAMLAR ================== */
   const map = L.map("map", { 
     zoomControl: false, 
-    attributionControl: false // Pastdagi yozuvlar o'chirilgan
+    attributionControl: false 
   }).setView([41.2995, 69.2401], 12);
   
   L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-  // 1. Sun'iy yo'ldosh rasmi
   L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
     maxZoom: 19
   }).addTo(map);
 
-  // 2. Shahar va ko'cha nomlari
   L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png", {
     subdomains: 'abcd', maxZoom: 20
   }).addTo(map);
 
-  // 3. Shahar va manzil qidiruvi (Geocoder)
   L.Control.geocoder({
     defaultMarkGeocode: false,
     placeholder: "Shahar yoki manzil qidirish...",
@@ -427,7 +420,6 @@ const treesRef = ref(db, "trees");
   })
   .addTo(map);
 
-  /* ================== TOAST XABAR ================== */
   function showToast(message, isError = false) {
     const toast = $("toast");
     toast.textContent = message;
@@ -436,7 +428,6 @@ const treesRef = ref(db, "trees");
     setTimeout(() => toast.classList.remove("show"), 3500);
   }
 
-  // LocalStorage
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -445,7 +436,6 @@ const treesRef = ref(db, "trees");
     }
   } catch (error) {}
 
-  /* ================== IP ORQALI AVTOMATIK ANIQLASH ================== */
   async function autoLocateByIP() {
     try {
       const response = await fetch('https://ipapi.co/json/');
@@ -457,7 +447,6 @@ const treesRef = ref(db, "trees");
   }
   autoLocateByIP();
 
-  /* ================== GPS ================== */
   function locateMe() {
     $("locateBtn").disabled = true;
     $("locateBtn").innerHTML = '<i class="ph ph-spinner-gap"></i> Aniqlanmoqda...';
@@ -489,7 +478,6 @@ const treesRef = ref(db, "trees");
     $("locateBtn").innerHTML = '<i class="ph ph-crosshair"></i> Mening joylashuvim';
   }
 
-  // Jonli kuzatish
   let myLocationMarker = null;
   let myLocationCircle = null;
   let watchId = null;
@@ -573,7 +561,6 @@ const treesRef = ref(db, "trees");
   });
   new LocateControl().addTo(map);
 
-  /* ================== YORDAMCHI FUNKSIYALAR ================== */
   function saveStorage() {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); return true; }
     catch (error) { alert("Saqlash amalga oshmadi."); return false; }
@@ -689,8 +676,8 @@ const treesRef = ref(db, "trees");
       name, age, status, extra,
       lat: selectedPoint ? selectedPoint.lat : (existing?.lat ?? null),
       lng: selectedPoint ? selectedPoint.lng : (existing?.lng ?? null),
-      createdAt: existing?.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      createdAt: existing?.createdAt || new Date().toISOString(), // Kiritilgan vaqt
+      updatedAt: new Date().toISOString() // Tahrirlangan vaqt
     };
 
     if (isEdit) trees = trees.map(tree => tree.id === editingId ? record : tree);
@@ -709,7 +696,13 @@ const treesRef = ref(db, "trees");
     trees.forEach(tree => {
       if (Number.isFinite(tree.lat) && Number.isFinite(tree.lng)) {
         const marker = L.marker([tree.lat, tree.lng]).addTo(map);
-        marker.bindPopup("<b>" + escapeHTML(tree.name) + "</b><br>Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") + "<br>Holati: " + escapeHTML(tree.status));
+        // Xarita oynachasiga ham sana va vaqt qo'shildi
+        marker.bindPopup(
+          "<b>" + escapeHTML(tree.name) + "</b><br>" +
+          "Yoshi: " + (tree.age === "" ? "Kiritilmagan" : escapeHTML(tree.age) + " yil") + "<br>" +
+          "Holati: " + escapeHTML(tree.status) + "<br>" +
+          "<span style='font-size:11px; color:#94a3b8; margin-top:4px; display:block;'><i class='ph ph-clock'></i> " + formatDateTime(tree.createdAt) + "</span>"
+        );
         markers[tree.id] = marker;
       }
     });
@@ -732,6 +725,7 @@ const treesRef = ref(db, "trees");
       return;
     }
 
+    // Ro'yxatga sana va vaqt chiqarildi
     list.innerHTML = filtered.map(tree => `
       <article class="tree-item">
         <div class="tree-icon"><i class="ph-fill ph-tree"></i></div>
@@ -744,6 +738,11 @@ const treesRef = ref(db, "trees");
           </span>
           ${tree.extra ? `<p><i class="ph ph-note-pencil"></i> ${escapeHTML(tree.extra)}</p>` : ""}
           <p><i class="ph ph-map-pin"></i> ${Number.isFinite(tree.lat) && Number.isFinite(tree.lng) ? tree.lat.toFixed(5) + ", " + tree.lng.toFixed(5) : "Joy belgilanmagan"}</p>
+          
+          <!-- YANGI: Sana va vaqt qatori -->
+          <p style="color: #10b981; font-weight: 500; margin-top: 6px;">
+            <i class="ph ph-clock"></i> Kiritilgan: ${formatDateTime(tree.createdAt)}
+          </p>
         </div>
         <div class="item-actions">
           <button class="secondary small-btn" data-action="map" data-id="${escapeHTML(tree.id)}"><i class="ph ph-map-trifold"></i> Xarita</button>
@@ -791,12 +790,22 @@ const treesRef = ref(db, "trees");
 
   $("exportBtn").addEventListener("click", () => {
     if (!trees.length) { alert("Eksport qilish uchun avval daraxt qo‘shing."); return; }
-    const headers = ["Tartib raqami","Daraxt nomi","Yoshi (yil)","Holati","Izoh","Kenglik","Uzunlik","Kiritilgan sana"];
+    // Excel ga ham sana va vaqt chiroyli formatda chiqadi
+    const headers = ["Tartib raqami","Daraxt nomi","Yoshi (yil)","Holati","Izoh","Kenglik","Uzunlik","Kiritilgan sana va vaqt"];
     function csvCell(value) {
       let text = String(value ?? ""); if (/^[\s]*[=+\-@]/.test(text)) text = "'" + text;
       return '"' + text.replace(/"/g, '""') + '"';
     }
-    const rows = trees.map((tree, index) => [index + 1, tree.name, tree.age === "" ? "" : tree.age, tree.status, tree.extra || "", Number.isFinite(tree.lat) ? tree.lat : "", Number.isFinite(tree.lng) ? tree.lng : "", tree.createdAt ? new Date(tree.createdAt).toLocaleString("uz-UZ") : ""]);
+    const rows = trees.map((tree, index) => [
+      index + 1, 
+      tree.name, 
+      tree.age === "" ? "" : tree.age, 
+      tree.status, 
+      tree.extra || "", 
+      Number.isFinite(tree.lat) ? tree.lat : "", 
+      Number.isFinite(tree.lng) ? tree.lng : "", 
+      formatDateTime(tree.createdAt)
+    ]);
     const csv = "\uFEFF" + [headers, ...rows].map(row => row.map(csvCell).join(";")).join("\r\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob); const link = document.createElement("a");
