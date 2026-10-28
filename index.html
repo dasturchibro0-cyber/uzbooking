@@ -102,17 +102,6 @@ body {
   margin-bottom: 15px;
   display: none;
 }
-.login-switch {
-  color: var(--text-muted);
-  font-size: 13px;
-  margin-top: 15px;
-}
-.login-switch a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-  cursor: pointer;
-}
 
 /* ================== ASOSIY ILOVA ================== */
 #appContainer { display: none; }
@@ -304,8 +293,8 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
            alt="OKMK" 
            onerror="this.outerHTML='<div style=\'color: #064e3b; font-weight: 900; font-size: 20px; font-family: Arial;\'>OKMK</div>'">
     </div>
-    <h2 id="authTitle">Tizimga kirish</h2>
-    <p id="authSubtitle">Email va parolingizni kiriting</p>
+    <h2>Tizimga kirish</h2>
+    <p>Faqat ruxsat berilgan xodimlar uchun</p>
 
     <div class="login-error" id="loginError"></div>
 
@@ -313,10 +302,6 @@ footer { text-align: center; padding: 30px 20px; color: var(--text-muted); font-
     <input type="password" id="authPassword" placeholder="Parolingiz" autocomplete="current-password">
 
     <button class="primary btn-login" id="authSubmitBtn" type="button">Kirish</button>
-
-    <div class="login-switch" id="authSwitchContainer">
-      Akkauntingiz yo'qmi? <a id="authSwitchLink">Ro'yxatdan o'tish</a>
-    </div>
   </div>
 </div>
 
@@ -475,7 +460,6 @@ import { getDatabase, ref, set as fbSet, remove as fbRemove, update as fbUpdate,
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
-  createUserWithEmailAndPassword, 
   signOut, 
   onAuthStateChanged 
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -515,26 +499,18 @@ const treesRef = ref(db, "trees");
     switch (code) {
       case 'auth/invalid-email': return "Email manzili noto'g'ri kiritilgan.";
       case 'auth/user-disabled': return "Bu foydalanuvchi bloklangan.";
-      case 'auth/user-not-found': return "Bunday foydalanuvchi topilmadi. Ro'yxatdan o'ting.";
+      case 'auth/user-not-found': return "Bunday foydalanuvchi topilmadi.";
       case 'auth/wrong-password': return "Parol noto'g'ri. Qayta tekshiring.";
       case 'auth/invalid-credential': return "Email yoki parol noto'g'ri.";
-      case 'auth/email-already-in-use': return "Bu email allaqachon ro'yxatdan o'tgan. Kirishga urinib ko'ring.";
-      case 'auth/weak-password': return "Parol juda sodda. Kamida 6 ta belgidan iborat bo'lsin.";
       case 'auth/too-many-requests': return "Juda ko'p urinish. Birozdan so'ng qayta urinib ko'ring.";
       default: return "Xatolik yuz berdi: " + code;
     }
   }
 
-  // ================== LOGIN / RO'YXATDAN O'TISH ==================
-  let isLoginMode = true;
-
+  // ================== FAQAT LOGIN (KIRISH) ==================
   const loginScreen = $("loginScreen");
   const appContainer = $("appContainer");
-  const authTitle = $("authTitle");
-  const authSubtitle = $("authSubtitle");
   const authSubmitBtn = $("authSubmitBtn");
-  const authSwitchLink = $("authSwitchLink");
-  const authSwitchContainer = $("authSwitchContainer");
   const loginError = $("loginError");
 
   function showLoginError(msg) {
@@ -545,23 +521,6 @@ const treesRef = ref(db, "trees");
   function hideLoginError() {
     loginError.style.display = "none";
   }
-
-  authSwitchLink.addEventListener("click", () => {
-    isLoginMode = !isLoginMode;
-    hideLoginError();
-    if (isLoginMode) {
-      authTitle.textContent = "Tizimga kirish";
-      authSubtitle.textContent = "Email va parolingizni kiriting";
-      authSubmitBtn.textContent = "Kirish";
-      authSwitchContainer.innerHTML = 'Akkauntingiz yo\'qmi? <a id="authSwitchLink">Ro\'yxatdan o\'tish</a>';
-    } else {
-      authTitle.textContent = "Ro'yxatdan o'tish";
-      authSubtitle.textContent = "Yangi akkaunt yaratish uchun email va parol kiriting";
-      authSubmitBtn.textContent = "Ro'yxatdan o'tish";
-      authSwitchContainer.innerHTML = 'Akkauntingiz bormi? <a id="authSwitchLink">Kirish</a>';
-    }
-    document.getElementById("authSwitchLink").addEventListener("click", () => authSwitchLink.click());
-  });
 
   authSubmitBtn.addEventListener("click", async () => {
     const email = $("authEmail").value.trim();
@@ -577,17 +536,13 @@ const treesRef = ref(db, "trees");
     authSubmitBtn.textContent = "Tekshirilmoqda...";
 
     try {
-      if (isLoginMode) {
-        await signInWithEmailAndPassword(auth, email, password);
-      } else {
-        await createUserWithEmailAndPassword(auth, email, password);
-        showToast("Ro'yxatdan o'tdingiz! Endi xaritani ishlatishingiz mumkin.");
-      }
+      // Faqat tizimga kirish
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       showLoginError(getAuthErrorMessage(error.code));
     } finally {
       authSubmitBtn.disabled = false;
-      authSubmitBtn.textContent = isLoginMode ? "Kirish" : "Ro'yxatdan o'tish";
+      authSubmitBtn.textContent = "Kirish";
     }
   });
 
@@ -612,6 +567,8 @@ const treesRef = ref(db, "trees");
       Object.values(markers).forEach(m => { if (map) map.removeLayer(m); });
       markers = {};
       firstFirebaseLoad = true;
+      $("authEmail").value = "";
+      $("authPassword").value = "";
     }
   });
 
@@ -629,7 +586,6 @@ const treesRef = ref(db, "trees");
     if (mapInitializedOnce) return;
     mapInitializedOnce = true;
 
-    // Sana formatlash
     function formatDateTime(isoString) {
       if (!isoString) return "Noma'lum";
       const date = new Date(isoString);
@@ -664,7 +620,6 @@ const treesRef = ref(db, "trees");
       showToast("Manzil topildi: " + e.geocode.name);
     }).addTo(map);
 
-    // Toast
     function showToast(message, isError = false) {
       const toast = $("toast");
       toast.textContent = message;
@@ -673,7 +628,6 @@ const treesRef = ref(db, "trees");
       setTimeout(() => toast.classList.remove("show"), 3500);
     }
 
-    // IP joylashuv
     async function autoLocateByIP() {
       try {
         const response = await fetch('https://ipapi.co/json/');
@@ -683,17 +637,14 @@ const treesRef = ref(db, "trees");
     }
     autoLocateByIP();
 
-    // GPS
     function locateMe() {
       $("locateBtn").disabled = true;
       $("locateBtn").innerHTML = '<i class="ph ph-spinner-gap"></i> Aniqlanmoqda...';
-
       if (!navigator.geolocation) {
         showToast("Brauzeringiz GPS'ni qo'llab-quvvatlamaydi", true);
         resetLocateBtn();
         return;
       }
-
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setPoint(position.coords.latitude, position.coords.longitude);
@@ -765,13 +716,11 @@ const treesRef = ref(db, "trees");
     });
     new LocateControl().addTo(map);
 
-    // LocalStorage
     function saveStorage() {
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(trees)); return true; }
       catch (error) { alert("Saqlash amalga oshmadi."); return false; }
     }
 
-    // Firebase
     function fbSaveTree(tree) { fbSet(ref(db, "trees/" + tree.id), tree).catch(err => console.error("Firebase save:", err)); }
     function fbDeleteTree(id) { fbRemove(ref(db, "trees/" + id)).catch(err => console.error("Firebase delete:", err)); }
     function fbReplaceAll(list) {
@@ -789,7 +738,6 @@ const treesRef = ref(db, "trees");
       return "bad";
     }
 
-    // Nom maydoni
     function showCustomNameInput(focus = true) { $("name").style.display = "block"; if (focus) $("name").focus(); }
     function hideCustomNameInput() { $("name").style.display = "none"; $("name").value = ""; }
     function getTreeName() {
@@ -973,7 +921,6 @@ const treesRef = ref(db, "trees");
 
     $("search").addEventListener("input", render);
 
-    // Excel
     $("exportBtn").addEventListener("click", () => {
       if (!trees.length) { alert("Eksport qilish uchun avval daraxt qo'shing."); return; }
       const headers = ["Tartib raqami", "Daraxt nomi", "Yoshi (yil)", "Holati", "Izoh", "Kenglik", "Uzunlik", "Kiritilgan sana va vaqt"];
@@ -993,7 +940,6 @@ const treesRef = ref(db, "trees");
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     });
 
-    // JSON zaxira
     $("backupBtn").addEventListener("click", () => {
       const blob = new Blob([JSON.stringify(trees, null, 2)], { type: "application/json;charset=utf-8" });
       const url = URL.createObjectURL(blob); const link = document.createElement("a");
@@ -1018,7 +964,6 @@ const treesRef = ref(db, "trees");
       event.target.value = "";
     });
 
-    // Firebase real-time
     function startFirebaseListener() {
       onValue(treesRef, snapshot => {
         if (!auth.currentUser) return;
@@ -1046,7 +991,6 @@ const treesRef = ref(db, "trees");
       });
     }
 
-    // LocalStorage dan yuklash
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
