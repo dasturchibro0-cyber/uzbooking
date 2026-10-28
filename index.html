@@ -47,6 +47,151 @@ body::before {
   z-index: -1;
 }
 
+/* ================== MENYU TUGMASI (CHAP YUQORI) ================== */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #FFFFFF;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.menu-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ================== SIDEBAR (YON PANEL) ================== */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+.sidebar-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh;
+  background: #FFFFFF;
+  z-index: 9999;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  box-shadow: 5px 0 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+.sidebar-header h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  flex: 1;
+  margin-left: 12px;
+}
+.sidebar-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--primary);
+  flex-shrink: 0;
+}
+.sidebar-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.close-btn {
+  background: #F3F4F6;
+  border: none;
+  color: var(--text-main);
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: all 0.2s;
+}
+.close-btn:hover {
+  background: #E5E7EB;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+.sidebar-nav a i {
+  font-size: 22px;
+  color: var(--text-muted);
+}
+.sidebar-nav a:hover, .sidebar-nav a.active {
+  background: #ECFDF5;
+  color: var(--primary);
+}
+.sidebar-nav a:hover i, .sidebar-nav a.active i {
+  color: var(--primary);
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
 /* ================== BANNER ================== */
 .hero-section {
   position: relative;
@@ -83,7 +228,7 @@ body::before {
   50% { transform: translateY(-12px); }
 }
 
-/* YANGI: Chodak Kon boshqarmasi yozuvi uchun oq yacheyka va yashil ramka */
+/* Chodak Kon boshqarmasi yozuvi uchun oq yacheyka va yashil ramka */
 .org-title-box {
   background: #FFFFFF;
   border: 2px solid var(--primary);
@@ -455,7 +600,7 @@ footer {
 
 /* ================== MOBIL MOSLASHUV ================== */
 @media (max-width: 768px) {
-  .hero-section { padding: 30px 16px 10px; }
+  .hero-section { padding: 60px 16px 10px; } /* Menyu tugmasi uchun joy */
   .hero-logo { width: 90px; height: 90px; }
   .hero-title { font-size: 24px; }
   .org-title-box { font-size: 15px; padding: 8px 16px; }
@@ -476,11 +621,42 @@ footer {
 </head>
 <body>
 
+<!-- MENYU TUGMASI (CHAP YUQORI) -->
+<button id="menuBtn" class="menu-btn" type="button" title="Menyu">
+  <i class="ph ph-list"></i>
+</button>
+
+<!-- SIDEBAR FONI (QORAYTIRILGAN) -->
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+<!-- SIDEBAR (YON PANEL) -->
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="Logo">
+    </div>
+    <h2>Menyu</h2>
+    <button id="closeSidebarBtn" class="close-btn"><i class="ph ph-x"></i></button>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <a href="#" class="active"><i class="ph ph-house"></i> Bosh sahifa</a>
+    <a href="#"><i class="ph ph-map-trifold"></i> Xarita</a>
+    <a href="#"><i class="ph ph-chart-pie"></i> Statistika</a>
+    <a href="#"><i class="ph ph-tree"></i> Daraxtlar ro'yxati</a>
+    <a href="#"><i class="ph ph-gear"></i> Sozlamalar</a>
+    <a href="#"><i class="ph ph-info"></i> Dastur haqida</a>
+  </nav>
+  
+  <div class="sidebar-footer">
+    © Chodak Kon boshqarmasi
+  </div>
+</aside>
+
 <!-- BANNER QISMI -->
 <header class="hero-section">
   <img src="https://user48834.na.imgto.link/public/20261028/426852057f9df7ee6407b961-7125.avif" alt="OKMK" class="hero-logo">
   
-  <!-- YANGI QO'SHILGAN QISM: Chodak Kon boshqarmasi yozuvi -->
   <div class="org-title-box">
     Chodak Kon boshqarmasi
   </div>
@@ -653,6 +829,22 @@ const treesRef = ref(db, "trees");
   const STORAGE_KEY = "daraxtlar_xaritasi_v1";
   const $ = id => document.getElementById(id);
 
+  // ================== SIDEBAR LOGIKASI ==================
+  const menuBtn = $("menuBtn");
+  const sidebar = $("sidebar");
+  const sidebarOverlay = $("sidebarOverlay");
+  const closeSidebarBtn = $("closeSidebarBtn");
+
+  function toggleSidebar() {
+    sidebar.classList.toggle("open");
+    sidebarOverlay.classList.toggle("open");
+  }
+
+  menuBtn.addEventListener("click", toggleSidebar);
+  sidebarOverlay.addEventListener("click", toggleSidebar); // Tashqarini bossa yopiladi
+  closeSidebarBtn.addEventListener("click", toggleSidebar); // X tugmasi
+
+  // ================== ASOSIY LOGIKA ==================
   let trees = [];
   let selectedPoint = null;
   let editingId = null;
