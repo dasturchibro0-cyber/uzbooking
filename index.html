@@ -297,7 +297,7 @@ body::before {
   background: var(--card-bg);
   border-radius: 24px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  border: 2px solid var(--primary); /* Yashil ramka */
+  border: 2px solid var(--primary); 
   padding: 24px;
   transition: box-shadow 0.2s ease;
   scroll-margin-top: 20px;
@@ -345,7 +345,21 @@ body::before {
 .stat-icon.orange { background: #FEF3C7; color: #D97706; }
 
 .stat span { font-size: 13px; font-weight: 600; color: var(--text-muted); }
-.stat strong { font-size: 28px; font-weight: 800; color: var(--text-main); }
+
+/* SONNI ADELNI RAMKAGA OLISH VA UZILISH QO'SHISH */
+.stat strong { 
+  font-size: 28px; 
+  font-weight: 800; 
+  color: var(--primary); 
+  background: #ECFDF5; 
+  border: 2px solid var(--primary); 
+  border-radius: 12px; 
+  padding: 6px 20px;
+  margin-top: 12px; 
+  display: inline-block; 
+  align-self: flex-start; 
+  box-shadow: 0 2px 8px rgba(10, 141, 66, 0.1);
+}
 
 /* ================== LAYOUT ================== */
 .layout { 
@@ -644,7 +658,13 @@ footer {
   
   .stat { flex-direction: row; align-items: center; justify-content: space-between; padding: 16px; }
   .stat-header { margin-bottom: 0; }
-  .stat strong { font-size: 24px; }
+  
+  /* Mobilda ham son o'z ramkasida qoladi, lekin tepa masofasi olib tashlanadi */
+  .stat strong { 
+    font-size: 24px; 
+    margin-top: 0; 
+    padding: 4px 16px;
+  }
   
   .search { max-width: 100%; }
   .tree-item { flex-direction: column; }
